@@ -12,7 +12,7 @@
 
         public void setRemoveAt(InputPin removeAt)
         {
-            if (removeAt != null)
+            if (removeAt is not null)
             {
                 addInput(removeAt);
             }

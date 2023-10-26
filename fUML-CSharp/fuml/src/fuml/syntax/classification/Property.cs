@@ -60,7 +60,7 @@ namespace fuml.syntax.classification
 
         public void _setOpposite(Property opposite)
         {
-            this.opposite = opposite ?? throw new ArgumentNullException(nameof(opposite));
+            this.opposite = opposite;
         } // _setOpposite
     } // Property
 }

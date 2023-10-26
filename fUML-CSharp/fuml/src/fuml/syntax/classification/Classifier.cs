@@ -49,12 +49,12 @@ namespace fuml.syntax.classification
             generalization._setSpecific(this);
             general.Add(generalization.general!);
 
-            List<NamedElement> inheritedMembers = this.inherit(generalization!.general!
+            List<NamedElement> inheritedMembers = inherit(generalization!.general!
                     .inheritableMembers(this));
 
             foreach (NamedElement inheritedMember in inheritedMembers)
             {
-                this.addMember(inheritedMember);
+                addMember(inheritedMember);
                 this.inheritedMember.Add(inheritedMember);
             }
         } // addGeneralization

@@ -12,7 +12,7 @@
 
 		public void setInsertAt(InputPin insertAt)
 		{
-			if (insertAt != null)
+			if (insertAt is not null)
 			{
 				addInput(insertAt);
 			}

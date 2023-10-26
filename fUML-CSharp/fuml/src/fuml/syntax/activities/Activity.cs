@@ -35,15 +35,15 @@ namespace fuml.syntax.activities
             }
 
             if (node is StructuredActivityNode &&
-                    !this.structuredNode.Contains(node)) {
-                this.structuredNode.Add((StructuredActivityNode)node);
+                    !structuredNode.Contains(node)) {
+                structuredNode.Add((StructuredActivityNode)node);
             }
 
         } // addNode
 
         public void addStructuredNode(StructuredActivityNode node)
         {
-            this.addNode(node);
+            addNode(node);
         }
 
         public void addGroup(ActivityGroup group)

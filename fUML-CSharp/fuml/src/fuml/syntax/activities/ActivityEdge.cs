@@ -28,7 +28,7 @@ namespace fuml.syntax.activities
 
         public void setGuard(ValueSpecification guard)
         {
-            if (guard != null)
+            if (guard is not null)
             {
                 addOwnedElement(guard);
             }

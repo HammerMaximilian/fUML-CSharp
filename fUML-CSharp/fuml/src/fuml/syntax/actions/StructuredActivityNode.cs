@@ -1,5 +1,5 @@
 ﻿using fuml.syntax.activities;
-using System;
+using fuml.syntax.classification;
 
 namespace fuml.syntax.actions
 {
@@ -55,22 +55,23 @@ namespace fuml.syntax.actions
             this.structuredNodeInput.Add(structuredNodeInput);
         } // addStructuredNodeInput
 
-        public override void _setContext(fuml.syntax.classification.Classifier context)
+        public override void _setContext(Classifier context)
         {
             base._setContext(context);
             foreach (ActivityNode node in node)
             {
-                if (node is Action) {
-                (node as Action)!._setContext(context);
+                if (node is Action)
+                {
+                    (node as Action)!._setContext(context);
+                }
             }
-        }
-    } // _setContext
+        } // _setContext
 
-    public override void _setActivity(
-            fuml.syntax.activities.Activity activity)
-    {
-        base._setActivity(activity);
-        this.activity = activity;
-    } // _setActivity
-} // StructuredActivityNode
+        public override void _setActivity(
+                Activity activity)
+        {
+            base._setActivity(activity);
+            this.activity = activity;
+        } // _setActivity
+    } // StructuredActivityNode
 }

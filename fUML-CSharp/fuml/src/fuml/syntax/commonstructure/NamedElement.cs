@@ -11,7 +11,7 @@
         {
             this.name = name;
 
-            if (name != null)
+            if (name is not null)
             {
                 if (namespace_ is null)
                 {
@@ -44,7 +44,7 @@
 
                     qualifiedName = name;
                 } 
-                else if (this.namespace_.qualifiedName != null) 
+                else if (this.namespace_.qualifiedName is not null) 
                 {
 
                     qualifiedName = this.namespace_.qualifiedName + "::" + name;
