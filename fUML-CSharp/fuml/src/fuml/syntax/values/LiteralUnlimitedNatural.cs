@@ -1,6 +1,6 @@
 ﻿using UMLPrimitiveTypes;
 
-namespace fuml.src.fuml.syntax.values
+namespace fuml.syntax.values
 {
     public class LiteralUnlimitedNatural : LiteralSpecification
     {
