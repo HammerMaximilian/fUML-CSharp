@@ -1,0 +1,29 @@
+﻿namespace fuml.semantics.activities
+{
+    public class ActivityFinalNodeActivation : ControlNodeActivation
+    {
+		public override void fire(List<Token> incomingTokens)
+		{
+			// Terminate the activity execution or structured node activation
+			// containing this activation.
+
+			Debug.println("[fire] Activity final node " + node?.name + "...");
+
+			if (incomingTokens.Count > 0 | incomingEdges.Count == 0)
+			{
+				if (group?.activityExecution is not null)
+				{
+					group.activityExecution.terminate();
+				}
+				else if (group?.containingNodeActivation is not null)
+				{
+					group.containingNodeActivation.terminateAll();
+				}
+				else if (group is ExpansionActivationGroup expansionActivationGroup)
+				{
+					expansionActivationGroup.regionActivation.terminate();
+				}
+			}
+		} // fire
+	} // ActivityFinalNodeActivation
+}
