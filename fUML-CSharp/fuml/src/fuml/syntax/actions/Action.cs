@@ -1,6 +1,5 @@
 ﻿using fuml.syntax.activities;
 using fuml.syntax.classification;
-using System;
 
 namespace fuml.syntax.actions
 {

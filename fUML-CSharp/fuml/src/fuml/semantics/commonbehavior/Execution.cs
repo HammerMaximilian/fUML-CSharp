@@ -13,7 +13,7 @@ namespace fuml.semantics.commonbehavior
 
         public abstract void execute();
 
-        public void terminate()
+        public virtual void terminate()
         {
             // Terminate an ongoing execution. By default, do nothing.
 
