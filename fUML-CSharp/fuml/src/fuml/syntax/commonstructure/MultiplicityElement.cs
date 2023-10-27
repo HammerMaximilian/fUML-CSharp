@@ -1,5 +1,4 @@
-﻿using fuml.src.fuml.syntax.values;
-using fuml.syntax.values;
+﻿using fuml.syntax.values;
 using UMLPrimitiveTypes;
 
 namespace fuml.syntax.commonstructure
@@ -37,7 +36,8 @@ namespace fuml.syntax.commonstructure
         {
             this.upperValue = upperValue ?? throw new ArgumentNullException(nameof(upperValue));
 
-            if (upperValue is LiteralUnlimitedNatural) {
+            if (upperValue is LiteralUnlimitedNatural)
+            {
                 upper = ((LiteralUnlimitedNatural)upperValue).value;
             }
         } // setUpperValue
@@ -47,7 +47,8 @@ namespace fuml.syntax.commonstructure
         {
             this.lowerValue = lowerValue ?? throw new ArgumentNullException(nameof(lowerValue));
 
-            if (lowerValue is LiteralInteger) {
+            if (lowerValue is LiteralInteger)
+            {
                 lower = ((LiteralInteger)lowerValue).value;
             }
         } // setLowerValue

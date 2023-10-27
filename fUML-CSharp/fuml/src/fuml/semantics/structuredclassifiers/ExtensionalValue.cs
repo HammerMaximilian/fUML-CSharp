@@ -1,4 +1,5 @@
-﻿using fuml.semantics.simpleclassifiers;
+﻿using fuml.semantics.loci;
+using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
 
 namespace fuml.semantics.structuredclassifiers

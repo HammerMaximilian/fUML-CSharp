@@ -1,4 +1,5 @@
-﻿using fuml.semantics.simpleclassifiers;
+﻿using fuml.semantics.commonbehavior;
+using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
 using fuml.syntax.classification;
 using fuml.syntax.structuredclassifiers;
@@ -25,7 +26,7 @@ namespace fuml.semantics.structuredclassifiers
         {
             // Dispatch the given operation to the referent object.
 
-            return referent?.dispatch(operation);
+            return (referent is not null) ? referent.dispatch(operation) : null!;
         } // dispatch
 
         public void send(

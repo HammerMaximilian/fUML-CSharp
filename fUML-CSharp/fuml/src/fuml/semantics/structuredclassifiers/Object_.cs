@@ -1,4 +1,5 @@
-﻿using fuml.semantics.values;
+﻿using fuml.semantics.commonbehavior;
+using fuml.semantics.values;
 using fuml.syntax.classification;
 using fuml.syntax.structuredclassifiers;
 using System;
@@ -32,8 +33,9 @@ namespace fuml.semantics.structuredclassifiers
             // Dispatch the given operation to a method execution, using a dispatch
             // strategy.
 
-            return ((DispatchStrategy)locus.factory.getStrategy("dispatch"))
-                    .dispatch(this, operation);
+            DispatchStrategy dispatchStrategy = (DispatchStrategy)locus?.factory?.getStrategy("dispatch")!;
+
+            return (dispatchStrategy is not null) ? dispatchStrategy.dispatch(this, operation) : throw new NullReferenceException();
         } // dispatch
 
         public void send(
