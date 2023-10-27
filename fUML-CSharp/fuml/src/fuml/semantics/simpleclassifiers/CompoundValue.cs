@@ -22,18 +22,18 @@ namespace fuml.semantics.simpleclassifiers
                 CompoundValue otherCompoundValue = (CompoundValue)otherValue;
 
                 isEqual = base.equals(otherValue)
-                        & otherCompoundValue.featureValues.Count() == featureValues
-                                .Count();
+                        & otherCompoundValue.featureValues.Count == featureValues
+                                .Count;
 
                 int i = 1;
-                while (isEqual & i <= featureValues.Count())
+                while (isEqual & i <= featureValues.Count)
                 {
                     FeatureValue thisFeatureValue = featureValues
                     .ElementAt(i - 1);
 
                     bool matched = false;
                     int j = 1;
-                    while (!matched & j <= otherCompoundValue.featureValues.Count())
+                    while (!matched & j <= otherCompoundValue.featureValues.Count)
                     {
                         FeatureValue otherFeatureValue = otherCompoundValue.featureValues
                                 .ElementAt(j - 1);
@@ -77,7 +77,7 @@ namespace fuml.semantics.simpleclassifiers
 
             FeatureValue? featureValue = null;
             int i = 1;
-            while (featureValue is null & i <= featureValues.Count())
+            while (featureValue is null & i <= featureValues.Count)
             {
                 if (featureValues.ElementAt(i - 1).feature == feature)
                 {
@@ -125,7 +125,7 @@ namespace fuml.semantics.simpleclassifiers
             List<Classifier> types = getTypes();
 
             int i = 1;
-            while (i <= types.Count())
+            while (i <= types.Count)
             {
                 if (i != 1)
                 {
@@ -136,14 +136,14 @@ namespace fuml.semantics.simpleclassifiers
             }
 
             int k = 1;
-            while (k <= featureValues.Count())
+            while (k <= featureValues.Count)
             {
                 FeatureValue featureValue = featureValues.ElementAt(k - 1);
                 buffer = buffer + "\n\t\t" + featureValue?.feature?.name + "["
                         + featureValue?.position + "]  =";
 
                 int j = 1;
-                while (j <= featureValue?.values!.Count())
+                while (j <= featureValue?.values!.Count)
                 {
                     Value value = featureValue.values.ElementAt(j - 1);
                     if (value is Reference) {
@@ -151,7 +151,7 @@ namespace fuml.semantics.simpleclassifiers
                         buffer = buffer + " Reference to " + object_.identifier + "(";
                         types = object_.getTypes();
                         int n = 1;
-                        while (n <= types.Count())
+                        while (n <= types.Count)
                         {
                             if (n != 1)
                             {

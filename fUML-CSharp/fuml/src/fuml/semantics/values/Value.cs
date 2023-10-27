@@ -19,7 +19,7 @@ namespace fuml.semantics.values
 
             bool isEqual = true;
 
-            if (myTypes.Count() != otherTypes.Count())
+            if (myTypes.Count != otherTypes.Count)
             {
                 isEqual = false;
 
@@ -27,11 +27,11 @@ namespace fuml.semantics.values
             else
             {
                 int i = 1;
-                while (isEqual & i <= myTypes.Count())
+                while (isEqual & i <= myTypes.Count)
                 {
                     bool matched = false;
                     int j = 1;
-                    while (!matched & j <= otherTypes.Count())
+                    while (!matched & j <= otherTypes.Count)
                     {
                         matched = (otherTypes.ElementAt(j - 1) == myTypes
                                 .ElementAt(i - 1));
@@ -69,7 +69,7 @@ namespace fuml.semantics.values
 
             bool found = false;
             int i = 1;
-            while (!found & i <= types.Count())
+            while (!found & i <= types.Count)
             {
                 found = (types.ElementAt(i - 1) == type);
                 i = i + 1;
@@ -87,7 +87,7 @@ namespace fuml.semantics.values
 
             bool isInstance = this.hasType(classifier);
             int i = 1;
-            while (!isInstance & i <= types.Count())
+            while (!isInstance & i <= types.Count)
             {
                 isInstance = this.checkAllParents(types.ElementAt(i - 1), classifier);
                 i = i + 1;
@@ -104,7 +104,7 @@ namespace fuml.semantics.values
             List<Classifier> directParents = type.general;
             bool matched = false;
             int i = 1;
-            while (!matched & i <= directParents.Count())
+            while (!matched & i <= directParents.Count)
             {
                 Classifier directParent = directParents.ElementAt(i - 1);
                 if (directParent == classifier)

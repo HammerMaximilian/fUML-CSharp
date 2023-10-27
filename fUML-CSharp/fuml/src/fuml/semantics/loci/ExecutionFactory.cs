@@ -359,7 +359,7 @@ namespace fuml.semantics.loci
 
 			OpaqueBehaviorExecution? execution = null;
 			int i = 1;
-			while (execution is null & i <= primitiveBehaviorPrototypes.Count())
+			while (execution is null & i <= primitiveBehaviorPrototypes.Count)
 			{
 				// Debug.println("[instantiateOpaqueExecution] Checking " +
 				// this.primitiveBehaviorPrototypes.ElementAt(i).objectId() + "...");
@@ -404,7 +404,7 @@ namespace fuml.semantics.loci
 
 			PrimitiveType? type = null;
 			int i = 1;
-			while (type == null & i <= builtInTypes.Count())
+			while (type == null & i <= builtInTypes.Count)
 			{
 				PrimitiveType primitiveType = builtInTypes.ElementAt(i - 1);
 				if (primitiveType.name.Equals(name))
@@ -424,7 +424,7 @@ namespace fuml.semantics.loci
 
 			int i = getStrategyIndex(strategy.getName());
 
-			if (i <= strategies.Count())
+			if (i <= strategies.Count)
 			{
 				strategies.RemoveAt(i - 1);
 			}
@@ -439,7 +439,7 @@ namespace fuml.semantics.loci
 			int i = getStrategyIndex(name);
 
 			SemanticStrategy? strategy = null;
-			if (i <= strategies.Count())
+			if (i <= strategies.Count)
 			{
 				strategy = strategies.ElementAt(i - 1);
 			}
@@ -456,7 +456,7 @@ namespace fuml.semantics.loci
 
 			int i = 1;
 			bool unmatched = true;
-			while (unmatched & (i <= strategies.Count()))
+			while (unmatched & (i <= strategies.Count))
 			{
 				if (strategies.ElementAt(i - 1).getName().Equals(name))
 				{

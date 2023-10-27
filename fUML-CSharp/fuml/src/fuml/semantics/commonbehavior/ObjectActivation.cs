@@ -52,14 +52,14 @@ namespace fuml.semantics.commonbehavior
 
             bool notFound = true;
             int i = 1;
-            while (notFound & i <= waitingEventAccepters.Count())
+            while (notFound & i <= waitingEventAccepters.Count)
             {
                 if (waitingEventAccepters.ElementAt(i - 1) == accepter)
                 {
                     waitingEventAccepters.RemoveAt(i - 1);
                     notFound = false;
                 }
-                i = i + 1;
+                i++;
             }
 
         } // unregister
@@ -71,7 +71,7 @@ namespace fuml.semantics.commonbehavior
             // match the event occurrence, then dispatch it to exactly one of those
             // waiting accepters.
 
-            if (eventPool.Count() > 0)
+            if (eventPool.Count > 0)
             {
                 EventOccurrence eventOccurrence = getNextEvent();
 
@@ -79,7 +79,7 @@ namespace fuml.semantics.commonbehavior
 
                 List<int> matchingEventAccepterIndexes = new();
                 List<EventAccepter> waitingEventAccepters = this.waitingEventAccepters;
-                for (int i = 0; i < waitingEventAccepters.Count(); i++)
+                for (int i = 0; i < waitingEventAccepters.Count; i++)
                 {
                     EventAccepter eventAccepter = waitingEventAccepters.ElementAt(i);
                     if (eventAccepter.match(eventOccurrence))
@@ -88,11 +88,11 @@ namespace fuml.semantics.commonbehavior
                     }
                 }
 
-                if (matchingEventAccepterIndexes.Count() > 0)
+                if (matchingEventAccepterIndexes.Count > 0)
                 {
                     // *** Choose one matching event accepter non-deterministically. ***
                     ChoiceStrategy? choiceStrategy = (ChoiceStrategy)object_?.locus?.factory?.getStrategy("choice")!;
-                    int j = (choiceStrategy is not null) ? choiceStrategy.choose(matchingEventAccepterIndexes.Count()) : throw new NullReferenceException();
+                    int j = (choiceStrategy is not null) ? choiceStrategy.choose(matchingEventAccepterIndexes.Count) : throw new NullReferenceException();
                     int k = matchingEventAccepterIndexes.ElementAt(j - 1);
                     EventAccepter selectedEventAccepter = this.waitingEventAccepters
                             .ElementAt(k);
@@ -162,10 +162,10 @@ namespace fuml.semantics.commonbehavior
                 bool notYetStarted = true;
                 int i = 1;
                 while (notYetStarted
-                        & i <= classifierBehaviorInvocations.Count())
+                        & i <= classifierBehaviorInvocations.Count)
                 {
                     notYetStarted = classifierBehaviorInvocations.ElementAt(i - 1).classifier != classifier;
-                    i = i + 1;
+                    i++;
                 }
 
                 if (notYetStarted)
@@ -183,7 +183,7 @@ namespace fuml.semantics.commonbehavior
             }
         } // startBehavior
 
-        private ObjectActivation_EventDispatchLoopExecution behavior;
+        private readonly ObjectActivation_EventDispatchLoopExecution behavior;
 
         public void _send(ArrivalSignal signal)
         {

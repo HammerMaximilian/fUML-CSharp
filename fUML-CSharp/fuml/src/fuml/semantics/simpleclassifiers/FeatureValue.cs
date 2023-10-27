@@ -20,7 +20,7 @@ namespace fuml.semantics.simpleclassifiers
 
             bool equal = true;
 
-            if (values.Count() != other.values.Count())
+            if (values.Count != other.values.Count)
             {
                 equal = false;
 
@@ -30,7 +30,7 @@ namespace fuml.semantics.simpleclassifiers
                 if ((feature is not null) ? feature!.multiplicityElement.isOrdered : false)
                 {
                     int i = 1;
-                    while (equal & i <= values.Count())
+                    while (equal & i <= values.Count)
                     {
                         equal = values.ElementAt(i - 1).equals(
                                 other.values.ElementAt(i - 1));
@@ -52,11 +52,11 @@ namespace fuml.semantics.simpleclassifiers
                     }
 
                     int i = 1;
-                    while (equal & i <= this.values.Count())
+                    while (equal & i <= this.values.Count)
                     {
                         bool matched = false;
                         int j = 1;
-                        while (!matched & j <= otherFeatureValues.values.Count())
+                        while (!matched & j <= otherFeatureValues.values.Count)
                         {
                             if (this.values.ElementAt(i - 1).equals(
                                     otherFeatureValues.values.ElementAt(j - 1)))

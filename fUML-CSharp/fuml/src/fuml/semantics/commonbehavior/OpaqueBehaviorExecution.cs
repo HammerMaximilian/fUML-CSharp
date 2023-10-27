@@ -10,12 +10,12 @@ namespace fuml.semantics.commonbehavior
         {
             // Execute the body of the opaque behavior.
 
-            Debug.println("[execute] Opaque behavior " + this.getBehavior().name + "...");
+            Debug.println("[execute] Opaque behavior " + getBehavior().name + "...");
 
             List<Parameter> parameters = getBehavior().ownedParameter;
 
-            List<ParameterValue> inputs = new List<ParameterValue>();
-            List<ParameterValue> outputs = new List<ParameterValue>();
+            List<ParameterValue> inputs = new();
+            List<ParameterValue> outputs = new();
 
             foreach (Parameter parameter in parameters)
             {
@@ -29,14 +29,16 @@ namespace fuml.semantics.commonbehavior
                         | (parameter.direction == ParameterDirectionKind.out_)
                         | (parameter.direction == ParameterDirectionKind.return_))
                 {
-                    ParameterValue parameterValue = new ParameterValue();
-                    parameterValue.parameter = parameter;
-                    this.setParameterValue(parameterValue);
+                    ParameterValue parameterValue = new()
+                    {
+                        parameter = parameter
+                    };
+                    setParameterValue(parameterValue);
                     outputs.Add(parameterValue);
                 }
             }
 
-            this.doBody(inputs, outputs);
+            doBody(inputs, outputs);
         } // execute
 
         public abstract void doBody(

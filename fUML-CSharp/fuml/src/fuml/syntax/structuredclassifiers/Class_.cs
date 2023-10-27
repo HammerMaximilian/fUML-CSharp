@@ -82,7 +82,7 @@ namespace fuml.syntax.structuredclassifiers
 
             List<RedefinableElement> redefinableMembers = new();
 
-            for (int i = 0; i < ownedMember.Count(); i++)
+            for (int i = 0; i < ownedMember.Count; i++)
             {
                 if (ownedMember.ElementAt(i) is RedefinableElement)
                 {

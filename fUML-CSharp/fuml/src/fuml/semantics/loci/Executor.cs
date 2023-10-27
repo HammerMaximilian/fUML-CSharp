@@ -26,7 +26,7 @@ namespace fuml.semantics.loci
 			Execution execution = locus?.factory?.createExecution(behavior,
 					context);
 
-			for (int i = 0; i < inputs.Count(); i++)
+			for (int i = 0; i < inputs.Count; i++)
 			{
 				execution.setParameterValue(inputs.ElementAt(i));
 			}

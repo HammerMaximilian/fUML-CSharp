@@ -48,7 +48,7 @@ namespace fuml.semantics.loci
 
                 bool conforms = false;
                 int j = 1;
-                while (!conforms & j <= types.Count())
+                while (!conforms & j <= types.Count)
                 {
                     conforms = this.conforms(types.ElementAt(j - 1), classifier);
                     j = j + 1;
@@ -93,7 +93,7 @@ namespace fuml.semantics.loci
 
             bool notFound = true;
             int i = 1;
-            while (notFound & i <= extensionalValues.Count())
+            while (notFound & i <= extensionalValues.Count)
             {
                 if (extensionalValues.ElementAt(i - 1) == value)
                 {
@@ -141,7 +141,7 @@ namespace fuml.semantics.loci
             else
             {
                 int i = 1;
-                while (!doesConform & i <= type.general.Count())
+                while (!doesConform & i <= type.general.Count)
                 {
                     doesConform = conforms(type.general.ElementAt(i - 1),
                             classifier);

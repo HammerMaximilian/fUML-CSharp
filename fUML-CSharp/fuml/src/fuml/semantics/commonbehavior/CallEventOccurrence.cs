@@ -20,12 +20,11 @@ namespace fuml.semantics.commonbehavior
             // operation of this call event occurrence.
 
             bool matches = false;
-            if (trigger.event_ is CallEvent) 
+            if (trigger.event_ is CallEvent callEvent)
             {
-                CallEvent callEvent = (CallEvent)trigger.event_;
                 matches = callEvent.operation == getOperation();
-		    }
-		return matches;
+            }
+            return matches;
 	    }
 
         public override List<ParameterValue> getParameterValues(Event event_)

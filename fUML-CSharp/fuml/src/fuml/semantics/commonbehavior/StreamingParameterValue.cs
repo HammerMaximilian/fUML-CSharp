@@ -13,7 +13,7 @@ namespace fuml.semantics.commonbehavior
 
 			this.values = values;
 
-			if (listener is not null & values.Count() > 0)
+			if (listener is not null & values.Count > 0)
 			{
 				listener!.post(values);
 			}

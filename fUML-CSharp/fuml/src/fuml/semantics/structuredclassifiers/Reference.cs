@@ -51,14 +51,15 @@ namespace fuml.semantics.structuredclassifiers
             // referent as this reference.
 
             bool isEqual = false;
-            if (otherValue is Reference) {
+            if (otherValue is Reference reference)
+            {
                 if (referent is null)
                 {
-                    isEqual = ((Reference)otherValue).referent is null;
+                    isEqual = reference.referent is null;
                 }
                 else
                 {
-                    isEqual = referent.equals(((Reference)otherValue).referent!);
+                    isEqual = referent.equals(reference.referent!);
                 }
             }
 

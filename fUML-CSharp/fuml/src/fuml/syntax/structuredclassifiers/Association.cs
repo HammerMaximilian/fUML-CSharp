@@ -69,13 +69,13 @@ namespace fuml.syntax.structuredclassifiers
                 endType.Add(memberEnd.typedElement.type);
             }
 
-            if (this.memberEnd.Count() == 2)
+            if (this.memberEnd.Count == 2)
             {
                 Property opposite = this.memberEnd.ElementAt(0);
                 memberEnd._setOpposite(opposite);
                 opposite._setOpposite(memberEnd);
             }
-            else if (this.memberEnd.Count() > 2)
+            else if (this.memberEnd.Count > 2)
             {
                 foreach (Property end in this.memberEnd)
                 {

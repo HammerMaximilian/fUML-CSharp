@@ -63,7 +63,7 @@ namespace fuml.semantics.simpleclassifiers
                 {
                     bool isMember = false;
                     int k = 1;
-                    while (k <= members.Count() & !isMember)
+                    while (k <= members.Count & !isMember)
                     {
                         NamedElement member = members.ElementAt(k - 1);
                         isMember = feature == member;
@@ -183,7 +183,7 @@ namespace fuml.semantics.simpleclassifiers
             FeatureValue? foundFeatureValue = null;
 
             int i = 1;
-            while (foundFeatureValue is null & i <= featureValues.Count())
+            while (foundFeatureValue is null & i <= featureValues.Count)
             {
                 FeatureValue featureValue = featureValues.ElementAt(i - 1);
                 if (featureValue.feature == feature)

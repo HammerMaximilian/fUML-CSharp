@@ -55,9 +55,9 @@ namespace fuml.semantics.commonbehavior
             // event accepter.
 
             bool matches = false;
-            if (eventOccurrence is InvocationEventOccurrence)
+            if (eventOccurrence is InvocationEventOccurrence invocationEventOccurrence)
             {
-                matches = ((InvocationEventOccurrence)eventOccurrence).execution == execution;
+                matches = invocationEventOccurrence.execution == execution;
             }
             return matches;
         }

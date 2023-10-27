@@ -131,7 +131,7 @@ namespace fuml.semantics.structuredclassifiers
         {
             // Return the types of this object.
 
-            List<Classifier> types = new List<Classifier>();
+            List<Classifier> types = new();
             List<Class_> myTypes = this.types;
             foreach (Class_ type in myTypes)
             {

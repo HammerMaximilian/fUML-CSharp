@@ -2,7 +2,7 @@
 {
     public class ExecutionQueue
     {
-		private List<Execution> queue = new();
+		private readonly List<Execution> queue = new();
 
 		private void run()
 		{
@@ -11,7 +11,7 @@
 
 		private bool runNext()
 		{
-			if (queue.Count() == 0)
+			if (queue.Count == 0)
 			{
 				return false;
 			}
@@ -19,7 +19,7 @@
 			{
 				Execution execution = queue.ElementAt(0);
 				queue.RemoveAt(0);
-				if (execution?.context?.getTypes().Count() > 0)
+				if (execution?.context?.getTypes().Count > 0)
 				{
 					Debug.println("[runNext] execution = " + execution);
 					execution.execute();
@@ -50,7 +50,7 @@
 
 		public static bool step()
 		{
-			return (executionQueue is not null) ? executionQueue.runNext() : false;
+			return (executionQueue is not null) && executionQueue.runNext();
 		}
 
 		public static void enqueue(Execution execution)

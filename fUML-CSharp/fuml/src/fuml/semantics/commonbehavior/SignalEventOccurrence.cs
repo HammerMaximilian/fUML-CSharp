@@ -15,10 +15,9 @@ namespace fuml.semantics.commonbehavior
             // signal instance or one of its supertypes.
 
             bool matches = false;
-            if (trigger.event_ is SignalEvent)
+            if (trigger.event_ is SignalEvent signalEvent)
             {
-                SignalEvent event_ = (SignalEvent)trigger.event_;
-                matches = (signalInstance is not null) ? signalInstance.isInstanceOf(event_.signal!) : false;
+                matches = (signalInstance is not null) && signalInstance.isInstanceOf(signalEvent.signal!);
             }
             return matches;
         }
@@ -35,13 +34,16 @@ namespace fuml.semantics.commonbehavior
             // the event signal.)
 
             List<ParameterValue> parameterValues = new();
-            if (event_ is SignalEvent) {
+            if (event_ is SignalEvent signalEvent)
+            {
 
-                List<StructuralFeature> memberFeatures = (signalInstance is not null) ? signalInstance.getMemberFeatures(((SignalEvent)event_)!.signal!) : new();
+                List<StructuralFeature> memberFeatures = (signalInstance is not null) ? signalInstance.getMemberFeatures(signalEvent!.signal!) : new();
                 foreach (StructuralFeature feature in memberFeatures)
                 {
-                    ParameterValue parameterValue = new ParameterValue();
-                    parameterValue.values = signalInstance!.getFeatureValue(feature).values;
+                    ParameterValue parameterValue = new()
+                    {
+                        values = signalInstance!.getFeatureValue(feature).values
+                    };
                     parameterValues.Add(parameterValue);
                 }
             }

@@ -69,13 +69,13 @@ namespace fuml.semantics.commonbehavior
 
             ParameterValue? parameterValue = null;
             int i = 1;
-            while (parameterValue is null & i <= parameterValues.Count())
+            while (parameterValue is null & i <= parameterValues.Count)
             {
                 if (parameterValues.ElementAt(i - 1).parameter == parameter)
                 {
                     parameterValue = parameterValues.ElementAt(i - 1);
                 }
-                i = i + 1;
+                i++;
             }
 
             return parameterValue!;

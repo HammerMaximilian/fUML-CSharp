@@ -120,7 +120,7 @@ namespace fuml.semantics.commonbehavior
             List<Parameter> parameters = getBehavior().ownedParameter;
             int i = 1;
             int j = 1;
-            while (i <= parameters.Count())
+            while (i <= parameters.Count)
             {
                 Parameter parameter = parameters.ElementAt(i - 1);
                 if (parameter.direction == ParameterDirectionKind.inout |
@@ -129,9 +129,9 @@ namespace fuml.semantics.commonbehavior
                     ParameterValue parameterValue = parameterValues.ElementAt(j - 1);
                     parameterValue.parameter = parameter;
                     setParameterValue(parameterValue);
-                    j = j + 1;
+                    j++;
                 }
-                i = i + 1;
+                i++;
             }
         }
 

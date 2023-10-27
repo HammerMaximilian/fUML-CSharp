@@ -37,13 +37,13 @@ namespace fuml.semantics.commonbehavior
 
 			bool matches = false;
 			int i = 1;
-			while (!matches & i <= triggers.Count())
+			while (!matches & i <= triggers.Count)
 			{
 				if (match(triggers.ElementAt(i - 1)))
 				{
 					matches = true;
 				}
-				i = i + 1;
+				i++;
 			}
 			return matches;
 
@@ -52,7 +52,7 @@ namespace fuml.semantics.commonbehavior
 		public abstract List<ParameterValue> getParameterValues(Event event_);
 
 
-		private EventOccurrence_SendingBehaviorExecution behavior;
+		private readonly EventOccurrence_SendingBehaviorExecution behavior;
 
 		private void _startObjectBehavior()
 		{

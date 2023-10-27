@@ -89,7 +89,7 @@ namespace fuml.semantics.structuredclassifiers
 
 			bool matches = true;
 			int i = 1;
-			while (matches & i <= ends.Count())
+			while (matches & i <= ends.Count)
 			{
 				Property otherEnd = ends.ElementAt(i - 1);
 				if (otherEnd != end
@@ -145,7 +145,7 @@ namespace fuml.semantics.structuredclassifiers
 					FeatureValue featureValue = getFeatureValue(end);
 					List<FeatureValue> otherFeatureValues = this
 							.getOtherFeatureValues(extent, end);
-					int n = otherFeatureValues.Count();
+					int n = otherFeatureValues.Count;
 					if (featureValue.position < 0 | featureValue.position > n)
 					{
 						featureValue.position = n + 1;

@@ -27,7 +27,7 @@ namespace fuml.semantics.commonbehavior
 			// Signal the arrival of a new signal instance in the event pool.
 			// *** This should send an ArrivalSignal to the EventDispatchLoop. ***
 
-			signalCount = signalCount + 1;
+			signalCount++;
 			if (signalCount == 1)
 			{
 				ExecutionQueue.enqueue(this);
@@ -36,7 +36,7 @@ namespace fuml.semantics.commonbehavior
 		public override void execute()
 		{
 			self.dispatchNextEvent();
-			signalCount = signalCount - 1;
+			signalCount--;
 			if (signalCount > 0)
 			{
 				ExecutionQueue.enqueue(this);

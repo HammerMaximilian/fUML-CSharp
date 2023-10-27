@@ -21,19 +21,19 @@ namespace fuml.semantics.structuredclassifiers
 
 			Behavior? method = null;
 			int i = 1;
-			while (method == null & i <= object_.types.Count())
+			while (method == null & i <= object_.types.Count)
 			{
 				Class_ type = object_.types.ElementAt(i - 1);
 				List<NamedElement> members = type.member;
 				int j = 1;
-				while (method == null & j <= members.Count())
+				while (method == null & j <= members.Count)
 				{
 					NamedElement member = members.ElementAt(j - 1);
 					if (member is Operation) {
 						Operation memberOperation = (Operation)member;
 						if (operationsMatch(memberOperation, operation))
 						{
-							if (memberOperation.method.Count() == 0)
+							if (memberOperation.method.Count == 0)
 							{
 								method = base.getMethod(object_, memberOperation);
 							}
@@ -66,7 +66,7 @@ namespace fuml.semantics.structuredclassifiers
 			else
 			{
 				int i = 1;
-				while (!matches & i <= ownedOperation.redefinedOperation.Count())
+				while (!matches & i <= ownedOperation.redefinedOperation.Count)
 				{
 					matches = operationsMatch(
 							ownedOperation.redefinedOperation.ElementAt(i - 1),
