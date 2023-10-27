@@ -10,13 +10,13 @@ namespace fuml.syntax.actions
 
 		public void setObject(InputPin object_)
 		{
-			addInput(object_);
+			AddInput(object_);
             this.object_ = object_;
 		}
 
 		public void addResult(OutputPin result)
 		{
-			addOutput(result);
+			AddOutput(result);
 			this.result.Add(result);
 		}
 

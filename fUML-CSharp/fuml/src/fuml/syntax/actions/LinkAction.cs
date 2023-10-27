@@ -19,7 +19,7 @@
 		public void addInputValue(
 				InputPin inputValue)
 		{
-			addInput(inputValue);
+			AddInput(inputValue);
 			this.inputValue.Add(inputValue);
 		} // addInputValue
 	} // LinkAction

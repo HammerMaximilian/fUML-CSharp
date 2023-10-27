@@ -8,19 +8,19 @@
 
         public void setFirst(InputPin first)
         {
-            addInput(first);
+            AddInput(first);
             this.first = first;
         } // setFirst
 
         public void setSecond(InputPin second)
         {
-            addInput(second);
+            AddInput(second);
             this.second = second;
         } // setSecond
 
         public void setResult(OutputPin result)
         {
-            addOutput(result);
+            AddOutput(result);
             this.result = result;
         } // setResult
     } // TestIdentityAction

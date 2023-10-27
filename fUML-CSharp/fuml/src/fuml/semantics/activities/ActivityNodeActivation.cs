@@ -13,7 +13,7 @@ namespace fuml.semantics.activities
 		public bool running = false;
 		public List<Token> heldTokens = new();
 
-		public virtual void initialize(ActivityNode node, ActivityNodeActivationGroup group)
+		public virtual void Initialize(ActivityNode node, ActivityNodeActivationGroup group)
 		{
 			// Initialize this node activation.
 
@@ -22,7 +22,7 @@ namespace fuml.semantics.activities
 			running = false;
 		}
 
-		public virtual void run()
+		public virtual void Run()
 		{
 			// Run the activation of this node.
 
@@ -33,7 +33,7 @@ namespace fuml.semantics.activities
 			running = true;
 		} // run
 
-		public virtual void receiveOffer()
+		public virtual void ReceiveOffer()
 		{
 			// Receive an offer from an incoming edge.
 			// Check if all prerequisites have been satisfied. If so, fire.
@@ -42,25 +42,25 @@ namespace fuml.semantics.activities
 
 			_beginIsolation();
 
-			bool ready = isReady();
+			bool ready = IsReady();
 
 			List<Token> tokens = new();
 			if (ready)
 			{
 				Debug.println("[receiveOffer] Firing.");
-				tokens = takeOfferedTokens();
+				tokens = TakeOfferedTokens();
 			}
 
 			_endIsolation();
 
 			if (ready)
 			{
-				fire(tokens);
+				Fire(tokens);
 			}
 
 		} // receiveOffer
 
-		public virtual List<Token> takeOfferedTokens()
+		public virtual List<Token> TakeOfferedTokens()
 		{
 			// Get tokens from all incoming edges.
 
@@ -68,7 +68,7 @@ namespace fuml.semantics.activities
 			List<ActivityEdgeInstance> incomingEdges = this.incomingEdges;
 			foreach (ActivityEdgeInstance incomingEdge in incomingEdges)
 			{
-				List<Token> tokens = incomingEdge.takeOfferedTokens();
+				List<Token> tokens = incomingEdge.TakeOfferedTokens();
 				foreach (Token token in tokens)
 				{
 					allTokens.Add(token);
@@ -78,9 +78,9 @@ namespace fuml.semantics.activities
 			return allTokens;
 		} // takeOfferedTokens
 
-		public abstract void fire(List<Token> incomingTokens);
+		public abstract void Fire(List<Token> incomingTokens);
 
-		public virtual void sendOffers(List<Token> tokens)
+		public virtual void SendOffers(List<Token> tokens)
 		{
 			// Send offers for the given set of tokens over all outgoing edges (if
 			// there are any tokens actually being offered).
@@ -92,14 +92,14 @@ namespace fuml.semantics.activities
 				List<ActivityEdgeInstance> outgoingEdges = this.outgoingEdges;
 				foreach (ActivityEdgeInstance outgoingEdge in outgoingEdges)
 				{
-					outgoingEdge.sendOffer(tokens);
+					outgoingEdge.SendOffer(tokens);
 				}
 
 			}
 
 		} // sendOffers
 
-		public virtual void terminate()
+		public virtual void Terminate()
 		{
 			// Terminate the activation of this node.
 
@@ -110,23 +110,23 @@ namespace fuml.semantics.activities
 			running = false;
 		} // terminate
 
-		public virtual bool isReady()
+		public virtual bool IsReady()
 		{
 			// Check if all the prerequisites for this node have been satisfied.
 			// By default, check that this node is running.
 
-			return isRunning();
+			return IsRunning();
 
 		} // isReady
 
-		public bool isRunning()
+		public bool IsRunning()
 		{
 			// Test whether this node activation is running.
 
 			return running;
 		} // isRunning
 
-		public virtual void addOutgoingEdge(ActivityEdgeInstance edge)
+		public virtual void AddOutgoingEdge(ActivityEdgeInstance edge)
 		{
 			// Add an activity edge instance as an outgoing edge of this activity
 			// node activation.
@@ -135,7 +135,7 @@ namespace fuml.semantics.activities
 			outgoingEdges.Add(edge);
 		} // addOutgoingEdge
 
-		public void addIncomingEdge(
+		public void AddIncomingEdge(
 				ActivityEdgeInstance edge)
 		{
 			// Add an activity edge instance as an incoming edge of this activity
@@ -145,7 +145,7 @@ namespace fuml.semantics.activities
 			incomingEdges.Add(edge);
 		} // addIncomingEdge
 
-		public virtual void createNodeActivations()
+		public virtual void CreateNodeActivations()
 		{
 			// Create node activations for any subnodes of the node for this
 			// activation.
@@ -155,7 +155,7 @@ namespace fuml.semantics.activities
 
 		} // createNodeActivations
 
-		public virtual void createEdgeInstances()
+		public virtual void CreateEdgeInstances()
 		{
 			// Create edge instances for any edge instances owned by the node for
 			// this activation.
@@ -165,7 +165,7 @@ namespace fuml.semantics.activities
 
 		} // createEdgeInstances
 
-		public virtual bool isSourceFor(ActivityEdgeInstance edgeInstance)
+		public virtual bool IsSourceFor(ActivityEdgeInstance edgeInstance)
 		{
 			// Check if this node activation is the effective source for the given
 			// edge instance.
@@ -173,29 +173,29 @@ namespace fuml.semantics.activities
 			return edgeInstance.source == this;
 		} // isSourceFor
 
-		public ActivityExecution getActivityExecution()
+		public ActivityExecution GetActivityExecution()
 		{
 			// Return the activity execution that contains this activity node
 			// activation, directly or indirectly.
 
-			return group?.getActivityExecution()!;
+			return group?.GetActivityExecution()!;
 		} // getActivityExecution
 
-		public Object_ getExecutionContext()
+		public Object_ GetExecutionContext()
 		{
 			// Get the context object for the containing activity execution.
 
-			return getActivityExecution()?.context!;
+			return GetActivityExecution()?.context!;
 		} // getExecutionContext
 
-		public Locus getExecutionLocus()
+		public Locus GetExecutionLocus()
 		{
 			// Get the locus of the containing activity execution.
 
-			return getActivityExecution()?.locus!;
+			return GetActivityExecution()?.locus!;
 		} // getExecutionLocus
 
-		public virtual ActivityNodeActivation getNodeActivation(ActivityNode node)
+		public virtual ActivityNodeActivation GetNodeActivation(ActivityNode node)
 		{
 			// Get the activity node activation corresponding to the given activity
 			// node, in the context of this activity node activation.
@@ -211,17 +211,17 @@ namespace fuml.semantics.activities
 			return activation!;
 		} // getNodeActivation
 
-		public virtual void addToken(Token token)
+		public virtual void AddToken(Token token)
 		{
 			// Transfer the given token to be held by this node.
 
 			Debug.println("[addToken] " + (node is null ? "..." : "node = " + node.name));
 
-			Token transferredToken = token.transfer(this);
+			Token transferredToken = token.Transfer(this);
 			heldTokens.Add(transferredToken);
 		} // addToken
 
-		public virtual int removeToken(Token token)
+		public virtual int RemoveToken(Token token)
 		{
 			// Remove the given token, if it is held by this node activation.
 			// Return the position (counting from 1) of the removed token (0 if
@@ -252,38 +252,38 @@ namespace fuml.semantics.activities
 			return i;
 		} // removeToken
 
-		public void addTokens(List<Token> tokens)
+		public void AddTokens(List<Token> tokens)
 		{
 			// Transfer the given tokens to be the held tokens for this node.
 
 			foreach (Token token in tokens)
 			{
-				addToken(token);
+				AddToken(token);
 			}
 		} // addTokens
 
-		public List<Token> takeTokens()
+		public List<Token> TakeTokens()
 		{
 			// Take the tokens held by this node activation.
 
-			List<Token> tokens = getTokens();
-			clearTokens();
+			List<Token> tokens = GetTokens();
+			ClearTokens();
 
 			return tokens;
 		} // takeTokens
 
-		public virtual void clearTokens()
+		public virtual void ClearTokens()
 		{
 			// Remove all held tokens.
 
 			while (heldTokens.Count > 0)
 			{
-				heldTokens.ElementAt(0).withdraw();
+				heldTokens.ElementAt(0).Withdraw();
 			}
 
 		} // clearTokens
 
-		public List<Token> getTokens()
+		public List<Token> GetTokens()
 		{
 			// Get the tokens held by this node activation.
 
@@ -299,18 +299,18 @@ namespace fuml.semantics.activities
 			return tokens;
 		} // getTokens
 
-		public void suspend()
+		public void Suspend()
 		{
 			// Suspend this activation within the activation group that contains it.
 
-			group?.suspend(this);
+			group?.Suspend(this);
 		} // suspend
 
-		public virtual void resume()
+		public virtual void Resume()
 		{
 			// Resume this activation within the activation group that contains it.
 
-			group?.resume(this);
+			group?.Resume(this);
 		} // resume
 	} // ActivityNodeActivation
 }

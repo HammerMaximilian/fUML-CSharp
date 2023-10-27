@@ -7,7 +7,7 @@ namespace fuml.semantics.activities
     {
 		public ActivityParameterNodeActivation? nodeActivation = null;
 
-		public override void post(List<Value> values)
+		public override void Post(List<Value> values)
 		{
 			// Fire the activity parameter node activation.
 			// (Note that the values do not have to be passed to the node activation,
@@ -16,14 +16,14 @@ namespace fuml.semantics.activities
 
 			Debug.println("[post] Posting to node " + nodeActivation?.node?.name);
 
-			nodeActivation?.fire(new List<Token>());
+			nodeActivation?.Fire(new List<Token>());
 		}
 
-		public override bool isTerminated()
+		public override bool IsTerminated()
 		{
 			// This listener is terminated if the node activation is not running.
 
-			return nodeActivation is not null && !nodeActivation.isRunning();
+			return nodeActivation is not null && !nodeActivation.IsRunning();
 		}
 	} // List<ActivityParameterNodeStreamingParameter>ener
 }

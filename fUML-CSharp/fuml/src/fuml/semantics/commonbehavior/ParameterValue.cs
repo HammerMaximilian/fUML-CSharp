@@ -8,7 +8,7 @@ namespace fuml.semantics.commonbehavior
 		public Parameter? parameter = null;
 		public List<Value> values = new();
 
-		public ParameterValue copy()
+		public ParameterValue Copy()
 		{
 			// Create a new parameter value for the same parameter as this parameter
 			// value, but with copies of the values of this parameter value.

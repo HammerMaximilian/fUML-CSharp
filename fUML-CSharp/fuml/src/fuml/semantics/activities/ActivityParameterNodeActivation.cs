@@ -7,26 +7,26 @@ namespace fuml.semantics.activities
 {
     public class ActivityParameterNodeActivation : ObjectNodeActivation
     {
-		public override void run()
+		public override void Run()
 		{
 			// If this activation is for an input activity parameter node for a
 			// stream parameter, then register a listener for this activation
 			// with the streaming parameter value corresponding to the parameter.
 
-			base.run();
+			base.Run();
 
 			Parameter? parameter = ((ActivityParameterNode)node!)?.parameter!;
-			ParameterValue parameterValue = getActivityExecution().getParameterValue(parameter);
+			ParameterValue parameterValue = GetActivityExecution().GetParameterValue(parameter);
 			if (node!.incoming.Count == 0 &
 					parameterValue is StreamingParameterValue) {
 				ActivityParameterNodeStreamingParameterListener listener = new();
 				listener.nodeActivation = this;
-				((StreamingParameterValue)parameterValue).register(listener);
+				((StreamingParameterValue)parameterValue).Register(listener);
 				Debug.println("[run] Registering for streaming parameter " + parameter.name + ".");
 			}
 		}
 
-		public override void fire(List<Token> incomingTokens)
+		public override void Fire(List<Token> incomingTokens)
 		{
 			// If there are no incoming edges, this is an activation of an input
 			// activity parameter node.
@@ -42,7 +42,7 @@ namespace fuml.semantics.activities
 			// accumulating tokens offered to it.)
 
 			Parameter parameter = ((ActivityParameterNode)node!).parameter!;
-			ParameterValue parameterValue = getActivityExecution().getParameterValue(parameter);
+			ParameterValue parameterValue = GetActivityExecution().GetParameterValue(parameter);
 
 			if (node.incoming.Count == 0)
 			{
@@ -57,9 +57,9 @@ namespace fuml.semantics.activities
                         {
                             value = value
                         };
-                        addToken(token);
+                        AddToken(token);
 					}
-					sendUnofferedTokens();
+					SendUnofferedTokens();
 				}
 			}
 
@@ -67,35 +67,35 @@ namespace fuml.semantics.activities
 			{
 				Debug.println("[fire] Output activity parameter node " + node.name + "...");
 
-				this.addTokens(incomingTokens);
+				this.AddTokens(incomingTokens);
 
 				if (parameterValue is StreamingParameterValue streamingParameterValue) {
 					List<Value> values = new();
 					foreach (Token token in incomingTokens)
 					{
-						Value value = token.getValue();
+						Value value = token.GetValue();
 						if (value is not null)
 						{
 							values.Add(value);
-							Debug.println("[event] Post activity=" + getActivityExecution().getBehavior().name
+							Debug.println("[event] Post activity=" + GetActivityExecution().GetBehavior().name
 									+ " parameter=" + parameterValue?.parameter?.name
 									+ " value=" + value);
 						}
 					}
-					streamingParameterValue.post(values);
-					base.clearTokens();
+					streamingParameterValue.Post(values);
+					base.ClearTokens();
 				}
 			}
 
 		} // fire
 
-		public override void clearTokens()
+		public override void ClearTokens()
 		{
 			// Clear all held tokens only if this is an input parameter node.
 
 			if (node!.incoming.Count == 0)
 			{
-				base.clearTokens();
+				base.ClearTokens();
 			}
 		} // clearTokens
 	} // ActivityParameterNodeActivation

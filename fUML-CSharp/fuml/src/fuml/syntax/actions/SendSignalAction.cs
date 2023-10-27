@@ -9,7 +9,7 @@ namespace fuml.syntax.actions
 
         public void setTarget(InputPin target)
         {
-            addInput(target);
+            AddInput(target);
             this.target = target;
         } // setTarget
 

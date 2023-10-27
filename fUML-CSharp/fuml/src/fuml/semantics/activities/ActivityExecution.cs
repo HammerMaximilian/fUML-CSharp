@@ -10,7 +10,7 @@ namespace fuml.semantics.activities
 		public ActivityNodeActivationGroup? activationGroup = null;
 		public bool isStreaming;
 
-		public override void execute()
+		public override void Execute()
 		{
 			// Execute the activity for this execution by creating an activity node
 			// activation group and activating all the activity nodes in the
@@ -42,22 +42,22 @@ namespace fuml.semantics.activities
             {
                 activityExecution = this
             };
-            activationGroup.activate(activity.node, activity.edge);
+            activationGroup.Activate(activity.node, activity.edge);
 
 			if (!isStreaming)
 			{
-				complete();
+				Complete();
 			}
 		} // execute
 
-		public void complete()
+		public void Complete()
 		{
 			// Copy the values on the tokens offered by output parameter nodes for
 			// non-stream parameters to the corresponding output parameter values.
 
 			Activity activity = (Activity)getTypes().ElementAt(0);
 
-			List<ActivityParameterNodeActivation> outputActivations = (activationGroup is not null) ? activationGroup.getOutputParameterNodeActivations() : new();
+			List<ActivityParameterNodeActivation> outputActivations = (activationGroup is not null) ? activationGroup.GetOutputParameterNodeActivations() : new();
 
 			foreach (ActivityParameterNodeActivation outputActivation in outputActivations)
 			{
@@ -68,7 +68,7 @@ namespace fuml.semantics.activities
 					ParameterValue parameterValue = new();
 					parameterValue.parameter = parameter;
 
-					List<Token> tokens = outputActivation.getTokens();
+					List<Token> tokens = outputActivation.GetTokens();
 					foreach (Token token in tokens)
 					{
 						Value value = ((ObjectToken)token)?.value!;
@@ -81,7 +81,7 @@ namespace fuml.semantics.activities
 						}
 					}
 
-					setParameterValue(parameterValue);
+					SetParameterValue(parameterValue);
 				}
 			}
 
@@ -97,14 +97,14 @@ namespace fuml.semantics.activities
 			return base.copy();
 		} // copy
 
-		public override Value new_()
+		public override Value New_()
 		{
 			// Create a new activity execution with empty properties.
 
 			return new ActivityExecution();
 		} // new_
 
-		public override void terminate()
+		public override void Terminate()
 		{
 			// Terminate all node activations. If this execution is non-streaming,
 			// then this is sufficient to result in the activity execution ultimately
@@ -112,12 +112,12 @@ namespace fuml.semantics.activities
 
 			if (activationGroup is not null)
 			{
-				activationGroup.terminateAll();
+				activationGroup.TerminateAll();
 			}
 
 			if (isStreaming)
 			{
-				complete();
+				Complete();
 			}
 		} // terminate
 	} // ActivityExecution

@@ -4,12 +4,12 @@
     {
 		private readonly List<Execution> queue = new();
 
-		private void run()
+		private void Run()
 		{
-			while (runNext()) ;
+			while (RunNext()) ;
 		}
 
-		private bool runNext()
+		private bool RunNext()
 		{
 			if (queue.Count == 0)
 			{
@@ -22,47 +22,47 @@
 				if (execution?.context?.getTypes().Count > 0)
 				{
 					Debug.println("[runNext] execution = " + execution);
-					execution.execute();
+					execution.Execute();
 				}
 				return true;
 			}
 		}
 
-		private void add(Execution execution)
+		private void Add(Execution execution)
 		{
 			queue.Add(execution);
 		}
 
 		private static ExecutionQueue? executionQueue;
 
-		public static bool notStarted()
+		public static bool NotStarted()
 		{
 			return executionQueue is null;
 		}
 
-		public static void start(Execution execution)
+		public static void Start(Execution execution)
 		{
 			executionQueue = new();
-			executionQueue.add(execution);
-			executionQueue.run();
+			executionQueue.Add(execution);
+			executionQueue.Run();
 			executionQueue = null;
 		}
 
-		public static bool step()
+		public static bool Step()
 		{
-			return (executionQueue is not null) && executionQueue.runNext();
+			return (executionQueue is not null) && executionQueue.RunNext();
 		}
 
-		public static void enqueue(Execution execution)
+		public static void Enqueue(Execution execution)
 		{
-			if (notStarted())
+			if (NotStarted())
 			{
-				start(execution);
+				Start(execution);
 			}
 			else
 			{
 				Debug.println("[enqueue] execution = " + execution);
-				executionQueue?.add(execution);
+				executionQueue?.Add(execution);
 			}
 		}
 	} // ExecutionQueue

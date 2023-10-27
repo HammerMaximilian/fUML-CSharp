@@ -6,7 +6,7 @@ namespace fuml.semantics.activities
 {
     public abstract class ExecutableNodeActivation : ActivityNodeActivation
     {
-		public void propagateException(Value exception)
+		public void PropagateException(Value exception)
 		{
 			// If there is no matching exception handler for the given exception, then propagate
 			// the exception to either the containing node activation or the activity execution, as
@@ -15,29 +15,29 @@ namespace fuml.semantics.activities
 			// (If there is more than one matching handler, then choose one non-deterministically.)
 
 			List<ExceptionHandler> matchingExceptionHandlers =
-					getMatchingExceptionHandlers(exception);
+					GetMatchingExceptionHandlers(exception);
 
 			if (matchingExceptionHandlers.Count == 0)
 			{
-				terminate();
+				Terminate();
 				if (group?.containingNodeActivation is not null)
 				{
-					group.containingNodeActivation.propagateException(exception);
+					group.containingNodeActivation.PropagateException(exception);
 				}
 				else
 				{
-					group?.activityExecution?.propagateException(exception);
+					group?.activityExecution?.PropagateException(exception);
 				}
 			}
 			else
 			{
-				ChoiceStrategy strategy = (ChoiceStrategy)getExecutionLocus()!.factory!.getStrategy("choice");
+				ChoiceStrategy strategy = (ChoiceStrategy)GetExecutionLocus()!.factory!.getStrategy("choice");
 				ExceptionHandler handler = matchingExceptionHandlers.ElementAt(strategy.choose(matchingExceptionHandlers.Count) - 1);
-				handle(exception, handler);
+				Handle(exception, handler);
 			}
 		}
 
-		public List<ExceptionHandler> getMatchingExceptionHandlers(Value exception)
+		public List<ExceptionHandler> GetMatchingExceptionHandlers(Value exception)
 		{
 			// Return the set of exception handlers that have an exception type
 			// for which the given exception is an instance.
@@ -64,23 +64,23 @@ namespace fuml.semantics.activities
 			return matchingHandlers;
 		}
 
-		public virtual void handle(Value exception, ExceptionHandler handler)
+		public virtual void Handle(Value exception, ExceptionHandler handler)
 		{
 			// Offer the given exception to the body of the given exception handler
 			// on its exception input node.
 
 			Debug.println("[handle] action = " + node?.name + ", exception = " + exception);
 
-			ActivityNodeActivation? handlerBodyActivation = group?.getNodeActivation(handler?.handlerBody!);
-			ActivityNodeActivation? inputActivation = handlerBodyActivation?.group?.getNodeActivation(handler?.exceptionInput!);
+			ActivityNodeActivation? handlerBodyActivation = group?.GetNodeActivation(handler?.handlerBody!);
+			ActivityNodeActivation? inputActivation = handlerBodyActivation?.group?.GetNodeActivation(handler?.exceptionInput!);
 
             ObjectToken token = new()
             {
                 value = exception
             };
-            inputActivation?.addToken(token);
+            inputActivation?.AddToken(token);
 
-			handlerBodyActivation?.receiveOffer();
+			handlerBodyActivation?.ReceiveOffer();
 		}
 	} // ExecutableNodeActivation
 }

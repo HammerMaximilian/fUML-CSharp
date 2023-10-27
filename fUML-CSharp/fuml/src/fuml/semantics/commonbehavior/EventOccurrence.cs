@@ -12,7 +12,7 @@ namespace fuml.semantics.commonbehavior
 			behavior = new EventOccurrence_SendingBehaviorExecution(this);
 		}
 
-		public void sendTo(Reference target)
+		public void SendTo(Reference target)
 		{
 			// Set the target reference and start the SendingBehavior, which
 			// will send this event occurrence to the target.
@@ -21,16 +21,16 @@ namespace fuml.semantics.commonbehavior
 			_startObjectBehavior();
 		}
 
-		public void doSend()
+		public void DoSend()
 		{
 			// Send this event occurrence to the target.
 
-			target?.send(this);
+			target?.Send(this);
 		}
 
-		public abstract bool match(Trigger trigger);
+		public abstract bool Match(Trigger trigger);
 
-		public bool matchAny(List<Trigger> triggers)
+		public bool MatchAny(List<Trigger> triggers)
 		{
 			// Check that at least one of the given triggers is matched by this 
 			// event occurrence.
@@ -39,7 +39,7 @@ namespace fuml.semantics.commonbehavior
 			int i = 1;
 			while (!matches & i <= triggers.Count)
 			{
-				if (match(triggers.ElementAt(i - 1)))
+				if (Match(triggers.ElementAt(i - 1)))
 				{
 					matches = true;
 				}
@@ -49,7 +49,7 @@ namespace fuml.semantics.commonbehavior
 
 		}
 
-		public abstract List<ParameterValue> getParameterValues(Event event_);
+		public abstract List<ParameterValue> GetParameterValues(Event event_);
 
 
 		private readonly EventOccurrence_SendingBehaviorExecution behavior;

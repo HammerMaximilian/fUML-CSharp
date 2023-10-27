@@ -9,7 +9,7 @@
 
         public void setException(InputPin exception)
         {
-            addInput(exception);
+            AddInput(exception);
             this.exception = exception;
         }
     } // RaiseExceptionAction

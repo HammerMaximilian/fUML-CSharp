@@ -11,19 +11,19 @@ namespace fuml.syntax.actions
         public List<InputPin> input = new();
         public bool isLocallyReentrant = false;
 
-        protected void addInput(InputPin input)
+        protected void AddInput(InputPin input)
         {
-            base.addOwnedElement(input);
+            addOwnedElement(input);
             this.input.Add(input);
         } // addInput
 
-        protected void addOutput(OutputPin output)
+        protected void AddOutput(OutputPin output)
         {
-            base.addOwnedElement(output);
+            addOwnedElement(output);
             this.output.Add(output);
         } // addOutput
 
-        public void setIsLocallyReentrant(bool isLocallyReentrant)
+        public void SetIsLocallyReentrant(bool isLocallyReentrant)
         {
             this.isLocallyReentrant = isLocallyReentrant;
         } // setIsLocallyReentrant

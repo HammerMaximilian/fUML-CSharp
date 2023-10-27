@@ -14,7 +14,7 @@
         {
             if (removeAt is not null)
             {
-                addInput(removeAt);
+                AddInput(removeAt);
             }
 
             this.removeAt = removeAt;

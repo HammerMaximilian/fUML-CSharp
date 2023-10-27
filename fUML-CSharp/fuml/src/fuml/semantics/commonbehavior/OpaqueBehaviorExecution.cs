@@ -6,13 +6,13 @@ namespace fuml.semantics.commonbehavior
 {
     public abstract class OpaqueBehaviorExecution : Execution
     {
-        public override void execute()
+        public override void Execute()
         {
             // Execute the body of the opaque behavior.
 
-            Debug.println("[execute] Opaque behavior " + getBehavior().name + "...");
+            Debug.println("[execute] Opaque behavior " + GetBehavior().name + "...");
 
-            List<Parameter> parameters = getBehavior().ownedParameter;
+            List<Parameter> parameters = GetBehavior().ownedParameter;
 
             List<ParameterValue> inputs = new();
             List<ParameterValue> outputs = new();
@@ -22,7 +22,7 @@ namespace fuml.semantics.commonbehavior
                 if ((parameter.direction == ParameterDirectionKind.in_)
                     | (parameter.direction == ParameterDirectionKind.inout))
                 {
-                    inputs.Add(getParameterValue(parameter));
+                    inputs.Add(GetParameterValue(parameter));
                 }
 
                 if ((parameter.direction == ParameterDirectionKind.inout)
@@ -33,15 +33,15 @@ namespace fuml.semantics.commonbehavior
                     {
                         parameter = parameter
                     };
-                    setParameterValue(parameterValue);
+                    SetParameterValue(parameterValue);
                     outputs.Add(parameterValue);
                 }
             }
 
-            doBody(inputs, outputs);
+            DoBody(inputs, outputs);
         } // execute
 
-        public abstract void doBody(
+        public abstract void DoBody(
                 List<ParameterValue> inputParameters,
                 List<ParameterValue> outputParameters);
     } // OpaqueBehaviorExecution

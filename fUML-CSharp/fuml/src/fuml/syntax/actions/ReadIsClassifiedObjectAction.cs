@@ -21,13 +21,13 @@ namespace fuml.syntax.actions
 
 		public void setResult(OutputPin result)
 		{
-			addOutput(result);
+			AddOutput(result);
 			this.result = result;
 		} // setResult
 
 		public void setObject(InputPin object_)
 		{
-			addInput(object_);
+			AddInput(object_);
 			this.object_ = object_;
 		} // setObject
 	} // ReadIsClassifiedObjectAction

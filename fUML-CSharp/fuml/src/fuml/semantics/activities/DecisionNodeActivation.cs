@@ -11,7 +11,7 @@ namespace fuml.semantics.activities
     {
 		public Execution? decisionInputExecution = null;
 
-		public override void fire(
+		public override void Fire(
 				List<Token> incomingTokens)
 		{
 			// Get the decision values and test them on each guard.
@@ -20,8 +20,8 @@ namespace fuml.semantics.activities
 			Debug.println("[fire] Decision node " + node?.name + "...");
 
 			// List<Token> incomingTokens = this.takeOfferedTokens();
-			List<Token> removedControlTokens = this.removeJoinedControlTokens(incomingTokens);
-			List<Value> decisionValues = getDecisionValues(incomingTokens);
+			List<Token> removedControlTokens = this.RemoveJoinedControlTokens(incomingTokens);
+			List<Value> decisionValues = GetDecisionValues(incomingTokens);
 
 			List<ActivityEdgeInstance> outgoingEdges = this.outgoingEdges;
 			foreach (ActivityEdgeInstance edgeInstance in outgoingEdges)
@@ -33,7 +33,7 @@ namespace fuml.semantics.activities
 				{
 					Token incomingToken = incomingTokens.ElementAt(j);
 					Value decisionValue = decisionValues.ElementAt(j);
-					if (this.test(guard, decisionValue))
+					if (this.Test(guard, decisionValue))
 					{
 						offeredTokens.Add(incomingToken);
 					}
@@ -45,12 +45,12 @@ namespace fuml.semantics.activities
 					{
 						offeredTokens.Add(removedControlToken);
 					}
-					edgeInstance?.sendOffer(offeredTokens);
+					edgeInstance?.SendOffer(offeredTokens);
 				}
 			}
 		} // fire
 
-		public List<Value> getDecisionValues(
+		public List<Value> GetDecisionValues(
 				List<Token> incomingTokens)
 		{
 			// If there is neither a decision input flow nor a decision input
@@ -68,14 +68,14 @@ namespace fuml.semantics.activities
 			// If the primary incoming edge is a control flow, then the decision
 			// input behavior only receives the decision input flow, if any.
 
-			Value decisionInputValue = getDecisionInputFlowValue();
+			Value decisionInputValue = GetDecisionInputFlowValue();
 
 			List<Value> decisionValues = new();
 			for (int i = 0; i < incomingTokens.Count; i++)
 			{
 				Token incomingToken = incomingTokens.ElementAt(i);
-				Value value = executeDecisionInputBehavior(incomingToken
-						.getValue(), decisionInputValue);
+				Value value = ExecuteDecisionInputBehavior(incomingToken
+						.GetValue(), decisionInputValue);
 				decisionValues.Add(value);
 			}
 
@@ -90,7 +90,7 @@ namespace fuml.semantics.activities
 			return decisionValues;
 		} // getDecisionValues
 
-		public Value executeDecisionInputBehavior(
+		public Value ExecuteDecisionInputBehavior(
                 Value inputValue,
                 Value decisionInputValue)
 		{
@@ -125,7 +125,7 @@ namespace fuml.semantics.activities
 			else
 			{
 
-				decisionInputExecution = getExecutionLocus()?.factory?.createExecution(decisionInputBehavior, getExecutionContext());
+				decisionInputExecution = GetExecutionLocus()?.factory?.createExecution(decisionInputBehavior, GetExecutionContext());
 
 				int i = 1;
 				int j = 0;
@@ -152,15 +152,15 @@ namespace fuml.semantics.activities
 							inputParameterValue.values.Add(decisionInputValue!);
 						}
 
-						decisionInputExecution.setParameterValue(inputParameterValue);
+						decisionInputExecution.SetParameterValue(inputParameterValue);
 					}
 					i++;
 				}
 
-				decisionInputExecution.execute();
+				decisionInputExecution.Execute();
 
 				List<ParameterValue> outputParameterValues = decisionInputExecution
-						.getOutputParameterValues();
+						.GetOutputParameterValues();
 				decisionInputExecution.destroy();
 
 				decisionInputResult = outputParameterValues.ElementAt(0).values.ElementAt(0);
@@ -169,20 +169,20 @@ namespace fuml.semantics.activities
 			return decisionInputResult;
 		} // executeDecisionInputBehavior
 
-		public override void terminate()
+		public override void Terminate()
 		{
 			// Terminate the decision input execution, if any, and then terminate
 			// this activation.
 
 			if (decisionInputExecution is not null)
 			{
-				decisionInputExecution.terminate();
+				decisionInputExecution.Terminate();
 			}
 
-			base.terminate();
+			base.Terminate();
 		} // terminate
 
-		public override bool isReady()
+		public override bool IsReady()
 		{
 			// Check that all incoming edges have sources that are offering tokens.
 			// [This should be at most two incoming edges, if there is a decision
@@ -192,14 +192,14 @@ namespace fuml.semantics.activities
 			bool ready = true;
 			while (ready & i <= incomingEdges.Count)
 			{
-				ready = incomingEdges.ElementAt(i - 1).hasOffer();
+				ready = incomingEdges.ElementAt(i - 1).HasOffer();
 				i++;
 			}
 
 			return ready;
 		} // isReady
 
-		public override List<Token> takeOfferedTokens()
+		public override List<Token> TakeOfferedTokens()
 		{
 			// Get tokens from the incoming edge that is not the decision input
 			// flow.
@@ -212,7 +212,7 @@ namespace fuml.semantics.activities
 			{
 				if (edgeInstance.edge != decisionInputFlow)
 				{
-					List<Token> tokens = edgeInstance.takeOfferedTokens();
+					List<Token> tokens = edgeInstance.TakeOfferedTokens();
 					for (int j = 0; j < tokens.Count; j++)
 					{
 						allTokens.Add(tokens.ElementAt(j));
@@ -223,27 +223,27 @@ namespace fuml.semantics.activities
 			return allTokens;
 		} // takeOfferedTokens
 
-		public Value getDecisionInputFlowValue()
+		public Value GetDecisionInputFlowValue()
 		{
 			// Take the next token available on the decision input flow, if any, and
 			// return its value.
 
-			ActivityEdgeInstance decisionInputFlowInstance = getDecisionInputFlowInstance();
+			ActivityEdgeInstance decisionInputFlowInstance = GetDecisionInputFlowInstance();
 
 			Value? value = null;
 			if (decisionInputFlowInstance is not null)
 			{
-				List<Token> tokens = decisionInputFlowInstance.takeOfferedTokens();
+				List<Token> tokens = decisionInputFlowInstance.TakeOfferedTokens();
 				if (tokens.Count > 0)
 				{
-					value = tokens.ElementAt(0).getValue();
+					value = tokens.ElementAt(0).GetValue();
 				}
 			}
 
 			return value!;
 		} // getDecisionInputFlowValue
 
-		public ActivityEdgeInstance getDecisionInputFlowInstance()
+		public ActivityEdgeInstance GetDecisionInputFlowInstance()
 		{
 			// Get the activity edge instance for the decision input flow, if any.
 
@@ -267,7 +267,7 @@ namespace fuml.semantics.activities
 			return edgeInstance!;
 		} // getDecisionInputFlowInstance
 
-		public bool test(ValueSpecification guard, Value value)
+		public bool Test(ValueSpecification guard, Value value)
 		{
 			// Test if the given value matches the guard. If there is no guard,
 			// return true.
@@ -275,14 +275,14 @@ namespace fuml.semantics.activities
 			bool guardResult = true;
 			if (guard is not null)
 			{
-				Value guardValue = getExecutionLocus()!.executor!.evaluate(guard);
+				Value guardValue = GetExecutionLocus()!.executor!.evaluate(guard);
 				guardResult = guardValue.equals(value);
 			}
 
 			return guardResult;
 		} // test
 
-		public List<Token> removeJoinedControlTokens(
+		public List<Token> RemoveJoinedControlTokens(
                 List<Token> incomingTokens)
 		{
 			// If the primary incoming edge is an object flow, then remove any
@@ -292,13 +292,13 @@ namespace fuml.semantics.activities
 
 			List<Token> removedControlTokens = new();
 
-			if (hasObjectFlowInput())
+			if (HasObjectFlowInput())
 			{
 				int i = 1;
 				while (i <= incomingTokens.Count)
 				{
 					Token token = incomingTokens.ElementAt(i - 1);
-					if (token.isControl())
+					if (token.IsControl())
 					{
 						removedControlTokens.Add(token);
 						incomingTokens.RemoveAt(i - 1);
@@ -311,7 +311,7 @@ namespace fuml.semantics.activities
 			return removedControlTokens;
 		} // removeJoinedControlTokens
 
-		public bool hasObjectFlowInput()
+		public bool HasObjectFlowInput()
 		{
 			// Check that the primary incoming edge is an object flow.
 

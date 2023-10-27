@@ -2,7 +2,7 @@
 {
     public class FIFOGetNextEventStrategy : GetNextEventStrategy
     {
-        public override EventOccurrence getNextEvent(ObjectActivation objectActivation)
+        public override EventOccurrence GetNextEvent(ObjectActivation objectActivation)
         {
             // Get the first event from the given event pool. The event is removed
             // from the pool.

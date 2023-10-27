@@ -7,15 +7,15 @@ namespace fuml.syntax.actions
         public Association? association = null;
         public InputPin? object_ = null;
 
-        public void setAssociation(
+        public void SetAssociation(
             Association association)
         {
             this.association = association ?? throw new ArgumentNullException(nameof(association));
         } // setAssociation
 
-        public void setObject(InputPin object_)
+        public void SetObject(InputPin object_)
         {
-            addInput(object_);
+            AddInput(object_);
             this.object_ = object_;
         } // setObject
     } // ClearAssociationAction

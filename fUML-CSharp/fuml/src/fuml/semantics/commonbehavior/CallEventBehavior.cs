@@ -7,7 +7,7 @@ namespace fuml.semantics.commonbehavior
     {
         public Operation? operation = null;
 
-        public void setOperation(Operation operation)
+        public void SetOperation(Operation operation)
         {
             // Set the operation for this call event behavior and construct
             // the behavior signature based on the operation signature.

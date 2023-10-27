@@ -10,7 +10,7 @@ namespace fuml.semantics.commonbehavior
         public Class_? classifier = null;
         public ObjectActivation? objectActivation = null;
 
-        public void invokeBehavior(
+        public void InvokeBehavior(
                 Class_ classifier,
                 List<ParameterValue> inputs)
         {
@@ -40,15 +40,15 @@ namespace fuml.semantics.commonbehavior
             {
                 foreach (ParameterValue input in inputs)
                 {
-                    execution.setParameterValue(input);
+                    execution.SetParameterValue(input);
                 }
             }
 
-            objectActivation?.register(this);
+            objectActivation?.Register(this);
 
         }
 
-        public override bool match(EventOccurrence eventOccurrence)
+        public override bool Match(EventOccurrence eventOccurrence)
         {
             // Return true if the given event occurrence is an invocation event
             // occurrence for the execution of this classifier behavior invocation
@@ -62,24 +62,24 @@ namespace fuml.semantics.commonbehavior
             return matches;
         }
 
-        public override void accept(EventOccurrence eventOccurrence)
+        public override void Accept(EventOccurrence eventOccurrence)
         {
             // Accept an invocation event occurrence. Execute the execution of this
             // classifier behavior invocation event accepter.
 
             if (eventOccurrence is InvocationEventOccurrence)
             {
-                execution?.execute();
+                execution?.Execute();
             }
         }
 
-        public void terminate()
+        public void Terminate()
         {
             // Terminate the associated execution.
             // If the execution is not itself the object of the object activation,
             // then destroy it.
 
-            execution?.terminate();
+            execution?.Terminate();
 
             if (execution != objectActivation?.object_)
             {

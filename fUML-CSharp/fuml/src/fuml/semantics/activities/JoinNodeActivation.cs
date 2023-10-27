@@ -2,7 +2,7 @@
 {
     public class JoinNodeActivation : ControlNodeActivation
     {
-        public override bool isReady()
+        public override bool IsReady()
         {
             // Check that all incoming edges have sources that are offering tokens.
 
@@ -10,7 +10,7 @@
             int i = 1;
             while (ready & i <= incomingEdges.Count)
             {
-                ready = incomingEdges.ElementAt(i - 1).hasOffer();
+                ready = incomingEdges.ElementAt(i - 1).HasOffer();
                 i++;
             }
 

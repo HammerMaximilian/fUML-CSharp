@@ -7,22 +7,22 @@ namespace fuml.semantics.actions
     {
 		public ActionActivation? actionActivation = null;
 
-		public override void fire(List<Token> incomingTokens)
+		public override void Fire(List<Token> incomingTokens)
 		{
 			// Add all incoming tokens to the pin.
 
 			Debug.println("[fire] Pin " + (node is null ? "" : node.name + "..."));
 
-			addTokens(incomingTokens);
+			AddTokens(incomingTokens);
 
 		} // fire
 
-		public override List<Token> takeOfferedTokens()
+		public override List<Token> TakeOfferedTokens()
 		{
 			// Take only a number of tokens only up to the limit allowed by
 			// the multiplicity upper bound of the pin for this activation.
 
-			int count = countUnofferedTokens();
+			int count = CountUnofferedTokens();
 			int upper = -1;
 
 			// Note: A pin activation used in an expansion activation group
@@ -40,16 +40,16 @@ namespace fuml.semantics.actions
 				List<ActivityEdgeInstance> incomingEdges = this.incomingEdges;
 				foreach (ActivityEdgeInstance edge in incomingEdges)
 				{
-					int incomingCount = edge.countOfferedValues();
+					int incomingCount = edge.CountOfferedValues();
 					List<Token> incomingTokens = new();
 					if (upper < 0 | incomingCount < upper - count)
 					{
-						incomingTokens = edge.takeOfferedTokens();
+						incomingTokens = edge.TakeOfferedTokens();
 						count += incomingCount;
 					}
 					else if (count < upper)
 					{
-						incomingTokens = edge.takeOfferedTokens(upper - count);
+						incomingTokens = edge.TakeOfferedTokens(upper - count);
 						count = upper;
 					}
 					foreach (Token token in incomingTokens)

@@ -9,7 +9,7 @@ namespace fuml.semantics.commonbehavior
         public SignalInstance? signalInstance;
 
 
-        public override bool match(Trigger trigger)
+        public override bool Match(Trigger trigger)
         {
             // Match a trigger if it references a signal event whose signal is the type of the 
             // signal instance or one of its supertypes.
@@ -22,7 +22,7 @@ namespace fuml.semantics.commonbehavior
             return matches;
         }
 
-        public override List<ParameterValue> getParameterValues(Event event_)
+        public override List<ParameterValue> GetParameterValues(Event event_)
 
         {
             // Return parameter values for the features of the signal instance, in order,

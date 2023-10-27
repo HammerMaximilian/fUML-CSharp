@@ -6,7 +6,7 @@
 
         public void setResult(OutputPin result)
         {
-            addOutput(result);
+            AddOutput(result);
             this.result = result;
         } // setResult
     } // ClearStructuralFeatureAction

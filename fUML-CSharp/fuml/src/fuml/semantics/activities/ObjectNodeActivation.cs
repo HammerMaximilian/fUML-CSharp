@@ -4,15 +4,15 @@
     {
 		public int offeredTokenCount = 0;
 
-		public override void run()
+		public override void Run()
 		{
 			// Initialize the offered token count to zero.
 
-			base.run();
+			base.Run();
 			offeredTokenCount = 0;
 		} // run
 
-		public override void sendOffers(
+		public override void SendOffers(
 				List<Token> tokens)
 		{
 			// If the set of tokens to be sent is empty, then offer a null token
@@ -28,18 +28,18 @@
                 tokens.Add(token);
 			}
 
-			base.sendOffers(tokens);
+			base.SendOffers(tokens);
 		} // sendOffers
 
-		public override void terminate()
+		public override void Terminate()
 		{
 			// Terminate and remove any offered tokens.
 
-			base.terminate();
-			clearTokens();
+			base.Terminate();
+			ClearTokens();
 		} // terminate
 
-		public override void addToken(
+		public override void AddToken(
                 Token token)
 		{
 			// Transfer the given token to be held by this node only if it is a
@@ -47,22 +47,22 @@
 			// If it is a control token or a null token, consume it without holding
 			// it.
 
-			if (token.getValue() is null)
+			if (token.GetValue() is null)
 			{
-				token.withdraw();
+				token.Withdraw();
 			}
 			else
 			{
-				base.addToken(token);
+				base.AddToken(token);
 			}
 		} // addToken
 
-		public override int removeToken(
+		public override int RemoveToken(
                 Token token)
 		{
 			// Remove the given token, if it is held by this node activation.
 
-			int i = base.removeToken(token);
+			int i = base.RemoveToken(token);
 			if (i > 0 & i <= offeredTokenCount)
 			{
 				offeredTokenCount--;
@@ -71,15 +71,15 @@
 			return i;
 		} // removeToken
 
-		public override void clearTokens()
+		public override void ClearTokens()
 		{
 			// Remove all held tokens.
 
-			base.clearTokens();
+			base.ClearTokens();
 			offeredTokenCount = 0;
 		} // clearTokens
 
-		public int countOfferedValues()
+		public int CountOfferedValues()
 		{
 			// Count the total number of non-null object tokens being offered to
 			// this node activation.
@@ -88,25 +88,25 @@
 			int i = 1;
 			while (i <= incomingEdges.Count)
 			{
-				totalValueCount += incomingEdges.ElementAt(i - 1).countOfferedValues();
+				totalValueCount += incomingEdges.ElementAt(i - 1).CountOfferedValues();
 				i++;
 			}
 
 			return totalValueCount;
 		} // countOfferedValues
 
-		public void sendUnofferedTokens()
+		public void SendUnofferedTokens()
 		{
 			// Send offers over all outgoing edges, if there are any tokens to be
 			// offered.
 
-			List<Token> tokens = getUnofferedTokens();
+			List<Token> tokens = GetUnofferedTokens();
 			offeredTokenCount += tokens.Count;
 
-			sendOffers(tokens);
+			SendOffers(tokens);
 		} // sendUnofferedTokens
 
-		public int countUnofferedTokens()
+		public int CountUnofferedTokens()
 		{
 			// Return the number of unoffered tokens that are to be offered next.
 			// (By default, this is all unoffered tokens.)
@@ -119,7 +119,7 @@
 			return heldTokens.Count - offeredTokenCount;
 		} // countUnofferedTokens
 
-		public List<Token> getUnofferedTokens()
+		public List<Token> GetUnofferedTokens()
 		{
 			// Get the next set of unoffered tokens to be offered and return it.
 			// [Note: This effectively treats all object flows as if they have
@@ -129,7 +129,7 @@
 			List<Token> tokens = new();
 
 			int i = 1;
-			while (i <= countUnofferedTokens())
+			while (i <= CountUnofferedTokens())
 			{
 				tokens.Add(heldTokens.ElementAt(offeredTokenCount + i
 						- 1));
@@ -139,15 +139,15 @@
 			return tokens;
 		} // getUnofferedTokens
 
-		public List<Token> takeUnofferedTokens()
+		public List<Token> TakeUnofferedTokens()
 		{
 			// Take the next set of unoffered tokens to be offered from this node
 			// activation and return them.
 
-			List<Token> tokens = getUnofferedTokens();
+			List<Token> tokens = GetUnofferedTokens();
 			foreach (Token token in tokens)
 			{
-				token.withdraw();
+				token.Withdraw();
 			}
 			return tokens;
 		} // takeUnofferedTokens

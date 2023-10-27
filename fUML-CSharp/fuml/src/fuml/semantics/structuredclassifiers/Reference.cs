@@ -11,33 +11,33 @@ namespace fuml.semantics.structuredclassifiers
     {
         public Object_? referent = null;
 
-        public void startBehavior(
+        public void StartBehavior(
                 Class_ classifier,
                 List<ParameterValue> inputs)
         {
             // Asynchronously start the behavior of the given classifier for the
             // referent object.
 
-            referent?.startBehavior(classifier, inputs);
+            referent?.StartBehavior(classifier, inputs);
         } // startBehavior
 
-        public Execution dispatch(
+        public Execution Dispatch(
                 Operation operation)
         {
             // Dispatch the given operation to the referent object.
 
-            return (referent is not null) ? referent.dispatch(operation) : null!;
+            return (referent is not null) ? referent.Dispatch(operation) : null!;
         } // dispatch
 
-        public void send(
+        public void Send(
                 EventOccurrence eventOccurrence)
         {
             // Send the given event occurrence to the referent object.
 
-            referent?.send(eventOccurrence);
+            referent?.Send(eventOccurrence);
         } // send
 
-        public void destroy()
+        public void Destroy()
         {
             // Destroy the referent.
 

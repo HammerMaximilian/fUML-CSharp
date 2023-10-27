@@ -2,15 +2,15 @@
 {
     public class InitialNodeActivation : ControlNodeActivation
     {
-		public override void fire(List<Token> incomingTokens)
+		public override void Fire(List<Token> incomingTokens)
 		{
 			// Create a single token and send offers for it.
 
 			List<Token> tokens = new();
 			tokens.Add(new ControlToken());
-			addTokens(tokens);
+			AddTokens(tokens);
 
-			sendOffers(tokens);
+			SendOffers(tokens);
 		} // fire
 	} // InitialNodeActivation
 }

@@ -11,6 +11,6 @@ namespace fuml.semantics.commonbehavior
 			return "getNextEvent";
 		} // getName
 
-		public abstract EventOccurrence getNextEvent(ObjectActivation objectActivation);
+		public abstract EventOccurrence GetNextEvent(ObjectActivation objectActivation);
 	} // GetNextEventStrategy
 }

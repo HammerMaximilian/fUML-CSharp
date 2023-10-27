@@ -15,29 +15,29 @@ namespace fuml.semantics.actions
         public bool firing = false;
         public List<PinActivation> pinActivations = new();
 
-        public override void initialize(ActivityNode node, ActivityNodeActivationGroup group)
+        public override void Initialize(ActivityNode node, ActivityNodeActivationGroup group)
         {
             // Initialize this action activation to be not firing.
 
-            base.initialize(node, group);
+            base.Initialize(node, group);
             firing = false;
         }
 
-        public override void run()
+        public override void Run()
         {
             // Run this action activation and any outgoing fork node attached to it.
 
-            base.run();
+            base.Run();
 
             if (outgoingEdges.Count > 0)
             {
-                outgoingEdges?.ElementAt(0)?.target?.run();
+                outgoingEdges?.ElementAt(0)?.target?.Run();
             }
 
             firing = false;
         } // run
 
-        public override List<Token> takeOfferedTokens()
+        public override List<Token> TakeOfferedTokens()
         {
             // If the action is not locally reentrant, then mark this activation as
             // firing.
@@ -53,10 +53,10 @@ namespace fuml.semantics.actions
             List<ActivityEdgeInstance> incomingEdges = this.incomingEdges;
             foreach (ActivityEdgeInstance incomingEdge in incomingEdges)
             {
-                List<Token> tokens = incomingEdge.takeOfferedTokens();
+                List<Token> tokens = incomingEdge.TakeOfferedTokens();
                 foreach (Token token in tokens)
                 {
-                    token.withdraw();
+                    token.Withdraw();
                     offeredTokens.Add(token);
                 }
             }
@@ -67,9 +67,9 @@ namespace fuml.semantics.actions
             List<InputPin> inputPins = action.input;
             foreach (InputPin pin in inputPins)
             {
-                PinActivation pinActivation = getPinActivation(pin);
-                List<Token> tokens = pinActivation.takeOfferedTokens();
-                pinActivation.fire(tokens);
+                PinActivation pinActivation = GetPinActivation(pin);
+                List<Token> tokens = pinActivation.TakeOfferedTokens();
+                pinActivation.Fire(tokens);
                 foreach (Token token in tokens)
                 {
                     offeredTokens.Add(token);
@@ -79,7 +79,7 @@ namespace fuml.semantics.actions
             return offeredTokens;
         } // takeOfferedTokens
 
-        public override void fire(List<Token> incomingTokens)
+        public override void Fire(List<Token> incomingTokens)
         {
             // Do the main action behavior then concurrently fire all output pin
             // activations
@@ -93,70 +93,70 @@ namespace fuml.semantics.actions
 
                 Debug.println("[fire] Action " + node?.name + "...");
                 Debug.println("[event] Fire activity="
-                        + getActivityExecution().getBehavior().name
+                        + GetActivityExecution().GetBehavior().name
                         + " action=" + node?.name);
 
-                doAction();
-                incomingTokens = completeAction();
+                DoAction();
+                incomingTokens = CompleteAction();
 
             } while (incomingTokens.Count > 0);
         } // fire
 
-        public override void terminate()
+        public override void Terminate()
         {
             // Terminate this action activation and any outgoing fork node attached
             // to it.
 
-            base.terminate();
+            base.Terminate();
 
             if (outgoingEdges.Count > 0)
             {
-                outgoingEdges?.ElementAt(0)?.target?.terminate();
+                outgoingEdges?.ElementAt(0)?.target?.Terminate();
             }
         } // terminate
 
-        public virtual List<Token> completeAction()
+        public virtual List<Token> CompleteAction()
         {
             // Concurrently fire all output pin activations and offer a single
             // control token. Then check if the action should fire again
             // and, if so, return additional incoming tokens for this.
 
-            sendOffers();
+            SendOffers();
 
             Debug.println("[fire] Checking if " + node?.name + " should fire again...");
 
             _beginIsolation();
             List<Token> incomingTokens = new();
             firing = false;
-            if (isReady())
+            if (IsReady())
             {
-                incomingTokens = takeOfferedTokens();
-                firing = isFiring() & incomingTokens.Count > 0;
+                incomingTokens = TakeOfferedTokens();
+                firing = IsFiring() & incomingTokens.Count > 0;
             }
             _endIsolation();
 
             return incomingTokens;
         } // completeAction
 
-        public override bool isReady()
+        public override bool IsReady()
         {
             // Check that the action is ready to fire, including
             // that all input pin activations are ready.
 
-            bool ready = isControlReady();
+            bool ready = IsControlReady();
 
             List<InputPin> inputPins = ((syntax.actions.Action)node!).input;
             int j = 1;
             while (ready & j <= inputPins.Count)
             {
-                ready = getPinActivation(inputPins.ElementAt(j - 1)).isReady();
+                ready = GetPinActivation(inputPins.ElementAt(j - 1)).IsReady();
                 j++;
             }
 
             return ready;
         } // isReady
 
-        public bool isControlReady()
+        public bool IsControlReady()
         {
             // In addition to the default condition for being ready, check that, 
             // if the action has isLocallyReentrant=false, then the activation is 
@@ -164,37 +164,37 @@ namespace fuml.semantics.actions
             // have offers. (This assumes that all edges directly incoming to the
             // action are control flows.)
 
-            bool ready = base.isReady()
-                    & (((syntax.actions.Action)node!).isLocallyReentrant | !isFiring());
+            bool ready = base.IsReady()
+                    & (((syntax.actions.Action)node!).isLocallyReentrant | !IsFiring());
 
             int i = 1;
             while (ready & i <= incomingEdges.Count)
             {
-                ready = incomingEdges.ElementAt(i - 1).hasOffer();
+                ready = incomingEdges.ElementAt(i - 1).HasOffer();
                 i++;
             }
 
             return ready;
         }
 
-        public bool isFiring()
+        public bool IsFiring()
         {
             // Indicate whether this action activation is currently firing or not.
 
             return firing;
         } // isFiring
 
-        public abstract void doAction();
+        public abstract void DoAction();
 
-        public void sendOffers()
+        public void SendOffers()
         {
             // Fire all output pins and send offers on all outgoing control flows.
             // *** Send offers from all output pins concurrently. ***
-            List<OutputPin> outputPins = getOfferingOutputPins();
+            List<OutputPin> outputPins = GetOfferingOutputPins();
             foreach (OutputPin outputPin in outputPins)
             {
-                PinActivation pinActivation = getPinActivation(outputPin);
-                pinActivation.sendUnofferedTokens();
+                PinActivation pinActivation = GetPinActivation(outputPin);
+                pinActivation.SendUnofferedTokens();
             }
 
             // Send offers on all outgoing control flows.
@@ -202,12 +202,12 @@ namespace fuml.semantics.actions
             {
                 List<Token> tokens = new();
                 tokens.Add(new ControlToken());
-                addTokens(tokens);
-                outgoingEdges.ElementAt(0).sendOffer(tokens);
+                AddTokens(tokens);
+                outgoingEdges.ElementAt(0).SendOffer(tokens);
             }
         } // sendOffers
 
-        public List<OutputPin> getOfferingOutputPins()
+        public List<OutputPin> GetOfferingOutputPins()
         {
             // Return the output pins of the action of this action activation from 
             // which offers are to be sent when the action activation finishes firing.
@@ -217,7 +217,7 @@ namespace fuml.semantics.actions
             return ((syntax.actions.Action)node!).output;
         }
 
-        public override void createNodeActivations()
+        public override void CreateNodeActivations()
         {
             // Create node activations for the input and output pins of the action
             // for this activation.
@@ -233,11 +233,11 @@ namespace fuml.semantics.actions
                 inputPinNodes.Add(inputPin);
             }
 
-            group?.createNodeActivations(inputPinNodes);
+            group?.CreateNodeActivations(inputPinNodes);
 
             foreach (ActivityNode node in inputPinNodes)
             {
-                addPinActivation((PinActivation)group?.getNodeActivation(node)!);
+                AddPinActivation((PinActivation)group?.GetNodeActivation(node)!);
             }
 
             List<ActivityNode> outputPinNodes = new();
@@ -247,16 +247,16 @@ namespace fuml.semantics.actions
                 outputPinNodes.Add(outputPin);
             }
 
-            group?.createNodeActivations(outputPinNodes);
+            group?.CreateNodeActivations(outputPinNodes);
 
             for (int i = 0; i < outputPinNodes.Count; i++)
             {
                 ActivityNode node = outputPinNodes.ElementAt(i);
-                addPinActivation((PinActivation)group?.getNodeActivation(node)!);
+                AddPinActivation((PinActivation)group?.GetNodeActivation(node)!);
             }
         } // createNodeActivations
 
-        public override void addOutgoingEdge(ActivityEdgeInstance edge)
+        public override void AddOutgoingEdge(ActivityEdgeInstance edge)
         {
             // If there are no outgoing activity edge instances, create a single
             // activity edge instance with a fork node execution at the other end.
@@ -274,18 +274,18 @@ namespace fuml.semantics.actions
                     running = false
                 };
                 ActivityEdgeInstance newEdge = new();
-                base.addOutgoingEdge(newEdge);
-                forkNodeActivation.addIncomingEdge(newEdge);
+                base.AddOutgoingEdge(newEdge);
+                forkNodeActivation.AddIncomingEdge(newEdge);
             }
             else
             {
                 forkNodeActivation = outgoingEdges?.ElementAt(0)?.target!;
             }
 
-            forkNodeActivation.addOutgoingEdge(edge);
+            forkNodeActivation.AddOutgoingEdge(edge);
         } // addOutgoingEdge
 
-        public void addPinActivation(PinActivation pinActivation)
+        public void AddPinActivation(PinActivation pinActivation)
         {
             // Add a pin activation to this action activation.
 
@@ -293,7 +293,7 @@ namespace fuml.semantics.actions
             pinActivation.actionActivation = this;
         } // addPinActivation
 
-        public PinActivation getPinActivation(Pin pin)
+        public PinActivation GetPinActivation(Pin pin)
         {
             // Precondition: The given pin is owned by the action of the action
             // activation.
@@ -316,7 +316,7 @@ namespace fuml.semantics.actions
 
         } // getPinActivation
 
-        public void putToken(OutputPin pin, Value value)
+        public void PutToken(OutputPin pin, Value value)
         {
             // Precondition: The action execution has fired and the given pin is
             // owned by the action of the action execution.
@@ -328,11 +328,11 @@ namespace fuml.semantics.actions
             ObjectToken token = new();
             token.value = value;
 
-            PinActivation pinActivation = getPinActivation(pin);
-            pinActivation.addToken(token);
+            PinActivation pinActivation = GetPinActivation(pin);
+            pinActivation.AddToken(token);
         } // putToken
 
-        public void putTokens(OutputPin pin, List<Value> values)
+        public void PutTokens(OutputPin pin, List<Value> values)
         {
             // Precondition: The action execution has fired and the given pin is
             // owned by the action of the action execution.
@@ -341,12 +341,12 @@ namespace fuml.semantics.actions
 
             foreach (Value value in values)
             {
-                putToken(pin, value);
+                PutToken(pin, value);
             }
 
         } // putTokens
 
-        public List<Value> getTokens(InputPin pin)
+        public List<Value> GetTokens(InputPin pin)
         {
             // Precondition: The action execution has fired and the given pin is
             // owned by the action of the action execution.
@@ -356,8 +356,8 @@ namespace fuml.semantics.actions
 
             Debug.println("[getTokens] node = " + node?.name + ", pin = " + pin.name);
 
-            PinActivation pinActivation = getPinActivation(pin);
-            List<Token> tokens = pinActivation.getUnofferedTokens();
+            PinActivation pinActivation = GetPinActivation(pin);
+            List<Token> tokens = pinActivation.GetUnofferedTokens();
 
             List<Value> values = new();
             foreach (Token token in tokens)
@@ -372,7 +372,7 @@ namespace fuml.semantics.actions
             return values;
         } // getTokens
 
-        public List<Value> takeTokens(InputPin pin)
+        public List<Value> TakeTokens(InputPin pin)
         {
             // Precondition: The action execution has fired and the given pin is
             // owned by the action of the action execution.
@@ -381,8 +381,8 @@ namespace fuml.semantics.actions
 
             Debug.println("[takeTokens] node = " + node?.name + ", pin = " + pin.name);
 
-            PinActivation pinActivation = getPinActivation(pin);
-            List<Token> tokens = pinActivation.takeUnofferedTokens();
+            PinActivation pinActivation = GetPinActivation(pin);
+            List<Token> tokens = pinActivation.TakeUnofferedTokens();
 
             List<Value> values = new();
             foreach (Token token in tokens)
@@ -397,7 +397,7 @@ namespace fuml.semantics.actions
             return values;
         } // takeTokens
 
-        public override bool isSourceFor(ActivityEdgeInstance edgeInstance)
+        public override bool IsSourceFor(ActivityEdgeInstance edgeInstance)
         {
             // If this action has an outgoing fork node, check that the fork node is
             // the source of the given edge instance.
@@ -405,13 +405,13 @@ namespace fuml.semantics.actions
             bool isSource = false;
             if (outgoingEdges.Count > 0)
             {
-                isSource = outgoingEdges.ElementAt(0).target!.isSourceFor(edgeInstance);
+                isSource = outgoingEdges.ElementAt(0).target!.IsSourceFor(edgeInstance);
             }
 
             return isSource;
         } // isSourceFor
 
-        public bool valueParticipatesInLink(Value value,
+        public bool ValueParticipatesInLink(Value value,
                 structuredclassifiers.Link link)
         {
             // Test if the given value participates in the given link.
@@ -429,7 +429,7 @@ namespace fuml.semantics.actions
             return participates;
         } // valueParticipatesInLink
 
-        public Association getAssociation(
+        public Association GetAssociation(
                StructuralFeature feature)
         {
             // If the given structural feature is an association end, then get 
@@ -444,7 +444,7 @@ namespace fuml.semantics.actions
             return association!;
         } // getAssociation
 
-        public List<Value> getValues(
+        public List<Value> GetValues(
                 Value sourceValue,
                 StructuralFeature feature)
         {
@@ -457,10 +457,10 @@ namespace fuml.semantics.actions
 
             List<Value> values = new();
 
-            Association association = getAssociation(feature);
+            Association association = GetAssociation(feature);
             if (association is not null)
             {
-                List<Link> links = getMatchingLinks(association, feature, sourceValue);
+                List<Link> links = GetMatchingLinks(association, feature, sourceValue);
                 foreach (Link link in links)
                 {
                     values.Add(link.getFeatureValue(feature).values.ElementAt(0));
@@ -474,7 +474,7 @@ namespace fuml.semantics.actions
             return values;
         }
 
-        public List<Link> getMatchingLinks(
+        public List<Link> GetMatchingLinks(
                 Association association,
                 StructuralFeature end,
                 Value oppositeValue)
@@ -482,11 +482,11 @@ namespace fuml.semantics.actions
             // Get the links of the given binary association whose end opposite
             // to the given end has the given value
 
-            return getMatchingLinksForEndValue(association, end, oppositeValue, null!);
+            return GetMatchingLinksForEndValue(association, end, oppositeValue, null!);
         }
 
 
-        public List<Link> getMatchingLinksForEndValue(
+        public List<Link> GetMatchingLinksForEndValue(
                 Association association,
                 StructuralFeature end,
                 Value oppositeValue,
@@ -496,9 +496,9 @@ namespace fuml.semantics.actions
             // to the given end has the given opposite value and, optionally, that
             // has a given end value for the given end.
 
-            Property oppositeEnd = getOppositeEnd(association, end);
+            Property oppositeEnd = GetOppositeEnd(association, end);
 
-            List<ExtensionalValue> extent = getExecutionLocus().getExtent(
+            List<ExtensionalValue> extent = GetExecutionLocus().getExtent(
                     association);
 
             List<Link> links = new();
@@ -543,7 +543,7 @@ namespace fuml.semantics.actions
             return links;
         } // getMatchingLinksForEndValue
 
-        public Property getOppositeEnd(
+        public Property GetOppositeEnd(
                 Association association,
                 StructuralFeature end)
         {
@@ -558,7 +558,7 @@ namespace fuml.semantics.actions
             return oppositeEnd;
         } // getOppositeEnd
 
-        public BooleanValue makeBooleanValue(bool value)
+        public BooleanValue MakeBooleanValue(bool value)
         {
             // Make a bool value using the built-in bool primitive type.
             // [This ensures that bool values created internally are the same as
@@ -566,26 +566,26 @@ namespace fuml.semantics.actions
 
             LiteralBoolean booleanLiteral = new();
             booleanLiteral.value = value;
-            return (BooleanValue)getExecutionLocus()?.executor?.evaluate(booleanLiteral)!;
+            return (BooleanValue)GetExecutionLocus()?.executor?.evaluate(booleanLiteral)!;
         } // makeboolValue
 
-        public override void handle(Value exception, ExceptionHandler handler)
+        public override void Handle(Value exception, ExceptionHandler handler)
         {
             // Handle the given exception by firing the body of the given
             // exception handler. After the body fires, transfer its outputs
             // to the output pins of this action activation.
 
-            base.handle(exception, handler);
-            transferOutputs((syntax.actions.Action)handler?.handlerBody!);
+            base.Handle(exception, handler);
+            TransferOutputs((syntax.actions.Action)handler?.handlerBody!);
         }
 
-        public void transferOutputs(syntax.actions.Action handlerBody)
+        public void TransferOutputs(syntax.actions.Action handlerBody)
         {
             // Transfer the output values from activation of the given exception
             // handler body to the output pins of this action activation.
 
             ActionActivation handlerBodyActivation =
-                    (ActionActivation)group?.getNodeActivation(handlerBody)!;
+                    (ActionActivation)group?.GetNodeActivation(handlerBody)!;
             List<OutputPin> sourceOutputs = handlerBody.output;
             List<OutputPin> targetOutputs = ((syntax.actions.Action)node!)?.output!;
 
@@ -594,15 +594,15 @@ namespace fuml.semantics.actions
                 OutputPin sourcePin = sourceOutputs.ElementAt(i);
                 OutputPin targetPin = targetOutputs.ElementAt(i);
 
-                PinActivation sourcePinActivation = handlerBodyActivation.getPinActivation(sourcePin);
-                List<Token> tokens = sourcePinActivation.takeTokens();
+                PinActivation sourcePinActivation = handlerBodyActivation.GetPinActivation(sourcePin);
+                List<Token> tokens = sourcePinActivation.TakeTokens();
                 List<Value> values = new();
                 foreach (Token token in tokens)
                 {
-                    values.Add(token.getValue());
+                    values.Add(token.GetValue());
                 }
 
-                putTokens(targetPin, values);
+                PutTokens(targetPin, values);
             }
         }
     } // ActionActivation

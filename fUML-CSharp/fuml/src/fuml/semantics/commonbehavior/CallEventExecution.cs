@@ -8,51 +8,51 @@ namespace fuml.semantics.commonbehavior
     {
         public bool callerSuspended = false;
 
-        public bool isCallerSuspended()
+        public bool IsCallerSuspended()
         {
             // Check if the caller is still suspended.
             // This is done in isolation from possible concurrent updates to this flag.
 
             _beginIsolation();
             bool isSuspended = callerSuspended;
-            Debug.println("[isCallerSuspended] operation = " + getOperation()?.name +
+            Debug.println("[isCallerSuspended] operation = " + GetOperation()?.name +
                     ", callerSuspended = " + isSuspended);
             _endIsolation();
 
             return isSuspended;
         }
 
-        public void setCallerSuspended(bool callerSuspended)
+        public void SetCallerSuspended(bool callerSuspended)
         {
             // Set the caller suspended flag to the given value.
             // This is done in isolation from possible concurrent queries to this flag.
 
             _beginIsolation();
             this.callerSuspended = callerSuspended;
-            Debug.println("[setCallerSuspended] operation = " + getOperation()?.name +
+            Debug.println("[setCallerSuspended] operation = " + GetOperation()?.name +
                     ", callerSuspended = " + callerSuspended);
             _endIsolation();
         }
 
-        public void suspendCaller()
+        public void SuspendCaller()
         {
             // Suspend the caller until the caller is released.
 
-            while (isCallerSuspended())
+            while (IsCallerSuspended())
             {
-                wait_();
+                Wait_();
             }
 
         }
 
-        public void releaseCaller()
+        public void ReleaseCaller()
         {
             // Release the caller, if suspended.
 
-            setCallerSuspended(false);
+            SetCallerSuspended(false);
         }
 
-        public override void execute()
+        public override void Execute()
         {
             // Make the call on the tarElementAt object (which is the context of this execution) 
             // and suspend the caller until the call is completed. 
@@ -60,13 +60,13 @@ namespace fuml.semantics.commonbehavior
             // Note: The callerSuspended flag needs to be set before the call is made,
             // in case the call is immediately handled and returned, even before the
             // suspend loop is started.
-            setCallerSuspended(true);
+            SetCallerSuspended(true);
 
-            makeCall();
-            suspendCaller();
+            MakeCall();
+            SuspendCaller();
         }
 
-        public void makeCall()
+        public void MakeCall()
         {
             // Make the call on the tarElementAt object (which is the context of this execution)
             // by sending a call event occurrence. (Note that the call will never be 
@@ -75,10 +75,10 @@ namespace fuml.semantics.commonbehavior
 
             Reference reference = new();
             reference.referent = context;
-            createEventOccurrence().sendTo(reference);
+            CreateEventOccurrence().SendTo(reference);
         }
 
-        public EventOccurrence createEventOccurrence()
+        public EventOccurrence CreateEventOccurrence()
         {
             // Create a call event occurrence associated with this call event execution.
             // (This operation may be overridden in subclasses to alter how the event
@@ -89,14 +89,14 @@ namespace fuml.semantics.commonbehavior
             return eventOccurrence;
         }
 
-        public Operation getOperation()
+        public Operation GetOperation()
         {
             // Return the operation being called by this call event execution.
 
-            return ((CallEventBehavior)getBehavior())?.operation!;
+            return ((CallEventBehavior)GetBehavior())?.operation!;
         }
 
-        public List<ParameterValue> getInputParameterValues()
+        public List<ParameterValue> GetInputParameterValues()
         {
             // Return input parameter values for this execution
 
@@ -113,11 +113,11 @@ namespace fuml.semantics.commonbehavior
             return parameterValues;
         }
 
-        public void setOutputParameterValues(List<ParameterValue> parameterValues)
+        public void SetOutputParameterValues(List<ParameterValue> parameterValues)
         {
             // Set the output parameter values for this execution.
 
-            List<Parameter> parameters = getBehavior().ownedParameter;
+            List<Parameter> parameters = GetBehavior().ownedParameter;
             int i = 1;
             int j = 1;
             while (i <= parameters.Count)
@@ -128,14 +128,14 @@ namespace fuml.semantics.commonbehavior
                         parameter.direction == ParameterDirectionKind.return_ ) {
                     ParameterValue parameterValue = parameterValues.ElementAt(j - 1);
                     parameterValue.parameter = parameter;
-                    setParameterValue(parameterValue);
+                    SetParameterValue(parameterValue);
                     j++;
                 }
                 i++;
             }
         }
 
-        public override Value new_()
+        public override Value New_()
         {
             // Create a new call event execution.
 
@@ -152,13 +152,13 @@ namespace fuml.semantics.commonbehavior
             return copy;
         }
 
-        public void wait_()
+        public void Wait_()
         {
             // Wait for an indeterminate amount of time to allow other concurrent
             // executions to proceed.
             // [There is no further formal specification for this operation.]
 
-            Debug.println(!ExecutionQueue.step(), "[wait] Stuck!");
+            Debug.println(!ExecutionQueue.Step(), "[wait] Stuck!");
         }
     } // CallEventExecution
 }

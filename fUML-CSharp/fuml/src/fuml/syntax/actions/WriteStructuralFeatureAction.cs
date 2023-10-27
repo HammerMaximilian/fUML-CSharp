@@ -7,13 +7,13 @@
 
         public virtual void setResult(OutputPin result)
         {
-            addOutput(result);
+            AddOutput(result);
             this.result = result;
         } // setResult
 
         public void setValue(InputPin value)
         {
-            addInput(value);
+            AddInput(value);
             this.value = value;
         } // setValue
     } // WriteStructuralFeatureAction

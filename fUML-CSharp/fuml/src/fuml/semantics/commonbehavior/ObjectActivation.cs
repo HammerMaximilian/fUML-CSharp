@@ -17,7 +17,7 @@ namespace fuml.semantics.commonbehavior
             behavior = new ObjectActivation_EventDispatchLoopExecution(this);
         }
 
-        public void stop()
+        public void Stop()
         {
             // Stop this object activation by terminating all classifier behavior
             // executions.
@@ -25,12 +25,12 @@ namespace fuml.semantics.commonbehavior
             List<ClassifierBehaviorInvocationEventAccepter> classifierBehaviorInvocations = this.classifierBehaviorInvocations;
             foreach (ClassifierBehaviorInvocationEventAccepter classifierBehaviorInvocation in classifierBehaviorInvocations)
             {
-                classifierBehaviorInvocation.terminate();
+                classifierBehaviorInvocation.Terminate();
             }
 
         } // stop
 
-        public void register(EventAccepter accepter)
+        public void Register(EventAccepter accepter)
         {
             // Register the given event accepter to wait for a dispatched signal
             // event.
@@ -41,7 +41,7 @@ namespace fuml.semantics.commonbehavior
             waitingEventAccepters.Add(accepter);
         } // register
 
-        public void unregister(
+        public void Unregister(
                 EventAccepter accepter)
         {
             // Remove the given event accepter for the list of waiting event
@@ -64,7 +64,7 @@ namespace fuml.semantics.commonbehavior
 
         } // unregister
 
-        public void dispatchNextEvent()
+        public void DispatchNextEvent()
         {
             // Get the next event occurrence out of the event pool.
             // If there are one or more waiting event accepters with triggers that
@@ -73,7 +73,7 @@ namespace fuml.semantics.commonbehavior
 
             if (eventPool.Count > 0)
             {
-                EventOccurrence eventOccurrence = getNextEvent();
+                EventOccurrence eventOccurrence = GetNextEvent();
 
                 Debug.println("[dispatchNextEvent] eventOccurrence = " + eventOccurrence);
 
@@ -82,7 +82,7 @@ namespace fuml.semantics.commonbehavior
                 for (int i = 0; i < waitingEventAccepters.Count; i++)
                 {
                     EventAccepter eventAccepter = waitingEventAccepters.ElementAt(i);
-                    if (eventAccepter.match(eventOccurrence))
+                    if (eventAccepter.Match(eventOccurrence))
                     {
                         matchingEventAccepterIndexes.Add(i);
                     }
@@ -97,22 +97,22 @@ namespace fuml.semantics.commonbehavior
                     EventAccepter selectedEventAccepter = this.waitingEventAccepters
                             .ElementAt(k);
                     this.waitingEventAccepters.RemoveAt(k);
-                    selectedEventAccepter.accept(eventOccurrence);
+                    selectedEventAccepter.Accept(eventOccurrence);
                 }
             }
         } // dispatchNextEvent
 
-        public EventOccurrence getNextEvent()
+        public EventOccurrence GetNextEvent()
         {
             // Get the next event from the event pool, using a get next event
             // strategy.
 
             GetNextEventStrategy? getNextEventStrategy = (GetNextEventStrategy)object_?.locus?.factory?.getStrategy("getNextEvent")!;
 
-            return (getNextEventStrategy is not null) ? getNextEventStrategy.getNextEvent(this) : throw new NullReferenceException();
+            return (getNextEventStrategy is not null) ? getNextEventStrategy.GetNextEvent(this) : throw new NullReferenceException();
         } // getNextEvent
 
-        public void send(
+        public void Send(
                 EventOccurrence eventOccurrence)
         {
             // Add an event occurrence to the event pool and signal that a
@@ -122,7 +122,7 @@ namespace fuml.semantics.commonbehavior
             _send(new ArrivalSignal());
         } // send
 
-        public void startBehavior(
+        public void StartBehavior(
                 Class_ classifier,
                 List<ParameterValue> inputs)
         {
@@ -150,7 +150,7 @@ namespace fuml.semantics.commonbehavior
                 {
                     if (type is Behavior | type.classifierBehavior is not null)
                     {
-                        startBehavior(type, new List<ParameterValue>());
+                        StartBehavior(type, new List<ParameterValue>());
                     }
                 }
             }
@@ -173,7 +173,7 @@ namespace fuml.semantics.commonbehavior
                     ClassifierBehaviorInvocationEventAccepter newInvocation = new();
                     newInvocation.objectActivation = this;
                     classifierBehaviorInvocations.Add(newInvocation);
-                    newInvocation.invokeBehavior(classifier!, inputs);
+                    newInvocation.InvokeBehavior(classifier!, inputs);
                     InvocationEventOccurrence eventOccurrence = new();
                     eventOccurrence.execution = newInvocation.execution;
                     eventPool.Add(eventOccurrence);

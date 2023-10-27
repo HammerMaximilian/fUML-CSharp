@@ -10,7 +10,7 @@ namespace fuml.semantics.activities
 		public ActivityNodeActivation? target = null;
 		public List<Offer> offers = new();
 
-		public void sendOffer(
+		public void SendOffer(
                 List<Token> tokens)
 		{
 			// Send an offer from the source to the target.
@@ -27,11 +27,11 @@ namespace fuml.semantics.activities
 
 			offers.Add(offer);
 
-			target?.receiveOffer();
+			target?.ReceiveOffer();
 
 		} // sendOffer
 
-		public int countOfferedValues()
+		public int CountOfferedValues()
 		{
 			// Return the number of values being offered in object tokens.
 
@@ -39,13 +39,13 @@ namespace fuml.semantics.activities
 			List<Offer> offers = this.offers;
 			foreach (Offer offer in offers)
 			{
-				count += offer.countOfferedValues();
+				count += offer.CountOfferedValues();
 			}
 
 			return count;
 		} // countOfferedValues
 
-		public List<Token> takeOfferedTokens()
+		public List<Token> TakeOfferedTokens()
 		{
 			// Take all the offered tokens and return them.
 
@@ -53,7 +53,7 @@ namespace fuml.semantics.activities
 
 			while (offers.Count > 0)
 			{
-				List<Token> offeredTokens = offers.ElementAt(0).getOfferedTokens();
+				List<Token> offeredTokens = offers.ElementAt(0).GetOfferedTokens();
 				foreach (Token token in offeredTokens)
 				{
 					tokens.Add(token);
@@ -64,7 +64,7 @@ namespace fuml.semantics.activities
 			return tokens;
 		} // takeOfferedTokens
 
-		public List<Token> takeOfferedTokens(int maxCount)
+		public List<Token> TakeOfferedTokens(int maxCount)
 		{
 			// Take all the offered tokens, up to the given maximum count of
 			// non-null object tokens, and return them.
@@ -75,8 +75,8 @@ namespace fuml.semantics.activities
 			while (offers.Count > 0 & remainingCount > 0)
 			{
 				Offer offer = offers.ElementAt(0);
-				List<Token> offeredTokens = offer.getOfferedTokens();
-				int count = offer.countOfferedValues();
+				List<Token> offeredTokens = offer.GetOfferedTokens();
+				int count = offer.CountOfferedValues();
 				if (count <= remainingCount)
 				{
 					foreach (Token offeredToken in offeredTokens)
@@ -91,12 +91,12 @@ namespace fuml.semantics.activities
 					for (int i = 0; i < remainingCount; i++)
 					{
 						Token token = offeredTokens.ElementAt(i);
-						if (token.getValue() != null)
+						if (token.GetValue() != null)
 						{
 							tokens.Add(token);
 						}
 					}
-					offer.removeOfferedValues(remainingCount);
+					offer.RemoveOfferedValues(remainingCount);
 					remainingCount = 0;
 				}
 			}
@@ -104,7 +104,7 @@ namespace fuml.semantics.activities
 			return tokens;
 		} // takeOfferedTokens
 
-		public List<Token> getOfferedTokens()
+		public List<Token> GetOfferedTokens()
 		{
 			// Get the offered tokens (after which the tokens will still be
 			// offered).
@@ -114,7 +114,7 @@ namespace fuml.semantics.activities
 
 			for (int i = 0; i < offers.Count; i++)
 			{
-				List<Token> offeredTokens = offers.ElementAt(i).getOfferedTokens();
+				List<Token> offeredTokens = offers.ElementAt(i).GetOfferedTokens();
 				for (int j = 0; j < offeredTokens.Count; j++)
 				{
 					tokens.Add(offeredTokens.ElementAt(j));
@@ -124,7 +124,7 @@ namespace fuml.semantics.activities
 			return tokens;
 		} // getOfferedTokens
 
-		public bool hasOffer()
+		public bool HasOffer()
 		{
 			// Return true if there are any pending offers.
 
@@ -132,7 +132,7 @@ namespace fuml.semantics.activities
 			int i = 1;
 			while (!hasTokens & i <= offers.Count)
 			{
-				hasTokens = offers.ElementAt(i - 1).hasTokens();
+				hasTokens = offers.ElementAt(i - 1).HasTokens();
 				i++;
 			}
 

@@ -23,13 +23,13 @@ namespace fuml.syntax.actions
 		public void setCollection(
 				InputPin collection)
 		{
-			addInput(collection);
+			AddInput(collection);
 			this.collection = collection;
 		} // setCollection
 
 		public void setResult(OutputPin result)
 		{
-			addOutput(result);
+			AddOutput(result);
 			this.result = result;
 		} // setResult
 	} // ReduceAction

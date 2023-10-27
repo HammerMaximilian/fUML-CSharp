@@ -44,14 +44,14 @@ namespace fuml.syntax.actions
         public void addStructuredNodeOutput(
                 OutputPin structuredNodeOutput)
         {
-            addOutput(structuredNodeOutput);
+            AddOutput(structuredNodeOutput);
             this.structuredNodeOutput.Add(structuredNodeOutput);
         } // addStructuredNodeOutput
 
         public void addStructuredNodeInput(
                 InputPin structuredNodeInput)
         {
-            addInput(structuredNodeInput);
+            AddInput(structuredNodeInput);
             this.structuredNodeInput.Add(structuredNodeInput);
         } // addStructuredNodeInput
 

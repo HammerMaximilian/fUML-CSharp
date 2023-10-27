@@ -6,7 +6,7 @@
 
         public void addArgument(InputPin argument)
         {
-            addInput(argument);
+            AddInput(argument);
             this.argument.Add(argument);
         } // addArgument
     } // InvocationAction

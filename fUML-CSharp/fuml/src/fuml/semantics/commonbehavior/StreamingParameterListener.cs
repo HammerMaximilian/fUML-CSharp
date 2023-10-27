@@ -4,8 +4,8 @@ namespace fuml.semantics.commonbehavior
 {
     public abstract class StreamingParameterListener
     {
-        public abstract void post(List<Value> values);
+        public abstract void Post(List<Value> values);
 
-        public abstract bool isTerminated();
+        public abstract bool IsTerminated();
     } // StreamingParameterListener
 }

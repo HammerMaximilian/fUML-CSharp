@@ -4,7 +4,7 @@ namespace fuml.semantics.activities
 {
     public class ControlToken : Token
     {
-		public override bool equals(Token other)
+		public override bool Equals(Token other)
 		{
 			// Return true if the other token is a control token, because control
 			// tokens are interchangable.
@@ -13,21 +13,21 @@ namespace fuml.semantics.activities
 
 		} // equals
 
-		public override Token copy()
+		public override Token Copy()
 		{
 			// Return a new control token.
 
 			return new ControlToken();
 		} // copy
 
-		public override bool isControl()
+		public override bool IsControl()
 		{
 			// Return true for a control token.
 
 			return true;
 		} // isControl
 
-		public override Value getValue()
+		public override Value GetValue()
 		{
 			// Control tokens do not have values.
 

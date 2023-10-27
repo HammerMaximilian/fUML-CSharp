@@ -11,9 +11,9 @@ namespace fuml.semantics.commonbehavior
         public List<ParameterValue> parameterValues = new();
         public Value? exception;
 
-        public abstract void execute();
+        public abstract void Execute();
 
-        public virtual void terminate()
+        public virtual void Terminate()
         {
             // Terminate an ongoing execution. By default, do nothing.
 
@@ -32,15 +32,15 @@ namespace fuml.semantics.commonbehavior
             List<ParameterValue> parameterValues = this.parameterValues;
             foreach (ParameterValue parameterValue in parameterValues)
             {
-                newValue.parameterValues.Add(parameterValue.copy());
+                newValue.parameterValues.Add(parameterValue.Copy());
             }
 
             return newValue;
         } // copy
 
-        public abstract new Value new_();
+        public abstract Value New_();
 
-        public void setParameterValue(
+        public void SetParameterValue(
                 ParameterValue parameterValue)
         {
             // Set the given parameter value for this execution.
@@ -48,7 +48,7 @@ namespace fuml.semantics.commonbehavior
             // parameter value, then replace its value.
 
             ParameterValue existingParameterValue =
-                    getParameterValue(parameterValue?.parameter!);
+                    GetParameterValue(parameterValue?.parameter!);
 
             if (existingParameterValue is null)
             {
@@ -61,7 +61,7 @@ namespace fuml.semantics.commonbehavior
 
         } // setParameterValue
 
-        public ParameterValue getParameterValue(
+        public ParameterValue GetParameterValue(
                 Parameter parameter)
         {
             // Get the parameter value of this execution corresponding to the given
@@ -82,7 +82,7 @@ namespace fuml.semantics.commonbehavior
 
         } // getParameterValue
 
-        public List<ParameterValue> getOutputParameterValues()
+        public List<ParameterValue> GetOutputParameterValues()
         {
             // Return the parameter values for output (in-out, out and return)
             // parameters.
@@ -104,7 +104,7 @@ namespace fuml.semantics.commonbehavior
             return outputs;
         } // getOutputParameterValues
 
-        public Behavior getBehavior()
+        public Behavior GetBehavior()
         {
             // Get the behavior that is the type of this execution.
 
@@ -115,17 +115,17 @@ namespace fuml.semantics.commonbehavior
         {
             // Terminate the execution before destroying it.
 
-            terminate();
+            Terminate();
             base.destroy();
         }
 
-        public void propagateException(Value exception)
+        public void PropagateException(Value exception)
         {
             // Set the propagated exception for this execution to the given exception,
             // then terminate the execution.
 
             this.exception = exception;
-            terminate();
+            Terminate();
         }
     } // Execution
 }

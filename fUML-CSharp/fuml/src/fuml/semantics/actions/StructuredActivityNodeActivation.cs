@@ -9,7 +9,7 @@ namespace fuml.semantics.actions
     {
         public ActivityNodeActivationGroup? activationGroup = null;
 
-        public override void doAction()
+        public override void DoAction()
         {
             // If the structured activity node has mustIsolate=true, then carry out
             // its behavior with isolation.
@@ -18,17 +18,17 @@ namespace fuml.semantics.actions
             if (((StructuredActivityNode)node!).mustIsolate)
             {
                 _beginIsolation();
-                doStructuredActivity();
+                DoStructuredActivity();
                 _endIsolation();
             }
             else
             {
-                doStructuredActivity();
+                DoStructuredActivity();
             }
 
         } // doAction
 
-        public void doStructuredActivity()
+        public void DoStructuredActivity()
         {
             // Run all activations of contained nodes. When this is complete,
             // return.
@@ -42,31 +42,31 @@ namespace fuml.semantics.actions
             List<InputPin> inputPins = action.input;
             foreach (InputPin inputPin in inputPins)
             {
-                PinActivation pinActivation = getPinActivation(inputPin);
-                pinActivation.sendUnofferedTokens();
+                PinActivation pinActivation = GetPinActivation(inputPin);
+                pinActivation.SendUnofferedTokens();
             }
 
-            activationGroup?.run(activationGroup.nodeActivations);
+            activationGroup?.Run(activationGroup.nodeActivations);
         } // doStructuredActivity
 
-        public override void terminate()
+        public override void Terminate()
         {
             // Terminate the execution of all contained node activations (which
             // completes the performance of the structured activity node
             // activation), and then terminate this node itself.
 
-            terminateAll();
-            base.terminate();
+            TerminateAll();
+            base.Terminate();
         } // terminate
 
-        public override ActivityNodeActivation getNodeActivation(
+        public override ActivityNodeActivation GetNodeActivation(
                 ActivityNode node)
         {
             // If this structured activity node activation is not for the given
             // node, then check if there is an activation for the node in the
             // activation group.
 
-            ActivityNodeActivation thisActivation = base.getNodeActivation(node);
+            ActivityNodeActivation thisActivation = base.GetNodeActivation(node);
 
             ActivityNodeActivation? activation = null;
             if (thisActivation is not null)
@@ -75,13 +75,13 @@ namespace fuml.semantics.actions
             }
             else if (activationGroup is not null)
             {
-                activation = activationGroup.getNodeActivation(node);
+                activation = activationGroup.GetNodeActivation(node);
             }
 
             return activation!;
         } // getNodeActivation
 
-        public List<ActivityNode> makeActivityNodeList(
+        public List<ActivityNode> MakeActivityNodeList(
                 List<ExecutableNode> nodes)
         {
             // Return an activity node List<> containing the given List<> of executable
@@ -113,15 +113,15 @@ namespace fuml.semantics.actions
             return activityNodes;
         } // List<makeActivityNode>
 
-        public List<Value> getPinValues(
+        public List<Value> GetPinValues(
                 OutputPin pin)
         {
             // Return the values of the tokens on the pin activation corresponding
             // to the given pin in the internal activation group for this node
             // activation.
 
-            PinActivation pinActivation = (PinActivation)activationGroup?.getNodeActivation(pin)!;
-            List<Token> tokens = pinActivation.getTokens();
+            PinActivation pinActivation = (PinActivation)activationGroup?.GetNodeActivation(pin)!;
+            List<Token> tokens = pinActivation.GetTokens();
 
             List<Value> values = new();
             foreach (Token token in tokens)
@@ -136,104 +136,104 @@ namespace fuml.semantics.actions
             return values;
         } // getPinValues
 
-        public void putPinValues(OutputPin pin,
+        public void PutPinValues(OutputPin pin,
                 List<Value> values)
         {
             // Place tokens for the given values on the pin activation corresponding
             // to the given output pin on the internal activation group for this
             // node activation.
 
-            PinActivation pinActivation = (PinActivation)activationGroup?.getNodeActivation(pin)!;
+            PinActivation pinActivation = (PinActivation)activationGroup?.GetNodeActivation(pin)!;
 
             foreach (Value value in values)
             {
                 ObjectToken token = new();
                 token.value = value;
-                pinActivation.addToken(token);
+                pinActivation.AddToken(token);
             }
 
         } // putPinValues
 
-        public override void createNodeActivations()
+        public override void CreateNodeActivations()
         {
             // Create an activation group and create node activations for all the
             // nodes within the structured activity node.
 
-            base.createNodeActivations();
+            base.CreateNodeActivations();
 
             activationGroup = new ActivityNodeActivationGroup
             {
                 containingNodeActivation = this
             };
-            activationGroup.createNodeActivations(((StructuredActivityNode)node!)?.node!);
+            activationGroup.CreateNodeActivations(((StructuredActivityNode)node!)?.node!);
 
         } // createNodeActivations
 
-        public override void createEdgeInstances()
+        public override void CreateEdgeInstances()
         {
             // Create instances for all edges owned by this node.
 
-            activationGroup?.createEdgeInstances(((StructuredActivityNode)node!)?.edge!);
+            activationGroup?.CreateEdgeInstances(((StructuredActivityNode)node!)?.edge!);
         } // createEdgeInstances
 
-        public override bool isSourceFor(ActivityEdgeInstance edgeInstance)
+        public override bool IsSourceFor(ActivityEdgeInstance edgeInstance)
         {
             // Returns true if this node is either the source for the given
             // edgeInstance itself or if it contains the source in its
             // activation group.
 
-            bool isSource = base.isSourceFor(edgeInstance);
+            bool isSource = base.IsSourceFor(edgeInstance);
             if (!isSource)
             {
-                isSource = (activationGroup is not null) ? activationGroup.hasSourceFor(edgeInstance) : throw new NullReferenceException();
+                isSource = (activationGroup is not null) ? activationGroup.HasSourceFor(edgeInstance) : throw new NullReferenceException();
             }
             return isSource;
         } // isSourceFor
 
-        public void terminateAll()
+        public void TerminateAll()
         {
             // Terminate the execution of all contained node activations (which
             // completes the performance of the structured activity node
             // activation).
 
-            activationGroup?.terminateAll();
+            activationGroup?.TerminateAll();
         } // terminateAll
 
-        public bool isSuspended()
+        public bool IsSuspended()
         {
             // Check if the activation group for this node is suspended.
 
-            return activationGroup is not null && activationGroup.isSuspended();
+            return activationGroup is not null && activationGroup.IsSuspended();
         } // isSuspended
 
-        public override List<Token> completeAction()
+        public override List<Token> CompleteAction()
         {
             // Only actually complete this structured activity node if it is not
             // suspended.
 
             List<Token> incomingTokens = new();
-            if (!isSuspended())
+            if (!IsSuspended())
             {
-                incomingTokens = base.completeAction();
+                incomingTokens = base.CompleteAction();
             }
             return incomingTokens;
         } // completeAction
 
-        public override void resume()
+        public override void Resume()
         {
             // When this structured activity node is resumed after being suspended,
             // then complete its prior firing and, if there are more incoming
             // tokens, fire it again. If, after that, the node is not suspended,
             // then finish its resumption.
 
-            List<Token> incomingTokens = base.completeAction();
+            List<Token> incomingTokens = base.CompleteAction();
             if (incomingTokens.Count > 0)
             {
-                fire(incomingTokens);
+                Fire(incomingTokens);
             }
-            if (!isSuspended())
+            if (!IsSuspended())
             {
-                base.resume();
+                base.Resume();
             }
         } // resume
     } // StructuredActivityNodeActivation

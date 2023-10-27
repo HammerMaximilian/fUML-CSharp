@@ -11,7 +11,7 @@ namespace fuml.semantics.structuredclassifiers
         public List<Class_> types = new();
         public ObjectActivation? objectActivation = null;
 
-        public void startBehavior(
+        public void StartBehavior(
                 Class_ classifier,
                 List<ParameterValue> inputs)
         {
@@ -24,10 +24,10 @@ namespace fuml.semantics.structuredclassifiers
                 objectActivation.object_ = this;
             }
 
-            objectActivation.startBehavior(classifier, inputs);
+            objectActivation.StartBehavior(classifier, inputs);
         } // startBehavior
 
-        public Execution dispatch(
+        public Execution Dispatch(
                 Operation operation)
         {
             // Dispatch the given operation to a method execution, using a dispatch
@@ -38,7 +38,7 @@ namespace fuml.semantics.structuredclassifiers
             return (dispatchStrategy is not null) ? dispatchStrategy.dispatch(this, operation) : throw new NullReferenceException();
         } // dispatch
 
-        public void send(
+        public void Send(
                 EventOccurrence eventOccurrence)
         {
             // If the object is active, add the given event occurrence to the event
@@ -46,7 +46,7 @@ namespace fuml.semantics.structuredclassifiers
 
             if (objectActivation is not null)
             {
-                objectActivation.send(eventOccurrence);
+                objectActivation.Send(eventOccurrence);
             }
 
         } // send
@@ -60,7 +60,7 @@ namespace fuml.semantics.structuredclassifiers
 
             if (objectActivation is not null)
             {
-                objectActivation.stop();
+                objectActivation.Stop();
                 objectActivation = null;
             }
 
@@ -69,7 +69,7 @@ namespace fuml.semantics.structuredclassifiers
             base.destroy();
         } // destroy
 
-        public void register(
+        public void Register(
                 EventAccepter accepter)
         {
             // Register the given accept event accepter to wait for a dispatched
@@ -77,11 +77,11 @@ namespace fuml.semantics.structuredclassifiers
 
             if (objectActivation is not null)
             {
-                objectActivation.register(accepter);
+                objectActivation.Register(accepter);
             }
         } // register
 
-        public void unregister(
+        public void Unregister(
                 EventAccepter accepter)
         {
             // Remove the given event accepter for the list of waiting event
@@ -89,7 +89,7 @@ namespace fuml.semantics.structuredclassifiers
 
             if (objectActivation is not null)
             {
-                objectActivation.unregister(accepter);
+                objectActivation.Unregister(accepter);
             }
         } // unregister
 

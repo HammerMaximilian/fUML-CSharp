@@ -6,14 +6,14 @@ namespace fuml.semantics.activities
     {
 		public Value? value = null;
 
-		public override bool equals(Token other)
+		public override bool Equals(Token other)
 		{
 			// Test if this object token is the same as the other token.
 
 			return this == other;
 		} // equals
 
-		public override Token copy()
+		public override Token Copy()
 		{
             // Return a new object token with the same value as this token.
             // [Note: the holder of the copy is not set.]
@@ -26,14 +26,14 @@ namespace fuml.semantics.activities
             return copy;
 		} // copy
 
-		public override bool isControl()
+		public override bool IsControl()
 		{
 			// Return false for an object token.
 
 			return false;
 		} // isControl
 
-		public override Value getValue()
+		public override Value GetValue()
 		{
 			// Return the value of this object token.
 

@@ -12,7 +12,7 @@ namespace fuml.semantics.activities
         public StructuredActivityNodeActivation? containingNodeActivation = null;
         public List<ActivityNodeActivation> suspendedActivations = new();
 
-        public void run(List<ActivityNodeActivation> activations)
+        public void Run(List<ActivityNodeActivation> activations)
         {
             // Run the given node activations. 
             // Then concurrently send offers to all input activity parameter node activations (if any). 
@@ -21,7 +21,7 @@ namespace fuml.semantics.activities
 
             foreach (ActivityNodeActivation activation in activations)
             {
-                activation.run();
+                activation.Run();
             }
 
             Debug.println("[run] Checking for enabled nodes...");
@@ -37,7 +37,7 @@ namespace fuml.semantics.activities
                         activation is ExpansionNodeActivation))
                 {
 
-                    bool isEnabled = checkIncomingEdges(activation!.incomingEdges, activations);
+                    bool isEnabled = CheckIncomingEdges(activation!.incomingEdges, activations);
 
                     // For an action activation, also consider incoming edges to
                     // input pins
@@ -49,8 +49,8 @@ namespace fuml.semantics.activities
                         {
                             InputPin inputPin = inputPins.ElementAt(j - 1);
                             List<ActivityEdgeInstance> inputEdges = ((ActionActivation)activation)
-                                    .getPinActivation(inputPin).incomingEdges;
-                            isEnabled = checkIncomingEdges(inputEdges,
+                                    .GetPinActivation(inputPin).incomingEdges;
+                            isEnabled = CheckIncomingEdges(inputEdges,
                                     activations);
                             j++;
                         }
@@ -75,18 +75,18 @@ namespace fuml.semantics.activities
             foreach (ActivityNodeActivation activation in enabledParameterNodeActivations)
             {
                 Debug.println("[run] Sending offer to activity parameter node " + activation?.node?.name + ".");
-                activation?.receiveOffer();
+                activation?.ReceiveOffer();
             }
 
             // *** Send offers to all other enabled nodes concurrently. ***
             foreach (ActivityNodeActivation activation in enabledOtherActivations)
             {
                 Debug.println("[run] Sending offer to node " + activation?.node?.name + ".");
-                activation?.receiveOffer();
+                activation?.ReceiveOffer();
             }
         } // run
 
-        public bool checkIncomingEdges(
+        public bool CheckIncomingEdges(
                 List<ActivityEdgeInstance> incomingEdges,
                 List<ActivityNodeActivation> activations)
         {
@@ -101,7 +101,7 @@ namespace fuml.semantics.activities
                 int k = 1;
                 while (k <= activations.Count & notFound)
                 {
-                    if (activations.ElementAt(k - 1).isSourceFor(
+                    if (activations.ElementAt(k - 1).IsSourceFor(
                             incomingEdges.ElementAt(j - 1)))
                     {
                         notFound = false;
@@ -114,7 +114,7 @@ namespace fuml.semantics.activities
             return notFound;
         } // checkIncomingEdges
 
-        public void runNodes(
+        public void RunNodes(
                 List<ActivityNode> nodes)
         {
             // Run the node activations associated with the given nodes in this
@@ -124,31 +124,31 @@ namespace fuml.semantics.activities
 
             foreach (ActivityNode node in nodes)
             {
-                ActivityNodeActivation nodeActivation = getNodeActivation(node);
+                ActivityNodeActivation nodeActivation = GetNodeActivation(node);
                 if (nodeActivation is not null)
                 {
                     nodeActivations.Add(nodeActivation);
                 }
             }
 
-            run(nodeActivations);
+            Run(nodeActivations);
         } // runNodes
 
-        public void activate(
+        public void Activate(
                 List<ActivityNode> nodes,
                 List<ActivityEdge> edges)
         {
             // Activate and run the given set of nodes with the given set of edges,
             // within this activation group.
 
-            createNodeActivations(nodes);
-            createEdgeInstances(edges);
-            run(nodeActivations);
+            CreateNodeActivations(nodes);
+            CreateEdgeInstances(edges);
+            Run(nodeActivations);
 
             // Debug.println("[activate] Exiting.");
         } // activate
 
-        public void terminateAll()
+        public void TerminateAll()
         {
             // Terminate all node activations in the group.
 
@@ -162,13 +162,13 @@ namespace fuml.semantics.activities
             List<ActivityNodeActivation> nodeActivations = this.nodeActivations;
             foreach (ActivityNodeActivation nodeActivation in nodeActivations)
             {
-                nodeActivation.terminate();
+                nodeActivation.Terminate();
             }
 
             suspendedActivations.Clear();
         } // terminateAll
 
-        public void createNodeActivations(
+        public void CreateNodeActivations(
                 List<ActivityNode> nodes)
         {
             // Add activity node activations for the given set of nodes to this
@@ -178,28 +178,28 @@ namespace fuml.semantics.activities
             {
                 Debug.println("[createNodeActivations] Creating a node activation for "
                                 + node.name + "...");
-                createNodeActivation(node);
+                CreateNodeActivation(node);
             }
 
         } // createNodeActivations
 
-        public ActivityNodeActivation createNodeActivation(
+        public ActivityNodeActivation CreateNodeActivation(
                 ActivityNode node)
         {
             // Create an activity node activation for a given activity node in this
             // activity node activation group.
 
-            ActivityNodeActivation? activation = (ActivityNodeActivation)(getActivityExecution()?.locus?.factory?.instantiateVisitor(node))!;
-            activation.initialize(node, this);
+            ActivityNodeActivation? activation = (ActivityNodeActivation)(GetActivityExecution()?.locus?.factory?.instantiateVisitor(node))!;
+            activation.Initialize(node, this);
 
             nodeActivations.Add(activation);
 
-            activation.createNodeActivations();
+            activation.CreateNodeActivations();
 
             return activation;
         } // createNodeActivation
 
-        public ActivityNodeActivation getNodeActivation(
+        public ActivityNodeActivation GetNodeActivation(
                 ActivityNode node)
         {
             // Return the node activation (if any) in this group,
@@ -211,7 +211,7 @@ namespace fuml.semantics.activities
 
             if (containingNodeActivation is not null && node is Pin pin) {
                 activation = containingNodeActivation
-                        .getPinActivation(pin);
+                        .GetPinActivation(pin);
             }
 
             if (activation is null)
@@ -219,7 +219,7 @@ namespace fuml.semantics.activities
                 int i = 1;
                 while (activation is null & i <= nodeActivations.Count)
                 {
-                    activation = nodeActivations.ElementAt(i - 1).getNodeActivation(node);
+                    activation = nodeActivations.ElementAt(i - 1).GetNodeActivation(node);
                     i++;
                 }
             }
@@ -227,7 +227,7 @@ namespace fuml.semantics.activities
             return activation!;
         } // getNodeActivation
 
-        public void createEdgeInstances(
+        public void CreateEdgeInstances(
                 List<ActivityEdge> edges)
         {
             // Create instance edges for the given activity edges, as well as for
@@ -243,18 +243,18 @@ namespace fuml.semantics.activities
                 edgeInstance.group = this;
 
                 edgeInstances.Add(edgeInstance);
-                getNodeActivation(edge?.source!).addOutgoingEdge(edgeInstance);
-                getNodeActivation(edge?.target!).addIncomingEdge(edgeInstance);
+                GetNodeActivation(edge?.source!).AddOutgoingEdge(edgeInstance);
+                GetNodeActivation(edge?.target!).AddIncomingEdge(edgeInstance);
             }
 
             List<ActivityNodeActivation> nodeActivations = this.nodeActivations;
             foreach (ActivityNodeActivation nodeActivation in nodeActivations)
             {
-                nodeActivation.createEdgeInstances();
+                nodeActivation.CreateEdgeInstances();
             }
         } // createEdgeInstances
 
-        public ActivityExecution getActivityExecution()
+        public ActivityExecution GetActivityExecution()
         {
             // Return the activity execution to which this group belongs, directly
             // or indirectly.
@@ -262,13 +262,13 @@ namespace fuml.semantics.activities
             ActivityExecution activityExecution = this.activityExecution!;
             if (activityExecution is null)
             {
-                activityExecution = containingNodeActivation?.group?.getActivityExecution()!;
+                activityExecution = containingNodeActivation?.group?.GetActivityExecution()!;
             }
 
             return activityExecution;
         } // getActivityExecution
 
-        public List<ActivityParameterNodeActivation> getOutputParameterNodeActivations()
+        public List<ActivityParameterNodeActivation> GetOutputParameterNodeActivations()
         {
             // Return the set of all activations in this group of activity parameter
             // nodes for output (inout, out and return) parameters.
@@ -288,7 +288,7 @@ namespace fuml.semantics.activities
 		return parameterNodeActivations;
 	} // getOutputParameterNodeActivations
 
-    public bool hasSourceFor(
+    public bool HasSourceFor(
             ActivityEdgeInstance edgeInstance)
     {
         // Returns true if this activation group has a node activation
@@ -299,13 +299,13 @@ namespace fuml.semantics.activities
         int i = 1;
         while (!hasSource & i <= activations.Count)
         {
-            hasSource = activations.ElementAt(i - 1).isSourceFor(edgeInstance);
+            hasSource = activations.ElementAt(i - 1).IsSourceFor(edgeInstance);
             i++;
         }
         return hasSource;
     } // hasSourceFor
 
-    public bool isSuspended()
+    public bool IsSuspended()
     {
         // Check if this activation group has any suspended activations and
         // is, therefore, itself suspended.
@@ -313,7 +313,7 @@ namespace fuml.semantics.activities
         return suspendedActivations.Count > 0;
     } // isSuspended
 
-    public void suspend(
+    public void Suspend(
             ActivityNodeActivation activation)
     {
         // Suspend the given activation in this activation group. If this is
@@ -323,18 +323,18 @@ namespace fuml.semantics.activities
         Debug.println("[suspend] node="
                 + (activation.node is null ? "null" : activation.node.name));
 
-        if (!isSuspended())
+        if (!IsSuspended())
         {
             StructuredActivityNodeActivation? containingNodeActivation = this.containingNodeActivation;
             if (containingNodeActivation is not null)
             {
-                containingNodeActivation.suspend();
+                containingNodeActivation.Suspend();
             }
         }
         suspendedActivations.Add(activation);
     } // suspend
 
-    public void resume(
+    public void Resume(
             ActivityNodeActivation activation)
     {
         // Resume the given activation by removing it from the suspended
@@ -356,12 +356,12 @@ namespace fuml.semantics.activities
             }
             i++;
         }
-        if (!isSuspended())
+        if (!IsSuspended())
         {
             StructuredActivityNodeActivation? containingNodeActivation = this.containingNodeActivation;
             if (containingNodeActivation is not null)
             {
-                containingNodeActivation.resume();
+                containingNodeActivation.Resume();
             }
         }
     } // resume

@@ -2,7 +2,7 @@
 {
     public class FlowFinalNodeActivation : ControlNodeActivation
     {
-		public override void fire(List<Token> incomingTokens)
+		public override void Fire(List<Token> incomingTokens)
 		{
 			// Consume all incoming tokens.
 
@@ -10,7 +10,7 @@
 
 			foreach (Token token in incomingTokens)
 			{
-				token.withdraw();
+				token.Withdraw();
 			}
 		} // fire
 	} // FlowFinalNodeActivation

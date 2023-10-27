@@ -2,7 +2,7 @@
 {
     public class ActivityFinalNodeActivation : ControlNodeActivation
     {
-		public override void fire(List<Token> incomingTokens)
+		public override void Fire(List<Token> incomingTokens)
 		{
 			// Terminate the activity execution or structured node activation
 			// containing this activation.
@@ -13,11 +13,11 @@
 			{
 				if (group?.activityExecution is not null)
 				{
-					group.activityExecution.terminate();
+					group.activityExecution.Terminate();
 				}
 				else if (group?.containingNodeActivation is not null)
 				{
-					group.containingNodeActivation.terminateAll();
+					group.containingNodeActivation.TerminateAll();
 				}
 				else if (group is ExpansionActivationGroup expansionActivationGroup)
 				{

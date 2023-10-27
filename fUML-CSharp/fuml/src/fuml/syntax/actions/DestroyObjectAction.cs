@@ -18,7 +18,7 @@
 
 		public void setTarget(InputPin target)
 		{
-			addInput(target);
+			AddInput(target);
 			this.target = target;
 		} // setTarget
 	} // DestroyObjectAction

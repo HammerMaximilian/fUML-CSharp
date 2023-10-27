@@ -8,23 +8,23 @@ namespace fuml.semantics.activities
 		public int remainingOffersCount = 0;
 		public bool baseTokenIsWithdrawn = false;
 
-		public override bool isControl()
+		public override bool IsControl()
 		{
 			// Test if the base token is a control token.
 
-			return baseToken is not null && baseToken.isControl();
+			return baseToken is not null && baseToken.IsControl();
 		} // isControl
 
-		public override void withdraw()
+		public override void Withdraw()
 		{
 			// If the base token is not withdrawn, then withdraw it.
 			// Decrement the remaining offers count.
 			// When the remaining number of offers is zero, then remove this token
 			// from its holder.
 
-			if (!baseTokenIsWithdrawn && baseToken is not null && !baseToken.isWithdrawn())
+			if (!baseTokenIsWithdrawn && baseToken is not null && !baseToken.IsWithdrawn())
 			{
-				baseToken.withdraw();
+				baseToken.Withdraw();
 
 				// NOTE: This keeps a base token that is a forked token from being
 				// withdrawn more than once, since withdrawing a forked token may
@@ -39,29 +39,29 @@ namespace fuml.semantics.activities
 
 			if (remainingOffersCount == 0)
 			{
-				base.withdraw();
+				base.Withdraw();
 			}
 		} // withdraw
 
-		public override Token copy()
+		public override Token Copy()
 		{
 			// Return a copy of the base token.
 
-			return baseToken?.copy()!;
+			return baseToken?.Copy()!;
 		} // copy
 
-		public override bool equals(Token otherToken)
+		public override bool Equals(Token otherToken)
 		{
 			// Test if this token is equal to another token.
 
 			return this == otherToken;
 		} // equals
 
-		public override Value getValue()
+		public override Value GetValue()
 		{
 			// Return the value of the base token.
 
-			return baseToken?.getValue()!;
+			return baseToken?.GetValue()!;
 		} // getValue
 	} // ForkedToken
 }

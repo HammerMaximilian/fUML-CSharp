@@ -26,7 +26,7 @@ namespace fuml.syntax.actions
 
         public void addResult(OutputPin result)
         {
-            addOutput(result);
+            AddOutput(result);
             this.result.Add(result);
         } // addResult
     } // AcceptEventAction

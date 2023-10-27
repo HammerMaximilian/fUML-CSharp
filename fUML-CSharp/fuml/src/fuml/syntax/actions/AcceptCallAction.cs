@@ -6,7 +6,7 @@
 
 		public void setReturnInformation(OutputPin returnInformation)
 		{
-			addOutput(returnInformation);
+			AddOutput(returnInformation);
 			this.returnInformation = returnInformation;
 		}
 	} // AcceptCallAction

@@ -30,20 +30,20 @@ namespace fuml.semantics.commonbehavior
 			signalCount++;
 			if (signalCount == 1)
 			{
-				ExecutionQueue.enqueue(this);
+				ExecutionQueue.Enqueue(this);
 			}
 		} // _send
-		public override void execute()
+		public override void Execute()
 		{
-			self.dispatchNextEvent();
+			self.DispatchNextEvent();
 			signalCount--;
 			if (signalCount > 0)
 			{
-				ExecutionQueue.enqueue(this);
+				ExecutionQueue.Enqueue(this);
 			}
 		}
 
-		public override Value new_()
+		public override Value New_()
 		{
 			return new ObjectActivation_EventDispatchLoopExecution(self);
 		}

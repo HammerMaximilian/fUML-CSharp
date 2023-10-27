@@ -14,7 +14,7 @@ namespace fuml.syntax.actions
 
         public void setResult(OutputPin result)
         {
-            addOutput(result);
+            AddOutput(result);
             this.result = result;
         } // setResult
     } // CreateObjectAction

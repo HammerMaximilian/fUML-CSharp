@@ -14,7 +14,7 @@
 		{
 			if (insertAt is not null)
 			{
-				addInput(insertAt);
+				AddInput(insertAt);
 			}
 
 			this.insertAt = insertAt;

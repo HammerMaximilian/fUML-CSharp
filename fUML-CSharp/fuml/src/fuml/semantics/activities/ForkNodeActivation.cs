@@ -2,7 +2,7 @@
 {
     public class ForkNodeActivation : ControlNodeActivation
     {
-		public override void fire(List<Token> incomingTokens)
+		public override void Fire(List<Token> incomingTokens)
 		{
 			// Create forked tokens for all incoming tokens and offer them on all
 			// outgoing edges.
@@ -25,17 +25,17 @@
                 forkedTokens.Add(forkedToken);
 			}
 
-			addTokens(forkedTokens);
+			AddTokens(forkedTokens);
 
-			sendOffers(forkedTokens);
+			SendOffers(forkedTokens);
 		} // fire
 
-		public override void terminate()
+		public override void Terminate()
 		{
 			// Terminate and remove any offered tokens.
 
-			base.terminate();
-			clearTokens();
+			base.Terminate();
+			ClearTokens();
 		} // terminate
 	} // ForkNodeActivation
 }

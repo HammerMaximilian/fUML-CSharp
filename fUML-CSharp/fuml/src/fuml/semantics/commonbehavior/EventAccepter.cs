@@ -2,8 +2,8 @@
 {
     public abstract class EventAccepter : FumlObject
     { 
-        public abstract void accept(EventOccurrence eventOccurrence);
+        public abstract void Accept(EventOccurrence eventOccurrence);
 
-        public abstract bool match(EventOccurrence eventOccurrence);
+        public abstract bool Match(EventOccurrence eventOccurrence);
     } // EventAccepter
 }

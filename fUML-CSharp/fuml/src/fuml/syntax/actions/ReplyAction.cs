@@ -15,13 +15,13 @@ namespace fuml.syntax.actions
 
         public void addReplyValue(InputPin replyValue)
         {
-            addInput(replyValue);
+            AddInput(replyValue);
             this.replyValue.Add(replyValue);
         }
 
         public void setReturnInformation(InputPin returnInformation)
         {
-            addInput(returnInformation);
+            AddInput(returnInformation);
             this.returnInformation = returnInformation;
         }
     } // ReplyAction

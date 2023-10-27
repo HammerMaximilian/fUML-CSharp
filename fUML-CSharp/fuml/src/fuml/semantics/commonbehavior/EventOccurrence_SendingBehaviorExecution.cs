@@ -14,15 +14,15 @@ namespace fuml.semantics.commonbehavior
 		public void _startObjectBehavior()
 		{
 			context = self.target?.referent;
-			ExecutionQueue.enqueue(this);
+			ExecutionQueue.Enqueue(this);
 		}
 
-		public override void execute()
+		public override void Execute()
 		{
-			self.doSend();
+			self.DoSend();
 		}
 							
-		public override Value new_()
+		public override Value New_()
 		{
 			return new EventOccurrence_SendingBehaviorExecution(self);
 		}

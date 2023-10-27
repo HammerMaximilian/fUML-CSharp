@@ -6,7 +6,7 @@ namespace fuml.semantics.activities
     {
         public ActivityNodeActivation? holder = null;
 
-        public Token transfer( ActivityNodeActivation holder)
+        public Token Transfer( ActivityNodeActivation holder)
         {
             // if this token does not have any holder, make the given holder its
             // holder.
@@ -16,40 +16,40 @@ namespace fuml.semantics.activities
             Token token = this;
             if (this.holder is not null)
             {
-                withdraw();
-                token = copy();
+                Withdraw();
+                token = Copy();
             }
 
             token.holder = holder;
             return token;
         } // transfer
 
-        public virtual void withdraw()
+        public virtual void Withdraw()
         {
             // Remove this token from its holder, withdrawing any offers for it.
 
-            if (!isWithdrawn())
+            if (!IsWithdrawn())
             {
                 // Debug.println("[withdraw] Taking token with value = " +
                 // this.getValue());
-                holder?.removeToken(this);
+                holder?.RemoveToken(this);
                 holder = null;
             }
         } // withdraw
 
-        public abstract bool equals(Token other);
+        public abstract bool Equals(Token other);
 
-        public abstract Token copy();
+        public abstract Token Copy();
 
-        public bool isWithdrawn()
+        public bool IsWithdrawn()
         {
             // Test if this token has been withdrawn.
 
             return holder is null;
         } // isWithdrawn
 
-        public abstract bool isControl();
+        public abstract bool IsControl();
 
-        public abstract Value getValue();
+        public abstract Value GetValue();
     } // Token
 }

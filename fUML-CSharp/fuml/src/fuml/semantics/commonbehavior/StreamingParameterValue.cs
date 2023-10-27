@@ -6,7 +6,7 @@ namespace fuml.semantics.commonbehavior
     {
 		public StreamingParameterListener? listener;
 
-		public void post(List<Value> values)
+		public void Post(List<Value> values)
 		{
 			// Post the given values to the listener, if there is at
 			// least one value.
@@ -15,18 +15,18 @@ namespace fuml.semantics.commonbehavior
 
 			if (listener is not null & values.Count > 0)
 			{
-				listener!.post(values);
+				listener!.Post(values);
 			}
 		}
 
-		public void register(StreamingParameterListener listener)
+		public void Register(StreamingParameterListener listener)
 		{
 			// Register a listener for this streaming parameter value.
 
 			this.listener = listener;
 		}
 
-		public bool isTerminated()
+		public bool IsTerminated()
 		{
 			// Check if this streaming parameter value either has no listener,
 			// or it has a listener that has terminated. 
@@ -34,7 +34,7 @@ namespace fuml.semantics.commonbehavior
 			bool isTerminated = true;
 			if (listener is not null)
 			{
-				isTerminated = listener.isTerminated();
+				isTerminated = listener.IsTerminated();
 			}
 			return isTerminated;
 		}
