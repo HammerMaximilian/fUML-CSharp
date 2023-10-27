@@ -10,7 +10,7 @@ namespace fuml.syntax.simpleclassifiers
         public void _setEnumeration(
                 Enumeration enumeration)
         {
-            addClassifier(enumeration);
+            AddClassifier(enumeration);
             classifier = enumeration;
             this.enumeration = enumeration;
         } // _setEnumeration

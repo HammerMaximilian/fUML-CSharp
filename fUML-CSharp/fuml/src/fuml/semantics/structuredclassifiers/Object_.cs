@@ -33,9 +33,9 @@ namespace fuml.semantics.structuredclassifiers
             // Dispatch the given operation to a method execution, using a dispatch
             // strategy.
 
-            DispatchStrategy dispatchStrategy = (DispatchStrategy)locus?.factory?.getStrategy("dispatch")!;
+            DispatchStrategy dispatchStrategy = (DispatchStrategy)locus?.factory?.GetStrategy("dispatch")!;
 
-            return (dispatchStrategy is not null) ? dispatchStrategy.dispatch(this, operation) : throw new NullReferenceException();
+            return (dispatchStrategy is not null) ? dispatchStrategy.Dispatch(this, operation) : throw new NullReferenceException();
         } // dispatch
 
         public void Send(
@@ -93,14 +93,14 @@ namespace fuml.semantics.structuredclassifiers
             }
         } // unregister
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new object that is a copy of this object at the same locus
             // as this object.
             // However, the new object will NOT have any object activation (i.e, its
             // classifier behaviors will not be started).
 
-            Object_ newObject = (Object_)base.copy();
+            Object_ newObject = (Object_)base.Copy();
 
             List<Class_> types = this.types;
             foreach (Class_ type in types)
@@ -112,7 +112,7 @@ namespace fuml.semantics.structuredclassifiers
 
         } // copy
 
-        public override bool equals(Value otherValue)
+        public override bool Equals(Value otherValue)
         {
             // Test if this object is equal to the otherValue.
             // To be equal, the otherValue must be the same object as this object.
@@ -120,14 +120,14 @@ namespace fuml.semantics.structuredclassifiers
             return this == otherValue;
         } // equals
 
-        protected override Value new_()
+        protected override Value New_()
         {
             // Create a new object with no type, feature values or locus.
 
             return new Object_();
         } // new_
 
-        public override List<Classifier> getTypes()
+        public override List<Classifier> GetTypes()
         {
             // Return the types of this object.
 

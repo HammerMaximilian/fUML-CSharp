@@ -1,4 +1,8 @@
-﻿using fuml.semantics.structuredclassifiers;
+﻿using fuml.semantics.actions;
+using fuml.semantics.activities;
+using fuml.semantics.classification;
+using fuml.semantics.commonbehavior;
+using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
 using fuml.syntax.actions;
 using fuml.syntax.activities;
@@ -17,7 +21,7 @@ namespace fuml.semantics.loci
 		public List<PrimitiveType> builtInTypes = new();
 		public List<SemanticStrategy> strategies = new();
 
-		public Execution createExecution(
+		public Execution CreateExecution(
 				Behavior behavior,
 				Object_ context)
 		{
@@ -29,17 +33,17 @@ namespace fuml.semantics.loci
 
 			Execution execution;
 
-			if (behavior is OpaqueBehavior) {
+			if (behavior is OpaqueBehavior opaqueBehavior) {
 				execution = 
-						instantiateOpaqueBehaviorExecution((OpaqueBehavior)behavior);
+						InstantiateOpaqueBehaviorExecution(opaqueBehavior);
 			} else
 			{
-				execution = (Execution)instantiateVisitor(behavior);
+				execution = (Execution)InstantiateVisitor(behavior);
 				execution.types.Add(behavior);
 				execution.createFeatureValues();
 			}
 
-			locus?.add(execution);
+			locus?.Add(execution);
 
 			if (context == null)
 			{
@@ -53,14 +57,14 @@ namespace fuml.semantics.loci
 			return execution;
 		} // createExecution
 
-		public Evaluation createEvaluation(
+		public Evaluation CreateEvaluation(
 				ValueSpecification specification)
 		{
 			// Create an evaluation object for a given value specification.
 			// The evaluation will take place at the locus of the factory.
 
 			Evaluation evaluation = (Evaluation)
-					instantiateVisitor(specification);
+					InstantiateVisitor(specification);
 
 			evaluation.specification = specification;
 			evaluation.locus = locus;
@@ -69,7 +73,7 @@ namespace fuml.semantics.loci
 
 		} // createEvaluation
 
-		public SemanticVisitor instantiateVisitor(
+		public SemanticVisitor InstantiateVisitor(
 				Element element)
 		{
 			// Instantiate a visitor object for the given element.
@@ -129,7 +133,7 @@ namespace fuml.semantics.loci
 
 
 		else if (element is CentralBufferNode &
-				!(element is DataStoreNode)) {
+				element is not DataStoreNode) {
 				visitor = new CentralBufferNodeActivation();
 			}
 
@@ -351,7 +355,7 @@ namespace fuml.semantics.loci
 			return visitor!;
 		}
 
-		public OpaqueBehaviorExecution instantiateOpaqueBehaviorExecution(
+		public OpaqueBehaviorExecution InstantiateOpaqueBehaviorExecution(
 				OpaqueBehavior behavior)
 		{
 			// Return a copy of the prototype for the primitive behavior execution
@@ -365,11 +369,11 @@ namespace fuml.semantics.loci
 				// this.primitiveBehaviorPrototypes.ElementAt(i).objectId() + "...");
 				OpaqueBehaviorExecution prototype = primitiveBehaviorPrototypes
 						.ElementAt(i - 1);
-				if (prototype.getBehavior() == behavior)
+				if (prototype.GetBehavior() == behavior)
 				{
-					execution = (OpaqueBehaviorExecution)prototype.copy();
+					execution = (OpaqueBehaviorExecution)prototype.Copy();
 				}
-				i = i + 1;
+				i++;
 			}
 
 			Debug.println(execution is null,
@@ -378,7 +382,7 @@ namespace fuml.semantics.loci
 			return execution!;
 		} // instantiateOpaqueBehaviorExecution
 
-		public void addPrimitiveBehaviorPrototype(
+		public void AddPrimitiveBehaviorPrototype(
 				OpaqueBehaviorExecution execution)
 		{
 			// Add an opaque behavior execution to use as a prototype for
@@ -389,7 +393,7 @@ namespace fuml.semantics.loci
 			primitiveBehaviorPrototypes.Add(execution);
 		} // addPrimitiveBehaviorPrototype
 
-		public void addBuiltInType(PrimitiveType type)
+		public void AddBuiltInType(PrimitiveType type)
 		{
 			// Add the given primitive type as a built-in type.
 			// Precondition: No built-in type with the same name should already
@@ -398,7 +402,7 @@ namespace fuml.semantics.loci
 			builtInTypes.Add(type);
 		} // addBuiltInType
 
-		public PrimitiveType getBuiltInType(string name)
+		public PrimitiveType GetBuiltInType(string name)
 		{
 			// Return the built-in type with the given name.
 
@@ -411,18 +415,18 @@ namespace fuml.semantics.loci
 				{
 					type = primitiveType;
 				}
-				i = i + 1;
+				i++;
 			}
 
 			return type!;
 		} // getBuiltInType
 
-		public void setStrategy(SemanticStrategy strategy)
+		public void SetStrategy(SemanticStrategy strategy)
 		{
 			// Set the strategy for a semantic variation point. Any existing
 			// strategy for the same SVP is replaced.
 
-			int i = getStrategyIndex(strategy.getName());
+			int i = GetStrategyIndex(strategy.getName());
 
 			if (i <= strategies.Count)
 			{
@@ -432,11 +436,11 @@ namespace fuml.semantics.loci
 			strategies.Add(strategy);
 		} // setStrategy
 
-		public SemanticStrategy getStrategy(string name)
+		public SemanticStrategy GetStrategy(string name)
 		{
 			// Get the strategy with the given name.
 
-			int i = getStrategyIndex(name);
+			int i = GetStrategyIndex(name);
 
 			SemanticStrategy? strategy = null;
 			if (i <= strategies.Count)
@@ -447,7 +451,7 @@ namespace fuml.semantics.loci
 			return strategy!;
 		} // getStrategy
 
-		public int getStrategyIndex(string name)
+		public int GetStrategyIndex(string name)
 		{
 			// Get the index of the strategy with the given name.
 			// If there is no such strategy, return the Count of the strategies list.
@@ -464,7 +468,7 @@ namespace fuml.semantics.loci
 				}
 				else
 				{
-					i = i + 1;
+					i++;
 				}
 			}
 

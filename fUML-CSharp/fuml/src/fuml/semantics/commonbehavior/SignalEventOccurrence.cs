@@ -17,7 +17,7 @@ namespace fuml.semantics.commonbehavior
             bool matches = false;
             if (trigger.event_ is SignalEvent signalEvent)
             {
-                matches = (signalInstance is not null) && signalInstance.isInstanceOf(signalEvent.signal!);
+                matches = (signalInstance is not null) && signalInstance.IsInstanceOf(signalEvent.signal!);
             }
             return matches;
         }

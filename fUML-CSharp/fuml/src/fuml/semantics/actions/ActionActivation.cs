@@ -186,7 +186,7 @@ namespace fuml.semantics.actions
 
         public abstract void DoAction();
 
-        public void SendOffers()
+        public virtual void SendOffers()
         {
             // Fire all output pins and send offers on all outgoing control flows.
             // *** Send offers from all output pins concurrently. ***
@@ -207,7 +207,7 @@ namespace fuml.semantics.actions
             }
         } // sendOffers
 
-        public List<OutputPin> GetOfferingOutputPins()
+        public virtual List<OutputPin> GetOfferingOutputPins()
         {
             // Return the output pins of the action of this action activation from 
             // which offers are to be sent when the action activation finishes firing.
@@ -422,7 +422,7 @@ namespace fuml.semantics.actions
             int i = 1;
             while (!participates & i <= linkFeatureValues.Count)
             {
-                participates = linkFeatureValues.ElementAt(i - 1).values.ElementAt(0).equals(value);
+                participates = linkFeatureValues.ElementAt(i - 1).values.ElementAt(0).Equals(value);
                 i++;
             }
 
@@ -498,18 +498,18 @@ namespace fuml.semantics.actions
 
             Property oppositeEnd = GetOppositeEnd(association, end);
 
-            List<ExtensionalValue> extent = GetExecutionLocus().getExtent(
+            List<ExtensionalValue> extent = GetExecutionLocus().GetExtent(
                     association);
 
             List<Link> links = new();
             foreach (ExtensionalValue link in extent)
             {
-                if (link.getFeatureValue(oppositeEnd).values.ElementAt(0).equals(oppositeValue))
+                if (link.getFeatureValue(oppositeEnd).values.ElementAt(0).Equals(oppositeValue))
                 {
                     bool matches = true;
                     if (endValue != null)
                     {
-                        matches = link.getFeatureValue(end).values.ElementAt(0).equals(endValue);
+                        matches = link.getFeatureValue(end).values.ElementAt(0).Equals(endValue);
                     }
                     if (matches)
                     {
@@ -566,7 +566,7 @@ namespace fuml.semantics.actions
 
             LiteralBoolean booleanLiteral = new();
             booleanLiteral.value = value;
-            return (BooleanValue)GetExecutionLocus()?.executor?.evaluate(booleanLiteral)!;
+            return (BooleanValue)GetExecutionLocus()?.executor?.Evaluate(booleanLiteral)!;
         } // makeboolValue
 
         public override void Handle(Value exception, ExceptionHandler handler)

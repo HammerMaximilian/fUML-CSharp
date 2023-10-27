@@ -44,7 +44,7 @@ namespace fuml.semantics.structuredclassifiers
             referent?.destroy();
         } // destroy
 
-        public override bool equals(Value otherValue)
+        public override bool Equals(Value otherValue)
         {
             // Test if this reference is equal to the otherValue.
             // To be equal, the otherValue must also be a reference, with the same
@@ -59,7 +59,7 @@ namespace fuml.semantics.structuredclassifiers
                 }
                 else
                 {
-                    isEqual = referent.equals(reference.referent!);
+                    isEqual = referent.Equals(reference.referent!);
                 }
             }
 
@@ -67,29 +67,29 @@ namespace fuml.semantics.structuredclassifiers
 
         } // equals
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new reference with the same referent as this reference.
 
-            Reference newValue = (Reference)base.copy();
+            Reference newValue = (Reference)base.Copy();
 
             newValue.referent = referent;
 
             return newValue;
         } // copy
 
-        protected override Value new_()
+        protected override Value New_()
         {
             // Create a new reference with no referent.
 
             return new Reference();
         } // new_
 
-        public override List<Classifier> getTypes()
+        public override List<Classifier> GetTypes()
         {
             // Get the types of the referent object.
 
-            return referent?.getTypes()!;
+            return referent?.GetTypes()!;
         } // getTypes
 
         public override FeatureValue getFeatureValue(
@@ -118,9 +118,9 @@ namespace fuml.semantics.structuredclassifiers
             return referent?.getFeatureValues()!;
         } // getFeatureValues
 
-        public override string toString()
+        public override string ToString()
         {
-            return "Reference to " + referent?.toString();
+            return "Reference to " + referent?.ToString();
         } // toString
     } // Reference
 }

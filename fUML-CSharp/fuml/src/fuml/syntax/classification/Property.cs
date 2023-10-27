@@ -28,7 +28,7 @@ namespace fuml.syntax.classification
                 AggregationKind aggregation)
         {
             this.aggregation = aggregation;
-            isComposite = (aggregation == AggregationKind.composite);
+            isComposite = aggregation == AggregationKind.composite;
         } // setAggregation
 
         public void _setAssociation(

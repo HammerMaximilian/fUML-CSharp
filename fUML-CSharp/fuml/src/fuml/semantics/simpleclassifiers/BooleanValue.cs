@@ -7,55 +7,56 @@ namespace fuml.semantics.simpleclassifiers
     {
         public bool value = false;
 
-        public override ValueSpecification specify()
+        public override ValueSpecification Specify()
         {
             // Return a literal bool with the value of this bool value.
 
-            LiteralBoolean literal = new LiteralBoolean();
-
-            literal.type = this.type;
-            literal.value = this.value;
+            LiteralBoolean literal = new()
+            {
+                type = type,
+                value = value
+            };
 
             return literal;
         } // specify
 
-        public override bool equals(Value otherValue)
+        public override bool Equals(Value otherValue)
         {
             // Test if this bool value is equal to the otherValue.
             // To be equal, the otherValue must have the same value as this bool
             // value.
 
             bool isEqual = false;
-            if (otherValue is BooleanValue)
+            if (otherValue is BooleanValue booleanValue)
             {
-                isEqual = ((BooleanValue)otherValue).value == value;
+                isEqual = booleanValue.value == value;
             }
 
             return isEqual;
         } // equals
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new bool value with the same value as this bool value.
 
-            BooleanValue newValue = (BooleanValue)base.copy();
+            BooleanValue newValue = (BooleanValue)base.Copy();
 
             newValue.value = value;
             return newValue;
         } // copy
 
-        protected override Value new_()
+        protected override Value New_()
         {
             // Return a new bool value with no value.
 
             return new BooleanValue();
         } // new_
 
-        public override string toString()
+        public override string ToString()
         {
             string stringValue = "false";
 
-            if (this.value)
+            if (value)
             {
                 stringValue = "true";
             }

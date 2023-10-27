@@ -31,7 +31,7 @@ namespace fuml.semantics.activities
 			}
 			else
 			{
-				ChoiceStrategy strategy = (ChoiceStrategy)GetExecutionLocus()!.factory!.getStrategy("choice");
+				ChoiceStrategy strategy = (ChoiceStrategy)GetExecutionLocus()!.factory!.GetStrategy("choice");
 				ExceptionHandler handler = matchingExceptionHandlers.ElementAt(strategy.choose(matchingExceptionHandlers.Count) - 1);
 				Handle(exception, handler);
 			}
@@ -51,7 +51,7 @@ namespace fuml.semantics.activities
 				int j = 1;
 				while (noMatch & j <= handler.exceptionType.Count)
 				{
-					if (exception.isInstanceOf(handler.exceptionType.ElementAt(j - 1)))
+					if (exception.IsInstanceOf(handler.exceptionType.ElementAt(j - 1)))
 					{
 						matchingHandlers.Add(handler);
 						noMatch = false;

@@ -154,7 +154,7 @@ namespace fuml.semantics.activities
 
             Debug.println("[terminateAll] Terminating activation group for "
                     + (activityExecution is not null ? "activity "
-                            + activityExecution.getTypes().ElementAt(0).name
+                            + activityExecution.GetTypes().ElementAt(0).name
                             : containingNodeActivation is not null ? "node "
                                     + containingNodeActivation?.node?.name
                                     : "expansion region") + ".");
@@ -189,7 +189,7 @@ namespace fuml.semantics.activities
             // Create an activity node activation for a given activity node in this
             // activity node activation group.
 
-            ActivityNodeActivation? activation = (ActivityNodeActivation)(GetActivityExecution()?.locus?.factory?.instantiateVisitor(node))!;
+            ActivityNodeActivation? activation = (ActivityNodeActivation)(GetActivityExecution()?.locus?.factory?.InstantiateVisitor(node))!;
             activation.Initialize(node, this);
 
             nodeActivations.Add(activation);
@@ -199,7 +199,7 @@ namespace fuml.semantics.activities
             return activation;
         } // createNodeActivation
 
-        public ActivityNodeActivation GetNodeActivation(
+        public virtual ActivityNodeActivation GetNodeActivation(
                 ActivityNode node)
         {
             // Return the node activation (if any) in this group,
@@ -254,7 +254,7 @@ namespace fuml.semantics.activities
             }
         } // createEdgeInstances
 
-        public ActivityExecution GetActivityExecution()
+        public virtual ActivityExecution GetActivityExecution()
         {
             // Return the activity execution to which this group belongs, directly
             // or indirectly.
@@ -313,7 +313,7 @@ namespace fuml.semantics.activities
         return suspendedActivations.Count > 0;
     } // isSuspended
 
-    public void Suspend(
+    public virtual void Suspend(
             ActivityNodeActivation activation)
     {
         // Suspend the given activation in this activation group. If this is
@@ -334,7 +334,7 @@ namespace fuml.semantics.activities
         suspendedActivations.Add(activation);
     } // suspend
 
-    public void Resume(
+    public virtual void Resume(
             ActivityNodeActivation activation)
     {
         // Resume the given activation by removing it from the suspended

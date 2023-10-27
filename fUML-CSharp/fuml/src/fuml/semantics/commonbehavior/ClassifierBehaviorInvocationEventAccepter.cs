@@ -32,7 +32,7 @@ namespace fuml.semantics.commonbehavior
             }
             else
             {
-                execution = object_?.locus?.factory?.createExecution(
+                execution = object_?.locus?.factory?.CreateExecution(
                         classifier.classifierBehavior!, object_);
             }
 
@@ -40,7 +40,7 @@ namespace fuml.semantics.commonbehavior
             {
                 foreach (ParameterValue input in inputs)
                 {
-                    execution.SetParameterValue(input);
+                    execution?.SetParameterValue(input);
                 }
             }
 

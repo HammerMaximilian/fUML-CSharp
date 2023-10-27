@@ -8,7 +8,7 @@ namespace fuml.semantics.simpleclassifiers
     {
         public string value = "";
 
-        public override ValueSpecification specify()
+        public override ValueSpecification Specify()
         {
             // Return a literal string with the value of this string value.
 
@@ -20,7 +20,7 @@ namespace fuml.semantics.simpleclassifiers
             return literal;
         } // specify
 
-        public override bool equals(Value otherValue)
+        public override bool Equals(Value otherValue)
         {
             // Test if this string value is equal to the otherValue.
             // To be equal, the otherValue must have the same value as this string
@@ -34,24 +34,24 @@ namespace fuml.semantics.simpleclassifiers
             return isEqual;
         } // equals
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new string value with the same value as this string value.
 
-            StringValue newValue = (StringValue)base.copy();
+            StringValue newValue = (StringValue)base.Copy();
 
             newValue.value = value;
             return newValue;
         } // copy
 
-        protected override Value new_()
+        protected override Value New_()
         {
             // Create a new string value with no value.
 
             return new StringValue();
         } // new_
 
-        public override string toString()
+        public override string ToString()
         {
             return value;
         } // toString

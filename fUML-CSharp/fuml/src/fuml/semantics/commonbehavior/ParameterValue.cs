@@ -20,7 +20,7 @@ namespace fuml.semantics.commonbehavior
 			List<Value> values = this.values;
 			foreach (Value value in values)
 			{
-				newValue.values.Add(value.copy());
+				newValue.values.Add(value.Copy());
 			}
 
 			return newValue;

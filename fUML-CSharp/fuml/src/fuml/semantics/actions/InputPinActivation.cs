@@ -55,7 +55,7 @@ namespace fuml.semantics.actions
 				{
 					if (actionActivation is CallActionActivation callActionActivation)
 					{
-						callActionActivation.completeStreamingCall();
+						callActionActivation.CompleteStreamingCall();
 					}
 				}
 			}

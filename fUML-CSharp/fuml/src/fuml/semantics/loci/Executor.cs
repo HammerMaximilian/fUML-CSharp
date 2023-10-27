@@ -1,4 +1,5 @@
-﻿using fuml.semantics.structuredclassifiers;
+﻿using fuml.semantics.commonbehavior;
+using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
 using fuml.syntax.commonbehavior;
 using fuml.syntax.structuredclassifiers;
@@ -10,7 +11,7 @@ namespace fuml.semantics.loci
     {
 		public Locus? locus = null;
 
-		public List<ParameterValue> execute(
+		public List<ParameterValue> Execute(
 				Behavior behavior,
 				Object_ context,
 				List<ParameterValue> inputs)
@@ -23,32 +24,31 @@ namespace fuml.semantics.loci
 			// (in-out, out or return) parameter of the behavior.
 			// The execution instance is destroyed at completion.
 
-			Execution execution = locus?.factory?.createExecution(behavior,
-					context);
+			Execution execution = locus?.factory?.CreateExecution(behavior,context)!;
 
 			for (int i = 0; i < inputs.Count; i++)
 			{
-				execution.setParameterValue(inputs.ElementAt(i));
+				execution?.SetParameterValue(inputs.ElementAt(i));
 			}
 
-			execution.execute();
-			List<ParameterValue> outputValues = execution.getOutputParameterValues();
-			execution.destroy();
+			execution?.Execute();
+			List<ParameterValue> outputValues = execution?.GetOutputParameterValues()!;
+			execution?.destroy();
 
 			return outputValues;
 		} // execute
 
-		public Value evaluate(
+		public Value Evaluate(
 				ValueSpecification specification)
 		{
 			// Evaluate the given value specification, returning the specified
 			// value.
 
 			// Debug.println("[evaluate] Start...");
-			return locus?.factory?.createEvaluation(specification)?.evaluate();
+			return locus?.factory?.CreateEvaluation(specification)?.evaluate()!;
 		} // evaluate
 
-		public Reference start(
+		public Reference Start(
 				Class_ type,
 				List<ParameterValue> inputs)
 		{
@@ -60,12 +60,12 @@ namespace fuml.semantics.loci
 
 			Debug.println("[start] Starting " + type.name + "...");
 
-			Object_? object_ = locus?.instantiate(type);
+			Object_? object_ = locus?.Instantiate(type);
 
 			Debug.println("[start] Object = " + object_);
-			object_?.startBehavior(type, inputs);
+			object_?.StartBehavior(type, inputs);
 
-			Reference reference = new Reference();
+			Reference reference = new();
 			reference.referent = object_;
 
 			return reference;

@@ -27,7 +27,7 @@ namespace fuml.semantics.commonbehavior
 			return new EventOccurrence_SendingBehaviorExecution(self);
 		}
 
-		public override string toString()
+		public override string ToString()
 		{
 			return "SendingBehaviorExecution(" + self + ")";
 		}

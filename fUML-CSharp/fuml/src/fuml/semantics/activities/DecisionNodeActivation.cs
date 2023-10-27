@@ -20,7 +20,7 @@ namespace fuml.semantics.activities
 			Debug.println("[fire] Decision node " + node?.name + "...");
 
 			// List<Token> incomingTokens = this.takeOfferedTokens();
-			List<Token> removedControlTokens = this.RemoveJoinedControlTokens(incomingTokens);
+			List<Token> removedControlTokens = RemoveJoinedControlTokens(incomingTokens);
 			List<Value> decisionValues = GetDecisionValues(incomingTokens);
 
 			List<ActivityEdgeInstance> outgoingEdges = this.outgoingEdges;
@@ -33,7 +33,7 @@ namespace fuml.semantics.activities
 				{
 					Token incomingToken = incomingTokens.ElementAt(j);
 					Value decisionValue = decisionValues.ElementAt(j);
-					if (this.Test(guard, decisionValue))
+					if (Test(guard, decisionValue))
 					{
 						offeredTokens.Add(incomingToken);
 					}
@@ -125,7 +125,7 @@ namespace fuml.semantics.activities
 			else
 			{
 
-				decisionInputExecution = GetExecutionLocus()?.factory?.createExecution(decisionInputBehavior, GetExecutionContext());
+				decisionInputExecution = GetExecutionLocus()?.factory?.CreateExecution(decisionInputBehavior, GetExecutionContext());
 
 				int i = 1;
 				int j = 0;
@@ -152,16 +152,15 @@ namespace fuml.semantics.activities
 							inputParameterValue.values.Add(decisionInputValue!);
 						}
 
-						decisionInputExecution.SetParameterValue(inputParameterValue);
+						decisionInputExecution?.SetParameterValue(inputParameterValue);
 					}
 					i++;
 				}
 
-				decisionInputExecution.Execute();
+				decisionInputExecution?.Execute();
 
-				List<ParameterValue> outputParameterValues = decisionInputExecution
-						.GetOutputParameterValues();
-				decisionInputExecution.destroy();
+				List<ParameterValue> outputParameterValues = decisionInputExecution?.GetOutputParameterValues()!;
+				decisionInputExecution?.destroy();
 
 				decisionInputResult = outputParameterValues.ElementAt(0).values.ElementAt(0);
 			}
@@ -275,8 +274,8 @@ namespace fuml.semantics.activities
 			bool guardResult = true;
 			if (guard is not null)
 			{
-				Value guardValue = GetExecutionLocus()!.executor!.evaluate(guard);
-				guardResult = guardValue.equals(value);
+				Value guardValue = GetExecutionLocus()!.executor!.Evaluate(guard);
+				guardResult = guardValue.Equals(value);
 			}
 
 			return guardResult;

@@ -19,7 +19,7 @@ namespace fuml.semantics.activities
 				int i = 1;
 				while (isUnique & i <= heldTokens.Count)
 				{
-					isUnique = !heldTokens.ElementAt(i - 1).GetValue().equals(value);
+					isUnique = !heldTokens.ElementAt(i - 1).GetValue().Equals(value);
 					i++;
 				}
 			}

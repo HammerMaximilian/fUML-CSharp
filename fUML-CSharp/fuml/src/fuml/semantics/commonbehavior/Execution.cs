@@ -20,12 +20,12 @@ namespace fuml.semantics.commonbehavior
             return;
         } // terminate
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new execution that has the same behavior and parameterValues
             // as this execution.
 
-            Execution newValue = (Execution)base.copy();
+            Execution newValue = (Execution)base.Copy();
 
             newValue.context = context;
 
@@ -38,7 +38,7 @@ namespace fuml.semantics.commonbehavior
             return newValue;
         } // copy
 
-        public abstract Value New_();
+        public abstract new Value New_();
 
         public void SetParameterValue(
                 ParameterValue parameterValue)
@@ -108,7 +108,7 @@ namespace fuml.semantics.commonbehavior
         {
             // Get the behavior that is the type of this execution.
 
-            return (Behavior)getTypes().ElementAt(0);
+            return (Behavior)GetTypes().ElementAt(0);
         } // getBehavior
 
         public override void destroy()

@@ -7,7 +7,7 @@ namespace fuml.semantics.simpleclassifiers
     {
         public float value = 0.0f;
 
-        public override ValueSpecification specify()
+        public override ValueSpecification Specify()
         {
             // Return a literal real with the value of this real value.
 
@@ -19,7 +19,7 @@ namespace fuml.semantics.simpleclassifiers
             return literal;
         } // specify
 
-        public override bool equals(Value otherValue)
+        public override bool Equals(Value otherValue)
         {
             // Test if this real value is equal to the otherValue.
             // To be equal, the otherValue must have the same value as this real
@@ -34,22 +34,22 @@ namespace fuml.semantics.simpleclassifiers
             return isEqual;
         } // equals
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new real value with the same value as this real value.
 
-            RealValue newValue = (RealValue)base.copy();
+            RealValue newValue = (RealValue)base.Copy();
 
             newValue.value = value;
             return newValue;
         } // copy
 
-        protected override Value new_()
+        protected override Value New_()
         {
             return new RealValue();
         } // new_
 
-        public override string toString()
+        public override string ToString()
         {
             string stringValue = "";
 
@@ -93,9 +93,9 @@ namespace fuml.semantics.simpleclassifiers
 
                 IntegerValue integerValue = new IntegerValue();
                 integerValue.value = (int)positiveValue;
-                stringValue = "0." + integerValue.toString();
+                stringValue = "0." + integerValue.ToString();
                 integerValue.value = exponent;
-                stringValue = stringValue + "E" + integerValue.toString();
+                stringValue = stringValue + "E" + integerValue.ToString();
 
                 if (value < 0)
                 {

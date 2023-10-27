@@ -11,7 +11,7 @@ namespace fuml.semantics.values
 
             LiteralInteger literal = (LiteralInteger)specification!;
             IntegerValue integerValue = new();
-            integerValue.type = getType("Integer");
+            integerValue.type = GetType("Integer");
             integerValue.value = literal.value;
 
             return integerValue;

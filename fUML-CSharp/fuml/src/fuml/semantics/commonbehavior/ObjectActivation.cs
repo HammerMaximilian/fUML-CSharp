@@ -91,7 +91,7 @@ namespace fuml.semantics.commonbehavior
                 if (matchingEventAccepterIndexes.Count > 0)
                 {
                     // *** Choose one matching event accepter non-deterministically. ***
-                    ChoiceStrategy? choiceStrategy = (ChoiceStrategy)object_?.locus?.factory?.getStrategy("choice")!;
+                    ChoiceStrategy? choiceStrategy = (ChoiceStrategy)object_?.locus?.factory?.GetStrategy("choice")!;
                     int j = (choiceStrategy is not null) ? choiceStrategy.choose(matchingEventAccepterIndexes.Count) : throw new NullReferenceException();
                     int k = matchingEventAccepterIndexes.ElementAt(j - 1);
                     EventAccepter selectedEventAccepter = this.waitingEventAccepters
@@ -107,7 +107,7 @@ namespace fuml.semantics.commonbehavior
             // Get the next event from the event pool, using a get next event
             // strategy.
 
-            GetNextEventStrategy? getNextEventStrategy = (GetNextEventStrategy)object_?.locus?.factory?.getStrategy("getNextEvent")!;
+            GetNextEventStrategy? getNextEventStrategy = (GetNextEventStrategy)object_?.locus?.factory?.GetStrategy("getNextEvent")!;
 
             return (getNextEventStrategy is not null) ? getNextEventStrategy.GetNextEvent(this) : throw new NullReferenceException();
         } // getNextEvent

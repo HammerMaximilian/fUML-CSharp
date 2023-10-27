@@ -67,7 +67,7 @@ namespace fuml.semantics.activities
 			{
 				Debug.println("[fire] Output activity parameter node " + node.name + "...");
 
-				this.AddTokens(incomingTokens);
+				AddTokens(incomingTokens);
 
 				if (parameterValue is StreamingParameterValue streamingParameterValue) {
 					List<Value> values = new();

@@ -52,7 +52,7 @@ namespace fuml.semantics.classification
                     Object_? object_;
                     if (myType is Behavior behavior)
                     {
-                        object_ = locus?.factory?.createExecution(
+                        object_ = locus?.factory?.CreateExecution(
                                 behavior, null!);
                     }
                     else
@@ -65,7 +65,7 @@ namespace fuml.semantics.classification
                         }
                     }
 
-                    locus?.add(object_);
+                    locus?.Add(object_!);
 
                     Reference reference = new();
                     reference.referent = object_;
@@ -82,7 +82,7 @@ namespace fuml.semantics.classification
                     List<ValueSpecification> slotValues = slot.value;
                     foreach (ValueSpecification slotValue in slotValues)
                     {
-                        values.Add(locus?.executor?.evaluate(slotValue)!);
+                        values.Add(locus?.executor?.Evaluate(slotValue)!);
                     }
                     structuredValue
                             .setFeatureValue(slot?.definingFeature!, values, 0);

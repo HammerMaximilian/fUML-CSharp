@@ -11,7 +11,7 @@ namespace fuml.semantics.values
 
             LiteralReal literal = (LiteralReal)specification!;
             RealValue realValue = new();
-            realValue.type = getType("Real");
+            realValue.type = GetType("Real");
             realValue.value = literal.value;
             return realValue;
         } // evaluate

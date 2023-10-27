@@ -48,7 +48,7 @@ namespace fuml.semantics.commonbehavior
 			return new ObjectActivation_EventDispatchLoopExecution(self);
 		}
 
-		public override string toString()
+		public override string ToString()
 		{
 			return "EventDispatchLoopExecution(" + self.object_ +")";
 		}

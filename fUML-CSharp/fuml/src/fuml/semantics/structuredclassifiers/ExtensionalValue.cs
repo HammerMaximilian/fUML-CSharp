@@ -16,20 +16,20 @@ namespace fuml.semantics.structuredclassifiers
 
             if (locus is not null)
             {
-                locus.remove(this);
+                locus.Remove(this);
             }
         } // destroy
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new extensional value with the same feature values at the
             // same locus as this one.
 
-            ExtensionalValue newValue = (ExtensionalValue)base.copy();
+            ExtensionalValue newValue = (ExtensionalValue)base.Copy();
 
             if (locus is not null)
             {
-                locus.add(newValue);
+                locus.Add(newValue);
             }
             else
             {
@@ -39,9 +39,9 @@ namespace fuml.semantics.structuredclassifiers
             return newValue;
         } // copy
 
-        public override string toString()
+        public override string ToString()
         {
-            return identifier + base.toString();
+            return identifier + base.ToString();
         }
     } // ExtensionalValue
 }

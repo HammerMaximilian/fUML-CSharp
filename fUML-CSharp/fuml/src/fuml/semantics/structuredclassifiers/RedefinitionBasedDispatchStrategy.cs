@@ -7,7 +7,7 @@ namespace fuml.semantics.structuredclassifiers
 {
     public class RedefinitionBasedDispatchStrategy : DispatchStrategy
     {
-		public override Behavior getMethod(
+		public override Behavior GetMethod(
 		Object_ object_,
 		Operation operation)
 		{
@@ -35,7 +35,7 @@ namespace fuml.semantics.structuredclassifiers
 						{
 							if (memberOperation.method.Count == 0)
 							{
-								method = base.getMethod(object_, memberOperation);
+								method = base.GetMethod(object_, memberOperation);
 							}
 							else
 							{

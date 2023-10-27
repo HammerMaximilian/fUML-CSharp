@@ -12,7 +12,7 @@ namespace fuml.semantics.values
 
             LiteralUnlimitedNatural literal = (LiteralUnlimitedNatural)specification!;
             UnlimitedNaturalValue unlimitedNaturalValue = new();
-            unlimitedNaturalValue.type = getType("UnlimitedNatural");
+            unlimitedNaturalValue.type = GetType("UnlimitedNatural");
             unlimitedNaturalValue.value = literal.value;
 
             return unlimitedNaturalValue;

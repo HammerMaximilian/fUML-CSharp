@@ -7,14 +7,14 @@
          */
         public List<ExceptionHandler> handler = new();
 
-        public void addExceptionHandler(ExceptionHandler handler)
+        public void AddExceptionHandler(ExceptionHandler handler)
         {
             if (handler is null)
             {
                 throw new ArgumentNullException(nameof(handler));
             }
 
-            this.addOwnedElement(handler);
+            addOwnedElement(handler);
             this.handler.Add(handler);
             handler.protectedNode = this;
         }

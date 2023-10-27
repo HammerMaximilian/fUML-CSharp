@@ -142,12 +142,12 @@ namespace fuml.semantics.commonbehavior
             return new CallEventExecution();
         }
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new call event execution that is a copy of this execution, with the
             // caller initially not suspended.
 
-            CallEventExecution copy = (CallEventExecution)base.copy();
+            CallEventExecution copy = (CallEventExecution)base.Copy();
             copy.callerSuspended = false;
             return copy;
         }

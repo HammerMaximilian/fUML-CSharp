@@ -8,32 +8,32 @@ namespace fuml.semantics.simpleclassifiers
     {
         public Signal? type = null;
 
-        public override List<Classifier> getTypes()
+        public override List<Classifier> GetTypes()
         {
             // Return the single type of this signal instance.
 
             List<Classifier> types = new();
 
-            types.Add(type);
+            types.Add(type!);
 
             return types;
         } // getTypes
 
-        protected override Value new_()
+        protected override Value New_()
         {
             // Create a new signal instance with no type or feature values.
 
             return new SignalInstance();
         } // new_
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new signal instance with the same type and feature values as
             // this signal instance.
 
-            SignalInstance newValue = (SignalInstance)base.copy();
+            SignalInstance newValue = (SignalInstance)base.Copy();
 
-            newValue.type = this.type;
+            newValue.type = type;
 
             return newValue;
         } // copy

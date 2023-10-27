@@ -9,7 +9,7 @@ namespace fuml.semantics.simpleclassifiers
     {
         public List<FeatureValue> featureValues = new();
 
-        public override bool equals(Value otherValue)
+        public override bool Equals(Value otherValue)
         {
             // Test if this data value is equal to the otherValue.
             // To be equal, the otherValue must also be a compund value with the
@@ -21,7 +21,7 @@ namespace fuml.semantics.simpleclassifiers
             {
                 CompoundValue otherCompoundValue = (CompoundValue)otherValue;
 
-                isEqual = base.equals(otherValue)
+                isEqual = base.Equals(otherValue)
                         & otherCompoundValue.featureValues.Count == featureValues
                                 .Count;
 
@@ -53,12 +53,12 @@ namespace fuml.semantics.simpleclassifiers
             return isEqual;
         } // equals
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new data value with the same featureValues as this data
             // value.
 
-            CompoundValue newValue = (CompoundValue)base.copy();
+            CompoundValue newValue = (CompoundValue)base.Copy();
 
             List<FeatureValue> featureValues = this.featureValues;
             foreach (FeatureValue featureValue in featureValues)
@@ -118,11 +118,11 @@ namespace fuml.semantics.simpleclassifiers
 
         } // getFeatureValues
 
-        public override string toString()
+        public override string ToString()
         {
             string buffer = "(";
 
-            List<Classifier> types = getTypes();
+            List<Classifier> types = GetTypes();
 
             int i = 1;
             while (i <= types.Count)
@@ -149,7 +149,7 @@ namespace fuml.semantics.simpleclassifiers
                     if (value is Reference) {
                         Object_ object_ = ((Reference)value)?.referent!;
                         buffer = buffer + " Reference to " + object_.identifier + "(";
-                        types = object_.getTypes();
+                        types = object_.GetTypes();
                         int n = 1;
                         while (n <= types.Count)
                         {
@@ -163,7 +163,7 @@ namespace fuml.semantics.simpleclassifiers
                         buffer = buffer + ")";
                     } else
                     {
-                        buffer = buffer + " " + value.toString();
+                        buffer = buffer + " " + value.ToString();
                     }
                     j = j + 1;
                 }

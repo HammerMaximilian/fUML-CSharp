@@ -104,7 +104,7 @@ namespace fuml.semantics.activities
 			// Terminate the activation of this node.
 
 			Debug.println(running, node is null ?
-					"[terminate] Anonymous activation of type " + this.GetType().Name :
+					"[terminate] Anonymous activation of type " + GetType().Name :
 					"[terminate] node = " + node.name);
 
 			running = false;

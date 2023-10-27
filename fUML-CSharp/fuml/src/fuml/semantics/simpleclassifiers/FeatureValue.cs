@@ -32,7 +32,7 @@ namespace fuml.semantics.simpleclassifiers
                     int i = 1;
                     while (equal & i <= values.Count)
                     {
-                        equal = values.ElementAt(i - 1).equals(
+                        equal = values.ElementAt(i - 1).Equals(
                                 other.values.ElementAt(i - 1));
                         i = i + 1;
                     }
@@ -58,7 +58,7 @@ namespace fuml.semantics.simpleclassifiers
                         int j = 1;
                         while (!matched & j <= otherFeatureValues.values.Count)
                         {
-                            if (this.values.ElementAt(i - 1).equals(
+                            if (this.values.ElementAt(i - 1).Equals(
                                     otherFeatureValues.values.ElementAt(j - 1)))
                             {
                                 matched = true;
@@ -88,7 +88,7 @@ namespace fuml.semantics.simpleclassifiers
             List<Value> values = this.values;
             foreach (Value value in values)
             {
-                newValue.values.Add(value.copy());
+                newValue.values.Add(value.Copy());
             }
 
             return newValue;

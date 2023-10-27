@@ -8,29 +8,31 @@ namespace fuml.semantics.simpleclassifiers
     {
         public DataType? type = null;
 
-        public override List<Classifier> getTypes()
+        public override List<Classifier> GetTypes()
         {
             // Return the single type of this data value.
 
-            List<Classifier> types = new List<Classifier>();
-            types.Add(type);
+            List<Classifier> types = new()
+            {
+                type!
+            };
 
             return types;
         } // getTypes
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new data value with the same type and feature values as this
             // data value.
 
-            DataValue newValue = (DataValue)base.copy();
+            DataValue newValue = (DataValue)base.Copy();
 
             newValue.type = type;
 
             return newValue;
         } // copy
 
-        protected override Value new_()
+        protected override Value New_()
         {
             // Create a new data value with no type or feature values.
 

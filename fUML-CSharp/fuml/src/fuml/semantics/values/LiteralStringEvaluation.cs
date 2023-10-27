@@ -11,7 +11,7 @@ namespace fuml.semantics.values
 
             LiteralString literal = (LiteralString)specification!;
             StringValue stringValue = new();
-            stringValue.type = getType("String");
+            stringValue.type = GetType("String");
             stringValue.value = literal.value;
 
             return stringValue;

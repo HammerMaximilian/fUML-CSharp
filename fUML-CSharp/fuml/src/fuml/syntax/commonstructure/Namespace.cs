@@ -66,7 +66,7 @@
             this.packageImport.Add(packageImport);
             packageImport.importingNamespace = this;
 
-            List<PackageableElement> importedElements = packageImport.importedPackage!.visibleMembers();
+            List<PackageableElement> importedElements = packageImport.importedPackage!.VisibleMembers();
             foreach(PackageableElement importedElement in importedElements)
             {
                 addImportedMember(importedElement);

@@ -11,7 +11,7 @@ namespace fuml.semantics.values
 
             LiteralBoolean literal = (LiteralBoolean)specification!;
             BooleanValue booleanValue = new();
-            booleanValue.type = getType("Boolean");
+            booleanValue.type = GetType("Boolean");
             booleanValue.value = literal.value;
 
             return booleanValue;

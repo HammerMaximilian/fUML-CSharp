@@ -15,7 +15,7 @@ namespace fuml.syntax.structuredclassifiers
         public bool isID = false;
         public List<Class_> superClass = new();
 
-        public void setIsActive(bool isActive)
+        public void SetIsActive(bool isActive)
         {
             this.isActive = isActive;
         } // setIsActive
@@ -30,13 +30,13 @@ namespace fuml.syntax.structuredclassifiers
 
             base.addGeneralization(generalization);
 
-            if (generalization.general is Class_)
+            if (generalization.general is Class_ class_)
             {
-                superClass.Add((Class_)generalization.general);
+                superClass.Add(class_);
             }
         } // addGeneralization
 
-        public void addOwnedAttribute(
+        public void AddOwnedAttribute(
                 Property ownedAttribute)
         {
             if (ownedAttribute is null)
@@ -51,7 +51,7 @@ namespace fuml.syntax.structuredclassifiers
             ownedAttribute._setClass(this);
         } // addOwnedAttribute
 
-        public void addOwnedOperation(
+        public void AddOwnedOperation(
                 Operation ownedOperation)
         {
             if (ownedOperation is null)
@@ -66,7 +66,7 @@ namespace fuml.syntax.structuredclassifiers
             ownedOperation._setClass(this);
         } // addOwnedOperation
 
-        public void addOwnedReception(
+        public void AddOwnedReception(
                 Reception ownedReception)
         {
             addOwnedMember(ownedReception);
@@ -84,11 +84,10 @@ namespace fuml.syntax.structuredclassifiers
 
             for (int i = 0; i < ownedMember.Count; i++)
             {
-                if (ownedMember.ElementAt(i) is RedefinableElement)
+                if (ownedMember.ElementAt(i) is RedefinableElement redefinableElement)
                 {
                     redefinableMembers
-                            .Add((RedefinableElement)this.ownedMember
-                                    .ElementAt(i));
+                            .Add(redefinableElement);
                 }
             }
 
@@ -121,7 +120,7 @@ namespace fuml.syntax.structuredclassifiers
             return inherited;
         } // inherit
 
-        public void addNestedClassifier(
+        public void AddNestedClassifier(
                 Classifier nestedClassifier)
         {
             if (nestedClassifier is null)

@@ -7,7 +7,7 @@ namespace fuml.syntax.classification
         public List<Classifier> classifier = new();
         public List<Slot> slot = new();
 
-        public void addClassifier(Classifier classifier)
+        public void AddClassifier(Classifier classifier)
         {
             if (classifier is null)
             {
@@ -17,14 +17,14 @@ namespace fuml.syntax.classification
             this.classifier.Add(classifier);
         } // addClassifier
 
-        public void addSlot(Slot slot)
+        public void AddSlot(Slot slot)
         {
             if (slot is null)
             {
                 throw new ArgumentNullException(nameof(slot));
             }
 
-            this.addOwnedElement(slot);
+            addOwnedElement(slot);
             this.slot.Add(slot);
             slot._setOwningInstance(this);
         } // addSlot

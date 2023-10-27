@@ -7,7 +7,7 @@ namespace fuml.semantics.simpleclassifiers
 {
     public abstract class StructuredValue : Value
     {
-        public override ValueSpecification specify()
+        public override ValueSpecification Specify()
         {
             // Return an instance value that specifies this structured value.
 
@@ -17,7 +17,7 @@ namespace fuml.semantics.simpleclassifiers
             instanceValue.type = null;
             instanceValue.instance = instance;
 
-            instance.classifier = getTypes();
+            instance.classifier = GetTypes();
 
             List<FeatureValue> featureValues = getFeatureValues();
 
@@ -29,7 +29,7 @@ namespace fuml.semantics.simpleclassifiers
                 List<Value> values = featureValue.values;
                 foreach (Value value in values)
                 {
-                    slot.value.Add(value.specify());
+                    slot.value.Add(value.Specify());
                 }
 
                 instance.slot.Add(slot);
@@ -86,7 +86,7 @@ namespace fuml.semantics.simpleclassifiers
             // that are not inherited).
 
             List<StructuralFeature> features = new();
-            List<Classifier> types = getTypes();
+            List<Classifier> types = GetTypes();
 
             foreach (Classifier type in types)
             {

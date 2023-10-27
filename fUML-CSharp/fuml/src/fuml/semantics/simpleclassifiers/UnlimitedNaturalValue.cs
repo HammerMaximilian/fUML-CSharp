@@ -8,7 +8,7 @@ namespace fuml.semantics.simpleclassifiers
     {
         public UnlimitedNatural value = new(0);
 
-        public override ValueSpecification specify()
+        public override ValueSpecification Specify()
         {
             // Return a literal unlimited natural with the value of this unlimited
             // natural value.
@@ -21,7 +21,7 @@ namespace fuml.semantics.simpleclassifiers
             return literal;
         } // specify
 
-        public override bool equals(Value otherValue)
+        public override bool Equals(Value otherValue)
         {
             // Test if this unlimited natural value is equal to the otherValue.
             // To be equal, the otherValue must have the same value as this
@@ -35,25 +35,25 @@ namespace fuml.semantics.simpleclassifiers
             return isEqual;
         } // equals
 
-        public override Value copy()
+        public override Value Copy()
         {
             // Create a new unlimited natural value with the same value as this
             // value.
 
-            UnlimitedNaturalValue newValue = (UnlimitedNaturalValue)base.copy();
+            UnlimitedNaturalValue newValue = (UnlimitedNaturalValue)base.Copy();
 
             newValue.value = value;
             return newValue;
         } // copy
 
-        protected override Value new_()
+        protected override Value New_()
         {
             // Create a new unlimited natural value with no value.
 
             return new UnlimitedNaturalValue();
         } // new_
 
-        public override string toString()
+        public override string ToString()
         {
             string stringValue = "*";
 
@@ -61,7 +61,7 @@ namespace fuml.semantics.simpleclassifiers
             {
                 IntegerValue integerValue = new IntegerValue();
                 integerValue.value = value.naturalValue;
-                stringValue = integerValue.toString();
+                stringValue = integerValue.ToString();
             }
 
             return stringValue;

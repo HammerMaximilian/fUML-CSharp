@@ -18,7 +18,7 @@ namespace fuml.semantics.activities
 			// the execution is complete, copy the values on the tokens offered by
 			// output parameter nodes to the corresponding output parameters.
 
-			Activity activity = (Activity)getTypes().ElementAt(0);
+			Activity activity = (Activity)GetTypes().ElementAt(0);
 
 			Debug.println("[execute] Activity " + activity.name + "...");
 			Debug.println("[event] Execute activity=" + activity.name);
@@ -55,7 +55,7 @@ namespace fuml.semantics.activities
 			// Copy the values on the tokens offered by output parameter nodes for
 			// non-stream parameters to the corresponding output parameter values.
 
-			Activity activity = (Activity)getTypes().ElementAt(0);
+			Activity activity = (Activity)GetTypes().ElementAt(0);
 
 			List<ActivityParameterNodeActivation> outputActivations = (activationGroup is not null) ? activationGroup.GetOutputParameterNodeActivations() : new();
 
@@ -88,13 +88,13 @@ namespace fuml.semantics.activities
 			Debug.println("[execute] Activity " + activity.name + " completed.");
 		}
 
-		public override Value copy()
+		public override Value Copy()
 		{
 			// Create a new activity execution that is a copy of this execution.
 			// [Note: This currently just returns a non-executing execution for the
 			// same activity as this execution.]
 
-			return base.copy();
+			return base.Copy();
 		} // copy
 
 		public override Value New_()

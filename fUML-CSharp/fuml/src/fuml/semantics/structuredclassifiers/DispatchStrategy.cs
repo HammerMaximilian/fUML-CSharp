@@ -1,4 +1,5 @@
-﻿using fuml.semantics.loci;
+﻿using fuml.semantics.commonbehavior;
+using fuml.semantics.loci;
 using fuml.syntax.classification;
 using fuml.syntax.commonbehavior;
 
@@ -13,7 +14,7 @@ namespace fuml.semantics.structuredclassifiers
 			return "dispatch";
 		} // getName
 
-		public Execution dispatch(
+		public Execution Dispatch(
 				Object_ object_,
 				Operation operation)
 		{
@@ -21,10 +22,10 @@ namespace fuml.semantics.structuredclassifiers
 			// of the given object_, compile the behavior at the locus of the object_,
 			// and return the resulting execution object_.
 
-			return object_.locus.factory.createExecution(getMethod(object_, operation), object_);
+			return object_?.locus?.factory?.CreateExecution(GetMethod(object_, operation), object_)!;
 		} // dispatch
 
-		public virtual Behavior getMethod(
+		public virtual Behavior GetMethod(
 				Object_ object_,
 				Operation operation)
 		{
@@ -34,7 +35,7 @@ namespace fuml.semantics.structuredclassifiers
 			// subclasses may override this default to provide other dispatching behavior.
 
 			CallEventBehavior method = new();
-			method.setOperation(operation);
+			method.SetOperation(operation);
 			return method;
 		}
 	} // DispatchStrategy

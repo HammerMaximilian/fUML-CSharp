@@ -1,4 +1,5 @@
-﻿using fuml.semantics.simpleclassifiers;
+﻿using fuml.semantics.loci;
+using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
 using fuml.syntax.classification;
 using fuml.syntax.structuredclassifiers;
@@ -23,7 +24,7 @@ namespace fuml.semantics.structuredclassifiers
 			Debug.println("[destroy] link = " + identifier);
 
             List<Property> ends = (type is not null) ? type.memberEnd : new();
-			List<ExtensionalValue> extent = locus.getExtent(type);
+			List<ExtensionalValue> extent = locus!.GetExtent(type!);
 
 			foreach (ExtensionalValue otherLink in extent)
 			{
@@ -34,7 +35,7 @@ namespace fuml.semantics.structuredclassifiers
 						FeatureValue featureValue = otherLink.getFeatureValue(end);
 						if (getFeatureValue(end).position < featureValue.position)
 						{
-							featureValue.position = featureValue.position - 1;
+							featureValue.position--;
 						}
 					}
 				}
@@ -44,26 +45,26 @@ namespace fuml.semantics.structuredclassifiers
 			base.destroy();
 		} // destroy
 
-		public override Value copy()
+		public override Value Copy()
 		{
 			// Create a new link with the same type, locus and feature values as
 			// this link.
 
-			Link newValue = (Link)base.copy();
+			Link newValue = (Link)base.Copy();
 
 			newValue.type = type;
 
 			return newValue;
 		} // copy
 
-		protected override Value new_()
+		protected override Value New_()
 		{
 			// Create a new link with no type or properies.
 
 			return new Link();
 		} // new_
 
-		public override List<Classifier> getTypes()
+		public override List<Classifier> GetTypes()
 		{
 			// Return the single type of this link (if any).
 
@@ -78,14 +79,14 @@ namespace fuml.semantics.structuredclassifiers
 
 		} // getTypes
 
-		public bool isMatchingLink(
+		public bool IsMatchingLink(
 				fuml.semantics.structuredclassifiers.ExtensionalValue link,
 				fuml.syntax.classification.Property end)
 		{
 			// Test whether the given link matches the values of this link on all
 			// ends other than the given end.
 
-			List<Property> ends = type.memberEnd;
+			List<Property> ends = type!.memberEnd;
 
 			bool matches = true;
 			int i = 1;
@@ -94,31 +95,31 @@ namespace fuml.semantics.structuredclassifiers
 				Property otherEnd = ends.ElementAt(i - 1);
 				if (otherEnd != end
 						& !getFeatureValue(otherEnd).values.ElementAt(0)
-								.equals(
+								.Equals(
 										link.getFeatureValue(otherEnd).values
 												.ElementAt(0)))
 				{
 					matches = false;
 				}
-				i = i + 1;
+				i++;
 			}
 
 			return matches;
 		} // isMatchingLink
 
-		public List<FeatureValue> getOtherFeatureValues(
+		public List<FeatureValue> GetOtherFeatureValues(
 				List<ExtensionalValue> extent,
 				Property end)
 		{
 			// Return all feature values for the given end of links in the given
 			// extent whose other ends match this link.
 
-			List<FeatureValue> featureValues = new List<FeatureValue>();
+			List<FeatureValue> featureValues = new();
 			foreach (ExtensionalValue link in extent)
 			{
 				if (link != this)
 				{
-					if (isMatchingLink(link, end))
+					if (IsMatchingLink(link, end))
 					{
 						featureValues.Add(link.getFeatureValue(end));
 					}
@@ -127,7 +128,7 @@ namespace fuml.semantics.structuredclassifiers
 			return featureValues;
 		} // getOtherFeatureValues
 
-		public void addTo(Locus locus)
+		public void AddTo(Locus locus)
 		{
 			// Add this link to the extent of its association at the given locus.
 			// Shift the positions of ends of other links, as appropriate, for ends
@@ -136,15 +137,15 @@ namespace fuml.semantics.structuredclassifiers
 			Debug.println("[addTo] link = " + identifier);
 
 			List<Property> ends = (type is not null) ? type.memberEnd : new();
-			List<ExtensionalValue> extent = locus.getExtent(type);
+			List<ExtensionalValue> extent = locus.GetExtent(type!);
 
 			foreach (Property end in ends)
 			{
 				if (end.multiplicityElement.isOrdered)
 				{
 					FeatureValue featureValue = getFeatureValue(end);
-					List<FeatureValue> otherFeatureValues = this
-							.getOtherFeatureValues(extent, end);
+					List<FeatureValue> otherFeatureValues = 
+							GetOtherFeatureValues(extent, end);
 					int n = otherFeatureValues.Count;
 					if (featureValue.position < 0 | featureValue.position > n)
 					{
@@ -160,14 +161,14 @@ namespace fuml.semantics.structuredclassifiers
 						{
 							if (featureValue.position <= otherFeatureValue.position)
 							{
-								otherFeatureValue.position = otherFeatureValue.position + 1;
+								otherFeatureValue.position++;
 							}
 						}
 					}
 				}
 			}
 
-			locus.add(this);
+			locus.Add(this);
 		} // addTo
 	} // Link
 }

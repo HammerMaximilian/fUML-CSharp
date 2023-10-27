@@ -17,7 +17,7 @@ namespace fuml.semantics.loci
             identifier = GetHashCode().ToString("X8");
         }
 
-        public void setExecutor(Executor executor)
+        public void SetExecutor(Executor executor)
         {
             // Set the executor for this locus.
 
@@ -25,7 +25,7 @@ namespace fuml.semantics.loci
             this.executor.locus = this;
         } // setExecutor
 
-        public void setFactory(ExecutionFactory factory)
+        public void SetFactory(ExecutionFactory factory)
         {
             // Set the factory for this locus.
 
@@ -33,7 +33,7 @@ namespace fuml.semantics.loci
             this.factory.locus = this;
         } // setFactory
 
-        public List<ExtensionalValue> getExtent(
+        public List<ExtensionalValue> GetExtent(
                 Classifier classifier)
         {
             // Return the set of extensional values at this locus which have the
@@ -44,14 +44,14 @@ namespace fuml.semantics.loci
             List<ExtensionalValue> extensionalValues = this.extensionalValues;
             foreach (ExtensionalValue value in extensionalValues)
             {
-                List<Classifier> types = value.getTypes();
+                List<Classifier> types = value.GetTypes();
 
                 bool conforms = false;
                 int j = 1;
                 while (!conforms & j <= types.Count)
                 {
-                    conforms = this.conforms(types.ElementAt(j - 1), classifier);
-                    j = j + 1;
+                    conforms = this.Conforms(types.ElementAt(j - 1), classifier);
+                    j++;
                 }
 
                 if (conforms)
@@ -63,17 +63,17 @@ namespace fuml.semantics.loci
             return extent;
         } // getExtent
 
-        public void add(ExtensionalValue value)
+        public void Add(ExtensionalValue value)
         {
             // Add the given extensional value to this locus
 
             value.locus = this;
-            value.identifier = identifier + "#" + makeIdentifier(value);
+            value.identifier = identifier + "#" + MakeIdentifier(value);
             extensionalValues.Add(value);
 
         } // add
 
-        public string makeIdentifier(ExtensionalValue value)
+        public string MakeIdentifier(ExtensionalValue value)
         {
             // Return an identifier for the given (newly created) extensional value.
 
@@ -85,7 +85,7 @@ namespace fuml.semantics.loci
             return value.GetHashCode().ToString("X8");
         } // makeIdentifier
 
-        public void remove(ExtensionalValue value)
+        public void Remove(ExtensionalValue value)
         {
             // Remove the given extensional value from this locus.
 
@@ -100,19 +100,19 @@ namespace fuml.semantics.loci
                     extensionalValues.RemoveAt(i - 1);
                     notFound = false;
                 }
-                i = i + 1;
+                i++;
             }
         } // remove
 
-        public Object_ instantiate(
+        public Object_ Instantiate(
                 Class_ type)
         {
             // Instantiate the given class at this locus.
 
             Object_? object_;
-            if (type is Behavior)
+            if (type is Behavior behavior)
             {
-                object_ = factory?.createExecution((Behavior)type, null!);
+                object_ = factory?.CreateExecution(behavior, null!);
             }
             else
             {
@@ -120,13 +120,13 @@ namespace fuml.semantics.loci
 
                 object_.types.Add(type);
                 object_.createFeatureValues();
-                add(object_);
+                Add(object_);
             }
 
-            return object_;
+            return object_!;
         } // instantiate
 
-        public bool conforms(Classifier type,
+        public bool Conforms(Classifier type,
                 Classifier classifier)
         {
             // Test if a type conforms to a given classifier, that is, the type is
@@ -143,9 +143,9 @@ namespace fuml.semantics.loci
                 int i = 1;
                 while (!doesConform & i <= type.general.Count)
                 {
-                    doesConform = conforms(type.general.ElementAt(i - 1),
+                    doesConform = Conforms(type.general.ElementAt(i - 1),
                             classifier);
-                    i = i + 1;
+                    i++;
                 }
             }
 

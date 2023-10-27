@@ -5,17 +5,17 @@ namespace fuml.semantics.values
 {
     public abstract class Value : SemanticVisitor
     {
-        public abstract syntax.values.ValueSpecification specify();
+        public abstract syntax.values.ValueSpecification Specify();
 
-        public virtual bool equals(Value otherValue)
+        public virtual bool Equals(Value otherValue)
         {
             // Test if this value is equal to otherValue. To be equal, this value
             // must have the same type as otherValue.
             // This operation must be overridden in Value subclasses to check for
             // equality of properties defined in those subclasses.
 
-            List<Classifier> myTypes = this.getTypes();
-            List<Classifier> otherTypes = otherValue.getTypes();
+            List<Classifier> myTypes = GetTypes();
+            List<Classifier> otherTypes = otherValue.GetTypes();
 
             bool isEqual = true;
 
@@ -33,20 +33,20 @@ namespace fuml.semantics.values
                     int j = 1;
                     while (!matched & j <= otherTypes.Count)
                     {
-                        matched = (otherTypes.ElementAt(j - 1) == myTypes
-                                .ElementAt(i - 1));
-                        j = j + 1;
+                        matched = otherTypes.ElementAt(j - 1) == myTypes
+                                .ElementAt(i - 1);
+                        j++;
                     }
 
                     isEqual = matched;
-                    i = i + 1;
+                    i++;
                 }
             }
 
             return isEqual;
         } // equals
 
-        public virtual Value copy()
+        public virtual Value Copy()
         {
             // Create a new value that is equal to this value.
             // By default, this operation simply creates a new value with empty
@@ -54,48 +54,48 @@ namespace fuml.semantics.values
             // It must be overridden in each Value subclass to do the superclass
             // copy and then appropriately set properties defined in the subclass.
 
-            return new_();
+            return New_();
         } // copy
 
-        protected abstract Value new_();
+        protected abstract Value New_();
 
-        public abstract List<Classifier> getTypes();
+        public abstract List<Classifier> GetTypes();
 
-        public bool hasType(Classifier type)
+        public bool HasType(Classifier type)
         {
             // Check if this object has the given classifier as a type.
 
-            List<Classifier> types = this.getTypes();
+            List<Classifier> types = GetTypes();
 
             bool found = false;
             int i = 1;
             while (!found & i <= types.Count)
             {
-                found = (types.ElementAt(i - 1) == type);
-                i = i + 1;
+                found = types.ElementAt(i - 1) == type;
+                i++;
             }
 
             return found;
         } // hasType
 
-        public bool isInstanceOf(Classifier classifier)
+        public bool IsInstanceOf(Classifier classifier)
         {
             // Check if this value has the given classifier as its type
             // or as an ancestor of one of its types.
 
-            List<Classifier> types = this.getTypes();
+            List<Classifier> types = GetTypes();
 
-            bool isInstance = this.hasType(classifier);
+            bool isInstance = HasType(classifier);
             int i = 1;
             while (!isInstance & i <= types.Count)
             {
-                isInstance = this.checkAllParents(types.ElementAt(i - 1), classifier);
-                i = i + 1;
+                isInstance = CheckAllParents(types.ElementAt(i - 1), classifier);
+                i++;
             }
             return isInstance;
         }
 
-        public bool checkAllParents(Classifier type,
+        public bool CheckAllParents(Classifier type,
                 Classifier classifier)
         {
             // Check if the given classifier matches any of the direct or indirect
@@ -113,14 +113,14 @@ namespace fuml.semantics.values
                 }
                 else
                 {
-                    matched = this.checkAllParents(directParent, classifier);
+                    matched = CheckAllParents(directParent, classifier);
                 }
-                i = i + 1;
+                i++;
             }
 
             return matched;
 
         }
-        public abstract string toString();
+        public abstract new string ToString();
     }
 }

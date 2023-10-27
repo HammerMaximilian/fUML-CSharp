@@ -10,7 +10,7 @@ namespace fuml.syntax.packages
         public Package? nestingPackage = null;
         public string URI = "";
 
-        public void addPackagedElement(
+        public void AddPackagedElement(
                 PackageableElement packagedElement)
         {
             if (packagedElement is null)
@@ -21,27 +21,27 @@ namespace fuml.syntax.packages
             addOwnedMember(packagedElement);
             this.packagedElement.Add(packagedElement);
 
-            if (packagedElement is commonstructure.Type) 
+            if (packagedElement is commonstructure.Type type) 
             {
-                this.ownedType.Add((commonstructure.Type)packagedElement);
-                ((commonstructure.Type)packagedElement)._setPackage(this);
+                ownedType.Add(type);
+                type._setPackage(this);
             }
 
-            if (packagedElement is Package) 
+            if (packagedElement is Package package) 
             {
-                this.nestedPackage.Add((Package)packagedElement);
-                ((Package)packagedElement).nestingPackage = this;
+                nestedPackage.Add(package);
+                package.nestingPackage = this;
             }
 
         } // addPackagedElement
 
-        public List<PackageableElement> visibleMembers()
+        public List<PackageableElement> VisibleMembers()
         {
             List<PackageableElement> visibleMembers = new();
 
             foreach(PackageableElement member in packagedElement)
             {
-                if (makesVisible(member))
+                if (MakesVisible(member))
                 {
                     visibleMembers.Add(member);
                 }
@@ -50,7 +50,7 @@ namespace fuml.syntax.packages
             return visibleMembers;
         } // visibleMembers
 
-        public bool makesVisible(NamedElement el)
+        public bool MakesVisible(NamedElement el)
         {
             foreach(NamedElement member in ownedMember)
             {
@@ -89,7 +89,7 @@ namespace fuml.syntax.packages
             return false;
         } // makesVisible
 
-        public void setURI(string URI)
+        public void SetURI(string URI)
         {
             this.URI = URI;
         } // setURI

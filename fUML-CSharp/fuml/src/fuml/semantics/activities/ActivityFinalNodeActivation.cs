@@ -1,4 +1,6 @@
-﻿namespace fuml.semantics.activities
+﻿using fuml.semantics.actions;
+
+namespace fuml.semantics.activities
 {
     public class ActivityFinalNodeActivation : ControlNodeActivation
     {
@@ -21,7 +23,7 @@
 				}
 				else if (group is ExpansionActivationGroup expansionActivationGroup)
 				{
-					expansionActivationGroup.regionActivation.terminate();
+					expansionActivationGroup.regionActivation?.Terminate();
 				}
 			}
 		} // fire

@@ -19,7 +19,7 @@
 			{
 				Execution execution = queue.ElementAt(0);
 				queue.RemoveAt(0);
-				if (execution?.context?.getTypes().Count > 0)
+				if (execution?.context?.GetTypes().Count > 0)
 				{
 					Debug.println("[runNext] execution = " + execution);
 					execution.Execute();

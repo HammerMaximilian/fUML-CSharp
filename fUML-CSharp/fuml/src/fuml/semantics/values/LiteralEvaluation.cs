@@ -4,7 +4,7 @@ namespace fuml.semantics.values
 {
     public abstract class LiteralEvaluation : Evaluation
     {
-        public PrimitiveType getType(
+        public PrimitiveType GetType(
         string builtInTypeName)
         {
             // Get the type of the specification. If that is null, then use the
@@ -14,7 +14,7 @@ namespace fuml.semantics.values
 
             if (type is null)
             {
-                type = locus.factory.getBuiltInType(builtInTypeName);
+                type = locus?.factory?.GetBuiltInType(builtInTypeName)!;
             }
 
             return type;
