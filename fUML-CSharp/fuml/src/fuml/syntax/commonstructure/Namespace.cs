@@ -8,7 +8,7 @@
         public List<PackageImport> packageImport = new();
         public List<PackageableElement> importedMember = new();
 
-        protected void addOwnedMember(
+        protected void AddOwnedMember(
                 NamedElement ownedMember)
         {
             if (ownedMember is null)
@@ -16,15 +16,15 @@
                 throw new ArgumentNullException(nameof(ownedMember));
             }
 
-            addOwnedElement(ownedMember);
+            AddOwnedElement(ownedMember);
 
             this.ownedMember.Add(ownedMember);
             ownedMember.namespace_ = this;
 
-            addMember(ownedMember);
+            AddMember(ownedMember);
         } // addOwnedMember
 
-        protected void addMember(NamedElement member)
+        protected void AddMember(NamedElement member)
         {
             if (member is null)
             {
@@ -37,7 +37,7 @@
 
         } // addMember
 
-        public void addElementImport(
+        public void AddElementImport(
                 ElementImport elementImport)
         {
             if (elementImport is null)
@@ -45,15 +45,15 @@
                 throw new ArgumentNullException(nameof(elementImport));
             }
 
-            addOwnedElement(elementImport);
+            AddOwnedElement(elementImport);
 
             this.elementImport.Add(elementImport);
             elementImport.importingNamespace = this;
 
-            addImportedMember(elementImport.importedElement!);
+            AddImportedMember(elementImport.importedElement!);
         } // addElementImport
 
-        public void addPackageImport(
+        public void AddPackageImport(
                 PackageImport packageImport)
         {
             if (packageImport is null)
@@ -61,7 +61,7 @@
                 throw new ArgumentNullException(nameof(packageImport));
             }
 
-            addOwnedElement(packageImport);
+            AddOwnedElement(packageImport);
 
             this.packageImport.Add(packageImport);
             packageImport.importingNamespace = this;
@@ -69,11 +69,11 @@
             List<PackageableElement> importedElements = packageImport.importedPackage!.VisibleMembers();
             foreach(PackageableElement importedElement in importedElements)
             {
-                addImportedMember(importedElement);
+                AddImportedMember(importedElement);
             }
         } // addPackageImport
 
-        private void addImportedMember(
+        private void AddImportedMember(
                 PackageableElement importedMember)
         {
             if (importedMember is null)
@@ -81,7 +81,7 @@
                 throw new ArgumentNullException(nameof(importedMember));
             }
 
-            addMember(importedMember);
+            AddMember(importedMember);
             this.importedMember.Add(importedMember);
         } // addImportedMember
     }

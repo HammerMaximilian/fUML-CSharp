@@ -9,7 +9,7 @@ namespace fuml.semantics.activities
 			// Terminate the activity execution or structured node activation
 			// containing this activation.
 
-			Debug.println("[fire] Activity final node " + node?.name + "...");
+			Debug.Println("[fire] Activity final node " + node?.name + "...");
 
 			if (incomingTokens.Count > 0 | incomingEdges.Count == 0)
 			{

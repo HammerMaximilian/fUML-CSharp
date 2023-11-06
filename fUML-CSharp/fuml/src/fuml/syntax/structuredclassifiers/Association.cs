@@ -12,15 +12,15 @@ namespace fuml.syntax.structuredclassifiers
         public List<Property> memberEnd = new();
         public List<Property> navigableOwnedEnd = new();
 
-        public void addOwnedEnd(Property ownedEnd)
+        public void AddOwnedEnd(Property ownedEnd)
         {
             if (ownedEnd is null)
             {
                 throw new ArgumentNullException(nameof(ownedEnd));
             }
 
-            addFeature(ownedEnd);
-            addOwnedMember(ownedEnd);
+            AddFeature(ownedEnd);
+            AddOwnedMember(ownedEnd);
 
             this.ownedEnd.Add(ownedEnd);
             ownedEnd._setOwningAssociation(this);
@@ -28,7 +28,7 @@ namespace fuml.syntax.structuredclassifiers
             _addMemberEnd(ownedEnd);
         } // addOwnedEnd
 
-        public void addNavigableOwnedEnd(
+        public void AddNavigableOwnedEnd(
                 Property navigableOwnedEnd)
         {
             if (navigableOwnedEnd is null)
@@ -41,7 +41,7 @@ namespace fuml.syntax.structuredclassifiers
             this.navigableOwnedEnd.Add(navigableOwnedEnd);
         } // addNavigableOwnedEnd
 
-        public void addMemberEnd(Property memberEnd)
+        public void AddMemberEnd(Property memberEnd)
         {
             if (memberEnd is null)
             {
@@ -50,7 +50,7 @@ namespace fuml.syntax.structuredclassifiers
             // Note: This operation should not be used for owned ends. The
             // operation addOwnedEnd should be used instead.
 
-            addMember(memberEnd);
+            AddMember(memberEnd);
             _addMemberEnd(memberEnd);
         }
 

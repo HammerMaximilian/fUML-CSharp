@@ -14,12 +14,12 @@ namespace fuml.syntax.actions
         public List<OutputPin> loopVariable = new();
         public List<ExecutableNode> setupPart = new();
 
-        public void setIsTestedFirst(bool isTestedFirst)
+        public void SetIsTestedFirst(bool isTestedFirst)
         {
             this.isTestedFirst = isTestedFirst;
         } // setIsTestedFirst
 
-        public void addTest(
+        public void AddTest(
                 ExecutableNode test)
         {
             if (test is null)
@@ -30,7 +30,7 @@ namespace fuml.syntax.actions
             this.test.Add(test);
         } // addTest
 
-        public void addBodyPart(
+        public void AddBodyPart(
                 ExecutableNode bodyPart)
         {
             if (bodyPart is null)
@@ -41,14 +41,14 @@ namespace fuml.syntax.actions
             this.bodyPart.Add(bodyPart);
         } // addBodyPart
 
-        public void addLoopVariableInput(
+        public void AddLoopVariableInput(
                 InputPin loopVariableInput)
         {
-            addStructuredNodeInput(loopVariableInput);
+            AddStructuredNodeInput(loopVariableInput);
             this.loopVariableInput.Add(loopVariableInput);
         } // addLoopVariableInput
 
-        public void addLoopVariable(
+        public void AddLoopVariable(
                 OutputPin loopVariable)
         {
             if (loopVariable is null)
@@ -59,12 +59,12 @@ namespace fuml.syntax.actions
             this.loopVariable.Add(loopVariable);
         } // addLoopVariable
 
-        public void setDecider(OutputPin decider)
+        public void SetDecider(OutputPin decider)
         {
             this.decider = decider ?? throw new ArgumentNullException(nameof(decider));
         } // setDecider
 
-        public void addBodyOutput(
+        public void AddBodyOutput(
                 OutputPin bodyOutput)
         {
             if (bodyOutput is null)
@@ -75,7 +75,7 @@ namespace fuml.syntax.actions
             this.bodyOutput.Add(bodyOutput);
         } // addBodyOutput
 
-        public void addResult(OutputPin result)
+        public void AddResult(OutputPin result)
         {
             AddOutput(result);
             this.result.Add(result);

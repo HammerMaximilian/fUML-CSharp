@@ -7,7 +7,7 @@ namespace fuml.syntax.commonbehavior
         public List<Behavior> ownedBehavior = new();
         public Behavior? classifierBehavior = null;
 
-        public void addOwnedBehavior(
+        public void AddOwnedBehavior(
                 Behavior ownedBehavior)
         {
             if (ownedBehavior is null)
@@ -15,7 +15,7 @@ namespace fuml.syntax.commonbehavior
                 throw new ArgumentNullException(nameof(ownedBehavior));
             }
 
-            addOwnedMember(ownedBehavior);
+            AddOwnedMember(ownedBehavior);
 
             this.ownedBehavior.Add(ownedBehavior);
 
@@ -29,7 +29,7 @@ namespace fuml.syntax.commonbehavior
             }
         } // addOwnedBehavior
 
-        public void setClassifierBehavior(
+        public void SetClassifierBehavior(
                 Behavior classifierBehavior)
         {
             // Note: The classifier behavior must also be added as an owned behavior

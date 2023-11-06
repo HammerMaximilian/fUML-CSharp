@@ -13,7 +13,7 @@ namespace fuml.semantics.simpleclassifiers
             // Return a literal unlimited natural with the value of this unlimited
             // natural value.
 
-            LiteralUnlimitedNatural literal = new LiteralUnlimitedNatural();
+            LiteralUnlimitedNatural literal = new();
 
             literal.type = type;
             literal.value = value;
@@ -28,8 +28,8 @@ namespace fuml.semantics.simpleclassifiers
             // unlimited natural value.
 
             bool isEqual = false;
-            if (otherValue is UnlimitedNaturalValue) {
-                isEqual = ((UnlimitedNaturalValue)otherValue).value.naturalValue == value.naturalValue;
+            if (otherValue is UnlimitedNaturalValue unlimitedNaturalValue) {
+                isEqual = unlimitedNaturalValue.value.naturalValue == value.naturalValue;
             }
 
             return isEqual;
@@ -59,7 +59,7 @@ namespace fuml.semantics.simpleclassifiers
 
             if (value.naturalValue >= 0)
             {
-                IntegerValue integerValue = new IntegerValue();
+                IntegerValue integerValue = new();
                 integerValue.value = value.naturalValue;
                 stringValue = integerValue.ToString();
             }

@@ -8,12 +8,12 @@ namespace fuml.syntax.actions
         public InputPin? value = null;
         public Property? end = null;
 
-        public void setEnd(Property end)
+        public void SetEnd(Property end)
         {
             this.end = end ?? throw new ArgumentNullException(nameof(end));
         } // setEnd
 
-        public void setValue(InputPin value)
+        public void SetValue(InputPin value)
         {
             this.value = value ?? throw new ArgumentNullException(nameof(value));
         } // setValue

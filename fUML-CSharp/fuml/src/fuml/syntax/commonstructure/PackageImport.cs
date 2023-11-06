@@ -6,13 +6,13 @@
         public Namespace? importingNamespace = null;
         public packages.Package? importedPackage = null;
 
-        public void setVisibility(
+        public void SetVisibility(
                 VisibilityKind visibility)
         {
             this.visibility = visibility;
         } // setVisibility
 
-        public void setImportedPackage(
+        public void SetImportedPackage(
                 packages.Package importedPackage)
         {
             this.importedPackage = importedPackage ?? throw new ArgumentNullException(nameof(importedPackage));

@@ -16,12 +16,12 @@ namespace fuml.syntax.classification
         public commonstructure.Type? type = null;
         public new List<Parameter> ownedParameter = new();
 
-        public void setIsQuery(bool isQuery)
+        public void SetIsQuery(bool isQuery)
         {
             this.isQuery = isQuery;
         } // setIsQuery
 
-        public override void addOwnedParameter(
+        public override void AddOwnedParameter(
                 Parameter ownedParameter)
         {
             if (ownedParameter is null)
@@ -29,7 +29,7 @@ namespace fuml.syntax.classification
                 throw new ArgumentNullException(nameof(ownedParameter));
             }
 
-            base.addOwnedParameter(ownedParameter);
+            base.AddOwnedParameter(ownedParameter);
             this.ownedParameter.Add(ownedParameter);
             ownedParameter._setOperation(this);
 
@@ -43,7 +43,7 @@ namespace fuml.syntax.classification
             }
         } // addOwnedParameter
 
-        public void addRedefinedOperation(
+        public void AddRedefinedOperation(
                 Operation redefinedOperation)
         {
             if (redefinedOperation is null)
@@ -51,11 +51,11 @@ namespace fuml.syntax.classification
                 throw new ArgumentNullException(nameof(redefinedOperation));
             }
 
-            addRedefinedElement(redefinedOperation);
+            AddRedefinedElement(redefinedOperation);
             this.redefinedOperation.Add(redefinedOperation);
         } // addRedefinedOperation
 
-        public override void addMethod(
+        public override void AddMethod(
                 Behavior method)
         {
             if (method is null)

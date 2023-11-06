@@ -18,7 +18,7 @@ namespace fuml.syntax.packages
                 throw new ArgumentNullException(nameof(packagedElement));
             }
 
-            addOwnedMember(packagedElement);
+            AddOwnedMember(packagedElement);
             this.packagedElement.Add(packagedElement);
 
             if (packagedElement is commonstructure.Type type) 

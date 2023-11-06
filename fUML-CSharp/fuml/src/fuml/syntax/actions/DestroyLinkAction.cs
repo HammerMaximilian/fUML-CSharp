@@ -4,10 +4,10 @@
     {
         public new List<LinkEndDestructionData> endData = new();
 
-        public override void addEndData(
+        public override void AddEndData(
                 LinkEndData endData)
         {
-            base.addEndData(endData);
+            base.AddEndData(endData);
             this.endData.Add((LinkEndDestructionData)endData);
         } // addEndData
     } // DestroyLinkAction

@@ -9,42 +9,42 @@ namespace fuml.syntax.actions
     {
         public MultiplicityElement multiplicityElement = new();
 
-        public void setIsOrdered(bool isOrdered)
+        public void SetIsOrdered(bool isOrdered)
         {
-            multiplicityElement.setIsOrdered(isOrdered);
+            multiplicityElement.SetIsOrdered(isOrdered);
         } // setIsOrdered
 
-        public void setIsUnique(bool isUnique)
+        public void SetIsUnique(bool isUnique)
         {
-            multiplicityElement.setIsUnique(isUnique);
+            multiplicityElement.SetIsUnique(isUnique);
         } // setIsUnique
 
-        public void setUpperValue(
+        public void SetUpperValue(
                 ValueSpecification upperValue)
         {
-            multiplicityElement.setUpperValue(upperValue);
+            multiplicityElement.SetUpperValue(upperValue);
         } // setUpperValue
 
-        public void setLowerValue(
+        public void SetLowerValue(
                 ValueSpecification lowerValue)
         {
-            multiplicityElement.setLowerValue(lowerValue);
+            multiplicityElement.SetLowerValue(lowerValue);
         } // setLowerValue
 
-        public void setUpper(int upper)
+        public void SetUpper(int upper)
         {
             // Note: This is a convenience operation that may be used _instead_ of
             // setUpperValue, not in addition to it.
 
-            multiplicityElement.setUpper(upper);
+            multiplicityElement.SetUpper(upper);
         } // setUpper
 
-        public void setLower(int lower)
+        public void SetLower(int lower)
         {
             // Note: This is a convenience operation that may be used _instead_ of
             // setLowerValue, not in addition to it.
 
-            multiplicityElement.setLower(lower);
+            multiplicityElement.SetLower(lower);
         } // setLower
     } // Pin
 }

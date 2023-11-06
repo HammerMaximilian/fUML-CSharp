@@ -4,7 +4,7 @@
     {
         public Type? type = null;
 
-        public void setType(Type type)
+        public void SetType(Type type)
         {
             if (type is null)
             {

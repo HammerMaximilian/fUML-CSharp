@@ -9,20 +9,20 @@ namespace fuml.syntax.classification
         public StructuralFeature? definingFeature = null;
         public List<ValueSpecification> value = new();
 
-        public void setDefiningFeature(
+        public void SetDefiningFeature(
                 StructuralFeature definingFeature)
         {
             this.definingFeature = definingFeature ?? throw new ArgumentNullException(nameof(definingFeature));
         } // setDefiningFeature
 
-        public void addValue(ValueSpecification value)
+        public void AddValue(ValueSpecification value)
         {
             if (value is null)
             {
                 throw new ArgumentNullException(nameof(value));
             }
 
-            addOwnedElement(value);
+            AddOwnedElement(value);
             this.value.Add(value);
         } // addValue
 

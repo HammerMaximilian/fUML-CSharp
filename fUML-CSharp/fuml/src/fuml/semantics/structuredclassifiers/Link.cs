@@ -15,13 +15,13 @@ namespace fuml.semantics.structuredclassifiers
     {
 		public Association? type = null;
 
-		public override void destroy()
+		public override void Destroy()
 		{
 			// Remove the type of this link and destroy it.
 			// Shift the positions of the feature values of any remaining links in
 			// the extent of the same association, for ends that are ordered.
 
-			Debug.println("[destroy] link = " + identifier);
+			Debug.Println("[destroy] link = " + identifier);
 
             List<Property> ends = (type is not null) ? type.memberEnd : new();
 			List<ExtensionalValue> extent = locus!.GetExtent(type!);
@@ -32,8 +32,8 @@ namespace fuml.semantics.structuredclassifiers
 				{
 					if (end.multiplicityElement.isOrdered)
 					{
-						FeatureValue featureValue = otherLink.getFeatureValue(end);
-						if (getFeatureValue(end).position < featureValue.position)
+						FeatureValue featureValue = otherLink.GetFeatureValue(end);
+						if (GetFeatureValue(end).position < featureValue.position)
 						{
 							featureValue.position--;
 						}
@@ -42,7 +42,7 @@ namespace fuml.semantics.structuredclassifiers
 			}
 
 			type = null;
-			base.destroy();
+			base.Destroy();
 		} // destroy
 
 		public override Value Copy()
@@ -94,9 +94,9 @@ namespace fuml.semantics.structuredclassifiers
 			{
 				Property otherEnd = ends.ElementAt(i - 1);
 				if (otherEnd != end
-						& !getFeatureValue(otherEnd).values.ElementAt(0)
+						& !GetFeatureValue(otherEnd).values.ElementAt(0)
 								.Equals(
-										link.getFeatureValue(otherEnd).values
+										link.GetFeatureValue(otherEnd).values
 												.ElementAt(0)))
 				{
 					matches = false;
@@ -121,7 +121,7 @@ namespace fuml.semantics.structuredclassifiers
 				{
 					if (IsMatchingLink(link, end))
 					{
-						featureValues.Add(link.getFeatureValue(end));
+						featureValues.Add(link.GetFeatureValue(end));
 					}
 				}
 			}
@@ -134,7 +134,7 @@ namespace fuml.semantics.structuredclassifiers
 			// Shift the positions of ends of other links, as appropriate, for ends
 			// that are ordered.
 
-			Debug.println("[addTo] link = " + identifier);
+			Debug.Println("[addTo] link = " + identifier);
 
 			List<Property> ends = (type is not null) ? type.memberEnd : new();
 			List<ExtensionalValue> extent = locus.GetExtent(type!);
@@ -143,7 +143,7 @@ namespace fuml.semantics.structuredclassifiers
 			{
 				if (end.multiplicityElement.isOrdered)
 				{
-					FeatureValue featureValue = getFeatureValue(end);
+					FeatureValue featureValue = GetFeatureValue(end);
 					List<FeatureValue> otherFeatureValues = 
 							GetOtherFeatureValues(extent, end);
 					int n = otherFeatureValues.Count;

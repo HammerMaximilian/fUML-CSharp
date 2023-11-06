@@ -14,7 +14,7 @@ namespace fuml.semantics.activities
 			// because an input activity parameter node activation retrieves values
 			// directly from the relevant parameter value.)
 
-			Debug.println("[post] Posting to node " + nodeActivation?.node?.name);
+			Debug.Println("[post] Posting to node " + nodeActivation?.node?.name);
 
 			nodeActivation?.Fire(new List<Token>());
 		}

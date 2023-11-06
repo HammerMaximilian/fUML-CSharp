@@ -6,17 +6,17 @@
 		public bool isDestroyOwnedObjects = false;
 		public InputPin? target = null;
 
-		public void setIsDestroyLinks(bool isDestroyLinks)
+		public void SetIsDestroyLinks(bool isDestroyLinks)
 		{
 			this.isDestroyLinks = isDestroyLinks;
 		} // setIsDestroyLinks
 
-		public void setIsDestroyOwnedObjects(bool isDestroyOwnedObjects)
+		public void SetIsDestroyOwnedObjects(bool isDestroyOwnedObjects)
 		{
 			this.isDestroyOwnedObjects = isDestroyOwnedObjects;
 		} // setIsDestroyOwnedObjects
 
-		public void setTarget(InputPin target)
+		public void SetTarget(InputPin target)
 		{
 			AddInput(target);
 			this.target = target;

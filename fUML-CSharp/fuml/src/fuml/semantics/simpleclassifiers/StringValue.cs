@@ -12,10 +12,11 @@ namespace fuml.semantics.simpleclassifiers
         {
             // Return a literal string with the value of this string value.
 
-            LiteralString literal = new LiteralString();
-
-            literal.type = type;
-            literal.value = value;
+            LiteralString literal = new()
+            {
+                type = type,
+                value = value
+            };
 
             return literal;
         } // specify
@@ -27,8 +28,8 @@ namespace fuml.semantics.simpleclassifiers
             // value.
 
             bool isEqual = false;
-            if (otherValue is StringValue) {
-                isEqual = ((StringValue)otherValue).value.Equals(value);
+            if (otherValue is StringValue stringValue) {
+                isEqual = stringValue.value.Equals(value);
             }
 
             return isEqual;

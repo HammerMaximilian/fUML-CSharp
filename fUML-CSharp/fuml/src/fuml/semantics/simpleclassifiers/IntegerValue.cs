@@ -12,10 +12,11 @@ namespace fuml.semantics.simpleclassifiers
         {
             // Return a literal integer with the value of this integer value.
 
-            LiteralInteger literal = new LiteralInteger();
-
-            literal.type = type;
-            literal.value = value;
+            LiteralInteger literal = new()
+            {
+                type = type,
+                value = value
+            };
 
             return literal;
         } // specify
@@ -27,8 +28,8 @@ namespace fuml.semantics.simpleclassifiers
             // value.
 
             bool isEqual = false;
-            if (otherValue is IntegerValue) {
-                isEqual = ((IntegerValue)otherValue).value == value;
+            if (otherValue is IntegerValue integerValue) {
+                isEqual = integerValue.value == value;
             }
 
             return isEqual;
@@ -113,7 +114,7 @@ namespace fuml.semantics.simpleclassifiers
                         stringValue = "9" + stringValue;
                     }
 
-                    positiveValue = positiveValue / 10;
+                    positiveValue /= 10;
                 } while (positiveValue > 0);
 
                 if (value < 0)

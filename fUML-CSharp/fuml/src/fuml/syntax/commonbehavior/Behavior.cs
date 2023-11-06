@@ -11,7 +11,7 @@ namespace fuml.syntax.commonbehavior
         public List<Parameter> ownedParameter = new();
         public BehavioredClassifier? context = null;
 
-        public void addOwnedParameter(
+        public void AddOwnedParameter(
                 Parameter ownedParameter)
         {
             if (ownedParameter is null)
@@ -19,7 +19,7 @@ namespace fuml.syntax.commonbehavior
                 throw new ArgumentNullException(nameof(ownedParameter));
             }
 
-            addOwnedMember(ownedParameter);
+            AddOwnedMember(ownedParameter);
             this.ownedParameter.Add(ownedParameter);
         } // addOwnedParameter
 

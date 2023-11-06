@@ -24,7 +24,7 @@ namespace fuml.syntax.classification
                 throw new ArgumentNullException(nameof(slot));
             }
 
-            addOwnedElement(slot);
+            AddOwnedElement(slot);
             this.slot.Add(slot);
             slot._setOwningInstance(this);
         } // addSlot

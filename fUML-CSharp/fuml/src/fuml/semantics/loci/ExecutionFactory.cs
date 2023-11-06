@@ -40,7 +40,7 @@ namespace fuml.semantics.loci
 			{
 				execution = (Execution)InstantiateVisitor(behavior);
 				execution.types.Add(behavior);
-				execution.createFeatureValues();
+				execution.CreateFeatureValues();
 			}
 
 			locus?.Add(execution);
@@ -376,7 +376,7 @@ namespace fuml.semantics.loci
 				i++;
 			}
 
-			Debug.println(execution is null,
+			Debug.Println(execution is null,
 					"[instantiateOpaqueExecution] No prototype execution found for " + behavior.name + ".");
 
 			return execution!;
@@ -426,7 +426,7 @@ namespace fuml.semantics.loci
 			// Set the strategy for a semantic variation point. Any existing
 			// strategy for the same SVP is replaced.
 
-			int i = GetStrategyIndex(strategy.getName());
+			int i = GetStrategyIndex(strategy.GetName());
 
 			if (i <= strategies.Count)
 			{
@@ -462,7 +462,7 @@ namespace fuml.semantics.loci
 			bool unmatched = true;
 			while (unmatched & (i <= strategies.Count))
 			{
-				if (strategies.ElementAt(i - 1).getName().Equals(name))
+				if (strategies.ElementAt(i - 1).GetName().Equals(name))
 				{
 					unmatched = false;
 				}

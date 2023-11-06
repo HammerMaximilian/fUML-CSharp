@@ -5,7 +5,7 @@
         public List<Element> annotatedElement = new();
         public string body = "";
 
-        public void setAnnotatedElement(
+        public void SetAnnotatedElement(
                 Element annotatedElement)
         {
             if (annotatedElement is null)
@@ -16,7 +16,7 @@
             this.annotatedElement.Add(annotatedElement);
         } // setAnnotatedElement
 
-        public void setBody(string body)
+        public void SetBody(string body)
         {
             this.body = body;
         } // setBody

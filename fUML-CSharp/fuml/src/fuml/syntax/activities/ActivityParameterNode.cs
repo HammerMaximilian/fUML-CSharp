@@ -6,7 +6,7 @@ namespace fuml.syntax.activities
     {
         public Parameter? parameter = null;
 
-        public void setParameter(Parameter parameter)
+        public void SetParameter(Parameter parameter)
         {
             this.parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
         } // setParameter

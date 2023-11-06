@@ -5,7 +5,7 @@
 		public List<LinkEndData> endData = new();
 		public List<InputPin> inputValue = new();
 
-		public virtual void addEndData(
+		public virtual void AddEndData(
 				LinkEndData endData)
 		{
             if (endData is null)
@@ -16,7 +16,7 @@
             this.endData.Add(endData);
 		} // addEndData
 
-		public void addInputValue(
+		public void AddInputValue(
 				InputPin inputValue)
 		{
 			AddInput(inputValue);

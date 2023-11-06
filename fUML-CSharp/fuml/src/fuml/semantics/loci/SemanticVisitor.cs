@@ -4,12 +4,12 @@
     {
         public static void _endIsolation()
         {
-            Debug.println("[_endIsolation] End isolation.");
+            Debug.Println("[_endIsolation] End isolation.");
         } // _endIsolation
 
         public static void _beginIsolation()
         {
-            Debug.println("[_beginIsolation] Begin isolation.");
+            Debug.Println("[_beginIsolation] Begin isolation.");
         } // _beginIsolation
     } // SemanticVisitor
 }

@@ -5,7 +5,7 @@ namespace fuml.semantics.values
 {
     public class LiteralStringEvaluation : LiteralEvaluation
     {
-        public override Value evaluate()
+        public override Value Evaluate()
         {
             // Evaluate a literal string, producing a string value.
 

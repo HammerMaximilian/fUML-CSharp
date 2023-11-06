@@ -10,12 +10,12 @@ namespace fuml.syntax.classification
         public CallConcurrencyKind concurrency = CallConcurrencyKind.sequential;
         public List<Type> raisedException = new();
 
-        public void setIsAbstract(bool isAbstract)
+        public void SetIsAbstract(bool isAbstract)
         {
             this.isAbstract = isAbstract;
         } // setIsAbstract
 
-        virtual public void addOwnedParameter(
+        virtual public void AddOwnedParameter(
                 Parameter ownedParameter)
         {
             if (ownedParameter is null)
@@ -28,7 +28,7 @@ namespace fuml.syntax.classification
             this.ownedParameter.Add(ownedParameter);
         } // addOwnedParameter
 
-        virtual public void addMethod(
+        virtual public void AddMethod(
                 Behavior method)
         {
             if (method is null)
@@ -40,7 +40,7 @@ namespace fuml.syntax.classification
             this.method.Add(method);
         } // addMethod
 
-        public void addRaisedException(Type raisedException)
+        public void AddRaisedException(Type raisedException)
         {
             if (raisedException is null)
             {

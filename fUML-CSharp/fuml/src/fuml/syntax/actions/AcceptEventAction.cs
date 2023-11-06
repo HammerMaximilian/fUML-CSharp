@@ -8,12 +8,12 @@ namespace fuml.syntax.actions
         public List<OutputPin> result = new();
         public List<Trigger> trigger = new();
 
-        public void setIsUnmarshall(bool isUnmarshall)
+        public void SetIsUnmarshall(bool isUnmarshall)
         {
             this.isUnmarshall = isUnmarshall;
         } // setIsUnmarshall
 
-        public void addTrigger(
+        public void AddTrigger(
                 Trigger trigger)
         {
             if (trigger is null)
@@ -24,7 +24,7 @@ namespace fuml.syntax.actions
             this.trigger.Add(trigger);
         } // addTrigger
 
-        public void addResult(OutputPin result)
+        public void AddResult(OutputPin result)
         {
             AddOutput(result);
             this.result.Add(result);

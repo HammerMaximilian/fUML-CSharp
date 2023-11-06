@@ -9,25 +9,25 @@ namespace fuml.syntax.actions
 		public InputPin? collection = null;
 		public bool isOrdered = false;
 
-		public void setIsOrdered(bool isOrdered)
+		public void SetIsOrdered(bool isOrdered)
 		{
 			this.isOrdered = isOrdered;
 		} // setIsOrdered
 
-		public void setReducer(
+		public void SetReducer(
 				Behavior reducer)
 		{
 			this.reducer = reducer ?? throw new ArgumentNullException(nameof(reducer));
 		} // setReducer
 
-		public void setCollection(
+		public void SetCollection(
 				InputPin collection)
 		{
 			AddInput(collection);
 			this.collection = collection;
 		} // setCollection
 
-		public void setResult(OutputPin result)
+		public void SetResult(OutputPin result)
 		{
 			AddOutput(result);
 			this.result = result;

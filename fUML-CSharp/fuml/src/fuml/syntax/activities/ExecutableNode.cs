@@ -14,7 +14,7 @@
                 throw new ArgumentNullException(nameof(handler));
             }
 
-            addOwnedElement(handler);
+            AddOwnedElement(handler);
             this.handler.Add(handler);
             handler.protectedNode = this;
         }

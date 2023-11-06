@@ -10,23 +10,23 @@ namespace fuml.syntax.classification
         public Operation? operation = null;
         public bool isStream = false;
 
-        public void setDirection(
+        public void SetDirection(
                 ParameterDirectionKind direction)
         {
             this.direction = direction;
         } // setDirection
 
-        public void setIsOrdered(bool isOrdered)
+        public void SetIsOrdered(bool isOrdered)
         {
-            multiplicityElement.setIsOrdered(isOrdered);
+            multiplicityElement.SetIsOrdered(isOrdered);
         } // setIsOrdered
 
-        public void setIsUnique(bool isUnique)
+        public void SetIsUnique(bool isUnique)
         {
-            multiplicityElement.setIsUnique(isUnique);
+            multiplicityElement.SetIsUnique(isUnique);
         } // setIsUnique
 
-        public void setUpperValue(
+        public void SetUpperValue(
                 ValueSpecification upperValue)
         {
             if (upperValue is null)
@@ -34,10 +34,10 @@ namespace fuml.syntax.classification
                 throw new ArgumentNullException(nameof(upperValue));
             }
 
-            multiplicityElement.setUpperValue(upperValue);
+            multiplicityElement.SetUpperValue(upperValue);
         } // setUpperValue
 
-        public void setLowerValue(
+        public void SetLowerValue(
                 ValueSpecification lowerValue)
         {
             if (lowerValue is null)
@@ -45,27 +45,27 @@ namespace fuml.syntax.classification
                 throw new ArgumentNullException(nameof(lowerValue));
             }
 
-            multiplicityElement.setLowerValue(lowerValue);
+            multiplicityElement.SetLowerValue(lowerValue);
         } // setLowerValue
 
-        public void setUpper(int upper)
+        public void SetUpper(int upper)
         {
             // Note: This is a convenience operation that may be used _instead_ of
             // setUpperValue, not in addition to it.
 
-            multiplicityElement.setUpper(upper);
+            multiplicityElement.SetUpper(upper);
         } // setUpper
 
-        public void setLower(int lower)
+        public void SetLower(int lower)
         {
             // Note: This is a convenience operation that may be used _instead_ of
             // setLowerValue, not in addition to it.
 
-            multiplicityElement.setLower(lower);
+            multiplicityElement.SetLower(lower);
 
         } // setLower
 
-        public void setIsStream(bool isStream)
+        public void SetIsStream(bool isStream)
         {
             this.isStream = isStream;
         }

@@ -4,7 +4,7 @@
     {
         public List<EnumerationLiteral> ownedLiteral = new();
 
-        public void addOwnedLiteral(
+        public void AddOwnedLiteral(
                 EnumerationLiteral ownedLiteral)
         {
             if (ownedLiteral is null)
@@ -12,7 +12,7 @@
                 throw new ArgumentNullException(nameof(ownedLiteral));
             }
 
-            addOwnedMember(ownedLiteral);
+            AddOwnedMember(ownedLiteral);
 
             this.ownedLiteral.Add(ownedLiteral);
             ownedLiteral._setEnumeration(this);

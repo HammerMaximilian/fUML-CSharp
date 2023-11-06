@@ -11,19 +11,19 @@ namespace fuml.semantics.simpleclassifiers
         {
             // Return an instance value that specifies this structured value.
 
-            InstanceValue instanceValue = new InstanceValue();
-            InstanceSpecification instance = new InstanceSpecification();
+            InstanceValue instanceValue = new();
+            InstanceSpecification instance = new();
 
             instanceValue.type = null;
             instanceValue.instance = instance;
 
             instance.classifier = GetTypes();
 
-            List<FeatureValue> featureValues = getFeatureValues();
+            List<FeatureValue> featureValues = GetFeatureValues();
 
             foreach (FeatureValue featureValue in featureValues)
             {
-                Slot slot = new Slot();
+                Slot slot = new();
                 slot.definingFeature = featureValue.feature;
 
                 List<Value> values = featureValue.values;
@@ -38,22 +38,22 @@ namespace fuml.semantics.simpleclassifiers
             return instanceValue;
         } // specify
 
-        public abstract FeatureValue getFeatureValue(
+        public abstract FeatureValue GetFeatureValue(
                 StructuralFeature feature);
 
-        public abstract void setFeatureValue(
+        public abstract void SetFeatureValue(
                 StructuralFeature feature,
                 List<Value> values, int position);
 
-        public abstract List<FeatureValue> getFeatureValues();
+        public abstract List<FeatureValue> GetFeatureValues();
 
-        public List<StructuralFeature> getMemberFeatures(Classifier type)
+        public List<StructuralFeature> GetMemberFeatures(Classifier type)
         {
             // Return the features for this structured value that are members of the 
             // given type. (That is, they are owned or inherited by the given type, 
             // excluding private features of supertypes that are not inherited.)
 
-            List<StructuralFeature> features = getStructuralFeatures();
+            List<StructuralFeature> features = GetStructuralFeatures();
             List<StructuralFeature> memberFeatures = new();
 
             if (type is not null)
@@ -67,7 +67,7 @@ namespace fuml.semantics.simpleclassifiers
                     {
                         NamedElement member = members.ElementAt(k - 1);
                         isMember = feature == member;
-                        k = k + 1;
+                        k++;
                     }
                     if (isMember)
                     {
@@ -79,7 +79,7 @@ namespace fuml.semantics.simpleclassifiers
             return memberFeatures;
         }
 
-        public List<StructuralFeature> getStructuralFeatures()
+        public List<StructuralFeature> GetStructuralFeatures()
         {
             // Get all structural features of the types of this structured 
             // value and all of their supertypes (including private features 
@@ -90,7 +90,7 @@ namespace fuml.semantics.simpleclassifiers
 
             foreach (Classifier type in types)
             {
-                List<StructuralFeature> typeFeatures = getStructuralFeaturesForType(type);
+                List<StructuralFeature> typeFeatures = GetStructuralFeaturesForType(type);
                 foreach (NamedElement supertypeFeature in typeFeatures)
                 {
                     features.Add((StructuralFeature)supertypeFeature);
@@ -100,20 +100,20 @@ namespace fuml.semantics.simpleclassifiers
             return features;
         }
 
-        public List<StructuralFeature> getStructuralFeaturesForType(Classifier type)
+        public List<StructuralFeature> GetStructuralFeaturesForType(Classifier type)
         {
             // Get all structural features of the given type and all of its 
             // supertypes (including private features that are not inherited).
 
-            List<StructuralFeature> features = new List<StructuralFeature>();
+            List<StructuralFeature> features = new();
 
             // Get feature values for the owned structural features of the given type.
             List<NamedElement> ownedMembers = type.ownedMember;
             foreach (NamedElement ownedMember in ownedMembers)
             {
-                if (ownedMember is StructuralFeature)
+                if (ownedMember is StructuralFeature structuralFeature)
                 {
-                    features.Add((StructuralFeature)ownedMember);
+                    features.Add(structuralFeature);
                 }
             }
 
@@ -123,7 +123,7 @@ namespace fuml.semantics.simpleclassifiers
             List<Classifier> supertypes = type.general;
             foreach (Classifier supertype in supertypes)
             {
-                List<StructuralFeature> supertypeFeatures = getStructuralFeaturesForType(supertype);
+                List<StructuralFeature> supertypeFeatures = GetStructuralFeaturesForType(supertype);
                 foreach (NamedElement supertypeFeature in supertypeFeatures)
                 {
                     features.Add((StructuralFeature)supertypeFeature);
@@ -133,16 +133,16 @@ namespace fuml.semantics.simpleclassifiers
             return features;
         }
 
-        public void createFeatureValues()
+        public void CreateFeatureValues()
         {
             // Create empty feature values for all non-association-end structural 
             // features of the types of this structured value and all its supertypes 
             // (including private features that are not inherited).
 
-            addFeatureValues(new List<FeatureValue>());
+            AddFeatureValues(new List<FeatureValue>());
         }
 
-        public void addFeatureValues(List<FeatureValue> oldFeatureValues)
+        public void AddFeatureValues(List<FeatureValue> oldFeatureValues)
         {
             // Add feature values for all non-association-end structural features 
             // of the types of this structured value and all its supertypes 
@@ -153,28 +153,28 @@ namespace fuml.semantics.simpleclassifiers
 
             // Note: Any common features that appear twice in the list will simply
             // have their values set multiple times to the same thing.
-            List<StructuralFeature> features = getStructuralFeatures();
+            List<StructuralFeature> features = GetStructuralFeatures();
             foreach (StructuralFeature feature in features)
             {
-                if (!checkForAssociationEnd(feature))
+                if (!CheckForAssociationEnd(feature))
                 {
-                    setFeatureValue(feature,
-                            getValues(feature, oldFeatureValues), 0);
+                    SetFeatureValue(feature,
+                            GetValues(feature, oldFeatureValues), 0);
                 }
             }
         }
 
-        public bool checkForAssociationEnd(StructuralFeature feature)
+        public bool CheckForAssociationEnd(StructuralFeature feature)
         {
             bool isAssociationEnd = false;
-            if (feature is Property) 
+            if (feature is Property property) 
             {
-                isAssociationEnd = ((Property)feature).association is not null;
+                isAssociationEnd = property.association is not null;
             }
             return isAssociationEnd;
         }
 
-        public List<Value> getValues(NamedElement feature, List<FeatureValue> featureValues)
+        public List<Value> GetValues(NamedElement feature, List<FeatureValue> featureValues)
         {
             // Return the values from the feature value in the given list for the 
             // given feature. If there is no such feature value, return an empty
@@ -190,7 +190,7 @@ namespace fuml.semantics.simpleclassifiers
                 {
                     foundFeatureValue = featureValue;
                 }
-                i = i + 1;
+                i++;
             }
 
             List<Value> values;

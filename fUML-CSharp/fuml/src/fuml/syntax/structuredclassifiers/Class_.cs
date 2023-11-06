@@ -20,7 +20,7 @@ namespace fuml.syntax.structuredclassifiers
             this.isActive = isActive;
         } // setIsActive
 
-        public override void addGeneralization(
+        public override void AddGeneralization(
                 Generalization generalization)
         {
             if (generalization is null)
@@ -28,7 +28,7 @@ namespace fuml.syntax.structuredclassifiers
                 throw new ArgumentNullException(nameof(generalization));
             }
 
-            base.addGeneralization(generalization);
+            base.AddGeneralization(generalization);
 
             if (generalization.general is Class_ class_)
             {
@@ -44,8 +44,8 @@ namespace fuml.syntax.structuredclassifiers
                 throw new ArgumentNullException(nameof(ownedAttribute));
             }
 
-            addAttribute(ownedAttribute);
-            addOwnedMember(ownedAttribute);
+            AddAttribute(ownedAttribute);
+            AddOwnedMember(ownedAttribute);
 
             this.ownedAttribute.Add(ownedAttribute);
             ownedAttribute._setClass(this);
@@ -59,8 +59,8 @@ namespace fuml.syntax.structuredclassifiers
                 throw new ArgumentNullException(nameof(ownedOperation));
             }
 
-            addFeature(ownedOperation);
-            addOwnedMember(ownedOperation);
+            AddFeature(ownedOperation);
+            AddOwnedMember(ownedOperation);
 
             this.ownedOperation.Add(ownedOperation);
             ownedOperation._setClass(this);
@@ -69,13 +69,13 @@ namespace fuml.syntax.structuredclassifiers
         public void AddOwnedReception(
                 Reception ownedReception)
         {
-            addOwnedMember(ownedReception);
-            addFeature(ownedReception);
+            AddOwnedMember(ownedReception);
+            AddFeature(ownedReception);
 
             this.ownedReception.Add(ownedReception);
         } // addOwnedReception
 
-        public override List<NamedElement> inherit(
+        public override List<NamedElement> Inherit(
                 List<NamedElement> inhs)
         {
             // "The inherit operation is overridden to exclude redefined properties."
@@ -128,7 +128,7 @@ namespace fuml.syntax.structuredclassifiers
                 throw new ArgumentNullException(nameof(nestedClassifier));
             }
 
-            addOwnedMember(nestedClassifier);
+            AddOwnedMember(nestedClassifier);
             this.nestedClassifier.Add(nestedClassifier);
         } // addNestedClassifier
     }

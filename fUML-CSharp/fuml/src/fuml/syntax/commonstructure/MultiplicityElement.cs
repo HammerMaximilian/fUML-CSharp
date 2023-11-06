@@ -17,60 +17,60 @@ namespace fuml.syntax.commonstructure
             // This constructor sets upperValue and lowerValue consistently with the
             // initializers for upper and lower.
 
-            setUpper(1);
-            setLower(1);
+            SetUpper(1);
+            SetLower(1);
         } // MultiplicityElement
 
-        public void setIsOrdered(bool isOrdered)
+        public void SetIsOrdered(bool isOrdered)
         {
             this.isOrdered = isOrdered;
         } // setIsOrdered
 
-        public void setIsUnique(bool isUnique)
+        public void SetIsUnique(bool isUnique)
         {
             this.isUnique = isUnique;
         } // setIsUnique
 
-        public void setUpperValue(
+        public void SetUpperValue(
                 ValueSpecification upperValue)
         {
             this.upperValue = upperValue ?? throw new ArgumentNullException(nameof(upperValue));
 
-            if (upperValue is LiteralUnlimitedNatural)
+            if (upperValue is LiteralUnlimitedNatural literalUnlimitedNatural)
             {
-                upper = ((LiteralUnlimitedNatural)upperValue).value;
+                upper = literalUnlimitedNatural.value;
             }
         } // setUpperValue
 
-        public void setLowerValue(
+        public void SetLowerValue(
                 ValueSpecification lowerValue)
         {
             this.lowerValue = lowerValue ?? throw new ArgumentNullException(nameof(lowerValue));
 
-            if (lowerValue is LiteralInteger)
+            if (lowerValue is LiteralInteger literalInteger)
             {
-                lower = ((LiteralInteger)lowerValue).value;
+                lower = literalInteger.value;
             }
         } // setLowerValue
 
-        public void setUpper(int upper)
+        public void SetUpper(int upper)
         {
             // Note: This is a convenience operation that may be used _instead_ of
             // setUpperValue, not in addition to it.
 
             this.upper = new UnlimitedNatural(upper);
             upperValue = new LiteralUnlimitedNatural();
-            ((LiteralUnlimitedNatural)upperValue).setValue(this.upper);
+            ((LiteralUnlimitedNatural)upperValue).SetValue(this.upper);
         } // setUpper
 
-        public void setLower(int lower)
+        public void SetLower(int lower)
         {
             // Note: This is a convenience operation that may be used _instead_ of
             // setLowerValue, not in addition to it.
 
             this.lower = lower;
             lowerValue = new LiteralInteger();
-            ((LiteralInteger)lowerValue).setValue(lower);
+            ((LiteralInteger)lowerValue).SetValue(lower);
         } // setLower
     }
 } // MultiplicityElement

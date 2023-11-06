@@ -29,29 +29,29 @@ namespace fuml.semantics.structuredclassifiers
 				while (method == null & j <= members.Count)
 				{
 					NamedElement member = members.ElementAt(j - 1);
-					if (member is Operation) {
-						Operation memberOperation = (Operation)member;
-						if (operationsMatch(memberOperation, operation))
-						{
-							if (memberOperation.method.Count == 0)
-							{
-								method = base.GetMethod(object_, memberOperation);
-							}
-							else
-							{
-								method = memberOperation.method.ElementAt(0);
-							}
-						}
-					}
-					j = j + 1;
+                    if (member is Operation memberOperation)
+                    {
+                        if (OperationsMatch(memberOperation, operation))
+                        {
+                            if (memberOperation.method.Count == 0)
+                            {
+                                method = base.GetMethod(object_, memberOperation);
+                            }
+                            else
+                            {
+                                method = memberOperation.method.ElementAt(0);
+                            }
+                        }
+                    }
+                    j++;
 				}
-				i = i + 1;
+				i++;
 			}
 
 			return method!;
 		} // getMethod
 
-		public bool operationsMatch(
+		public bool OperationsMatch(
 				fuml.syntax.classification.Operation ownedOperation,
 				fuml.syntax.classification.Operation baseOperation)
 		{
@@ -68,10 +68,10 @@ namespace fuml.semantics.structuredclassifiers
 				int i = 1;
 				while (!matches & i <= ownedOperation.redefinedOperation.Count)
 				{
-					matches = operationsMatch(
+					matches = OperationsMatch(
 							ownedOperation.redefinedOperation.ElementAt(i - 1),
 							baseOperation);
-					i = i + 1;
+					i++;
 				}
 			}
 

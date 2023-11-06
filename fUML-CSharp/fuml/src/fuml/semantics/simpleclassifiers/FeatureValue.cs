@@ -10,7 +10,7 @@ namespace fuml.semantics.simpleclassifiers
         public List<Value> values = new();
         public int position = 0;
 
-        public bool hasEqualValues(
+        public bool HasEqualValues(
                 FeatureValue other)
         {
             // Determine if this feature value has an equal set of values as another
@@ -27,14 +27,14 @@ namespace fuml.semantics.simpleclassifiers
             }
             else
             {
-                if ((feature is not null) ? feature!.multiplicityElement.isOrdered : false)
+                if ((feature is not null) && feature!.multiplicityElement.isOrdered)
                 {
                     int i = 1;
                     while (equal & i <= values.Count)
                     {
                         equal = values.ElementAt(i - 1).Equals(
                                 other.values.ElementAt(i - 1));
-                        i = i + 1;
+                        i++;
                     }
 
                 }
@@ -44,7 +44,7 @@ namespace fuml.semantics.simpleclassifiers
                     // a copy of the list of other values,
                     // since the Java to UML mapping conventions do not allow
                     // "remove" on a local list variable.
-                    FeatureValue otherFeatureValues = new FeatureValue();
+                    FeatureValue otherFeatureValues = new();
                     List<Value> values = other.values;
                     foreach (Value value in values)
                     {
@@ -64,11 +64,11 @@ namespace fuml.semantics.simpleclassifiers
                                 matched = true;
                                 otherFeatureValues.values.RemoveAt(j - 1);
                             }
-                            j = j + 1;
+                            j++;
                         }
 
                         equal = matched;
-                        i = i + 1;
+                        i++;
                     }
                 }
             }
@@ -76,14 +76,15 @@ namespace fuml.semantics.simpleclassifiers
             return equal;
         } // hasEqualValues
 
-        public FeatureValue copy()
+        public FeatureValue Copy()
         {
             // Create a copy of this feature value.
 
-            FeatureValue newValue = new FeatureValue();
-
-            newValue.feature = feature;
-            newValue.position = position;
+            FeatureValue newValue = new()
+            {
+                feature = feature,
+                position = position
+            };
 
             List<Value> values = this.values;
             foreach (Value value in values)

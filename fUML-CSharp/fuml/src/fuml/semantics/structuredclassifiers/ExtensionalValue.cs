@@ -9,7 +9,7 @@ namespace fuml.semantics.structuredclassifiers
         public string identifier = "";
         public Locus? locus = null;
 
-        public virtual void destroy()
+        public virtual void Destroy()
         {
             // Remove this value from its locus (if it has not already been
             // destroyed).

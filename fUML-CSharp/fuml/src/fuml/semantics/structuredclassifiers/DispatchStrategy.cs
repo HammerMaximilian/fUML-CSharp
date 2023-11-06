@@ -7,7 +7,7 @@ namespace fuml.semantics.structuredclassifiers
 {
     public abstract class DispatchStrategy : SemanticStrategy
     {
-		public override string getName()
+		public override string GetName()
 		{
 			// Dispatch strategies are always named "dispatch".
 

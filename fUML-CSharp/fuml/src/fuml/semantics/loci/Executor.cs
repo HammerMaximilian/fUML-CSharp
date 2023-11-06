@@ -33,7 +33,7 @@ namespace fuml.semantics.loci
 
 			execution?.Execute();
 			List<ParameterValue> outputValues = execution?.GetOutputParameterValues()!;
-			execution?.destroy();
+			execution?.Destroy();
 
 			return outputValues;
 		} // execute
@@ -45,7 +45,7 @@ namespace fuml.semantics.loci
 			// value.
 
 			// Debug.println("[evaluate] Start...");
-			return locus?.factory?.CreateEvaluation(specification)?.evaluate()!;
+			return locus?.factory?.CreateEvaluation(specification)?.Evaluate()!;
 		} // evaluate
 
 		public Reference Start(
@@ -58,11 +58,11 @@ namespace fuml.semantics.loci
 			// active object_ or the class of the object_ itself, if that is a
 			// behavior.)
 
-			Debug.println("[start] Starting " + type.name + "...");
+			Debug.Println("[start] Starting " + type.name + "...");
 
 			Object_? object_ = locus?.Instantiate(type);
 
-			Debug.println("[start] Object = " + object_);
+			Debug.Println("[start] Object = " + object_);
 			object_?.StartBehavior(type, inputs);
 
 			Reference reference = new();

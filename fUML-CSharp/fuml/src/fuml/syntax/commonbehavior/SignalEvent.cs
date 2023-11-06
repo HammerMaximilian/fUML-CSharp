@@ -6,7 +6,7 @@ namespace fuml.syntax.commonbehavior
     {
         public Signal? signal = null;
 
-        public void setSignal(
+        public void SetSignal(
                 Signal signal)
         {
             this.signal = signal ?? throw new ArgumentNullException(nameof(signal));

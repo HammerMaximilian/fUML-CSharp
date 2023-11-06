@@ -35,8 +35,8 @@ namespace fuml.semantics.commonbehavior
             // Register the given event accepter to wait for a dispatched signal
             // event.
 
-            Debug.println("[register] object = " + object_);
-            Debug.println("[register] accepter = " + accepter);
+            Debug.Println("[register] object = " + object_);
+            Debug.Println("[register] accepter = " + accepter);
 
             waitingEventAccepters.Add(accepter);
         } // register
@@ -47,8 +47,8 @@ namespace fuml.semantics.commonbehavior
             // Remove the given event accepter for the list of waiting event
             // accepters.
 
-            Debug.println("[unregister] object = " + object_);
-            Debug.println("[unregister] accepter = " + accepter);
+            Debug.Println("[unregister] object = " + object_);
+            Debug.Println("[unregister] accepter = " + accepter);
 
             bool notFound = true;
             int i = 1;
@@ -75,7 +75,7 @@ namespace fuml.semantics.commonbehavior
             {
                 EventOccurrence eventOccurrence = GetNextEvent();
 
-                Debug.println("[dispatchNextEvent] eventOccurrence = " + eventOccurrence);
+                Debug.Println("[dispatchNextEvent] eventOccurrence = " + eventOccurrence);
 
                 List<int> matchingEventAccepterIndexes = new();
                 List<EventAccepter> waitingEventAccepters = this.waitingEventAccepters;
@@ -92,7 +92,7 @@ namespace fuml.semantics.commonbehavior
                 {
                     // *** Choose one matching event accepter non-deterministically. ***
                     ChoiceStrategy? choiceStrategy = (ChoiceStrategy)object_?.locus?.factory?.GetStrategy("choice")!;
-                    int j = (choiceStrategy is not null) ? choiceStrategy.choose(matchingEventAccepterIndexes.Count) : throw new NullReferenceException();
+                    int j = (choiceStrategy is not null) ? choiceStrategy.Choose(matchingEventAccepterIndexes.Count) : throw new NullReferenceException();
                     int k = matchingEventAccepterIndexes.ElementAt(j - 1);
                     EventAccepter selectedEventAccepter = this.waitingEventAccepters
                             .ElementAt(k);
@@ -143,7 +143,7 @@ namespace fuml.semantics.commonbehavior
 
             if (classifier is not null)
             {
-                Debug.println("[startBehavior] Starting behavior for all classifiers...");
+                Debug.Println("[startBehavior] Starting behavior for all classifiers...");
                 // *** Start all classifier behaviors concurrently. ***
                 List<Class_> types = (object_ is not null) ? object_.types : new();
                 foreach (Class_ type in types)
@@ -156,7 +156,7 @@ namespace fuml.semantics.commonbehavior
             }
             else
             {
-                Debug.println("[startBehavior] Starting behavior for " + classifier?.name + "...");
+                Debug.Println("[startBehavior] Starting behavior for " + classifier?.name + "...");
 
                 _beginIsolation();
                 bool notYetStarted = true;
@@ -197,12 +197,12 @@ namespace fuml.semantics.commonbehavior
 
         public static void _endIsolation()
         {
-            Debug.println("[_endIsolation] End isolation.");
+            Debug.Println("[_endIsolation] End isolation.");
         }
 
         public static void _beginIsolation()
         {
-            Debug.println("[_beginIsolation] Begin isolation.");
+            Debug.Println("[_beginIsolation] Begin isolation.");
         }
     } // ObjectActivation
 }

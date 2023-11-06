@@ -9,12 +9,12 @@ namespace fuml.syntax.classification
         public Classifier? specific = null;
         public Classifier? general = null;
 
-        public void setIsSubstitutable(bool isSubstitutable)
+        public void SetIsSubstitutable(bool isSubstitutable)
         {
             this.isSubstitutable = isSubstitutable;
         } // setIsSubstitutable
 
-        public void setGeneral(Classifier general)
+        public void SetGeneral(Classifier general)
         {
             this.general = general ?? throw new ArgumentNullException(nameof(general));
         } // setGeneral

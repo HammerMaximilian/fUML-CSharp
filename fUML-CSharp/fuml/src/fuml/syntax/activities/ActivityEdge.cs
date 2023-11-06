@@ -12,25 +12,25 @@ namespace fuml.syntax.activities
         public ValueSpecification? guard = null;
         public StructuredActivityNode? inStructuredNode = null;
 
-        public void setTarget(
+        public void SetTarget(
                 ActivityNode target)
         {
             this.target = target ?? throw new ArgumentNullException(nameof(target));
             target._addIncoming(this);
         } // setTarget
 
-        public void setSource(
+        public void SetSource(
                 ActivityNode source)
         {
             this.source = source ?? throw new ArgumentNullException(nameof(source));
             source._addOutgoing(this);
         } // setSource
 
-        public void setGuard(ValueSpecification guard)
+        public void SetGuard(ValueSpecification guard)
         {
             if (guard is not null)
             {
-                addOwnedElement(guard);
+                AddOwnedElement(guard);
             }
 
             this.guard = guard;

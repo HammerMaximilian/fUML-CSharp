@@ -20,8 +20,8 @@ namespace fuml.semantics.activities
 
 			Activity activity = (Activity)GetTypes().ElementAt(0);
 
-			Debug.println("[execute] Activity " + activity.name + "...");
-			Debug.println("[event] Execute activity=" + activity.name);
+			Debug.Println("[execute] Activity " + activity.name + "...");
+			Debug.Println("[event] Execute activity=" + activity.name);
 
 			isStreaming = false;
 			int i = 1;
@@ -36,7 +36,7 @@ namespace fuml.semantics.activities
 				i++;
 			}
 
-			Debug.println("[execute] isStreaming = " + isStreaming);
+			Debug.Println("[execute] isStreaming = " + isStreaming);
 
             activationGroup = new ActivityNodeActivationGroup
             {
@@ -75,7 +75,7 @@ namespace fuml.semantics.activities
 						if (value is not null)
 						{
 							parameterValue.values.Add(value);
-							Debug.println("[event] Output activity=" + activity.name
+							Debug.Println("[event] Output activity=" + activity.name
 									+ " parameter=" + parameterValue.parameter.name
 									+ " value=" + value);
 						}
@@ -85,7 +85,7 @@ namespace fuml.semantics.activities
 				}
 			}
 
-			Debug.println("[execute] Activity " + activity.name + " completed.");
+			Debug.Println("[execute] Activity " + activity.name + " completed.");
 		}
 
 		public override Value Copy()

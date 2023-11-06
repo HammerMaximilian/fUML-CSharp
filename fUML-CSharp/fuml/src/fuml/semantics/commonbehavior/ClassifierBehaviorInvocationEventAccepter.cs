@@ -83,7 +83,7 @@ namespace fuml.semantics.commonbehavior
 
             if (execution != objectActivation?.object_)
             {
-                execution?.destroy();
+                execution?.Destroy();
             }
 
         } // terminate

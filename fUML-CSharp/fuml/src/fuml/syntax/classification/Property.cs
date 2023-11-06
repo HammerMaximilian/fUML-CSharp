@@ -19,12 +19,12 @@ namespace fuml.syntax.classification
         public ValueSpecification? defaultValue = null;
         public bool isID = false;
 
-        public new void setIsReadOnly(bool isReadOnly)
+        public new void SetIsReadOnly(bool isReadOnly)
         {
             this.isReadOnly = isReadOnly;
         } // setIsReadOnly
 
-        public void setAggregation(
+        public void SetAggregation(
                 AggregationKind aggregation)
         {
             this.aggregation = aggregation;
@@ -47,7 +47,7 @@ namespace fuml.syntax.classification
             this.datatype = datatype ?? throw new ArgumentNullException(nameof(datatype));
         } // _setDataType
 
-        public void setIsID(bool isID)
+        public void SetIsID(bool isID)
         {
             this.isID = isID;
         } // setIsID

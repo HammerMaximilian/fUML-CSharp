@@ -5,12 +5,12 @@
 		public bool isReplaceAll = false;
 		public InputPin? insertAt = null;
 
-		public void setIsReplaceAll(bool isReplaceAll)
+		public void SetIsReplaceAll(bool isReplaceAll)
 		{
 			this.isReplaceAll = isReplaceAll;
 		} // setIsReplaceAll
 
-		public void setInsertAt(InputPin insertAt)
+		public void SetInsertAt(InputPin insertAt)
 		{
 			if (insertAt is not null)
 			{

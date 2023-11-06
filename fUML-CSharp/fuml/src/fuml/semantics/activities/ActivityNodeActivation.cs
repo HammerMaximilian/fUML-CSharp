@@ -26,7 +26,7 @@ namespace fuml.semantics.activities
 		{
 			// Run the activation of this node.
 
-			Debug.println(node is null ?
+			Debug.Println(node is null ?
 				"[run] Anonymous activation of type " + GetType().Name :
 				"[run] node = " + node.name);
 
@@ -38,7 +38,7 @@ namespace fuml.semantics.activities
 			// Receive an offer from an incoming edge.
 			// Check if all prerequisites have been satisfied. If so, fire.
 
-			Debug.println("[receiveOffer] " + (node is null ? "..." : "node = " + node.name));
+			Debug.Println("[receiveOffer] " + (node is null ? "..." : "node = " + node.name));
 
 			_beginIsolation();
 
@@ -47,7 +47,7 @@ namespace fuml.semantics.activities
 			List<Token> tokens = new();
 			if (ready)
 			{
-				Debug.println("[receiveOffer] Firing.");
+				Debug.Println("[receiveOffer] Firing.");
 				tokens = TakeOfferedTokens();
 			}
 
@@ -103,7 +103,7 @@ namespace fuml.semantics.activities
 		{
 			// Terminate the activation of this node.
 
-			Debug.println(running, node is null ?
+			Debug.Println(running, node is null ?
 					"[terminate] Anonymous activation of type " + GetType().Name :
 					"[terminate] node = " + node.name);
 
@@ -215,7 +215,7 @@ namespace fuml.semantics.activities
 		{
 			// Transfer the given token to be held by this node.
 
-			Debug.println("[addToken] " + (node is null ? "..." : "node = " + node.name));
+			Debug.Println("[addToken] " + (node is null ? "..." : "node = " + node.name));
 
 			Token transferredToken = token.Transfer(this);
 			heldTokens.Add(transferredToken);
@@ -233,7 +233,7 @@ namespace fuml.semantics.activities
 			{
 				if (heldTokens.ElementAt(i - 1) == token)
 				{
-					Debug.println("[removeToken] " + (node is null ? "..." : "node = " + node.name));
+					Debug.Println("[removeToken] " + (node is null ? "..." : "node = " + node.name));
 					heldTokens.RemoveAt(i - 1);
 					notFound = false;
 				}

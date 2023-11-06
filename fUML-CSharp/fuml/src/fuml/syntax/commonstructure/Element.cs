@@ -7,7 +7,7 @@ namespace fuml.syntax.commonstructure
         public Element? owner;
         public List<Comment> ownedComment = new();
 
-        protected void addOwnedElement(
+        protected void AddOwnedElement(
         Element ownedElement)
         {
             if (ownedElement is null)

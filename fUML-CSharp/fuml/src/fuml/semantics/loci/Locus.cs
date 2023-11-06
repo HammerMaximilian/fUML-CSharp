@@ -50,7 +50,7 @@ namespace fuml.semantics.loci
                 int j = 1;
                 while (!conforms & j <= types.Count)
                 {
-                    conforms = this.Conforms(types.ElementAt(j - 1), classifier);
+                    conforms = Conforms(types.ElementAt(j - 1), classifier);
                     j++;
                 }
 
@@ -119,7 +119,7 @@ namespace fuml.semantics.loci
                 object_ = new Object_();
 
                 object_.types.Add(type);
-                object_.createFeatureValues();
+                object_.CreateFeatureValues();
                 Add(object_);
             }
 

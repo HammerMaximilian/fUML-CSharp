@@ -8,19 +8,19 @@ namespace fuml.syntax.actions
 		public List<OutputPin> result = new();
 		public Classifier? unmarshallType = null;
 
-		public void setObject(InputPin object_)
+		public void SetObject(InputPin object_)
 		{
 			AddInput(object_);
             this.object_ = object_;
 		}
 
-		public void addResult(OutputPin result)
+		public void AddResult(OutputPin result)
 		{
 			AddOutput(result);
 			this.result.Add(result);
 		}
 
-		public void setUnmarshallType(Classifier unmarshallType)
+		public void SetUnmarshallType(Classifier unmarshallType)
         {
 			this.unmarshallType = unmarshallType ?? throw new ArgumentNullException(nameof(unmarshallType));
 		}

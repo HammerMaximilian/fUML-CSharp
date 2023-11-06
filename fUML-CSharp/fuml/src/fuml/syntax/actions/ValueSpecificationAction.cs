@@ -7,12 +7,12 @@ namespace fuml.syntax.actions
         public ValueSpecification? value = null;
         public OutputPin? result = null;
 
-        public void setValue(ValueSpecification value)
+        public void SetValue(ValueSpecification value)
         {
             this.value = value ?? throw new ArgumentNullException(nameof(value));
         } // setValue
 
-        public void setResult(OutputPin result)
+        public void SetResult(OutputPin result)
         {
             AddOutput(result);
             this.result = result;

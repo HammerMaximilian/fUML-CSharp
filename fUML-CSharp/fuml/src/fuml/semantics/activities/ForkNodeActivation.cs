@@ -7,7 +7,7 @@
 			// Create forked tokens for all incoming tokens and offer them on all
 			// outgoing edges.
 
-			Debug.println(node == null ? "[fire] Anonymous fork node." :
+			Debug.Println(node == null ? "[fire] Anonymous fork node." :
 					"[fire] Fork node " + node.name + "...");
 
 			List<ActivityEdgeInstance> outgoingEdges = this.outgoingEdges;

@@ -2,6 +2,6 @@
 {
     public abstract class SemanticStrategy : FumlObject
     {
-        public abstract string getName();
+        public abstract string GetName();
     } // SemanticStrategy
 }

@@ -2,13 +2,13 @@
 {
     public abstract class ChoiceStrategy : SemanticStrategy
     {
-        public override string getName()
+        public override string GetName()
         {
             // The name of a choice strategy is always "choice".
 
             return "choice";
         } // getName
 
-        public abstract int choose(int size);
+        public abstract int Choose(int size);
     } // ChoiceStrategy
 }

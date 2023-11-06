@@ -6,7 +6,7 @@ namespace fuml.syntax.classification
     {
         public InstanceSpecification? instance = null;
 
-        public void setInstance(
+        public void SetInstance(
                 InstanceSpecification instance)
         {
             this.instance = instance ?? throw new ArgumentNullException(nameof(instance));

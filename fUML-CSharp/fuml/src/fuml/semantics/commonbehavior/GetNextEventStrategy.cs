@@ -4,7 +4,7 @@ namespace fuml.semantics.commonbehavior
 {
     public abstract class GetNextEventStrategy : SemanticStrategy
     {
-		public override string getName()
+		public override string GetName()
 		{
 			// Get next event strategies are always named "getNextEvent".
 

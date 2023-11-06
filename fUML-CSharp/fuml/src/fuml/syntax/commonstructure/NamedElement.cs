@@ -7,7 +7,7 @@
         public string qualifiedName = "";
         public Namespace? namespace_ = null;
 
-        public void setName(string name)
+        public void SetName(string name)
         {
             this.name = name;
 
@@ -27,7 +27,7 @@
 
         } // setName
 
-        public void setVisibility(
+        public void SetVisibility(
                VisibilityKind visibility)
         {
             this.visibility = visibility;

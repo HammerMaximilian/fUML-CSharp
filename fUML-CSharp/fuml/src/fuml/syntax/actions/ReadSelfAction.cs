@@ -4,7 +4,7 @@
     {
         public OutputPin? result = null;
 
-        public void setResult(OutputPin result)
+        public void SetResult(OutputPin result)
         {
             AddOutput(result);
             this.result = result;

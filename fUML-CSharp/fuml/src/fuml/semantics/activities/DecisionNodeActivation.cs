@@ -17,7 +17,7 @@ namespace fuml.semantics.activities
 			// Get the decision values and test them on each guard.
 			// Forward the offer over the edges for which the test succeeds.
 
-			Debug.println("[fire] Decision node " + node?.name + "...");
+			Debug.Println("[fire] Decision node " + node?.name + "...");
 
 			// List<Token> incomingTokens = this.takeOfferedTokens();
 			List<Token> removedControlTokens = RemoveJoinedControlTokens(incomingTokens);
@@ -84,7 +84,7 @@ namespace fuml.semantics.activities
 			for (int i = 0; i < decisionValues.Count; i++)
 			{
 				Value decisionValue = decisionValues.ElementAt(i);
-				Debug.println("[getDecisionValues] decisionValues[" + i + "] = " + decisionValue);
+				Debug.Println("[getDecisionValues] decisionValues[" + i + "] = " + decisionValue);
 			}
 
 			return decisionValues;
@@ -103,7 +103,7 @@ namespace fuml.semantics.activities
 			// returned, if one is given, otherwise the input value is used as the
 			// decision value.
 
-			Debug.println("[executeDecisionBehavior] inputValue = " + inputValue);
+			Debug.Println("[executeDecisionBehavior] inputValue = " + inputValue);
 
 			Behavior decisionInputBehavior = ((DecisionNode)node!)?.decisionInput!;
 
@@ -160,7 +160,7 @@ namespace fuml.semantics.activities
 				decisionInputExecution?.Execute();
 
 				List<ParameterValue> outputParameterValues = decisionInputExecution?.GetOutputParameterValues()!;
-				decisionInputExecution?.destroy();
+				decisionInputExecution?.Destroy();
 
 				decisionInputResult = outputParameterValues.ElementAt(0).values.ElementAt(0);
 			}

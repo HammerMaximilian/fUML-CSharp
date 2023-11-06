@@ -10,7 +10,7 @@ namespace fuml.semantics.commonbehavior
         {
             // Execute the body of the opaque behavior.
 
-            Debug.println("[execute] Opaque behavior " + GetBehavior().name + "...");
+            Debug.Println("[execute] Opaque behavior " + GetBehavior().name + "...");
 
             List<Parameter> parameters = GetBehavior().ownedParameter;
 

@@ -6,7 +6,7 @@ namespace fuml.syntax.simpleclassifiers
     {
         public List<Property> ownedAttribute = new();
 
-        public void addOwnedAttribute(
+        public void AddOwnedAttribute(
                 Property ownedAttribute)
         {
             if (ownedAttribute is null)
@@ -14,8 +14,8 @@ namespace fuml.syntax.simpleclassifiers
                 throw new ArgumentNullException(nameof(ownedAttribute));
             }
 
-            addAttribute(ownedAttribute);
-            addOwnedMember(ownedAttribute);
+            AddAttribute(ownedAttribute);
+            AddOwnedMember(ownedAttribute);
 
             this.ownedAttribute.Add(ownedAttribute);
         } // addOwnedAttribute

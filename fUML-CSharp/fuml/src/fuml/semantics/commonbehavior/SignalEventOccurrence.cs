@@ -37,12 +37,12 @@ namespace fuml.semantics.commonbehavior
             if (event_ is SignalEvent signalEvent)
             {
 
-                List<StructuralFeature> memberFeatures = (signalInstance is not null) ? signalInstance.getMemberFeatures(signalEvent!.signal!) : new();
+                List<StructuralFeature> memberFeatures = (signalInstance is not null) ? signalInstance.GetMemberFeatures(signalEvent!.signal!) : new();
                 foreach (StructuralFeature feature in memberFeatures)
                 {
                     ParameterValue parameterValue = new()
                     {
-                        values = signalInstance!.getFeatureValue(feature).values
+                        values = signalInstance!.GetFeatureValue(feature).values
                     };
                     parameterValues.Add(parameterValue);
                 }

@@ -4,7 +4,7 @@
     {
         public float value = 0.0f;
 
-        public void setValue(float value)
+        public void SetValue(float value)
         {
             this.value = value;
         } // setValue

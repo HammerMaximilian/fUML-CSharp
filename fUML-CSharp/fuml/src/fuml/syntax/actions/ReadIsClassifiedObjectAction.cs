@@ -9,23 +9,23 @@ namespace fuml.syntax.actions
 		public OutputPin? result = null;
 		public InputPin? object_ = null;
 
-		public void setIsDirect(bool isDirect)
+		public void SetIsDirect(bool isDirect)
 		{
 			this.isDirect = isDirect;
 		} // setIsDirect
 
-		public void setClassifier(Classifier classifier)
+		public void SetClassifier(Classifier classifier)
 		{
 			this.classifier = classifier ?? throw new ArgumentNullException(nameof(classifier));
 		} // setClassifier
 
-		public void setResult(OutputPin result)
+		public void SetResult(OutputPin result)
 		{
 			AddOutput(result);
 			this.result = result;
 		} // setResult
 
-		public void setObject(InputPin object_)
+		public void SetObject(InputPin object_)
 		{
 			AddInput(object_);
 			this.object_ = object_;

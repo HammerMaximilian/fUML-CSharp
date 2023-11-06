@@ -7,13 +7,13 @@ namespace fuml.syntax.actions
         public InputPin? target = null;
         public Signal? signal = null;
 
-        public void setTarget(InputPin target)
+        public void SetTarget(InputPin target)
         {
             AddInput(target);
             this.target = target;
         } // setTarget
 
-        public void setSignal(
+        public void SetSignal(
                 Signal signal)
         {
             this.signal = signal ?? throw new ArgumentNullException(nameof(signal));

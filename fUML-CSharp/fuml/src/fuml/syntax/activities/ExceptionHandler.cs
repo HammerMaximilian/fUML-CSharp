@@ -32,12 +32,12 @@ namespace fuml.syntax.activities
          */
         public ExecutableNode? protectedNode;
 
-        public void setExceptionInput(ObjectNode exceptionInput)
+        public void SetExceptionInput(ObjectNode exceptionInput)
         {
             this.exceptionInput = exceptionInput ?? throw new ArgumentNullException(nameof(exceptionInput));
         }
 
-        public void addExceptionType(Classifier exceptionType)
+        public void AddExceptionType(Classifier exceptionType)
         {
             if (exceptionType is null)
             {
@@ -47,7 +47,7 @@ namespace fuml.syntax.activities
             this.exceptionType.Add(exceptionType);
         }
 
-        public void setHandlerBody(ExecutableNode handlerBody)
+        public void SetHandlerBody(ExecutableNode handlerBody)
         {
             this.handlerBody = handlerBody ?? throw new ArgumentNullException(nameof(handlerBody));
         }

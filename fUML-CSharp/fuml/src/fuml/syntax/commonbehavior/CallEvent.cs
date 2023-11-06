@@ -6,7 +6,7 @@ namespace fuml.syntax.commonbehavior
     {
         public Operation? operation = null;
 
-        public void setOperation(Operation operation)
+        public void SetOperation(Operation operation)
         {
             this.operation = operation ?? throw new ArgumentNullException(nameof(operation));
         }

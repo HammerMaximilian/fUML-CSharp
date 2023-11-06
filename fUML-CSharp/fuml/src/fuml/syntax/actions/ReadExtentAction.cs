@@ -7,12 +7,12 @@ namespace fuml.syntax.actions
 		public OutputPin? result = null;
 		public Classifier? classifier = null;
 
-		public void setClassifier(Classifier classifier)
+		public void SetClassifier(Classifier classifier)
 		{
 			this.classifier = classifier ?? throw new ArgumentNullException(nameof(classifier));
 		} // setClassifier
 
-		public void setResult(OutputPin result)
+		public void SetResult(OutputPin result)
 		{
 			AddOutput(result);
 			this.result = result;

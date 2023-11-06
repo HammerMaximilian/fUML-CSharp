@@ -7,26 +7,26 @@
         public List<Clause> clause = new();
         public List<OutputPin> result = new();
 
-        public void setIsDeterminate(bool isDeterminate)
+        public void SetIsDeterminate(bool isDeterminate)
         {
             this.isDeterminate = isDeterminate;
         } // setIsDeterminate
 
-        public void setIsAssured(bool isAssured)
+        public void SetIsAssured(bool isAssured)
         {
             this.isAssured = isAssured;
         } // setIsAssured
 
-        public void addClause(
+        public void AddClause(
                 Clause clause)
         {
-            addOwnedElement(clause);
+            AddOwnedElement(clause);
             this.clause.Add(clause);
         } // addClause
 
-        public void addResult(OutputPin result)
+        public void AddResult(OutputPin result)
         {
-            addStructuredNodeOutput(result);
+            AddStructuredNodeOutput(result);
             this.result.Add(result);
         } // addResult
     } // ConditionalNode

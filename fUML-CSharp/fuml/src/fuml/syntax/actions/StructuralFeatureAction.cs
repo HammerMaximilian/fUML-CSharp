@@ -7,13 +7,13 @@ namespace fuml.syntax.actions
         public StructuralFeature? structuralFeature = null;
         public InputPin? object_ = null;
 
-        public void setStructuralFeature(
+        public void SetStructuralFeature(
             StructuralFeature structuralFeature)
         {
             this.structuralFeature = structuralFeature ?? throw new ArgumentNullException(nameof(structuralFeature));
         } // setStructuralFeature
 
-        public void setObject(InputPin object_)
+        public void SetObject(InputPin object_)
         {
             AddInput(object_);
             this.object_ = object_;

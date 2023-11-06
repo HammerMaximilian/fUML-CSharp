@@ -8,6 +8,6 @@ namespace fuml.semantics.values
         public ValueSpecification? specification = null;
         public Locus? locus = null;
 
-        public abstract Value evaluate();
+        public abstract Value Evaluate();
     } // Evaluation
 }

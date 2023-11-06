@@ -32,7 +32,7 @@ namespace fuml.semantics.activities
 			else
 			{
 				ChoiceStrategy strategy = (ChoiceStrategy)GetExecutionLocus()!.factory!.GetStrategy("choice");
-				ExceptionHandler handler = matchingExceptionHandlers.ElementAt(strategy.choose(matchingExceptionHandlers.Count) - 1);
+				ExceptionHandler handler = matchingExceptionHandlers.ElementAt(strategy.Choose(matchingExceptionHandlers.Count) - 1);
 				Handle(exception, handler);
 			}
 		}
@@ -69,7 +69,7 @@ namespace fuml.semantics.activities
 			// Offer the given exception to the body of the given exception handler
 			// on its exception input node.
 
-			Debug.println("[handle] action = " + node?.name + ", exception = " + exception);
+			Debug.Println("[handle] action = " + node?.name + ", exception = " + exception);
 
 			ActivityNodeActivation? handlerBodyActivation = group?.GetNodeActivation(handler?.handlerBody!);
 			ActivityNodeActivation? inputActivation = handlerBodyActivation?.group?.GetNodeActivation(handler?.exceptionInput!);

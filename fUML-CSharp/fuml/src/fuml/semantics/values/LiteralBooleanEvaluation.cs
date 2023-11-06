@@ -5,7 +5,7 @@ namespace fuml.semantics.values
 {
     public class LiteralBooleanEvaluation : LiteralEvaluation
     {
-        public override Value evaluate()
+        public override Value Evaluate()
         {
             // Evaluate a literal boolean, producing a boolean value.
 

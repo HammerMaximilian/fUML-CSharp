@@ -40,13 +40,13 @@ namespace fuml.semantics.simpleclassifiers
                         if (thisFeatureValue.feature == otherFeatureValue.feature)
                         {
                             matched = thisFeatureValue
-                                    .hasEqualValues(otherFeatureValue);
+                                    .HasEqualValues(otherFeatureValue);
                         }
-                        j = j + 1;
+                        j++;
                     }
 
                     isEqual = matched;
-                    i = i + 1;
+                    i++;
                 }
             }
 
@@ -63,13 +63,13 @@ namespace fuml.semantics.simpleclassifiers
             List<FeatureValue> featureValues = this.featureValues;
             foreach (FeatureValue featureValue in featureValues)
             {
-                newValue.featureValues.Add(featureValue.copy());
+                newValue.featureValues.Add(featureValue.Copy());
             }
 
             return newValue;
         } // copy
 
-        public override FeatureValue getFeatureValue(
+        public override FeatureValue GetFeatureValue(
                 StructuralFeature feature)
         {
             // Get the value(s) of the member of featureValues for the given
@@ -83,20 +83,20 @@ namespace fuml.semantics.simpleclassifiers
                 {
                     featureValue = featureValues.ElementAt(i - 1);
                 }
-                i = i + 1;
+                i++;
             }
 
             return featureValue!;
         } // getFeatureValue
 
-        public override void setFeatureValue(
+        public override void SetFeatureValue(
                 StructuralFeature feature,
                 List<Value> values, int position)
         {
             // Set the value(s) of the member of featureValues for the given
             // feature.
 
-            FeatureValue featureValue = getFeatureValue(feature);
+            FeatureValue featureValue = GetFeatureValue(feature);
 
             if (featureValue == null)
             {
@@ -110,7 +110,7 @@ namespace fuml.semantics.simpleclassifiers
 
         } // setFeatureValue
 
-        public override List<FeatureValue> getFeatureValues()
+        public override List<FeatureValue> GetFeatureValues()
         {
             // Return the feature values for this compound value.
 
@@ -129,10 +129,10 @@ namespace fuml.semantics.simpleclassifiers
             {
                 if (i != 1)
                 {
-                    buffer = buffer + " ";
+                    buffer += " ";
                 }
-                buffer = buffer + types.ElementAt(i - 1).name;
-                i = i + 1;
+                buffer += types.ElementAt(i - 1).name;
+                i++;
             }
 
             int k = 1;
@@ -146,8 +146,8 @@ namespace fuml.semantics.simpleclassifiers
                 while (j <= featureValue?.values!.Count)
                 {
                     Value value = featureValue.values.ElementAt(j - 1);
-                    if (value is Reference) {
-                        Object_ object_ = ((Reference)value)?.referent!;
+                    if (value is Reference reference) {
+                        Object_ object_ = reference?.referent!;
                         buffer = buffer + " Reference to " + object_.identifier + "(";
                         types = object_.GetTypes();
                         int n = 1;
@@ -155,20 +155,20 @@ namespace fuml.semantics.simpleclassifiers
                         {
                             if (n != 1)
                             {
-                                buffer = buffer + " ";
+                                buffer += " ";
                             }
-                            buffer = buffer + types.ElementAt(n - 1).name;
-                            n = n + 1;
+                            buffer += types.ElementAt(n - 1).name;
+                            n++;
                         }
-                        buffer = buffer + ")";
+                        buffer += ")";
                     } else
                     {
                         buffer = buffer + " " + value.ToString();
                     }
-                    j = j + 1;
+                    j++;
                 }
 
-                k = k + 1;
+                k++;
             }
 
             return buffer + ")";

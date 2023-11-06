@@ -6,14 +6,14 @@ namespace fuml.syntax.values
     {
         public UnlimitedNatural value = new(0);
 
-        public void setValue(UnlimitedNatural value)
+        public void SetValue(UnlimitedNatural value)
         {
             this.value = value;
         } // setValue
 
-        public void setValue(int value)
+        public void SetValue(int value)
         {
-            setValue(new UnlimitedNatural(value));
+            SetValue(new UnlimitedNatural(value));
         } // setValue
     }
 }

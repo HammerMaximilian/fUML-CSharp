@@ -6,7 +6,7 @@ namespace fuml.syntax.commonbehavior
     {
         public Event? event_ = null;
 
-        public void setEvent(Event event_) 
+        public void SetEvent(Event event_) 
         {
             this.event_ = event_;
         } // setEvent

@@ -5,7 +5,7 @@ namespace fuml.semantics.values
 {
     public class LiteralUnlimitedNaturalEvaluation : LiteralEvaluation
     {
-        public override Value evaluate()
+        public override Value Evaluate()
         {
             // Evaluate a literal unlimited natural producing an unlimited natural
             // value.

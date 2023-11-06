@@ -12,7 +12,7 @@ namespace fuml.syntax.actions
 		public OutputPin? decider = null;
 		public List<OutputPin> bodyOutput = new();
 
-		public void addPredecessorClause(
+		public void AddPredecessorClause(
 				Clause predecessorClause)
 		{
             if (predecessorClause is null)
@@ -24,7 +24,7 @@ namespace fuml.syntax.actions
 			predecessorClause.successorClause.Add(this);
 		} // addPredecessorClause
 
-		public void addTest(
+		public void AddTest(
 				ExecutableNode test)
 		{
             if (test is null)
@@ -35,7 +35,7 @@ namespace fuml.syntax.actions
             this.test.Add(test);
 		} // addTest
 
-		public void addBody(
+		public void AddBody(
 				ExecutableNode body)
 		{
             if (body is null)
@@ -46,12 +46,12 @@ namespace fuml.syntax.actions
             this.body.Add(body);
 		} // addBody
 
-		public void setDecider(OutputPin decider)
+		public void SetDecider(OutputPin decider)
 		{
 			this.decider = decider ?? throw new ArgumentNullException(nameof(decider));
 		} // setDecider
 
-		public void addBodyOutput(
+		public void AddBodyOutput(
 				OutputPin bodyOutput)
 		{
             if (bodyOutput is null)

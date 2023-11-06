@@ -11,7 +11,7 @@ namespace fuml.semantics.classification
 {
     public class InstanceValueEvaluation : Evaluation
     {
-        public override Value evaluate()
+        public override Value Evaluate()
         {
             // If the instance specification is for an enumeration, then return the
             // identified enumeration literal.
@@ -27,7 +27,7 @@ namespace fuml.semantics.classification
             List<Classifier> types = (instance is not null) ? instance.classifier : throw new NullReferenceException();
             Classifier myType = types.ElementAt(0);
 
-            Debug.println("[evaluate] type = " + myType.name);
+            Debug.Println("[evaluate] type = " + myType.name);
 
             Value value;
             if (instance is EnumerationLiteral literal)
@@ -72,7 +72,7 @@ namespace fuml.semantics.classification
                     structuredValue = reference;
                 }
 
-                structuredValue.createFeatureValues();
+                structuredValue.CreateFeatureValues();
 
                 List<Slot> instanceSlots = instance.slot;
                 foreach (Slot slot in instanceSlots)
@@ -85,7 +85,7 @@ namespace fuml.semantics.classification
                         values.Add(locus?.executor?.Evaluate(slotValue)!);
                     }
                     structuredValue
-                            .setFeatureValue(slot?.definingFeature!, values, 0);
+                            .SetFeatureValue(slot?.definingFeature!, values, 0);
                 }
 
                 value = structuredValue;

@@ -7,18 +7,18 @@
         public PackageableElement? importedElement = null;
         public Namespace? importingNamespace = null;
 
-        public void setAlias(string alias)
+        public void SetAlias(string alias)
         {
             this.alias = alias;
         } // setAlias
 
-        public void setVisibility(
+        public void SetVisibility(
                 VisibilityKind visibility)
         {
             this.visibility = visibility;
         } // setVisibility
 
-        public void setImportedElement(
+        public void SetImportedElement(
                 PackageableElement importedElement)
         {
             this.importedElement = importedElement ?? throw new ArgumentNullException(nameof(importedElement));

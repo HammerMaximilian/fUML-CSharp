@@ -4,7 +4,7 @@
     {
         public PackageableElement()
         {
-            setVisibility(VisibilityKind.public_);
+            SetVisibility(VisibilityKind.public_);
         }
     } // PackageableElement
 }

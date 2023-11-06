@@ -6,7 +6,7 @@
 		{
 			// By default, offer all tokens on all outgoing edges.
 
-			Debug.println(node != null, "[fire] Control node " + node?.name + "...");
+			Debug.Println(node != null, "[fire] Control node " + node?.name + "...");
 
 			SendOffers(incomingTokens);
 		} // fire

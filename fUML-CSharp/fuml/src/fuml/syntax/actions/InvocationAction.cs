@@ -4,7 +4,7 @@
     {
         public List<InputPin> argument = new();
 
-        public void addArgument(InputPin argument)
+        public void AddArgument(InputPin argument)
         {
             AddInput(argument);
             this.argument.Add(argument);

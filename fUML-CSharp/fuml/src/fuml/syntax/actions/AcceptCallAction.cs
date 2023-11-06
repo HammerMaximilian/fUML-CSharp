@@ -4,7 +4,7 @@
     {
 		public OutputPin? returnInformation = null;
 
-		public void setReturnInformation(OutputPin returnInformation)
+		public void SetReturnInformation(OutputPin returnInformation)
 		{
 			AddOutput(returnInformation);
 			this.returnInformation = returnInformation;

@@ -13,12 +13,12 @@ namespace fuml.syntax.activities
         public List<ActivityEdge> edge = new();
         public List<ActivityGroup> group = new();
 
-        public void setIsReadOnly(bool isReadOnly)
+        public void SetIsReadOnly(bool isReadOnly)
         {
             this.isReadOnly = isReadOnly;
         } // setIsReadOnly
 
-        public void addNode(
+        public void AddNode(
                 ActivityNode node)
         {
             if (node is null)
@@ -28,25 +28,25 @@ namespace fuml.syntax.activities
 
             if (!this.node.Contains(node))
             {
-                addOwnedElement(node);
+                AddOwnedElement(node);
 
                 this.node.Add(node);
                 node._setActivity(this);
             }
 
-            if (node is StructuredActivityNode &&
+            if (node is StructuredActivityNode structuredActivityNode &&
                     !structuredNode.Contains(node)) {
-                structuredNode.Add((StructuredActivityNode)node);
+                structuredNode.Add(structuredActivityNode);
             }
 
         } // addNode
 
-        public void addStructuredNode(StructuredActivityNode node)
+        public void AddStructuredNode(StructuredActivityNode node)
         {
-            addNode(node);
+            AddNode(node);
         }
 
-        public void addGroup(ActivityGroup group)
+        public void AddGroup(ActivityGroup group)
         {
             if (group is null)
             {
@@ -56,7 +56,7 @@ namespace fuml.syntax.activities
             this.group.Add(group);
         }
 
-        public void addEdge(
+        public void AddEdge(
                 ActivityEdge edge)
         {
             if (edge is null)
@@ -64,7 +64,7 @@ namespace fuml.syntax.activities
                 throw new ArgumentNullException(nameof(edge));
             }
 
-            addOwnedElement(edge);
+            AddOwnedElement(edge);
 
             this.edge.Add(edge);
             edge._setActivity(this);

@@ -6,19 +6,19 @@
         public OutputPin? result = null;
         public InputPin? first = null;
 
-        public void setFirst(InputPin first)
+        public void SetFirst(InputPin first)
         {
             AddInput(first);
             this.first = first;
         } // setFirst
 
-        public void setSecond(InputPin second)
+        public void SetSecond(InputPin second)
         {
             AddInput(second);
             this.second = second;
         } // setSecond
 
-        public void setResult(OutputPin result)
+        public void SetResult(OutputPin result)
         {
             AddOutput(result);
             this.result = result;

@@ -15,7 +15,7 @@ namespace fuml.semantics.commonbehavior
 
             _beginIsolation();
             bool isSuspended = callerSuspended;
-            Debug.println("[isCallerSuspended] operation = " + GetOperation()?.name +
+            Debug.Println("[isCallerSuspended] operation = " + GetOperation()?.name +
                     ", callerSuspended = " + isSuspended);
             _endIsolation();
 
@@ -29,7 +29,7 @@ namespace fuml.semantics.commonbehavior
 
             _beginIsolation();
             this.callerSuspended = callerSuspended;
-            Debug.println("[setCallerSuspended] operation = " + GetOperation()?.name +
+            Debug.Println("[setCallerSuspended] operation = " + GetOperation()?.name +
                     ", callerSuspended = " + callerSuspended);
             _endIsolation();
         }
@@ -158,7 +158,7 @@ namespace fuml.semantics.commonbehavior
             // executions to proceed.
             // [There is no further formal specification for this operation.]
 
-            Debug.println(!ExecutionQueue.Step(), "[wait] Stuck!");
+            Debug.Println(!ExecutionQueue.Step(), "[wait] Stuck!");
         }
     } // CallEventExecution
 }

@@ -6,13 +6,13 @@
         public List<ExpansionNode> outputElement = new();
         public List<ExpansionNode> inputElement = new();
 
-        public void setMode(
+        public void SetMode(
                 ExpansionKind mode)
         {
             this.mode = mode;
         } // setMode
 
-        public void addInputElement(
+        public void AddInputElement(
                 ExpansionNode inputElement)
         {
             if (inputElement is null)
@@ -24,7 +24,7 @@
             inputElement._setRegionAsInput(this);
         } // addInputElement
 
-        public void addOutputElement(
+        public void AddOutputElement(
                 ExpansionNode outputElement)
         {
             if (outputElement is null)

@@ -7,13 +7,13 @@ namespace fuml.syntax.activities
         public Behavior? decisionInput = null;
         public ObjectFlow? decisionInputFlow = null;
 
-        public void setDecisionInput(
+        public void SetDecisionInput(
                 Behavior decisionInput)
         {
             this.decisionInput = decisionInput ?? throw new ArgumentNullException(nameof(decisionInput));
         } // setDecisionInput
 
-        public void setDecisionInputFlow(
+        public void SetDecisionInputFlow(
                 ObjectFlow decisionInputFlow)
         {
             this.decisionInputFlow = decisionInputFlow ?? throw new ArgumentNullException(nameof(decisionInputFlow));

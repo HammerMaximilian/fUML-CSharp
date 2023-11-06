@@ -22,7 +22,7 @@ namespace fuml.semantics.activities
 				ActivityParameterNodeStreamingParameterListener listener = new();
 				listener.nodeActivation = this;
 				((StreamingParameterValue)parameterValue).Register(listener);
-				Debug.println("[run] Registering for streaming parameter " + parameter.name + ".");
+				Debug.Println("[run] Registering for streaming parameter " + parameter.name + ".");
 			}
 		}
 
@@ -46,10 +46,10 @@ namespace fuml.semantics.activities
 
 			if (node.incoming.Count == 0)
 			{
-				Debug.println("[fire] Input activity parameter node " + node.name + "...");
+				Debug.Println("[fire] Input activity parameter node " + node.name + "...");
 				if (parameterValue is not null)
 				{
-					Debug.println("[fire] Parameter has " + parameterValue.values.Count + " value(s).");
+					Debug.Println("[fire] Parameter has " + parameterValue.values.Count + " value(s).");
 					List<Value> values = parameterValue.values;
 					foreach (Value value in values)
 					{
@@ -65,7 +65,7 @@ namespace fuml.semantics.activities
 
 			else
 			{
-				Debug.println("[fire] Output activity parameter node " + node.name + "...");
+				Debug.Println("[fire] Output activity parameter node " + node.name + "...");
 
 				AddTokens(incomingTokens);
 
@@ -77,7 +77,7 @@ namespace fuml.semantics.activities
 						if (value is not null)
 						{
 							values.Add(value);
-							Debug.println("[event] Post activity=" + GetActivityExecution().GetBehavior().name
+							Debug.Println("[event] Post activity=" + GetActivityExecution().GetBehavior().name
 									+ " parameter=" + parameterValue?.parameter?.name
 									+ " value=" + value);
 						}

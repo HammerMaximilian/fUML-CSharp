@@ -24,14 +24,14 @@ namespace fuml.semantics.activities
                 activation.Run();
             }
 
-            Debug.println("[run] Checking for enabled nodes...");
+            Debug.Println("[run] Checking for enabled nodes...");
 
             List<ActivityNodeActivation> enabledParameterNodeActivations = new();
             List<ActivityNodeActivation> enabledOtherActivations = new();
 
             foreach (ActivityNodeActivation activation in activations)
             {
-                Debug.println("[run] Checking node " + activation?.node?.name + "...");
+                Debug.Println("[run] Checking node " + activation?.node?.name + "...");
 
                 if (!(activation is PinActivation |
                         activation is ExpansionNodeActivation))
@@ -58,7 +58,7 @@ namespace fuml.semantics.activities
 
                     if (isEnabled)
                     {
-                        Debug.println("[run] Node " + activation?.node?.name + " is enabled.");
+                        Debug.Println("[run] Node " + activation?.node?.name + " is enabled.");
                         if (activation is ActivityParameterNodeActivation)
                         {
                             enabledParameterNodeActivations.Add(activation!);
@@ -74,14 +74,14 @@ namespace fuml.semantics.activities
             // *** Send offers to all enabled activity parameter nodes concurrently. ***
             foreach (ActivityNodeActivation activation in enabledParameterNodeActivations)
             {
-                Debug.println("[run] Sending offer to activity parameter node " + activation?.node?.name + ".");
+                Debug.Println("[run] Sending offer to activity parameter node " + activation?.node?.name + ".");
                 activation?.ReceiveOffer();
             }
 
             // *** Send offers to all other enabled nodes concurrently. ***
             foreach (ActivityNodeActivation activation in enabledOtherActivations)
             {
-                Debug.println("[run] Sending offer to node " + activation?.node?.name + ".");
+                Debug.Println("[run] Sending offer to node " + activation?.node?.name + ".");
                 activation?.ReceiveOffer();
             }
         } // run
@@ -152,7 +152,7 @@ namespace fuml.semantics.activities
         {
             // Terminate all node activations in the group.
 
-            Debug.println("[terminateAll] Terminating activation group for "
+            Debug.Println("[terminateAll] Terminating activation group for "
                     + (activityExecution is not null ? "activity "
                             + activityExecution.GetTypes().ElementAt(0).name
                             : containingNodeActivation is not null ? "node "
@@ -176,7 +176,7 @@ namespace fuml.semantics.activities
 
             foreach (ActivityNode node in nodes)
             {
-                Debug.println("[createNodeActivations] Creating a node activation for "
+                Debug.Println("[createNodeActivations] Creating a node activation for "
                                 + node.name + "...");
                 CreateNodeActivation(node);
             }
@@ -235,7 +235,7 @@ namespace fuml.semantics.activities
 
             foreach (ActivityEdge edge in edges)
             {
-                Debug.println("[createEdgeInstances] Creating an edge instance from "
+                Debug.Println("[createEdgeInstances] Creating an edge instance from "
                         + edge?.source?.name + " to " + edge?.target?.name + ".");
 
                 ActivityEdgeInstance edgeInstance = new();
@@ -320,7 +320,7 @@ namespace fuml.semantics.activities
         // the only suspended activation, and the activation group has a
         // containing node activation, then suspend that containing activation.
 
-        Debug.println("[suspend] node="
+        Debug.Println("[suspend] node="
                 + (activation.node is null ? "null" : activation.node.name));
 
         if (!IsSuspended())
@@ -342,7 +342,7 @@ namespace fuml.semantics.activities
         // suspended activation, and the activation group has a containing
         // node activation, then resume that containing activation.
 
-        Debug.println("[resume] node="
+        Debug.Println("[resume] node="
                 + (activation.node is null ? "null" : activation.node.name));
 
         bool found = false;

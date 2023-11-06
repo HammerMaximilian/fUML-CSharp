@@ -111,12 +111,12 @@ namespace fuml.semantics.commonbehavior
             return (Behavior)GetTypes().ElementAt(0);
         } // getBehavior
 
-        public override void destroy()
+        public override void Destroy()
         {
             // Terminate the execution before destroying it.
 
             Terminate();
-            base.destroy();
+            base.Destroy();
         }
 
         public void PropagateException(Value exception)

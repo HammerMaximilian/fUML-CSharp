@@ -6,7 +6,7 @@ namespace fuml.syntax.activities
     {
         public TypedElement typedElement = new();
 
-        public void setType(commonstructure.Type type)
+        public void SetType(commonstructure.Type type)
         {
             if (type is null)
             {

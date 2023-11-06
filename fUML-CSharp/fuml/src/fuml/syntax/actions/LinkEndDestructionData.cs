@@ -5,12 +5,12 @@
         public bool isDestroyDuplicates = false;
         public InputPin? destroyAt = null;
 
-        public void setIsDestroyDuplicates(bool isDestroyDuplicates)
+        public void SetIsDestroyDuplicates(bool isDestroyDuplicates)
         {
             this.isDestroyDuplicates = isDestroyDuplicates;
         } // setIsDestroyDuplicates
 
-        public void setDestroyAt(InputPin destroyAt)
+        public void SetDestroyAt(InputPin destroyAt)
         {
             this.destroyAt = destroyAt ?? throw new ArgumentNullException(nameof(destroyAt));
         } // setDestroyAt

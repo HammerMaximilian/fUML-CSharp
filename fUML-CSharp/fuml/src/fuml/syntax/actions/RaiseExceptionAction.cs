@@ -7,7 +7,7 @@
 		 */
         public InputPin? exception;
 
-        public void setException(InputPin exception)
+        public void SetException(InputPin exception)
         {
             AddInput(exception);
             this.exception = exception;

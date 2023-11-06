@@ -6,7 +6,7 @@ namespace fuml.syntax.actions
     {
         public Behavior? behavior = null;
 
-        public void setBehavior(
+        public void SetBehavior(
                 Behavior behavior)
         {
             this.behavior = behavior ?? throw new ArgumentNullException(nameof(behavior));

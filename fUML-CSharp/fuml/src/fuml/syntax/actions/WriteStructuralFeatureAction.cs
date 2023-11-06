@@ -5,13 +5,13 @@
         public InputPin? value = null;
         public OutputPin? result = null;
 
-        public virtual void setResult(OutputPin result)
+        public virtual void SetResult(OutputPin result)
         {
             AddOutput(result);
             this.result = result;
         } // setResult
 
-        public void setValue(InputPin value)
+        public void SetValue(InputPin value)
         {
             AddInput(value);
             this.value = value;

@@ -9,24 +9,24 @@ namespace fuml.syntax.actions
         public InputPin? object_ = null;
         public List<Classifier> newClassifier = new();
 
-        public void setIsReplaceAll(bool isReplaceAll)
+        public void SetIsReplaceAll(bool isReplaceAll)
         {
             this.isReplaceAll = isReplaceAll;
         } // setIsReplaceAll
 
-        public void addOldClassifier(
+        public void AddOldClassifier(
                 Classifier oldClassifier)
         {
             this.oldClassifier.Add(oldClassifier);
         } // addOldClassifier
 
-        public void addNewClassifier(
+        public void AddNewClassifier(
                 Classifier newClassifier)
         {
             this.newClassifier.Add(newClassifier);
         } // addNewClassifier
 
-        public void setObject(InputPin object_)
+        public void SetObject(InputPin object_)
         {
             AddInput(object_);
             this.object_ = object_;

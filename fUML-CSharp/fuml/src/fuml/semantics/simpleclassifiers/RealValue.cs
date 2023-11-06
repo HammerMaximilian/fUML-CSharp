@@ -11,10 +11,11 @@ namespace fuml.semantics.simpleclassifiers
         {
             // Return a literal real with the value of this real value.
 
-            LiteralReal literal = new LiteralReal();
-
-            literal.type = type;
-            literal.value = value;
+            LiteralReal literal = new()
+            {
+                type = type,
+                value = value
+            };
 
             return literal;
         } // specify
@@ -26,9 +27,9 @@ namespace fuml.semantics.simpleclassifiers
             // value.
 
             bool isEqual = false;
-            if (otherValue is RealValue)
+            if (otherValue is RealValue realValue)
             {
-                isEqual = ((RealValue)otherValue).value == value;
+                isEqual = realValue.value == value;
             }
 
             return isEqual;
@@ -51,8 +52,7 @@ namespace fuml.semantics.simpleclassifiers
 
         public override string ToString()
         {
-            string stringValue = "";
-
+            string stringValue;
             if (value == 0)
             {
                 stringValue = "0";
@@ -72,27 +72,29 @@ namespace fuml.semantics.simpleclassifiers
                 {
                     while (positiveValue < .1)
                     {
-                        positiveValue = positiveValue * 10;
-                        exponent = exponent - 1;
+                        positiveValue *= 10;
+                        exponent--;
                     }
                 }
                 else if (positiveValue >= 1)
                 {
                     while (positiveValue >= 1)
                     {
-                        positiveValue = positiveValue / 10;
-                        exponent = exponent + 1;
+                        positiveValue /= 10;
+                        exponent++;
                     }
                 }
 
                 // This gives 9 significant digits in the mantissa.
                 for (int i = 0; i < 9; i++)
                 {
-                    positiveValue = positiveValue * 10;
+                    positiveValue *= 10;
                 }
 
-                IntegerValue integerValue = new IntegerValue();
-                integerValue.value = (int)positiveValue;
+                IntegerValue integerValue = new()
+                {
+                    value = (int)positiveValue
+                };
                 stringValue = "0." + integerValue.ToString();
                 integerValue.value = exponent;
                 stringValue = stringValue + "E" + integerValue.ToString();

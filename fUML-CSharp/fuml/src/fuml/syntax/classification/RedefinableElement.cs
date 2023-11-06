@@ -8,12 +8,12 @@ namespace fuml.syntax.classification
         public List<RedefinableElement> redefinedElement = new();
         public List<Classifier> redefinitionContext = new();
 
-        public void setIsLeaf(bool isLeaf)
+        public void SetIsLeaf(bool isLeaf)
         {
             this.isLeaf = isLeaf;
         } // setIsLeaf
 
-        protected void addRedefinedElement(
+        protected void AddRedefinedElement(
                 RedefinableElement redefinedElement)
         {
             if (redefinedElement is null)
@@ -24,7 +24,7 @@ namespace fuml.syntax.classification
             this.redefinedElement.Add(redefinedElement);
         } // addRedefinedElement
 
-        protected void addRedefinitionContext(
+        protected void AddRedefinitionContext(
                 Classifier redefinitionContext)
         {
             if (redefinitionContext is null)

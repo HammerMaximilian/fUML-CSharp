@@ -5,12 +5,12 @@
         public List<string> body = new();
         public List<string> language = new();
 
-        public void addBody(string body)
+        public void AddBody(string body)
         {
             this.body.Add(body);
         } // addBody
 
-        public void addLanguage(string language)
+        public void AddLanguage(string language)
         {
             this.language.Add(language);
         } // addLanguage

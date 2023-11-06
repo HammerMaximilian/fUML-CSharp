@@ -2,7 +2,7 @@
 {
     public class FirstChoiceStrategy : ChoiceStrategy
     {
-        public override int choose(int size)
+        public override int Choose(int size)
         {
             // Always choose one.
 

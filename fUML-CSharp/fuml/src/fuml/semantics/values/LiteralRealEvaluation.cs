@@ -5,7 +5,7 @@ namespace fuml.semantics.values
 {
     public class LiteralRealEvaluation : LiteralEvaluation
     {
-        public override Value evaluate()
+        public override Value Evaluate()
         {
             // Evaluate a real integer, producing a real value.
 

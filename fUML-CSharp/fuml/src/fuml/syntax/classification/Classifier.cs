@@ -12,7 +12,7 @@ namespace fuml.syntax.classification
         public List<Classifier> general = new();
         public bool isFinalSpecialization = false;
 
-        protected void addFeature(Feature feature)
+        protected void AddFeature(Feature feature)
         {
             if (feature is null)
             {
@@ -25,18 +25,18 @@ namespace fuml.syntax.classification
             feature._addFeaturingClassifier(this);
         } // addFeature
 
-        protected void addAttribute(Property attribute)
+        protected void AddAttribute(Property attribute)
         {
             if (attribute is null)
             {
                 throw new ArgumentNullException(nameof(attribute));
             }
 
-            addFeature(attribute);
+            AddFeature(attribute);
             this.attribute.Add(attribute);
         } // addAttribute
 
-        virtual public void addGeneralization(
+        virtual public void AddGeneralization(
                 Generalization generalization)
         {
             if (generalization is null)
@@ -44,27 +44,27 @@ namespace fuml.syntax.classification
                 throw new ArgumentNullException(nameof(generalization));
             }
 
-            addOwnedElement(generalization);
+            AddOwnedElement(generalization);
             this.generalization.Add(generalization);
             generalization._setSpecific(this);
             general.Add(generalization.general!);
 
-            List<NamedElement> inheritedMembers = inherit(generalization!.general!
-                    .inheritableMembers(this));
+            List<NamedElement> inheritedMembers = Inherit(generalization!.general!
+                    .InheritableMembers(this));
 
             foreach (NamedElement inheritedMember in inheritedMembers)
             {
-                addMember(inheritedMember);
+                AddMember(inheritedMember);
                 this.inheritedMember.Add(inheritedMember);
             }
         } // addGeneralization
 
-        public void setIsAbstract(bool isAbstract)
+        public void SetIsAbstract(bool isAbstract)
         {
             this.isAbstract = isAbstract;
         } // setIsAbstract
 
-        virtual public List<NamedElement> inherit(
+        virtual public List<NamedElement> Inherit(
                 List<NamedElement> inhs)
         {
             List<NamedElement> inheritedElements = new();
@@ -78,14 +78,14 @@ namespace fuml.syntax.classification
 
         } // inherit
 
-        public List<NamedElement> inheritableMembers(
+        public List<NamedElement> InheritableMembers(
                 Classifier c)
         {
             List<NamedElement> inheritable = new();
 
             foreach (NamedElement m in member)
             {
-                if (c.hasVisibilityOf(m))
+                if (c.HasVisibilityOf(m))
                 {
                     inheritable.Add(m);
                 }
@@ -94,7 +94,7 @@ namespace fuml.syntax.classification
             return inheritable;
         } // inheritableMembers
 
-        public bool hasVisibilityOf(NamedElement n)
+        public bool HasVisibilityOf(NamedElement n)
         {
             foreach (NamedElement m in inheritedMember)
             {
@@ -107,7 +107,7 @@ namespace fuml.syntax.classification
             return true;
         } // hasVisibilityOf
 
-        public void setIsFinalSpecialization(bool isFinalSpecialization)
+        public void SetIsFinalSpecialization(bool isFinalSpecialization)
         {
             this.isFinalSpecialization = isFinalSpecialization;
         } // setIsFinalSpecialization

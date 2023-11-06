@@ -6,7 +6,7 @@
 		{
 			// Consume all incoming tokens.
 
-			Debug.println("[fire] Flow final node " + node?.name + "...");
+			Debug.Println("[fire] Flow final node " + node?.name + "...");
 
 			foreach (Token token in incomingTokens)
 			{

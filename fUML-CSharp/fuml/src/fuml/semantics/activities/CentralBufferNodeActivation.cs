@@ -7,7 +7,7 @@
 			// Add all incoming tokens to the central buffer node.
 			// Offer any tokens that have not yet been offered.
 
-			Debug.println("[fire] " + node?.GetType().Name + " " + node?.name);
+			Debug.Println("[fire] " + node?.GetType().Name + " " + node?.name);
 
 			AddTokens(incomingTokens);
 			SendUnofferedTokens();

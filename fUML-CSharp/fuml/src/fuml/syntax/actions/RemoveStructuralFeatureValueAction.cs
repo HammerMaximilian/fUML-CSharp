@@ -5,12 +5,12 @@
         public bool isRemoveDuplicates = false;
         public InputPin? removeAt = null;
 
-        public void setIsRemoveDuplicates(bool isRemoveDuplicates)
+        public void SetIsRemoveDuplicates(bool isRemoveDuplicates)
         {
             this.isRemoveDuplicates = isRemoveDuplicates;
         } // setIsRemoveDuplicates
 
-        public void setRemoveAt(InputPin removeAt)
+        public void SetRemoveAt(InputPin removeAt)
         {
             if (removeAt is not null)
             {

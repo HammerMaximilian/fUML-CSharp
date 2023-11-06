@@ -5,7 +5,7 @@ namespace fuml.semantics.values
 {
     public class LiteralIntegerEvaluation : LiteralEvaluation
     {
-        public override Value evaluate()
+        public override Value Evaluate()
         {
             // Evaluate a literal integer, producing an integer value.
 

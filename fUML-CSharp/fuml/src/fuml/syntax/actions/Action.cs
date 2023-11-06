@@ -13,13 +13,13 @@ namespace fuml.syntax.actions
 
         protected void AddInput(InputPin input)
         {
-            addOwnedElement(input);
+            AddOwnedElement(input);
             this.input.Add(input);
         } // addInput
 
         protected void AddOutput(OutputPin output)
         {
-            addOwnedElement(output);
+            AddOwnedElement(output);
             this.output.Add(output);
         } // addOutput
 

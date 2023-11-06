@@ -51,12 +51,12 @@ namespace fuml.semantics.structuredclassifiers
 
         } // send
 
-        public override void destroy()
+        public override void Destroy()
         {
             // Stop the object activation (if any), clear all types and feature values,
             // and destroy the object as an extensional value.
 
-            Debug.println("[destroy] object = " + identifier);
+            Debug.Println("[destroy] object = " + identifier);
 
             if (objectActivation is not null)
             {
@@ -66,7 +66,7 @@ namespace fuml.semantics.structuredclassifiers
 
             types.Clear();
             featureValues.Clear();
-            base.destroy();
+            base.Destroy();
         } // destroy
 
         public void Register(

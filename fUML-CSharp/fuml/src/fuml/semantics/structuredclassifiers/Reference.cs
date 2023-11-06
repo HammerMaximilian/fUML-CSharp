@@ -41,7 +41,7 @@ namespace fuml.semantics.structuredclassifiers
         {
             // Destroy the referent.
 
-            referent?.destroy();
+            referent?.Destroy();
         } // destroy
 
         public override bool Equals(Value otherValue)
@@ -92,30 +92,30 @@ namespace fuml.semantics.structuredclassifiers
             return referent?.GetTypes()!;
         } // getTypes
 
-        public override FeatureValue getFeatureValue(
+        public override FeatureValue GetFeatureValue(
                 StructuralFeature feature)
         {
             // Get the feature value associated with the given feature in the
             // referent object.
 
-            return referent?.getFeatureValue(feature)!;
+            return referent?.GetFeatureValue(feature)!;
         } // getFeatureValue
 
-        public override void setFeatureValue(
+        public override void SetFeatureValue(
                 StructuralFeature feature,
                 List<Value> values, int position)
         {
             // Set the values associated with the given feature in the referent
             // object.
 
-            referent?.setFeatureValue(feature, values, position);
+            referent?.SetFeatureValue(feature, values, position);
         } // setFeatureValue
 
-        public override List<FeatureValue> getFeatureValues()
+        public override List<FeatureValue> GetFeatureValues()
         {
             // Return the feature values of the referent.
 
-            return referent?.getFeatureValues()!;
+            return referent?.GetFeatureValues()!;
         } // getFeatureValues
 
         public override string ToString()

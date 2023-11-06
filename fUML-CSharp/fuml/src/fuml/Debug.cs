@@ -11,27 +11,27 @@ namespace fuml
                             .SetMinimumLevel(LogLevel.Debug)
             ).CreateLogger(typeof(Debug));
 
-        public static void println(bool condition, string message)
+        public static void Println(bool condition, string message)
         {
             if (condition)
             {
-                println(message);
+                Println(message);
             }
         }
 
-        public static void println(string message)
+        public static void Println(string message)
         {
             if (message.Length >= 7 && message[..7].Equals("[event]"))
             {
-                log.LogInformation(message.Substring(8, message.Length));
+                log.LogInformation("$Message", message.Substring(8, message.Length));
             }
             else if (message.Length >= 7 && message[..7].Equals("[error]"))
             {
-                log.LogError(message.Substring(8, message.Length));
+                log.LogError("$Message", message.Substring(8, message.Length));
             }
             else
             {
-                log.LogDebug(message);
+                log.LogDebug("$Message", message);
             }
         }
     }

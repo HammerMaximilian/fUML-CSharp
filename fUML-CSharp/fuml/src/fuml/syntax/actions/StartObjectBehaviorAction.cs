@@ -4,7 +4,7 @@
     {
         public InputPin? object_ = null;
 
-	    public void setObject(InputPin object_)
+	    public void SetObject(InputPin object_)
         {
             AddInput(object_);
             this.object_ = object_;
