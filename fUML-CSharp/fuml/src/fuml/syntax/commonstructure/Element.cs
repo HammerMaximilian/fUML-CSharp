@@ -1,7 +1,7 @@
 ﻿
 namespace fuml.syntax.commonstructure
 {
-    public abstract class Element : fuml.Debug
+    public abstract class Element : FumlObject
     {
         public List<Element> ownedElement = new();
         public Element? owner;
