@@ -19,7 +19,7 @@ namespace fuml.semantics.actions
 			while (matches & i <= endDataList.Count)
 			{
 				matches = EndMatchesEndData(link, endDataList.ElementAt(i - 1));
-				i = i + 1;
+				i++;
 			}
 
 			return matches;
@@ -39,10 +39,10 @@ namespace fuml.semantics.actions
 			else
 			{
 				Property? end = endData.end;
-				FeatureValue linkFeatureValue = link.getFeatureValue(end!);
+				FeatureValue linkFeatureValue = link.GetFeatureValue(end!);
 				Value endValue = GetTokens(endData.value).ElementAt(0);
-				if (endData is LinkEndDestructionData) {
-					if (!((LinkEndDestructionData)endData).isDestroyDuplicates
+				if (endData is LinkEndDestructionData linkEndDestructionData) {
+					if (!linkEndDestructionData.isDestroyDuplicates
 							& !end!.multiplicityElement.isUnique
 							& end.multiplicityElement.isOrdered)
 					{

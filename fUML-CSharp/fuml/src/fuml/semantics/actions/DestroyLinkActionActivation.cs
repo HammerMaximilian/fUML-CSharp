@@ -21,12 +21,12 @@ namespace fuml.semantics.actions
 			// false, pick one matching link (if any) non-deterministically. [The
 			// semantics of this case is not clear from the current spec.]
 
-			Debug.println("[doAction] DestroyLinkAction...");
+			Debug.Println("[doAction] DestroyLinkAction...");
 
 			DestroyLinkAction? action = node as DestroyLinkAction;
 			List<LinkEndDestructionData> destructionDataList = action?.endData!;
 
-			Debug.println("[doAction] end data size = " + destructionDataList.Count);
+			Debug.Println("[doAction] end data size = " + destructionDataList.Count);
 
 			bool destroyOnlyOne = false;
 			int j = 1;
@@ -37,24 +37,24 @@ namespace fuml.semantics.actions
 				destroyOnlyOne = !endData.end!.multiplicityElement.isUnique
 						& !endData.end.multiplicityElement.isOrdered
 						& !endData.isDestroyDuplicates;
-				j = j + 1;
+				j++;
 			}
 
-			List<LinkEndData> endDataList = new List<LinkEndData>();
+			List<LinkEndData> endDataList = new();
 			foreach (LinkEndDestructionData endData in destructionDataList)
 			{
-				Debug.println("[doAction] Matching end = " + endData.end?.name);
+				Debug.Println("[doAction] Matching end = " + endData.end?.name);
 				endDataList.Add(endData);
 			}
 
-			List<ExtensionalValue> extent = this.GetExecutionLocus().GetExtent(
-					this.GetAssociation());
-			List<ExtensionalValue> matchingLinks = new List<ExtensionalValue>();
+			List<ExtensionalValue> extent = GetExecutionLocus().GetExtent(
+					GetAssociation());
+			List<ExtensionalValue> matchingLinks = new();
 
 			foreach (ExtensionalValue value in extent)
 			{
 				Link link = (Link)value;
-				if (this.LinkMatchesEndData(link, endDataList))
+				if (LinkMatchesEndData(link, endDataList))
 				{
 					matchingLinks.Add(link);
 				}
@@ -70,10 +70,10 @@ namespace fuml.semantics.actions
 						& !end.multiplicityElement.isUnique
 						& end.multiplicityElement.isOrdered)
 				{
-					this.TakeTokens(endData?.destroyAt!);
+					TakeTokens(endData?.destroyAt!);
 				}
-				Debug.println("[doAction] Consuming tokens for end " + end.name);
-				this.TakeTokens(endData?.value!);
+				Debug.Println("[doAction] Consuming tokens for end " + end.name);
+				TakeTokens(endData?.value!);
 			}
 
 			if (destroyOnlyOne)
@@ -82,16 +82,16 @@ namespace fuml.semantics.actions
 				// non-deterministically choose one. ***
 				if (matchingLinks.Count > 0)
 				{
-					int i = ((ChoiceStrategy)this.GetExecutionLocus()?.factory?
-							.GetStrategy("choice")!).choose(matchingLinks.Count);
-					matchingLinks.ElementAt(i - 1).destroy();
+					int i = ((ChoiceStrategy)GetExecutionLocus()?.factory?
+							.GetStrategy("choice")!).Choose(matchingLinks.Count);
+					matchingLinks.ElementAt(i - 1).Destroy();
 				}
 			}
 			else
 			{
 				foreach (ExtensionalValue matchingLink in matchingLinks)
 				{
-					matchingLink.destroy();
+					matchingLink.Destroy();
 				}
 			}
 		} // doAction

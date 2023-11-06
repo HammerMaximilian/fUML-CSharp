@@ -32,9 +32,9 @@ namespace fuml.semantics.actions
             Value target = TakeTokens(action?.target!).ElementAt(0);
 
             Execution? execution;
-            if (target is Reference)
+            if (target is Reference reference)
             {
-                execution = ((Reference)target).Dispatch(action?.operation!);
+                execution = reference.Dispatch(action?.operation!);
             }
             else
             {

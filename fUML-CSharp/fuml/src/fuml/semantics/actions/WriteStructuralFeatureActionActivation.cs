@@ -16,7 +16,7 @@ namespace fuml.semantics.actions
 			while (!found & i <= list.Count)
 			{
 				found = list.ElementAt(i - 1).Equals(value);
-				i = i + 1;
+				i++;
 			}
 
 			if (!found)

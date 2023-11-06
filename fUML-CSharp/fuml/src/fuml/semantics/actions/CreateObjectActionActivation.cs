@@ -14,11 +14,12 @@ namespace fuml.semantics.actions
 
 			CreateObjectAction? action = node as CreateObjectAction;
 
-			Reference reference = new Reference();
-			reference.referent = GetExecutionLocus().Instantiate(
-					(Class_)(action?.classifier!));
+            Reference reference = new()
+            {
+                referent = GetExecutionLocus().Instantiate((Class_)(action?.classifier!))
+            };
 
-			PutToken(action?.result!, reference);
+            PutToken(action?.result!, reference);
 
 		} // doAction
 	} // CreateObjectActionActivation

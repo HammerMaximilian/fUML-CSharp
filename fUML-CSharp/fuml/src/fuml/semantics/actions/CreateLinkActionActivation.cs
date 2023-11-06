@@ -56,11 +56,11 @@ namespace fuml.semantics.actions
 					{
 						match = false;
 					}
-					j = j + 1;
+					j++;
 				}
 				if (destroy | unique & match)
 				{
-					link.destroy();
+					link.Destroy();
 				}
 			}
 
@@ -76,8 +76,8 @@ namespace fuml.semantics.actions
 							TakeTokens(endData.insertAt).ElementAt(0)).value.naturalValue;
 				}
 
-				newLink.setFeatureValue(endData?.end!,
-						this.TakeTokens(endData?.value!), insertAt);
+				newLink.SetFeatureValue(endData?.end!,
+						TakeTokens(endData?.value!), insertAt);
 			}
 
 			newLink.AddTo(GetExecutionLocus());

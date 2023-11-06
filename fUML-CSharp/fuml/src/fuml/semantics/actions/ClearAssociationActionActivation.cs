@@ -15,16 +15,16 @@ namespace fuml.semantics.actions
 
             ClearAssociationAction? action = node as ClearAssociationAction;
 
-            List<ExtensionalValue> extent = this.GetExecutionLocus().GetExtent(
+            List<ExtensionalValue> extent = GetExecutionLocus().GetExtent(
                     action?.association!);
-            Value objectValue = this.TakeTokens(action?.object_!)?.ElementAt(0)!;
+            Value objectValue = TakeTokens(action?.object_!)?.ElementAt(0)!;
 
             for (int i = 0; i < extent.Count; i++)
             {
                 Link link = (Link)extent.ElementAt(i);
                 if (ValueParticipatesInLink(objectValue, link))
                 {
-                    link.destroy();
+                    link.Destroy();
                 }
             }
         } // doAction

@@ -27,8 +27,10 @@ namespace fuml.semantics.actions
 
             base.Run();
 
-            eventAccepter = new AcceptEventActionEventAccepter();
-            eventAccepter.actionActivation = this;
+            eventAccepter = new AcceptEventActionEventAccepter
+            {
+                actionActivation = this
+            };
 
             waiting = false;
         } // run
@@ -39,7 +41,7 @@ namespace fuml.semantics.actions
             // with the context object of the enclosing activity execution
             // and wait for an event to be accepted.
 
-            Debug.println("[fire] Action " + node?.name + "...");
+            Debug.Println("[fire] Action " + node?.name + "...");
 
             GetExecutionContext().Register(eventAccepter!);
             waiting = true;
@@ -90,7 +92,7 @@ namespace fuml.semantics.actions
             AcceptEventAction action = (node as AcceptEventAction)!;
             List<OutputPin> resultPins = action.result;
 
-            Debug.println("[accept] action = " + action.name + ", eventOccurrence = " + eventOccurrence);
+            Debug.Println("[accept] action = " + action.name + ", eventOccurrence = " + eventOccurrence);
 
             if (running)
             {
@@ -99,9 +101,11 @@ namespace fuml.semantics.actions
                     if (eventOccurrence is SignalEventOccurrence)
                     {
                         SignalInstance signalInstance = (eventOccurrence as SignalEventOccurrence)?.signalInstance!;
-                        Debug.println("[accept] isUnmarshall = false, signalInstance = " + signalInstance);
-                        List<Value> result = new List<Value>();
-                        result.Add(signalInstance);
+                        Debug.Println("[accept] isUnmarshall = false, signalInstance = " + signalInstance);
+                        List<Value> result = new()
+                        {
+                            signalInstance
+                        };
                         if (resultPins.Count > 0)
                         {
                             PutTokens(resultPins.ElementAt(0), result);
@@ -124,7 +128,7 @@ namespace fuml.semantics.actions
 
                 waiting = false;
 
-                Debug.println("[accept] Checking if " + node?.name + " should fire again...");
+                Debug.Println("[accept] Checking if " + node?.name + " should fire again...");
                 ReceiveOffer();
 
                 Resume();

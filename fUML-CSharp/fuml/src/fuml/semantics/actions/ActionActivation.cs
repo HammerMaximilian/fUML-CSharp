@@ -91,8 +91,8 @@ namespace fuml.semantics.actions
             do
             {
 
-                Debug.println("[fire] Action " + node?.name + "...");
-                Debug.println("[event] Fire activity="
+                Debug.Println("[fire] Action " + node?.name + "...");
+                Debug.Println("[event] Fire activity="
                         + GetActivityExecution().GetBehavior().name
                         + " action=" + node?.name);
 
@@ -123,7 +123,7 @@ namespace fuml.semantics.actions
 
             SendOffers();
 
-            Debug.println("[fire] Checking if " + node?.name + " should fire again...");
+            Debug.Println("[fire] Checking if " + node?.name + " should fire again...");
 
             _beginIsolation();
             List<Token> incomingTokens = new();
@@ -323,7 +323,7 @@ namespace fuml.semantics.actions
             // Place a token for the given value on the pin activation corresponding
             // to the given output pin.
 
-            Debug.println("[putToken] node = " + node?.name);
+            Debug.Println("[putToken] node = " + node?.name);
 
             ObjectToken token = new();
             token.value = value;
@@ -354,7 +354,7 @@ namespace fuml.semantics.actions
             // input pin and return them
             // (but leave the tokens on the pin).
 
-            Debug.println("[getTokens] node = " + node?.name + ", pin = " + pin.name);
+            Debug.Println("[getTokens] node = " + node?.name + ", pin = " + pin.name);
 
             PinActivation pinActivation = GetPinActivation(pin);
             List<Token> tokens = pinActivation.GetUnofferedTokens();
@@ -379,7 +379,7 @@ namespace fuml.semantics.actions
             // Take any tokens held by the pin activation corresponding to the given
             // input pin and return them.
 
-            Debug.println("[takeTokens] node = " + node?.name + ", pin = " + pin.name);
+            Debug.Println("[takeTokens] node = " + node?.name + ", pin = " + pin.name);
 
             PinActivation pinActivation = GetPinActivation(pin);
             List<Token> tokens = pinActivation.TakeUnofferedTokens();
@@ -411,12 +411,11 @@ namespace fuml.semantics.actions
             return isSource;
         } // isSourceFor
 
-        public bool ValueParticipatesInLink(Value value,
-                structuredclassifiers.Link link)
+        public bool ValueParticipatesInLink(Value value, Link link)
         {
             // Test if the given value participates in the given link.
 
-            List<FeatureValue> linkFeatureValues = link.getFeatureValues();
+            List<FeatureValue> linkFeatureValues = link.GetFeatureValues();
 
             bool participates = false;
             int i = 1;
@@ -463,12 +462,12 @@ namespace fuml.semantics.actions
                 List<Link> links = GetMatchingLinks(association, feature, sourceValue);
                 foreach (Link link in links)
                 {
-                    values.Add(link.getFeatureValue(feature).values.ElementAt(0));
+                    values.Add(link.GetFeatureValue(feature).values.ElementAt(0));
                 }
             }
             else
             {
-                values = ((StructuredValue)sourceValue).getFeatureValue(feature).values;
+                values = ((StructuredValue)sourceValue).GetFeatureValue(feature).values;
             }
 
             return values;
@@ -504,12 +503,12 @@ namespace fuml.semantics.actions
             List<Link> links = new();
             foreach (ExtensionalValue link in extent)
             {
-                if (link.getFeatureValue(oppositeEnd).values.ElementAt(0).Equals(oppositeValue))
+                if (link.GetFeatureValue(oppositeEnd).values.ElementAt(0).Equals(oppositeValue))
                 {
                     bool matches = true;
                     if (endValue != null)
                     {
-                        matches = link.getFeatureValue(end).values.ElementAt(0).Equals(endValue);
+                        matches = link.GetFeatureValue(end).values.ElementAt(0).Equals(endValue);
                     }
                     if (matches)
                     {
@@ -519,13 +518,13 @@ namespace fuml.semantics.actions
                         }
                         else
                         {
-                            int n = link.getFeatureValue(end).position;
+                            int n = link.GetFeatureValue(end).position;
                             bool continueSearching = true;
                             int j = 0;
                             while (continueSearching & j < links.Count)
                             {
                                 j++;
-                                continueSearching = links.ElementAt(j - 1).getFeatureValue(end).position < n;
+                                continueSearching = links.ElementAt(j - 1).GetFeatureValue(end).position < n;
                             }
                             if (continueSearching)
                             {

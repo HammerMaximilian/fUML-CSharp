@@ -15,12 +15,14 @@ namespace fuml.semantics.actions
 			AcceptCallAction action = (node as AcceptCallAction)!;
 			OutputPin returnInformationPin = action?.returnInformation!;
 
-			ReturnInformation returnInformation = new ReturnInformation();
-			returnInformation.callEventOccurrence = (CallEventOccurrence)eventOccurrence;
+            ReturnInformation returnInformation = new()
+            {
+                callEventOccurrence = (CallEventOccurrence)eventOccurrence
+            };
 
-			PutToken(returnInformationPin, returnInformation);
+            PutToken(returnInformationPin, returnInformation);
 
-			Debug.println("[accept] action = " + action?.name +
+			Debug.Println("[accept] action = " + action?.name +
 					", returnInformation = " + returnInformation);
 
 			base.Accept(eventOccurrence);

@@ -132,13 +132,13 @@ namespace fuml.semantics.actions
 
 			if (region.mode == ExpansionKind.iterative)
 			{
-				Debug.println("[doStructuredActivity] Expansion mode = iterative");
+				Debug.Println("[doStructuredActivity] Expansion mode = iterative");
 				next = 1;
 				RunIterative();
 			}
 			else if (region.mode == ExpansionKind.parallel)
 			{
-				Debug.println("[doStructuredActivity] Expansion mode = parallel");
+				Debug.Println("[doStructuredActivity] Expansion mode = parallel");
 				RunParallel();
 			}
 
@@ -181,7 +181,7 @@ namespace fuml.semantics.actions
 			ExpansionRegion region = (ExpansionRegion)node!;
 			List<ExpansionNode> outputElements = region.outputElement;
 
-			Debug.println("[doOutput] Expansion region " + region.name + " is "
+			Debug.Println("[doOutput] Expansion region " + region.name + " is "
 					+ (IsSuspended() ? "suspended." : "completed."));
 
 			if (!IsSuspended())
@@ -249,7 +249,7 @@ namespace fuml.semantics.actions
 
 			if (IsRunning())
 			{
-				Debug.println("[runGroup] groupInput[0] = "
+				Debug.Println("[runGroup] groupInput[0] = "
 						+ this.inputExpansionTokens.ElementAt(0).tokens.ElementAt(activationGroup.index - 1).GetValue());
 
 				List<TokenSet> inputTokens = this.inputTokens;

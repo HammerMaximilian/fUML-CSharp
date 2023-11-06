@@ -24,19 +24,19 @@ namespace fuml.semantics.actions
 				{
 					openEnd = endDataList.ElementAt(i - 1);
 				}
-				i = i + 1;
+				i++;
 			}
 
-			List<ExtensionalValue> extent = this.GetExecutionLocus().GetExtent(
-					this.GetAssociation());
+			List<ExtensionalValue> extent = GetExecutionLocus().GetExtent(
+					GetAssociation());
 
-			List<FeatureValue> featureValues = new List<FeatureValue>();
+			List<FeatureValue> featureValues = new();
 			foreach (ExtensionalValue value in extent)
 			{
 				Link link = (Link)value;
-				if (this.LinkMatchesEndData(link, endDataList))
+				if (LinkMatchesEndData(link, endDataList))
 				{
-					FeatureValue featureValue = link.getFeatureValue(openEnd?.end!);
+					FeatureValue featureValue = link.GetFeatureValue(openEnd?.end!);
 					if (!openEnd!.end!.multiplicityElement.isOrdered
 							|| (featureValues.Count == 0))
 					{
@@ -49,7 +49,7 @@ namespace fuml.semantics.actions
 						int k = 0;
 						while (continueSearching & k < featureValues.Count)
 						{
-							k = k + 1;
+							k++;
 							continueSearching = featureValues.ElementAt(k - 1).position < n;
 						}
 						if (continueSearching)
@@ -66,7 +66,7 @@ namespace fuml.semantics.actions
 
 			foreach (FeatureValue featureValue in featureValues)
 			{
-				this.PutToken(action?.result!, featureValue.values.ElementAt(0));
+				PutToken(action?.result!, featureValue.values.ElementAt(0));
 			}
 
 			// Now that matching is done, ensure that all tokens on end data input

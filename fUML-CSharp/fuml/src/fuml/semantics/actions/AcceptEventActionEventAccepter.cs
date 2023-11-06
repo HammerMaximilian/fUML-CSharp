@@ -20,7 +20,7 @@ namespace fuml.semantics.actions
             // Return true if the given event occurrence matches a trigger of the accept event 
             // action of the action activation.
 
-            return (actionActivation is not null) ? actionActivation.Match(eventOccurrence) : false;
+            return (actionActivation is not null) && actionActivation.Match(eventOccurrence);
         } // match
     } // AcceptEventActionEventAccepter
 }

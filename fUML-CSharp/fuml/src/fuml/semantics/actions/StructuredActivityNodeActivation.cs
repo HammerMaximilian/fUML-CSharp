@@ -28,7 +28,7 @@ namespace fuml.semantics.actions
 
         } // doAction
 
-        public void DoStructuredActivity()
+        public virtual void DoStructuredActivity()
         {
             // Run all activations of contained nodes. When this is complete,
             // return.
@@ -190,7 +190,7 @@ namespace fuml.semantics.actions
             return isSource;
         } // isSourceFor
 
-        public void TerminateAll()
+        public virtual void TerminateAll()
         {
             // Terminate the execution of all contained node activations (which
             // completes the performance of the structured activity node

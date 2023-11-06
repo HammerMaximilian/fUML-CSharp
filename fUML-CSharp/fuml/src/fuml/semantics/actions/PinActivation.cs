@@ -11,7 +11,7 @@ namespace fuml.semantics.actions
 		{
 			// Add all incoming tokens to the pin.
 
-			Debug.println("[fire] Pin " + (node is null ? "" : node.name + "..."));
+			Debug.Println("[fire] Pin " + (node is null ? "" : node.name + "..."));
 
 			AddTokens(incomingTokens);
 

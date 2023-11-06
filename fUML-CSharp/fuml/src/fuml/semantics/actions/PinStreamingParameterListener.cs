@@ -15,7 +15,7 @@ namespace fuml.semantics.actions
             // the pin activation would otherwise not offer them until its
             // associated action activation terminates).
 
-            Debug.println("[post] Posting to node " + nodeActivation?.node?.name);
+            Debug.Println("[post] Posting to node " + nodeActivation?.node?.name);
 
             List<Token> tokens = new();
             foreach (Value value in values)

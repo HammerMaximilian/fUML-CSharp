@@ -250,7 +250,7 @@ namespace fuml.semantics.actions
                 }
             }
 
-            callExecution.destroy();
+            callExecution.Destroy();
             RemoveCallExecution(callExecution);
         }
 

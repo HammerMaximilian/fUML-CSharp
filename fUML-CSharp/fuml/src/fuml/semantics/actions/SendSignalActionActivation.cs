@@ -20,10 +20,10 @@ namespace fuml.semantics.actions
 			SendSignalAction action = (SendSignalAction)node!;
 			Value target = TakeTokens(action?.target!).ElementAt(0);
 
-			if (target is Reference) {
+			if (target is Reference reference) {
 				Signal signal = action?.signal!;
 
-				SignalInstance signalInstance = new SignalInstance();
+				SignalInstance signalInstance = new();
 				signalInstance.type = signal;
 
 				List<Property> attributes = signal.ownedAttribute;
@@ -33,12 +33,14 @@ namespace fuml.semantics.actions
 					Property attribute = attributes.ElementAt(i);
 					InputPin argumentPin = argumentPins.ElementAt(i);
 					List<Value> values = TakeTokens(argumentPin);
-					signalInstance.setFeatureValue(attribute, values, 0);
+					signalInstance.SetFeatureValue(attribute, values, 0);
 				}
 
-				SignalEventOccurrence signalEventOccurrence = new SignalEventOccurrence();
-				signalEventOccurrence.signalInstance = (SignalInstance)signalInstance.Copy();
-				signalEventOccurrence.SendTo((Reference)target);
+                SignalEventOccurrence signalEventOccurrence = new()
+                {
+                    signalInstance = (SignalInstance)signalInstance.Copy()
+                };
+                signalEventOccurrence.SendTo(reference);
 			}
 		} // doAction
 	} // SendSignalActionActivation

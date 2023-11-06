@@ -111,7 +111,7 @@ namespace fuml.semantics.actions
 		{
             _beginIsolation();
             bool isTerminated = streamingParameterValue!.IsTerminated();
-            Debug.println("[streamingIsTerminated] isTerminated = " + isTerminated);
+            Debug.Println("[streamingIsTerminated] isTerminated = " + isTerminated);
 			_endIsolation();
 
 			return isTerminated;

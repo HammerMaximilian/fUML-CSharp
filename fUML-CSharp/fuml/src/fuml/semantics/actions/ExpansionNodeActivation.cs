@@ -9,7 +9,7 @@ namespace fuml.semantics.actions
 		{
 			// Take tokens from all incoming edges.
 
-			Debug.println("[fire] Expansion node " + node?.name + "...");
+			Debug.Println("[fire] Expansion node " + node?.name + "...");
 
 			AddTokens(incomingTokens);
 

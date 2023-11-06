@@ -22,7 +22,7 @@ namespace fuml.semantics.actions
 			DestroyObjectAction? action = node as DestroyObjectAction;
 			Value value = TakeTokens(action?.target!).ElementAt(0);
 
-			this.DestroyObject(value, action!.isDestroyLinks,
+			DestroyObject(value, action!.isDestroyLinks,
 					action.isDestroyOwnedObjects);
 
 		} // doAction
@@ -30,65 +30,65 @@ namespace fuml.semantics.actions
 		public void DestroyObject(Value value,
 				bool isDestroyLinks, bool isDestroyOwnedObjects)
 		{
-			// If the given value is a reference, then destroy the referenced
-			// object, per the given destroy action attribute values.
+            // If the given value is a reference, then destroy the referenced
+            // object, per the given destroy action attribute values.
 
-			if (value is Reference) {
-				Reference reference = (Reference)value;
-				Debug.println("[destroyObject] object = " + reference?.referent?.identifier);
+            if (value is Reference reference)
+            {
+                Debug.Println("[destroyObject] object = " + reference?.referent?.identifier);
 
-				if (isDestroyLinks | isDestroyOwnedObjects)
-				{
-					List<ExtensionalValue> extensionalValues = this
-							.GetExecutionLocus().extensionalValues;
-					foreach (ExtensionalValue extensionalValue in extensionalValues)
-					{
-						if (extensionalValue is Link) {
-						Link link = (Link)extensionalValue;
-						if (this.ValueParticipatesInLink(reference!, link))
-						{
-							if (isDestroyOwnedObjects)
-							{
-								Value compositeValue =
-										this.GetCompositeValue(reference!, link);
-								if (compositeValue != null)
-								{
-									Debug.println("[destroyObject] Destroying (linked) owned object ...");
-									this.DestroyObject(compositeValue, isDestroyLinks,
-											isDestroyOwnedObjects);
-								}
-							}
-							if (isDestroyLinks & link.GetTypes().Any())
-							{
-								link.destroy();
-							}
-						}
-					}
-				}
-			}
+                if (isDestroyLinks | isDestroyOwnedObjects)
+                {
+                    List<ExtensionalValue> extensionalValues =
+                            GetExecutionLocus().extensionalValues;
+                    foreach (ExtensionalValue extensionalValue in extensionalValues)
+                    {
+                        if (extensionalValue is Link link)
+                        {
+                            if (ValueParticipatesInLink(reference!, link))
+                            {
+                                if (isDestroyOwnedObjects)
+                                {
+                                    Value compositeValue =
+                                            GetCompositeValue(reference!, link);
+                                    if (compositeValue != null)
+                                    {
+                                        Debug.Println("[destroyObject] Destroying (linked) owned object ...");
+                                        DestroyObject(compositeValue, isDestroyLinks,
+                                                isDestroyOwnedObjects);
+                                    }
+                                }
+                                if (isDestroyLinks & link.GetTypes().Any())
+                                {
+                                    link.Destroy();
+                                }
+                            }
+                        }
+                    }
+                }
 
-			if (isDestroyOwnedObjects)
-			{
-				List<FeatureValue> objectFeatureValues = (reference is not null) ?
-						reference.getFeatureValues() : new List<FeatureValue>();
-				foreach (FeatureValue featureValue in objectFeatureValues)
-				{
-					if ((featureValue.feature as Property)?.aggregation == AggregationKind.composite)
-					{
-						Debug.println("[destroyObject] Destroying owned objects...");
-						List<Value> values = featureValue.values;
-						foreach (Value ownedValue in values)
-						{
-							this.DestroyObject(ownedValue, isDestroyLinks,
-									isDestroyOwnedObjects);
-						}
-					}
-				}
-			}
+                if (isDestroyOwnedObjects)
+                {
+                    List<FeatureValue> objectFeatureValues = (reference is not null) ?
+                            reference.GetFeatureValues() : new List<FeatureValue>();
+                    foreach (FeatureValue featureValue in objectFeatureValues)
+                    {
+                        if ((featureValue.feature as Property)?.aggregation == AggregationKind.composite)
+                        {
+                            Debug.Println("[destroyObject] Destroying owned objects...");
+                            List<Value> values = featureValue.values;
+                            foreach (Value ownedValue in values)
+                            {
+                                DestroyObject(ownedValue, isDestroyLinks,
+                                        isDestroyOwnedObjects);
+                            }
+                        }
+                    }
+                }
 
-			reference?.Destroy();
-		}
-	} // destroyObject
+                reference?.Destroy();
+            }
+        } // destroyObject
 
 	public Value GetCompositeValue(
             Reference reference,
@@ -97,7 +97,7 @@ namespace fuml.semantics.actions
 		// If the given reference participates in the given link as a composite,
 		// then return the opposite value. Otherwise return null.
 
-		List<FeatureValue> linkFeatureValues = link.getFeatureValues();
+		List<FeatureValue> linkFeatureValues = link.GetFeatureValues();
 
 		Value? compositeValue = null;
 		int i = 1;
@@ -110,7 +110,7 @@ namespace fuml.semantics.actions
 			{
 				compositeValue = value;
 			}
-			i = i + 1;
+			i++;
 		}
 
 		return compositeValue!;

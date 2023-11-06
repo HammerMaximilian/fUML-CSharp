@@ -28,17 +28,17 @@ namespace fuml.semantics.actions
 				List<Link> links = GetMatchingLinks(association, feature, value);
 				foreach (Link link in links)
 				{
-					link.destroy();
+					link.Destroy();
 				}
 			}
-			else if (value is StructuredValue) {
+			else if (value is StructuredValue structuredValue) {
 				// If the value is a data value, then it must be copied before
 				// any change is made.
-				if (!(value is Reference)) {
+				if (value is not Reference) {
 					value = value.Copy();
 				}
 
-			  ((StructuredValue)value).setFeatureValue(action?.structuralFeature!,
+			  structuredValue.SetFeatureValue(action?.structuralFeature!,
 					  new List<Value>(), 0);
 			}
 
