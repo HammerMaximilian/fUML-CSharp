@@ -44,7 +44,7 @@ namespace fuml
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("INFO");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("]:\t\t" + message);
+            Console.WriteLine("]:\t\t\t" + message);
 #endif
         }
 
