@@ -1,4 +1,5 @@
-﻿using fuml.semantics.commonbehavior;
+﻿using fuml.library.channel;
+using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
 using fuml.semantics.structuredclassifiers;
 using fuml.syntax.commonbehavior;
@@ -17,12 +18,8 @@ namespace fuml.environment
 
         public virtual void Execute(string behaviorName)
         {
-            FumlObject? object_ = inMemoryModel?.FindElementByName(behaviorName);
-            if (object_ is null) throw new ArgumentNullException("[ERROR] Element with specified name does not exist: " + behaviorName);
-
-            Behavior behavior = (object_ as Behavior)!;
-            if (behavior is null) throw new ArgumentNullException("[ERROR] Specified behavior name does not name a behavior: " + behaviorName);
-
+            FumlObject? object_ = (inMemoryModel?.FindElementByName(behaviorName)) ?? throw new ArgumentNullException("[ERROR] Element with specified name does not exist: " + behaviorName);
+            Behavior behavior = (object_ as Behavior)! ?? throw new ArgumentNullException("[ERROR] Specified behavior name does not name a behavior: " + behaviorName);
             Class_ contextType = (behavior.context as Class_)!;
             if(contextType is not null)
             {
@@ -48,6 +45,9 @@ namespace fuml.environment
             AddRealFunctionsPrototypes();
             AddStringFunctionsPrototypes();
             AddUnlimitedNaturalFunctionsPrototypes();
+
+            Add(new StandardInputChannelObject());
+            Add(new StandardOutputChannelObject());
         }
 
         protected void Add(ExtensionalValue extensionalValue)

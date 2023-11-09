@@ -18,16 +18,15 @@ namespace fuml.semantics.structuredclassifiers
             // Create an object activation for this object (if one does not already
             // exist) and start its behavior(s).
 
-            if (objectActivation is null)
-            {
-                objectActivation = new();
-                objectActivation.object_ = this;
-            }
+            objectActivation ??= new()
+                {
+                    object_ = this
+                };
 
             objectActivation.StartBehavior(classifier, inputs);
         } // startBehavior
 
-        public Execution Dispatch(
+        public virtual Execution Dispatch(
                 Operation operation)
         {
             // Dispatch the given operation to a method execution, using a dispatch
@@ -44,10 +43,7 @@ namespace fuml.semantics.structuredclassifiers
             // If the object is active, add the given event occurrence to the event
             // pool and signal that a new event occurrence has arrived.
 
-            if (objectActivation is not null)
-            {
-                objectActivation.Send(eventOccurrence);
-            }
+            objectActivation?.Send(eventOccurrence);
 
         } // send
 
@@ -75,10 +71,7 @@ namespace fuml.semantics.structuredclassifiers
             // Register the given accept event accepter to wait for a dispatched
             // signal event.
 
-            if (objectActivation is not null)
-            {
-                objectActivation.Register(accepter);
-            }
+            objectActivation?.Register(accepter);
         } // register
 
         public void Unregister(
@@ -87,10 +80,7 @@ namespace fuml.semantics.structuredclassifiers
             // Remove the given event accepter for the list of waiting event
             // accepters.
 
-            if (objectActivation is not null)
-            {
-                objectActivation.Unregister(accepter);
-            }
+            objectActivation?.Unregister(accepter);
         } // unregister
 
         public override Value Copy()
