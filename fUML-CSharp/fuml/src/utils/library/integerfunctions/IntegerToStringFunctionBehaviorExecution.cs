@@ -17,9 +17,11 @@ namespace fuml.library.integerfunctions
 
             // Convert int to String
             string resultString = i.ToString();
-            StringValue result = new();
-            result.value = resultString;
-            result.type = locus?.factory?.GetBuiltInType("String");
+            StringValue result = new()
+            {
+                value = resultString,
+                type = locus?.factory?.GetBuiltInType("String")
+            };
 
             Debug.Println("[doBody] Integer ToString result = " + result.value);
 

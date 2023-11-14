@@ -1,4 +1,10 @@
-﻿using fuml.library.channel;
+﻿using fuml.library.booleanfunctions;
+using fuml.library.channel;
+using fuml.library.integerfunctions;
+using fuml.library.listfunctions;
+using fuml.library.realfunctions;
+using fuml.library.stringfunctions;
+using fuml.library.unlimitednaturalfunctions;
 using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
 using fuml.semantics.structuredclassifiers;
@@ -74,26 +80,83 @@ namespace fuml.environment
 
         private void AddBooleanFunctionsPrototypes()
         {
+            AddPrimitiveBehaviorPrototype(new BooleanAndFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new BooleanImpliesFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new BooleanNotFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new BooleanOrFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new BooleanToBooleanFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new BooleanToStringFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new BooleanXorFunctionBehaviorExecution());
         }
 
         private void AddIntegerFunctionsPrototypes()
         {
+            AddPrimitiveBehaviorPrototype(new IntegerAbsFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerDivFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerDivideFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerGreaterThanEqualFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerGreaterThanFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerLessThanEqualFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerLessThanFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerMaxFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerMinFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerMinusFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerModFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerNegateFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerPlusFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerTimesFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerToIntegerFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerToStringFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new IntegerToUnlimitedNaturalFunctionBehaviorExecution());
         }
 
         private void AddListFunctionsPrototypes()
         {
+            AddPrimitiveBehaviorPrototype(new ListConcatFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new ListGetFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new ListSizeFunctionBehaviorExecution());
         }
 
         private void AddRealFunctionsPrototypes()
         {
+            AddPrimitiveBehaviorPrototype(new RealAbsFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealDivideFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealFloorFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealGreaterThanEqualFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealGreaterThanFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealInverseFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealLessThanEqualFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealLessThanFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealMaxFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealMinFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealMinusFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealNegateFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealPlusFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealRoundFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealTimesFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealToIntegerFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealToRealFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new RealToStringFunctionBehaviorExecution());
         }
 
         private void AddStringFunctionsPrototypes()
         {
+            AddPrimitiveBehaviorPrototype(new StringConcatFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new StringSizeFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new StringSubstringFunctionBehaviorExecution());
         }
 
         private void AddUnlimitedNaturalFunctionsPrototypes()
         {
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalGreaterThanEqualFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalGreaterThanFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalLessThanEqualFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalLessThanFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalMaxFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalMinFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalToIntegerFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalToStringFunctionBehaviorExecution());
+            AddPrimitiveBehaviorPrototype(new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution());
         }
     } // Environment
 }
