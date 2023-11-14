@@ -6,15 +6,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AssemblyName>HelloWorldExample.Debug</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AssemblyName>HelloWorldExample.Release</AssemblyName>
+  </PropertyGroup>
 
-  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <Reference Include="fuml Debug">
-      <HintPath>..\..\fuml\bin\Debug\net6.0\fuml.dll</HintPath>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Reference Include="fuml">
+      <HintPath>..\..\fuml\bin\Debug\net6.0\fuml.Debug.dll</HintPath>
     </Reference>
   </ItemGroup>
-    <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <Reference Include="fuml Release">
-      <HintPath>..\..\fuml\bin\Release\net6.0\fuml.dll</HintPath>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Reference Include="fuml">
+      <HintPath>..\..\fuml\bin\Release\net6.0\fuml.Release.dll</HintPath>
     </Reference>
   </ItemGroup>
 
