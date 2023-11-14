@@ -1,0 +1,37 @@
+[comment encoding = UTF-8 /]
+[module generateCSProjFile('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[import fuml::generator::naming::naming /]
+
+[template public generateCSProjFile(aPackage : Package)]
+[file (aPackage.getNameSanitized() + '.csproj', false, 'UTF-8')]
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AssemblyName>[aPackage.getNameSanitized()/].Debug</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AssemblyName>[aPackage.getNameSanitized()/].Release</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Reference Include="fuml">
+      <HintPath>..\..\fuml\bin\Debug\net6.0\fuml.Debug.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Reference Include="fuml">
+      <HintPath>..\..\fuml\bin\Release\net6.0\fuml.Release.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
+[/file]
+[/template]

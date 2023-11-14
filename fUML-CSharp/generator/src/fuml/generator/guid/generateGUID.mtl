@@ -1,0 +1,7 @@
+[comment encoding = UTF-8 /]
+[module generateGUID('http://www.eclipse.org/uml2/5.0.0/UML')/]
+
+[query public generateGUID(anOclAny: OclAny) : String
+	= invoke('fuml.generator.services.GUIDService', 'getGUID()', Sequence{})
+/]
+

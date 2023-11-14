@@ -1,0 +1,105 @@
+[comment encoding = UTF-8 /]
+[module generateEnvironmentClassFile('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[import fuml::generator::globalconstants::globalconstants /]
+[import fuml::generator::naming::naming /]
+
+[template public generateEnvironmentClassFile(aPackage : Package)]
+[file (sourceDirectoryPath() + aPackage.getNameSanitized() + 'Environment.cs', false, 'UTF-8')]
+/*
+ * [aPackage.getNameSanitized() + 'Environment.cs'/]
+ * 
+ * Auto-generated file
+ */
+
+/* [protected (': User-defined using directives')]
+ * This section may be used for using directives.
+ * It will not be overwritten by future generation processes.
+ */
+
+/*
+ * [/protected]
+ */
+
+namespace [aPackage.getNameSanitized()/]
+{
+	public class [aPackage.getNameSanitized() + 'Environment'/] : fuml.environment.Environment
+	{
+		private static [aPackage.getNameSanitized() + 'Environment'/]? instance;
+
+		public static [aPackage.getNameSanitized() + 'Environment'/] Instance()
+		{
+			if(instance is null)
+			{
+				instance = new();
+				instance.inMemoryModel = [aPackage.getNameSanitized() + 'Model'/].Instance();
+			}
+
+			return instance;
+		}
+
+		public [aPackage.getNameSanitized() + 'Environment'/]()
+		{
+			/*
+			 * Create custom opaque behavior execution instances and add them to the execution environment.
+			 */
+			[for (anOpaqueBehavior : OpaqueBehavior | aPackage.allOwnedElements()->filter(OpaqueBehavior))]
+			AddPrimitiveBehaviorPrototype(new [anOpaqueBehavior.getNameSanitized() + 'Execution'/]());
+			[/for]
+		
+			/* [protected (': Additional environment initializations')]
+		 	 * This section may be used to do any additional environment initialization,
+			 * for example initializing user-defined members.
+		 	 * It will not be overwritten by future generation processes.
+		 	 */
+		
+			/*
+		 	 * [/protected]
+		 	 */
+		}
+
+		public override void Execute(string behaviorName)
+		{
+			/* [protected (': Context and inputs initializations')]
+		 	 * This section may be used to initialize the execution context 
+			 * as well as input parameter values if required.
+		 	 * It will not be overwritten by future generation processes.
+		 	 */
+		
+			//context = ...;
+			//inputs = ...;
+		
+			/*
+		 	 * [/protected]
+		 	 */
+		
+			/*
+			 * Start execution via base class call
+			 */
+			base.Execute(behaviorName);
+		
+			/* [protected (': Outputs evaluation')]
+		 	 * This section may be used to evaluate output parameter values if required.
+		 	 * It will not be overwritten by future generation processes.
+		 	 */
+		
+			//List<ParameterValue> theOutputs = outputs;
+			//...
+		
+			/*
+		 	 * [/protected]
+		 	 */
+		}
+
+		/* [protected (': User-defined members')]
+		 * This section may be used for user-defined members.
+		 * It will not be overwritten by future generation processes.
+		 */
+
+		/*
+ 		 * [/protected]
+		 */
+	} // [aPackage.getNameSanitized() + 'Environment'/]
+}
+[/file]
+[/template]

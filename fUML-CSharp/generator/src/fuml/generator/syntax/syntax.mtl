@@ -1,12 +1,12 @@
 [comment encoding = UTF-8 /]
 [module syntax('http://www.eclipse.org/uml2/5.0.0/UML')]
 
-[template public generateMetaclassInclude(anElement : Element)]
+[template public generateMetaclassUsingDirective(anElement : Element)]
 [let metaclassName : String = anElement.eClass().name]
 [if (supportedUMLMetaclasses()->includes(metaclassName))]
-#include <fuml/syntax/[if(supportedActionsMetaclasses()->includes(metaclassName))]actions[elseif(supportedActivitiesMetaclasses()->includes(metaclassName))]activities[elseif(supportedClassificationMetaclasses()->includes(metaclassName))]classification[elseif(supportedCommonBehaviorMetaclasses()->includes(metaclassName))]commonbehavior[elseif(supportedCommonStructureMetaclasses()->includes(metaclassName))]commonstructure[elseif(supportedPackagesMetaclasses()->includes(metaclassName))]packages[elseif(supportedSimpleClassifiersMetaclasses()->includes(metaclassName))]simpleclassifiers[elseif(supportedStructuredClassifiersMetaclasses()->includes(metaclassName))]structuredclassifiers[elseif(supportedValuesMetaclasses()->includes(metaclassName))]values[/if]/[metaclassName.adjustMetaclassName()/].h>
+using fuml.syntax.[if(supportedActionsMetaclasses()->includes(metaclassName))]actions[elseif(supportedActivitiesMetaclasses()->includes(metaclassName))]activities[elseif(supportedClassificationMetaclasses()->includes(metaclassName))]classification[elseif(supportedCommonBehaviorMetaclasses()->includes(metaclassName))]commonbehavior[elseif(supportedCommonStructureMetaclasses()->includes(metaclassName))]commonstructure[elseif(supportedPackagesMetaclasses()->includes(metaclassName))]packages[elseif(supportedSimpleClassifiersMetaclasses()->includes(metaclassName))]simpleclassifiers[elseif(supportedStructuredClassifiersMetaclasses()->includes(metaclassName))]structuredclassifiers[elseif(supportedValuesMetaclasses()->includes(metaclassName))]values[/if];
 [else]
-//Cannot add #include for unsupported metaclass [metaclassName/]
+//Cannot add using directive for unsupported metaclass [metaclassName/]
 [/if]
 [/let]
 [/template]

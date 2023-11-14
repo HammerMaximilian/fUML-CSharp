@@ -1,0 +1,35 @@
+[comment encoding = UTF-8 /]
+[module generateSolutionFile('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[import fuml::generator::guid::generateGUID /]
+[import fuml::generator::naming::naming /]
+
+[template public generateSolutionFile(aPackage : Package)]
+[file (aPackage.getNameSanitized() + '.sln', false, 'UTF-8')]
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "[aPackage.getNameSanitized()/]", "[aPackage.getNameSanitized()/].csproj", "{[aPackage.getNameSanitized().generateGUID()/]}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{[aPackage.getNameSanitized().generateGUID()/]}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{[aPackage.getNameSanitized().generateGUID()/]}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{[aPackage.getNameSanitized().generateGUID()/]}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{[aPackage.getNameSanitized().generateGUID()/]}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {[aPackage.getNameSanitized().concat('.sln').generateGUID()/]}
+	EndGlobalSection
+EndGlobal
+[/file]
+[/template]

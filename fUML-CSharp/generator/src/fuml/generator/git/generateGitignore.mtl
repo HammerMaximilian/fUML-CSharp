@@ -3,8 +3,8 @@
 
 [template public generateGitignore(any : OclAny)]
 [file ('.gitignore', false, 'UTF-8')]
-/Debug/
-/Release/
-/.settings/language.settings.xml
+/.vs/
+/bin/
+/obj/
 [/file]
 [/template]

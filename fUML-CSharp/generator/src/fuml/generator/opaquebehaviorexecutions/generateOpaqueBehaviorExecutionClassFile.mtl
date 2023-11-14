@@ -1,0 +1,76 @@
+[comment encoding = UTF-8 /]
+[module generateOpaqueBehaviorExecutionClassFile('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[import fuml::generator::globalconstants::globalconstants /]
+[import fuml::generator::naming::naming /]
+
+[template public generateOpaqueBehaviorExecutionClassFile(anOpaqueBehavior : OpaqueBehavior)]
+[file (sourceDirectoryPath() + anOpaqueBehavior.getNameSanitized() + 'Execution.cs', false, 'UTF-8')]
+/*
+ * [anOpaqueBehavior.getNameSanitized() + 'Execution.cs'/]
+ * 
+ * Auto-generated file
+ */
+
+using fuml.semantics.commonbehavior;
+using fuml.semantics.loci;
+using fuml.semantics.values;
+
+/* [protected (': User-defined includes and forward declarations')]
+ * This section may be used for includes and forward declarations.
+ * It will not be overwritten by future generation processes.
+ */
+
+/*
+ * [/protected]
+ */
+
+namespace [anOpaqueBehavior.getRootPackage().getNameSanitized()/]
+{
+	public class [anOpaqueBehavior.getNameSanitized()/]Execution : OpaqueBehaviorExecution
+	{
+		public [anOpaqueBehavior.getNameSanitized()/]Execution()
+		{
+			types.Add([anOpaqueBehavior.getRootPackage().getNameSanitized() + 'Model.Instance().' + anOpaqueBehavior.getFullName()/]);
+			/* [protected (': Additional opaque behavior execution initializations')]
+		 	 * This section may be used to do any additional opaque behavior execution initialization,
+			 * for example initializing user-defined members.
+		 	 * It will not be overwritten by future generation processes.
+		 	 */
+		
+			/*
+		 	 * [/protected]
+		 	 */
+		}
+
+		public override void DoBody(List<ParameterValue> inputParameters, List<ParameterValue> outputParameters)
+		{
+			[if (anOpaqueBehavior.language->includes('C#') and anOpaqueBehavior._body->size() >= anOpaqueBehavior.language->size())]
+			[anOpaqueBehavior._body->at(anOpaqueBehavior.language->indexOf('C#'))/]
+			[/if]
+		}
+
+		public override Value New_()
+		{
+			return new [anOpaqueBehavior.getNameSanitized() + 'Execution'/]()
+		}	
+
+		/* [protected (': User-defined members')]
+		 * This section may be used for user-defined members.
+		 * It will not be overwritten by future generation processes.
+		 */
+
+		/*
+ 		 * [/protected]
+		 */
+	} // [anOpaqueBehavior.getNameSanitized()/]Execution
+}
+[/file]
+[/template]
+
+[query private getRootPackage(anElement : Element) : Package = 
+	if(anElement.getNearestPackage().isRootPackage())
+		then anElement.getNearestPackage()
+	else anElement.getNearestPackage().getRootPackage()
+	endif /]
+[query private isRootPackage(aPackage : Package) : Boolean = aPackage.nestingPackage = null /]
