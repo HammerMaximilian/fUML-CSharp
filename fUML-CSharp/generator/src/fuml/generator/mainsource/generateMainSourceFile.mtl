@@ -21,7 +21,7 @@ namespace [aPackage.getNameSanitized()/]
 
 		static int Main(string['['/]] args)
 		{
-			if(args is null)
+			if(args.Length == 0)
 			{
 				Console.WriteLine("['['/]ERROR] Must declare at least one behavior name.\n");
 				PrintUsage();
