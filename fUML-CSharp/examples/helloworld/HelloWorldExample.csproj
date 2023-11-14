@@ -7,9 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="fuml">
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Reference Include="fuml Debug">
       <HintPath>..\..\fuml\bin\Debug\net6.0\fuml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+    <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <Reference Include="fuml Release">
+      <HintPath>..\..\fuml\bin\Release\net6.0\fuml.dll</HintPath>
     </Reference>
   </ItemGroup>
 
