@@ -7,11 +7,11 @@ namespace fuml.primitivetypes
     {
 		private static PrimitiveTypesModel? instance;
 
-		public PrimitiveType? PrimitiveTypes_Boolean;
-		public PrimitiveType? PrimitiveTypes_Integer;
-		public PrimitiveType? PrimitiveTypes_Real;
-		public PrimitiveType? PrimitiveTypes_String;
-		public PrimitiveType? PrimitiveTypes_UnlimitedNatural;
+		public PrimitiveType PrimitiveTypes_Boolean = new();
+		public PrimitiveType PrimitiveTypes_Integer = new();
+		public PrimitiveType PrimitiveTypes_Real = new();
+		public PrimitiveType PrimitiveTypes_String = new();
+		public PrimitiveType PrimitiveTypes_UnlimitedNatural = new();
 
 		public static PrimitiveTypesModel Instance()
         {
@@ -31,23 +31,18 @@ namespace fuml.primitivetypes
 			 */
 
 			//PrimitiveType Boolean
-			PrimitiveTypes_Boolean = new();
 			PrimitiveTypes_Boolean.SetName("Boolean");
 
 			//PrimitiveType Integer
-			PrimitiveTypes_Integer = new();
 			PrimitiveTypes_Integer.SetName("Integer");
 
 			//PrimitiveType Real
-			PrimitiveTypes_Real = new();
 			PrimitiveTypes_Real.SetName("Real");
 
 			//PrimitiveType Integer
-			PrimitiveTypes_String = new();
 			PrimitiveTypes_String.SetName("String");
 
 			//PrimitiveType Integer
-			PrimitiveTypes_UnlimitedNatural = new();
 			PrimitiveTypes_UnlimitedNatural.SetName("UnlimitedNatural");
 		}
 	} // PrimitiveTypesModel
