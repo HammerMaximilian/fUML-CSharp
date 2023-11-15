@@ -7,6 +7,11 @@ namespace fuml.library.channel
 {
     public abstract class OutputChannelObject : ChannelObject
     {
+        public OutputChannelObject()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_BasicInputOutput_OutputChannel);
+        }
+
         public abstract void Write(Value value, Status errorStatus);
         public abstract bool IsFull();
 

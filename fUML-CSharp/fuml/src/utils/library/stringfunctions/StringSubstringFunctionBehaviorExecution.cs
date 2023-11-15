@@ -6,6 +6,11 @@ namespace fuml.library.stringfunctions
 {
     public class StringSubstringFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public StringSubstringFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_StringFunctions_Substring);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)
@@ -55,9 +60,11 @@ namespace fuml.library.stringfunctions
             int size = upper - lower + 1;
             string resultString = s1.Substring(lower - 1, size);
 
-            StringValue result = new();
-            result.value = resultString;
-            result.type = locus?.factory?.GetBuiltInType("String");
+            StringValue result = new()
+            {
+                value = resultString,
+                type = locus?.factory?.GetBuiltInType("String")
+            };
 
             Debug.Println("[doBody] String Substring result = " + result.value);
 

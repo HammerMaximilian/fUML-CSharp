@@ -7,6 +7,11 @@ namespace fuml.library.unlimitednaturalfunctions
 {
     public class UnlimitedNaturalToIntegerFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public UnlimitedNaturalToIntegerFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_UnlimitedNaturalFunctions_ToInteger);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)

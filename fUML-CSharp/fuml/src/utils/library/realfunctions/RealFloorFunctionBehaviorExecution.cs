@@ -6,6 +6,11 @@ namespace fuml.library.realfunctions
 {
     public class RealFloorFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public RealFloorFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_Floor);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)

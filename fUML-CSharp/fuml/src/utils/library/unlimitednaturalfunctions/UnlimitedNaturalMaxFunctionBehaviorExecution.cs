@@ -4,6 +4,11 @@ namespace fuml.library.unlimitednaturalfunctions
 {
     public class UnlimitedNaturalMaxFunctionBehaviorExecution : UnlimitedNaturalFunctionBehaviorExecution
     {
+        public UnlimitedNaturalMaxFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_UnlimitedNaturalFunctions_Max);
+        }
+
         public override int DoUnlimitedNaturalFunction(List<int> arguments)
         {
 

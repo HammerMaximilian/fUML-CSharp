@@ -6,6 +6,11 @@ namespace fuml.library.realfunctions
 {
     public class RealRoundFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public RealRoundFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_Round);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)

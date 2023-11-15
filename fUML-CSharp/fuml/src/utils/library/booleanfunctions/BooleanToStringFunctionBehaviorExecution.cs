@@ -6,6 +6,10 @@ namespace fuml.library.booleanfunctions
 {
     public class BooleanToStringFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public BooleanToStringFunctionBehaviorExecution() 
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_BooleanFunctions_ToString);
+        }
         public override void DoBody(List<ParameterValue> inputParameters, List<ParameterValue> outputParameters)
         {
             BooleanValue bv1 = (BooleanValue)inputParameters.ElementAt(0).values.ElementAt(0);

@@ -4,6 +4,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerTimesFunctionBehaviorExecution : IntegerFunctionBehaviorExecution
     {
+        public IntegerTimesFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_times);
+        }
+
         public override int? DoIntegerFunction(List<int> arguments)
         {
 

@@ -10,6 +10,11 @@ namespace fuml.library.channel
         // set when the object is first created.
         protected Status? status = null;
 
+        public ChannelObject() 
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_BasicInputOutput_Channel);
+        }
+
         public abstract string GetName();
         public abstract void Open(Status errorStatus);
         public abstract void Close(Status errorStatus);

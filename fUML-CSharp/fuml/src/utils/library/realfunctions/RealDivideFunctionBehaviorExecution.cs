@@ -4,6 +4,11 @@ namespace fuml.library.realfunctions
 {
     public class RealDivideFunctionBehaviorExecution : RealFunctionBehaviorExecution
     {
+        public RealDivideFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_divide);
+        }
+
         public override float? DoRealFunction(List<float> arguments)
         {
             // Compute the integer divide function.

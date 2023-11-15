@@ -4,6 +4,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerMinusFunctionBehaviorExecution : IntegerFunctionBehaviorExecution
     {
+        public IntegerMinusFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_minus);
+        }
+
         public override int? DoIntegerFunction(List<int> arguments)
         {
 

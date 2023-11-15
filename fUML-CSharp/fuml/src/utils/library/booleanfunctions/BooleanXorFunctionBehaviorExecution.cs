@@ -4,6 +4,11 @@ namespace fuml.library.booleanfunctions
 {
     public class BooleanXorFunctionBehaviorExecution : BooleanFunctionBehaviorExecution
     {
+        public BooleanXorFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_BooleanFunctions_Xor);
+        }
+
         public override bool DoBooleanFunction(List<bool> arguments)
         {
             bool result = arguments.ElementAt(0) ^ arguments.ElementAt(1);

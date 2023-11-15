@@ -4,6 +4,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerNegateFunctionBehaviorExecution : IntegerFunctionBehaviorExecution
     {
+        public IntegerNegateFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_Neg);
+        }
+
         public override int? DoIntegerFunction(List<int> arguments)
         {
 

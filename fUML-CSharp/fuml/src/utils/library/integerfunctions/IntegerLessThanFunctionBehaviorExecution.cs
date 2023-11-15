@@ -4,6 +4,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerLessThanFunctionBehaviorExecution : IntegerRelationalFunctionBehaviorExecution
     {
+        public IntegerLessThanFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_lessThan);
+        }
+
         public override bool DoIntegerFunction(List<int> arguments)
         {
 

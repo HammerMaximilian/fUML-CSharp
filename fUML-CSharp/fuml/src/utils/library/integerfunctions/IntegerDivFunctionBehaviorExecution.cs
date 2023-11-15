@@ -4,6 +4,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerDivFunctionBehaviorExecution : IntegerFunctionBehaviorExecution
     {
+        public IntegerDivFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_Div);
+        }
+
         public override int? DoIntegerFunction(List<int> arguments)
         {
             // Compute the integer divide function.

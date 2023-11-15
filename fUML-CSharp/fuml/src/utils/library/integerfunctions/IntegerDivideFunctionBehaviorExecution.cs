@@ -6,7 +6,12 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerDivideFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
-		public override void DoBody(
+        public IntegerDivideFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_divide);
+        }
+
+        public override void DoBody(
 		List<ParameterValue> inputParameters,
 		List<ParameterValue> outputParameters)
 		{

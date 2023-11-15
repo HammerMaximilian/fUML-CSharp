@@ -1,14 +1,14 @@
 ﻿using fuml.semantics.values;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace fuml.library.booleanfunctions
 {
     public class BooleanImpliesFunctionBehaviorExecution : BooleanFunctionBehaviorExecution
     {
+        public BooleanImpliesFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_BooleanFunctions_Implies);
+        }
+
         public override bool DoBooleanFunction(List<bool> arguments)
         {
             bool b1 = arguments.ElementAt(0);

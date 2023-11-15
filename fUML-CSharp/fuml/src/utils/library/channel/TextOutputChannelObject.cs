@@ -7,6 +7,11 @@ namespace fuml.library.channel
 {
     public abstract class TextOutputChannelObject : OutputChannelObject
     {
+        public TextOutputChannelObject() 
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_BasicInputOutput_TextOutputChannel);
+        }
+
         public abstract void WriteString(string value, Status errorStatus);
         public abstract void WriteNewLine(Status errorStatus);
 

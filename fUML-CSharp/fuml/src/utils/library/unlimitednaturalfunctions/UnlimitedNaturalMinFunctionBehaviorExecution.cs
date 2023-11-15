@@ -4,6 +4,11 @@ namespace fuml.library.unlimitednaturalfunctions
 {
     public class UnlimitedNaturalMinFunctionBehaviorExecution : UnlimitedNaturalFunctionBehaviorExecution
     {
+        public UnlimitedNaturalMinFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_UnlimitedNaturalFunctions_Min);
+        }
+
         public override int DoUnlimitedNaturalFunction(List<int> arguments)
         {
 

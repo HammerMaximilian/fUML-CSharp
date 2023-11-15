@@ -9,7 +9,7 @@ namespace fuml.library.channel
 
         public StandardOutputChannelObject()
         {
-            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_BasicInputOutput_StandardOutputChannel!);
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_BasicInputOutput_StandardOutputChannel);
         }
 
         public override string GetName()

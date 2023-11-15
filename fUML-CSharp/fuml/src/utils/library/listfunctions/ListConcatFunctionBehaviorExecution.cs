@@ -5,6 +5,11 @@ namespace fuml.library.listfunctions
 {
     public class ListConcatFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public ListConcatFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_ListFunctions_ListConcat);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)

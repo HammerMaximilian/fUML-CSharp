@@ -7,6 +7,11 @@ namespace fuml.library.channel
 {
     public abstract class InputChannelObject : ChannelObject
     {
+        public InputChannelObject()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_BasicInputOutput_InputChannel);
+        }
+
         public abstract bool HasMore();
         public abstract Value Read(Status errorStatus);
         public abstract Value Peek(Status errorStatus);

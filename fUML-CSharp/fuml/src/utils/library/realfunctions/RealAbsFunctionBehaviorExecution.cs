@@ -4,6 +4,11 @@ namespace fuml.library.realfunctions
 {
     public class RealAbsFunctionBehaviorExecution : RealFunctionBehaviorExecution
     {
+        public RealAbsFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_Abs);
+        }
+
         public override float? DoRealFunction(List<float> arguments)
         {
 

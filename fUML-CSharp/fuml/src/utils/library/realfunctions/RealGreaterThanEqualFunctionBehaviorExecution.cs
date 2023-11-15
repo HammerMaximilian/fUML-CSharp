@@ -4,6 +4,11 @@ namespace fuml.library.realfunctions
 {
     public class RealGreaterThanEqualFunctionBehaviorExecution : RealRelationalFunctionBehaviorExecution
     {
+        public RealGreaterThanEqualFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_greaterOrEqual);
+        }
+
         public override bool DoRealFunction(List<float> arguments)
         {
 

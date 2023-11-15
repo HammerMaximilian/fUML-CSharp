@@ -6,6 +6,11 @@ namespace fuml.library.stringfunctions
 {
     public class StringSizeFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public StringSizeFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_StringFunctions_Size);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)
@@ -18,9 +23,11 @@ namespace fuml.library.stringfunctions
             // Determine the length of the String
             int size = s1.Length;
 
-            IntegerValue result = new();
-            result.value = size;
-            result.type = locus?.factory?.GetBuiltInType("Integer");
+            IntegerValue result = new()
+            {
+                value = size,
+                type = locus?.factory?.GetBuiltInType("Integer")
+            };
 
             Debug.Println("[doBody] String Size result = " + result.value);
 

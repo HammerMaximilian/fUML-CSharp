@@ -4,6 +4,11 @@ namespace fuml.library.realfunctions
 {
     public class RealNegateFunctionBehaviorExecution : RealFunctionBehaviorExecution
     {
+        public RealNegateFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_Neg);
+        }
+
         public override float? DoRealFunction(List<float> arguments)
         {
 

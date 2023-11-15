@@ -7,6 +7,11 @@ namespace fuml.library.channel
 {
     public abstract class TextInputChannelObject : InputChannelObject
     {
+        public TextInputChannelObject()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_BasicInputOutput_TextInputChannel);
+        }
+
         public abstract string ReadCharacter(Status errorStatus);
         public abstract string PeekCharacter(Status errorStatus);
         public abstract string ReadLine(Status errorStatus);

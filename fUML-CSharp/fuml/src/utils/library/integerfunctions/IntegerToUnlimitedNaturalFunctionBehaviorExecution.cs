@@ -7,6 +7,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerToUnlimitedNaturalFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public IntegerToUnlimitedNaturalFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_ToUnlimitedNatural);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)
@@ -24,11 +29,15 @@ namespace fuml.library.integerfunctions
             }
 
             // Convert int to UnlimitedNatural
-            UnlimitedNatural unlimitedNatural = new();
-            unlimitedNatural.naturalValue = value;
-            UnlimitedNaturalValue result = new();
-            result.value = unlimitedNatural;
-            result.type = locus?.factory?.GetBuiltInType("UnlimitedNatural");
+            UnlimitedNatural unlimitedNatural = new()
+            {
+                naturalValue = value
+            };
+            UnlimitedNaturalValue result = new()
+            {
+                value = unlimitedNatural,
+                type = locus?.factory?.GetBuiltInType("UnlimitedNatural")
+            };
 
             Debug.Println("[doBody] Integer ToUnlimitedNatural result = " + result.value.naturalValue);
 

@@ -6,6 +6,11 @@ namespace fuml.library.stringfunctions
 {
     public class StringConcatFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public StringConcatFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_StringFunctions_Concat);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)

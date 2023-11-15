@@ -4,6 +4,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerGreaterThanEqualFunctionBehaviorExecution : IntegerRelationalFunctionBehaviorExecution
     {
+        public IntegerGreaterThanEqualFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_greaterOrEqual);
+        }
+
         public override bool DoIntegerFunction(List<int> arguments)
         {
 

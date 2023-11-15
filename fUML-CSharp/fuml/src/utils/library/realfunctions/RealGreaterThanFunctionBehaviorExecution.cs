@@ -1,10 +1,14 @@
 ﻿using fuml.semantics.values;
-using System;
 
 namespace fuml.library.realfunctions
 {
     public class RealGreaterThanFunctionBehaviorExecution : RealRelationalFunctionBehaviorExecution
     {
+        public RealGreaterThanFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_greaterThan);
+        }
+
         public override bool DoRealFunction(List<float> arguments)
         {
 

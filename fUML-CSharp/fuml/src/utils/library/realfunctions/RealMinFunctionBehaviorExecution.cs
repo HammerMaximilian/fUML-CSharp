@@ -4,6 +4,11 @@ namespace fuml.library.realfunctions
 {
     public class RealMinFunctionBehaviorExecution : RealFunctionBehaviorExecution
     {
+        public RealMinFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_RealFunctions_Min);
+        }
+
         public override float? DoRealFunction(List<float> arguments)
         {
 

@@ -4,6 +4,11 @@ namespace fuml.library.unlimitednaturalfunctions
 {
     public class UnlimitedNaturalLessThanEqualFunctionBehaviorExecution : UnlimitedNaturalRelationalFunctionBehaviorExecution
     {
+        public UnlimitedNaturalLessThanEqualFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_UnlimitedNaturalFunctions_lessOrEqual);
+        }
+
         public override bool DoUnlimitedNaturalFunction(List<int> arguments)
         {
 

@@ -4,6 +4,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerMaxFunctionBehaviorExecution : IntegerFunctionBehaviorExecution
     {
+        public IntegerMaxFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_Max);
+        }
+
         public override int? DoIntegerFunction(List<int> arguments)
         {
 

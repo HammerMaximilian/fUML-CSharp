@@ -6,6 +6,11 @@ namespace fuml.library.listfunctions
 {
     public class ListGetFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public ListGetFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_ListFunctions_ListGet);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)

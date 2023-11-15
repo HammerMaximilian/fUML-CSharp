@@ -6,6 +6,11 @@ namespace fuml.library.integerfunctions
 {
     public class IntegerToStringFunctionBehaviorExecution : OpaqueBehaviorExecution
     {
+        public IntegerToStringFunctionBehaviorExecution()
+        {
+            types.Add(FoundationalModelLibraryModel.Instance().FoundationalModelLibrary_PrimitiveBehaviors_IntegerFunctions_ToString);
+        }
+
         public override void DoBody(
         List<ParameterValue> inputParameters,
         List<ParameterValue> outputParameters)
