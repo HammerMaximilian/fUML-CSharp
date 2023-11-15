@@ -16,7 +16,7 @@ namespace fuml.library.booleanfunctions
             return result;
         }
 
-        public override Value New_()
+        protected override Value New_()
         {
             return new BooleanAndFunctionBehaviorExecution();
         }

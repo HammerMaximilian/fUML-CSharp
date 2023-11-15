@@ -48,7 +48,7 @@ namespace fuml.library.booleanfunctions
             outputParameters.ElementAt(0).values.Add(resultObj);
         }
 
-        public override Value New_()
+        protected override Value New_()
         {
             return new BooleanToBooleanFunctionBehaviorExecution();
         }

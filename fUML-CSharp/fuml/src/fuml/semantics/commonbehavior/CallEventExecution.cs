@@ -135,7 +135,7 @@ namespace fuml.semantics.commonbehavior
             }
         }
 
-        public override Value New_()
+        protected override Value New_()
         {
             // Create a new call event execution.
 

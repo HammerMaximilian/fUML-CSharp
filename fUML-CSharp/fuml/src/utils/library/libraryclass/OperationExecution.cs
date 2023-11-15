@@ -31,7 +31,7 @@ namespace fuml.library.libraryclass
             types.Add(method);
         }
 
-        public override Value New_()
+        protected override Value New_()
         {
             return new OperationExecution();
         }

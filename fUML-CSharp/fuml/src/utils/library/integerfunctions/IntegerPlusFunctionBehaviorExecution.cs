@@ -22,7 +22,7 @@ namespace fuml.library.integerfunctions
             return i;
         }
 
-        public override Value New_()
+        protected override Value New_()
         {
             // Create a new instance of this kind of function behavior execution.
             return new IntegerPlusFunctionBehaviorExecution();

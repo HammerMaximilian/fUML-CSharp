@@ -97,7 +97,7 @@ namespace fuml.semantics.activities
 			return base.Copy();
 		} // copy
 
-		public override Value New_()
+		protected override Value New_()
 		{
 			// Create a new activity execution with empty properties.
 

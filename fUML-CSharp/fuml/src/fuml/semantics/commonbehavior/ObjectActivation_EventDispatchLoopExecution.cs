@@ -43,7 +43,7 @@ namespace fuml.semantics.commonbehavior
 			}
 		}
 
-		public override Value New_()
+		protected override Value New_()
 		{
 			return new ObjectActivation_EventDispatchLoopExecution(self);
 		}

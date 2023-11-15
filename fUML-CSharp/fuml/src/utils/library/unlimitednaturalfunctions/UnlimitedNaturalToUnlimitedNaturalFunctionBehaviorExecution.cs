@@ -64,7 +64,7 @@ namespace fuml.library.unlimitednaturalfunctions
             return;
         }
 
-        public override Value New_()
+        protected override Value New_()
         {
             return new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution();
         }

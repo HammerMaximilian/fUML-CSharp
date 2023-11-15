@@ -35,7 +35,7 @@ namespace fuml.library.stringfunctions
             outputParameters.ElementAt(0).values.Add(result);
         }
 
-        public override Value New_()
+        protected override Value New_()
         {
             // Create a new instance of this kind of function behavior execution.
             return new StringSizeFunctionBehaviorExecution();

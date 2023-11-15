@@ -22,7 +22,7 @@ namespace fuml.semantics.commonbehavior
 			self.DoSend();
 		}
 							
-		public override Value New_()
+		protected override Value New_()
 		{
 			return new EventOccurrence_SendingBehaviorExecution(self);
 		}

@@ -38,7 +38,10 @@ namespace fuml.semantics.commonbehavior
             return newValue;
         } // copy
 
-        public abstract new Value New_();
+        // From Java reference implementation
+        // In C# it is not allowed to change access modifiers of overridden methods
+        // Thus, 'Value New_()' remains protected in derived classes from here
+        //public abstract override Value New_();
 
         public void SetParameterValue(
                 ParameterValue parameterValue)
