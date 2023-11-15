@@ -6,6 +6,7 @@
         public VisibilityKind? visibility = null;
         public string qualifiedName = "";
         public Namespace? namespace_ = null;
+        public List<Dependency> clientDependency = new(); // PSCS-specific
 
         public void SetName(string name)
         {
@@ -51,5 +52,15 @@
 			    }
             }
         } // _setNamespace
+
+        public void AddClientDependency(Dependency clientDependency) // PSCS-specific
+        {
+            if (clientDependency is null)
+            {
+                throw new ArgumentNullException(nameof(clientDependency));
+            }
+
+            this.clientDependency.Add(clientDependency);
+        }
     }
 }  // NamedElement

@@ -18,6 +18,7 @@ namespace uml.classification
         public Property? opposite = null;
         public ValueSpecification? defaultValue = null;
         public bool isID = false;
+        public Interface? interface_ = null; // PSCS-specific
 
         public new void SetIsReadOnly(bool isReadOnly)
         {
@@ -62,5 +63,10 @@ namespace uml.classification
         {
             this.opposite = opposite;
         } // _setOpposite
+
+        public void _setInterface(Interface interface_) // PSCS-specific
+        {
+            this.interface_ = interface_ ?? throw new ArgumentNullException(nameof(interface_));
+        }
     } // Property
 }

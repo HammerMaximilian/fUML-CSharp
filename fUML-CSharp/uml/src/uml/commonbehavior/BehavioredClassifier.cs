@@ -1,4 +1,5 @@
 ﻿using uml.classification;
+using uml.simpleclassifiers;
 
 namespace uml.commonbehavior
 {
@@ -6,6 +7,7 @@ namespace uml.commonbehavior
     {
         public List<Behavior> ownedBehavior = new();
         public Behavior? classifierBehavior = null;
+        public List<InterfaceRealization> interfaceRealization = new(); // PSCS-specific
 
         public void AddOwnedBehavior(
                 Behavior ownedBehavior)
@@ -37,5 +39,20 @@ namespace uml.commonbehavior
 
             this.classifierBehavior = classifierBehavior ?? throw new ArgumentNullException(nameof(classifierBehavior));
         } // setClassifierBehavior
+
+        public void AddInterfaceRealization(InterfaceRealization interfaceRealization) // PSCS-specific
+        {
+            if (interfaceRealization is null)
+            {
+                throw new ArgumentNullException(nameof(interfaceRealization));
+            }
+
+            this.interfaceRealization.Add(interfaceRealization);
+            interfaceRealization._setImplementingClassifier(this);
+
+            AddClientDependency(interfaceRealization);
+            AddOwnedElement(interfaceRealization);
+        }
+
     } // BehavioredClassifier
 }

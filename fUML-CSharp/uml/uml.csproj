@@ -12,9 +12,5 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AssemblyName>uml.Release</AssemblyName>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="src\" />
-    <Folder Include="src\uml\" />
-  </ItemGroup>
 
 </Project>

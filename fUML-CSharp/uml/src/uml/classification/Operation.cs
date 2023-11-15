@@ -1,4 +1,5 @@
 ﻿using uml.commonbehavior;
+using uml.simpleclassifiers;
 using uml.structuredclassifiers;
 using UMLPrimitiveTypes;
 
@@ -15,6 +16,7 @@ namespace uml.classification
         public List<Operation> redefinedOperation = new();
         public commonstructure.Type? type = null;
         public new List<Parameter> ownedParameter = new();
+        public Interface? interface_ = null; // PSCS-specific
 
         public void SetIsQuery(bool isQuery)
         {
@@ -74,5 +76,10 @@ namespace uml.classification
         {
             this.class_ = class_ ?? throw new ArgumentNullException(nameof(class_));
         } // _setClass
+
+        public void _setInterface(Interface interface_) // PSCS-specific
+        {
+            this.interface_ = interface_ ?? throw new ArgumentNullException(nameof(interface_));
+        }
     }
 }
