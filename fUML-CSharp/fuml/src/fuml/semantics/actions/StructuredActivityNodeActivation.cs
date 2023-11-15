@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.activities;
 using fuml.semantics.values;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
+using uml.actions;
+using uml.activities;
 
 namespace fuml.semantics.actions
 {
@@ -36,7 +36,7 @@ namespace fuml.semantics.actions
             // simply as a group. It is overridden for the execution of conditional
             // and loop nodes.)
 
-            syntax.actions.Action action = (syntax.actions.Action)node!;
+            uml.actions.Action action = (uml.actions.Action)node!;
 
             // *** Concurrently send offers from all input pins. ***
             List<InputPin> inputPins = action.input;
@@ -94,7 +94,7 @@ namespace fuml.semantics.actions
             {
                 activityNodes.Add(node);
 
-                if (node is syntax.actions.Action action)
+                if (node is uml.actions.Action action)
                 {
                     List<InputPin> inputPins = action.input;
                     foreach (InputPin inputPin in inputPins)
@@ -147,8 +147,10 @@ namespace fuml.semantics.actions
 
             foreach (Value value in values)
             {
-                ObjectToken token = new();
-                token.value = value;
+                ObjectToken token = new()
+                {
+                    value = value
+                };
                 pinActivation.AddToken(token);
             }
 

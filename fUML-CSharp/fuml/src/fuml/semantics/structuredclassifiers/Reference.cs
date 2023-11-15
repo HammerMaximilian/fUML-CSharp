@@ -1,8 +1,8 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.structuredclassifiers;
+using uml.classification;
+using uml.structuredclassifiers;
 using System;
 
 namespace fuml.semantics.structuredclassifiers

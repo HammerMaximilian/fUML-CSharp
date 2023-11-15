@@ -1,5 +1,5 @@
 ﻿using fuml.semantics.commonbehavior;
-using fuml.syntax.actions;
+using uml.actions;
 
 namespace fuml.semantics.actions
 {

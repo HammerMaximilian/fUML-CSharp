@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.simpleclassifiers;
-using fuml.syntax.values;
+using uml.classification;
+using uml.simpleclassifiers;
+using uml.values;
 
 namespace fuml.semantics.simpleclassifiers
 {
@@ -14,10 +14,11 @@ namespace fuml.semantics.simpleclassifiers
         {
             // Return an instance value with literal as the instance.
 
-            InstanceValue instanceValue = new();
-
-            instanceValue.type = type;
-            instanceValue.instance = literal;
+            InstanceValue instanceValue = new()
+            {
+                type = type,
+                instance = literal
+            };
 
             return instanceValue;
         } // specify

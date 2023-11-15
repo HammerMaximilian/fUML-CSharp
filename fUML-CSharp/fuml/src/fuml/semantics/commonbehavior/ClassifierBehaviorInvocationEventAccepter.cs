@@ -1,6 +1,6 @@
 ﻿using fuml.semantics.structuredclassifiers;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.structuredclassifiers;
+using uml.commonbehavior;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.commonbehavior
 {

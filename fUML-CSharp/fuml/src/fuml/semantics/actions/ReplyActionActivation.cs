@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.values;
-using fuml.syntax.actions;
-using fuml.syntax.commonbehavior;
+using uml.actions;
+using uml.commonbehavior;
 
 namespace fuml.semantics.actions
 {

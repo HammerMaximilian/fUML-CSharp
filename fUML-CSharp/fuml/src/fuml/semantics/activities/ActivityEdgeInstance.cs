@@ -1,8 +1,8 @@
-﻿using fuml.syntax.activities;
+﻿using uml.activities;
 
 namespace fuml.semantics.activities
 {
-    public class ActivityEdgeInstance : FumlObject
+    public class ActivityEdgeInstance
     {
 		public ActivityEdge? edge = null;
 		public ActivityNodeActivationGroup? group = null;

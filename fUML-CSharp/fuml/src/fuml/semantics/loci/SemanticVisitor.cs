@@ -1,6 +1,6 @@
 ﻿namespace fuml.semantics.loci
 {
-    public abstract class SemanticVisitor : FumlObject
+    public abstract class SemanticVisitor
     {
         public static void _endIsolation()
         {

@@ -1,9 +1,9 @@
 ﻿using fuml.semantics.structuredclassifiers;
-using fuml.syntax.commonbehavior;
+using uml.commonbehavior;
 
 namespace fuml.semantics.commonbehavior
 {
-    public abstract class EventOccurrence : FumlObject
+    public abstract class EventOccurrence
     {
 		public Reference? target = null;
 

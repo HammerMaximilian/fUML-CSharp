@@ -1,9 +1,9 @@
 ﻿using fuml.semantics.simpleclassifiers;
 using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.actions;
-using fuml.syntax.classification;
-using fuml.syntax.structuredclassifiers;
+using uml.actions;
+using uml.classification;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.actions
 {

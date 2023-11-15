@@ -1,7 +1,7 @@
-﻿using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.commonstructure;
-using fuml.syntax.structuredclassifiers;
+﻿using uml.classification;
+using uml.commonbehavior;
+using uml.commonstructure;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.structuredclassifiers
 {
@@ -52,8 +52,8 @@ namespace fuml.semantics.structuredclassifiers
 		} // getMethod
 
 		public bool OperationsMatch(
-				fuml.syntax.classification.Operation ownedOperation,
-				fuml.syntax.classification.Operation baseOperation)
+				uml.classification.Operation ownedOperation,
+				uml.classification.Operation baseOperation)
 		{
 			// Check if the owned operation is equal to or a redefinition (directly
 			// or indirectly) of the base operation.

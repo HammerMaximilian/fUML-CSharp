@@ -1,5 +1,5 @@
 ﻿using fuml.environment;
-using fuml.syntax.simpleclassifiers;
+using uml.simpleclassifiers;
 
 namespace fuml.primitivetypes
 {

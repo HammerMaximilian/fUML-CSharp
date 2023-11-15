@@ -1,6 +1,6 @@
 ﻿namespace fuml.semantics.commonbehavior
 {
-    public abstract class EventAccepter : FumlObject
+    public abstract class EventAccepter
     { 
         public abstract void Accept(EventOccurrence eventOccurrence);
 

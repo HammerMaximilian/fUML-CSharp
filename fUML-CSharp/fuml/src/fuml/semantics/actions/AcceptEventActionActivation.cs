@@ -2,9 +2,9 @@
 using fuml.semantics.commonbehavior;
 using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
-using fuml.syntax.commonbehavior;
+using uml.actions;
+using uml.activities;
+using uml.commonbehavior;
 
 namespace fuml.semantics.actions
 {

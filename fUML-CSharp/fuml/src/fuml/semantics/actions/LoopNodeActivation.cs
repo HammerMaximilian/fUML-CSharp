@@ -1,8 +1,8 @@
 ﻿using fuml.semantics.activities;
 using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
+using uml.actions;
+using uml.activities;
 
 namespace fuml.semantics.actions
 {

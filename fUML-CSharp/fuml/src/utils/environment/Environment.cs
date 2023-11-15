@@ -8,9 +8,9 @@ using fuml.library.unlimitednaturalfunctions;
 using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
 using fuml.semantics.structuredclassifiers;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.simpleclassifiers;
-using fuml.syntax.structuredclassifiers;
+using uml.commonbehavior;
+using uml.simpleclassifiers;
+using uml.structuredclassifiers;
 
 namespace fuml.environment
 {
@@ -24,7 +24,7 @@ namespace fuml.environment
 
         public virtual void Execute(string behaviorName)
         {
-            FumlObject? object_ = (inMemoryModel?.FindElementByName(behaviorName)) ?? throw new ArgumentNullException("[ERROR] Element with specified name does not exist: " + behaviorName);
+            object? object_ = (inMemoryModel?.FindElementByName(behaviorName)) ?? throw new ArgumentNullException("[ERROR] Element with specified name does not exist: " + behaviorName);
             Behavior behavior = (object_ as Behavior)! ?? throw new ArgumentNullException("[ERROR] Specified behavior name does not name a behavior: " + behaviorName);
             Class_ contextType = (behavior.context as Class_)!;
             if(contextType is not null)

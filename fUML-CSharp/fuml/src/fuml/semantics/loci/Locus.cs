@@ -1,11 +1,11 @@
 ﻿using fuml.semantics.structuredclassifiers;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.structuredclassifiers;
+using uml.classification;
+using uml.commonbehavior;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.loci
 {
-    public class Locus : FumlObject
+    public class Locus
     {
         public string identifier;
         public Executor? executor = null;

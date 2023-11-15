@@ -1,4 +1,4 @@
-﻿using fuml.syntax.commonbehavior;
+﻿using uml.commonbehavior;
 
 namespace fuml.semantics.commonbehavior
 {

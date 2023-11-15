@@ -1,8 +1,8 @@
 ﻿using fuml.semantics.loci;
 using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.structuredclassifiers;
+using uml.classification;
+using uml.structuredclassifiers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,7 +81,7 @@ namespace fuml.semantics.structuredclassifiers
 
 		public bool IsMatchingLink(
 				fuml.semantics.structuredclassifiers.ExtensionalValue link,
-				fuml.syntax.classification.Property end)
+				uml.classification.Property end)
 		{
 			// Test whether the given link matches the values of this link on all
 			// ends other than the given end.

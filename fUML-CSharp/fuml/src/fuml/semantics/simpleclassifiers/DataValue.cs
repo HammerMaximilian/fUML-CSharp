@@ -1,6 +1,6 @@
 ﻿using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.simpleclassifiers;
+using uml.classification;
+using uml.simpleclassifiers;
 
 namespace fuml.semantics.simpleclassifiers
 {

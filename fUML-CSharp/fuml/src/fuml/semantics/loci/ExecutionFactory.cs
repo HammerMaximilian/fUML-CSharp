@@ -4,17 +4,17 @@ using fuml.semantics.classification;
 using fuml.semantics.commonbehavior;
 using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.commonstructure;
-using fuml.syntax.simpleclassifiers;
-using fuml.syntax.values;
+using uml.actions;
+using uml.activities;
+using uml.classification;
+using uml.commonbehavior;
+using uml.commonstructure;
+using uml.simpleclassifiers;
+using uml.values;
 
 namespace fuml.semantics.loci
 {
-    public class ExecutionFactory : FumlObject
+    public class ExecutionFactory
     {
 		public Locus? locus = null;
 		public List<OpaqueBehaviorExecution> primitiveBehaviorPrototypes = new();

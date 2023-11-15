@@ -2,7 +2,7 @@
 
 namespace fuml.semantics.actions
 {
-    public class Values : FumlObject
+    public class Values
     {
         public List<Value> values = new();
     } // Values

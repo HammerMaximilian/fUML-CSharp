@@ -2,7 +2,7 @@
 
 namespace fuml.semantics.actions
 {
-    public class TokenSet : FumlObject
+    public class TokenSet
     {
         public List<Token> tokens = new();
     } // TokenSet

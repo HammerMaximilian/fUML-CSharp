@@ -1,11 +1,11 @@
 ﻿using fuml.environment;
 using fuml.primitivetypes;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.simpleclassifiers;
-using fuml.syntax.structuredclassifiers;
+using uml.actions;
+using uml.activities;
+using uml.classification;
+using uml.commonbehavior;
+using uml.simpleclassifiers;
+using uml.structuredclassifiers;
 
 namespace fuml.library
 {

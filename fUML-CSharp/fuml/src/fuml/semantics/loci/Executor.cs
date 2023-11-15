@@ -1,13 +1,13 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.structuredclassifiers;
-using fuml.syntax.values;
+using uml.commonbehavior;
+using uml.structuredclassifiers;
+using uml.values;
 
 namespace fuml.semantics.loci
 {
-    public class Executor : FumlObject
+    public class Executor
     {
 		public Locus? locus = null;
 
@@ -65,10 +65,12 @@ namespace fuml.semantics.loci
 			Debug.Println("[start] Object = " + object_);
 			object_?.StartBehavior(type, inputs);
 
-			Reference reference = new();
-			reference.referent = object_;
+            Reference reference = new()
+            {
+                referent = object_
+            };
 
-			return reference;
+            return reference;
 		} // start
 	} // Executor
 }

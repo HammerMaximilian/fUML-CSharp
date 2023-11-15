@@ -6,14 +6,14 @@ namespace fuml.environment
     {
         private readonly Hashtable elementRepository = new();
 
-        protected void AddToElementRepository(string name, FumlObject object_)
+        protected void AddToElementRepository(string name, object object_)
         {
             elementRepository[name] = object_;
         }
 
-        public FumlObject FindElementByName(string name)
+        public object FindElementByName(string name)
         {
-            FumlObject element = (FumlObject)elementRepository[name]!;
+            object element = elementRepository[name]!;
             return element;
         }
     } // InMemoryModel

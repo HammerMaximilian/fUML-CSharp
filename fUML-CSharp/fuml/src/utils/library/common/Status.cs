@@ -1,8 +1,8 @@
 ﻿using fuml.semantics.loci;
 using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.simpleclassifiers;
+using uml.classification;
+using uml.simpleclassifiers;
 
 namespace fuml.library.common
 {

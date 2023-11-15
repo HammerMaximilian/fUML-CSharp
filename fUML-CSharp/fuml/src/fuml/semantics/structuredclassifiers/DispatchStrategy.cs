@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
+using uml.classification;
+using uml.commonbehavior;
 
 namespace fuml.semantics.structuredclassifiers
 {

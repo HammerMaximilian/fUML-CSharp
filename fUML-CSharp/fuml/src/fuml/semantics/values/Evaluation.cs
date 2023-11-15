@@ -1,5 +1,5 @@
 ﻿using fuml.semantics.loci;
-using fuml.syntax.values;
+using uml.values;
 
 namespace fuml.semantics.values
 {
