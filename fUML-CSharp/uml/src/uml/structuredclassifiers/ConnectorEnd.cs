@@ -1,10 +1,12 @@
-﻿using uml.commonstructure;
+﻿using uml.classification;
+using uml.commonstructure;
 
 namespace uml.structuredclassifiers
 {
     public class ConnectorEnd : MultiplicityElement // PSCS-specific
     {
         public ConnectableElement? role = null;
+        public Property? partWithPort = null;
 
         public void _setRole(ConnectableElement role)
         {
