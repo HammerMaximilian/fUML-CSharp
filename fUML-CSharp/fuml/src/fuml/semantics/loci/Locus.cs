@@ -104,7 +104,7 @@ namespace fuml.semantics.loci
             }
         } // remove
 
-        public Object_ Instantiate(
+        public virtual Object_ Instantiate(
                 Class_ type)
         {
             // Instantiate the given class at this locus.

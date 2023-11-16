@@ -78,7 +78,7 @@ namespace fuml.semantics.commonbehavior
             CreateEventOccurrence().SendTo(reference);
         }
 
-        public EventOccurrence CreateEventOccurrence()
+        public virtual EventOccurrence CreateEventOccurrence()
         {
             // Create a call event occurrence associated with this call event execution.
             // (This operation may be overridden in subclasses to alter how the event

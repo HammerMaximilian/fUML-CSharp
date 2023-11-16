@@ -48,7 +48,7 @@ namespace fuml.semantics.loci
 			return locus?.factory?.CreateEvaluation(specification)?.Evaluate()!;
 		} // evaluate
 
-		public Reference Start(
+		public virtual Reference Start(
 				Class_ type,
 				List<ParameterValue> inputs)
 		{

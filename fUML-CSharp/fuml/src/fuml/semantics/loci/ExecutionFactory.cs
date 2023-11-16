@@ -73,7 +73,7 @@ namespace fuml.semantics.loci
 
 		} // createEvaluation
 
-		public SemanticVisitor InstantiateVisitor(
+		public virtual SemanticVisitor InstantiateVisitor(
 				Element element)
 		{
 			// Instantiate a visitor object for the given element.

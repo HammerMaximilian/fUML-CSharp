@@ -21,7 +21,7 @@ namespace fuml.semantics.commonbehavior
 			_startObjectBehavior();
 		}
 
-		public void DoSend()
+		public virtual void DoSend()
 		{
 			// Send this event occurrence to the target.
 

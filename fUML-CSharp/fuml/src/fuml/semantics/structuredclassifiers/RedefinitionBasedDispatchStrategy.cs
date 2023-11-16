@@ -51,9 +51,9 @@ namespace fuml.semantics.structuredclassifiers
 			return method!;
 		} // getMethod
 
-		public bool OperationsMatch(
-				uml.classification.Operation ownedOperation,
-				uml.classification.Operation baseOperation)
+		public virtual bool OperationsMatch(
+                Operation ownedOperation,
+                Operation baseOperation)
 		{
 			// Check if the owned operation is equal to or a redefinition (directly
 			// or indirectly) of the base operation.

@@ -96,7 +96,7 @@ namespace fuml.semantics.values
             return isInstance;
         }
 
-        public bool CheckAllParents(Classifier type,
+        public virtual bool CheckAllParents(Classifier type,
                 Classifier classifier)
         {
             // Check if the given classifier matches any of the direct or indirect
