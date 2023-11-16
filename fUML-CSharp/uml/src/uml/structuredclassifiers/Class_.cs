@@ -7,6 +7,7 @@ namespace uml.structuredclassifiers
 {
     public class Class_ : BehavioredClassifier
     {
+        public EncapsulatedClassifier encapsulatedClassifier = new(); // PSCS-specific ; NOTE: class EncapsulatedClassifier cannot be abstract here
         public List<Operation> ownedOperation = new();
         public bool isActive = false;
         public List<Reception> ownedReception = new();

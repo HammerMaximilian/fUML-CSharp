@@ -6,6 +6,7 @@ namespace uml.classification
 {
     public class Property : StructuralFeature
     {
+        public ConnectableElement connectableElement = new(); // PSCS-specific ; NOTE: class ConnectableElement can not be abstract here
         public bool isDerived = false;
         public new bool isReadOnly = false;
         public bool isDerivedUnion = false;
