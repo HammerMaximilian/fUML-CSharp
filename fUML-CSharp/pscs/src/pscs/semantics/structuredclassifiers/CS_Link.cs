@@ -26,7 +26,7 @@ namespace pscs.semantics.structuredclassifiers
                 {
                     feature = featureValue.feature!;
                 }
-                i = i + 1;
+                i++;
             }
             return feature!;
         }

@@ -10,7 +10,16 @@ namespace pscs.semantics.commonbehavior
         public CS_InteractionPoint? interactionPoint = null;
 
         public override EventOccurrence CreateEventOccurrence()
-        { throw new NotImplementedException(); }
+        {
+            // Wrap the created event occurrence within a CS_EventOccurrence which
+            // references the behavior port on which the call was dispatched.
+            CS_EventOccurrence wrappingEventOccurrence = new()
+            {
+                interactionPoint = interactionPoint,
+                wrappedEventOccurrence = base.CreateEventOccurrence()
+            };
+            return wrappingEventOccurrence;
+        }
 
         protected override Value New_()
         {

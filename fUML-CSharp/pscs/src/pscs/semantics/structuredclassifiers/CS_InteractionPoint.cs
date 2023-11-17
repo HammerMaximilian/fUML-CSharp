@@ -29,14 +29,16 @@ namespace pscs.semantics.structuredclassifiers
             // (if necessary) wrapped in a CS_EventOccurrence. This event occurrence
             // is then sent to the owning object.
             CS_EventOccurrence wrappingEventOccurrence;
-            if (eventOccurrence is CS_EventOccurrence)
+            if (eventOccurrence is CS_EventOccurrence cS_EventOccurrence)
             {
-                wrappingEventOccurrence = (CS_EventOccurrence)eventOccurrence;
+                wrappingEventOccurrence = cS_EventOccurrence;
             }
             else
             {
-                wrappingEventOccurrence = new();
-                wrappingEventOccurrence.wrappedEventOccurrence = eventOccurrence;
+                wrappingEventOccurrence = new()
+                {
+                    wrappedEventOccurrence = eventOccurrence
+                };
             }
             wrappingEventOccurrence.interactionPoint = this;
             owner?.SendIn(wrappingEventOccurrence, this);
