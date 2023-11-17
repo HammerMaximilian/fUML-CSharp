@@ -6,8 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uml", "uml\uml.csproj", "{E5CF21E9-D40B-4181-AF73-DBD888491F52}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fuml", "fuml\fuml.csproj", "{034A6B1C-6D03-4C43-9CD2-C1DD093961E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E5CF21E9-D40B-4181-AF73-DBD888491F52} = {E5CF21E9-D40B-4181-AF73-DBD888491F52}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pscs", "pscs\pscs.csproj", "{AFB12239-99E1-4499-8D07-F8D86483E23F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{034A6B1C-6D03-4C43-9CD2-C1DD093961E9} = {034A6B1C-6D03-4C43-9CD2-C1DD093961E9}
+		{E5CF21E9-D40B-4181-AF73-DBD888491F52} = {E5CF21E9-D40B-4181-AF73-DBD888491F52}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
