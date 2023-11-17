@@ -1326,7 +1326,7 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [comment Property 'StructuredClassifier::ownedConnector' /]
 	[for (aConnector : Connector | aStructuredClassifier.ownedConnector)]
 	[aConnector.generateConnectorInitialization()/]
-[aStructuredClassifier.getFullNameSanitized()/].encapsulatedClassifier.AddOwnedConnector([aConnector.getFullNameSanitized()/]);
+[aStructuredClassifier.getFullNameSanitized()/].AddOwnedConnector([aConnector.getFullNameSanitized()/]);
 	[/for]
 [/template]
 

@@ -45,6 +45,9 @@ namespace uml.structuredclassifiers
                 throw new ArgumentNullException(nameof(ownedAttribute));
             }
 
+            AddAttribute(ownedAttribute);
+            AddOwnedMember(ownedAttribute);
+            // Has to be propagated to encapsulatedClassifier
             encapsulatedClassifier.AddOwnedAttribute(ownedAttribute); // PSCS-specific : Class::ownedAttribute redefines StructuredClassifier::ownedAttribute
 
             if(ownedAttribute is Port port)
@@ -79,6 +82,18 @@ namespace uml.structuredclassifiers
 
             this.ownedReception.Add(ownedReception);
         } // addOwnedReception
+
+        public void AddOwnedConnector(Connector ownedConnector)
+        {
+            if (ownedConnector is null)
+            {
+                throw new ArgumentNullException(nameof(ownedConnector));
+            }
+
+            AddFeature(ownedConnector);
+            AddOwnedMember(ownedConnector);
+            encapsulatedClassifier.AddOwnedConnector(ownedConnector);
+        }
 
         public override List<NamedElement> Inherit(
                 List<NamedElement> inhs)
