@@ -1,6 +1,4 @@
-﻿using uml.classification;
-using uml.packages;
-using uml.simpleclassifiers;
+﻿using uml.packages;
 
 namespace uml.standardprofile
 {
@@ -10,7 +8,7 @@ namespace uml.standardprofile
 
         public Profile Profile_StandardProfile = new();
         public Stereotype Stereotype_Create = new(); // For PSCS, only stereotype "Create" is required
-      
+
         public static StandardProfileModel Instance()
         {
             if (instance is null)
@@ -28,8 +26,8 @@ namespace uml.standardprofile
 			 * Create in-memory model elements
 			 */
             Profile_StandardProfile.SetName("StandardProfile");
-                Stereotype_Create.SetName("Create");
-                Stereotype_Create._setProfile(Profile_StandardProfile);
+            Stereotype_Create.SetName("Create");
+            Stereotype_Create._setProfile(Profile_StandardProfile);
         }
     } // StandardProfileModel
 }

@@ -824,6 +824,11 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [for (redefinedOperation : Operation | anOperation.redefinedOperation)]
 [anOperation.getFullNameSanitized()/].AddRedefinedOperation([generateElementReference(redefinedOperation, anOperation)/]);
 [/for]
+[comment Apply stereotype <<Create>> (only stereotype required by PSCS) /]
+[comment hard coded by now; TODO: implement sophisticated stereotype application mechanism /]
+[if (not anOperation.getAppliedStereotype('StandardProfile::Create').oclIsUndefined())]
+[anOperation.getFullNameSanitized()/].ApplyStereotype(uml.standardprofile.StandardProfileModel.Instance().Stereotype_Create);
+[/if]
 [/let]
 [/template]
 
@@ -1000,6 +1005,7 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [/template]
 
 [template private generateBehaviorInitialization(aBehavior : Behavior) post(trim())]
+[aBehavior.generateClassifierInitialization()/]
 [aBehavior.generateBehavioredClassifierInitialization()/]
 [comment Property 'Behavior::isActive' /]
 	[if (aBehavior.isActive)]
@@ -1065,7 +1071,7 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [/template]
 
 [template private generateCallActionInitialization(aCallAction : CallAction) post(trim())]
-[aCallAction.generateExecutableNodeInitialization()/]
+[aCallAction.generateInvocationActionActivation()/]
 [comment Property 'CallAction::isSynchronous' /]
 [if (not (aCallAction.isSynchronous))]
 [aCallAction.getFullNameSanitized()/].isSynchronous = false;
@@ -1185,6 +1191,14 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 	[if (not (anInterfaceRealization.contract.oclIsUndefined()))]
 [anInterfaceRealization.getFullNameSanitized()/].SetContract([anInterfaceRealization.contract.getFullNameSanitized()/]);
 	[/if]
+[/template]
+
+[template private generateInvocationActionActivation(anInvocationAction : InvocationAction)]
+[anInvocationAction.generateActionInitialization()/]
+[comment Property 'anInvocationAction::onPort'/]
+[if (not anInvocationAction.onPort.oclIsUndefined())]
+[anInvocationAction.getFullNameSanitized()/].SetOnPort([anInvocationAction.onPort.getFullNameSanitized()/]);
+[/if]
 [/template]
 
 [template private generateLinkActionInitialization(aLinkAction : LinkAction) post(trim())]
