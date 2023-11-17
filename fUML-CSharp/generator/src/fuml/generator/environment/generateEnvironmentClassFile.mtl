@@ -1,6 +1,7 @@
 [comment encoding = UTF-8 /]
 [module generateEnvironmentClassFile('http://www.eclipse.org/uml2/5.0.0/UML')]
 
+[import fuml::generator::executionmode::executionmode /]
 [import fuml::generator::globalconstants::globalconstants /]
 [import fuml::generator::naming::naming /]
 
@@ -23,7 +24,7 @@
 
 namespace [aPackage.getNameSanitized()/]
 {
-	public class [aPackage.getNameSanitized() + 'Environment'/] : fuml.environment.Environment
+	public class [aPackage.getNameSanitized() + 'Environment'/] : [getSpecificationRootNamespaceName()/].environment.Environment
 	{
 		private static [aPackage.getNameSanitized() + 'Environment'/]? instance;
 
@@ -103,3 +104,10 @@ namespace [aPackage.getNameSanitized()/]
 }
 [/file]
 [/template]
+
+[query private getSpecificationRootNamespaceName(any : OclAny) : String = 
+	if(isPSCSExecutable())
+		then 'pscs'
+	else 'fuml'
+	endif 
+/]

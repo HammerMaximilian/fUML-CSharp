@@ -2,14 +2,15 @@
 
 [module generate('http://www.eclipse.org/uml2/5.0.0/UML')]
 
-[import fuml::generator::visualstudio::generateCSProjFile /]
-[import fuml::generator::visualstudio::generateSolutionFile /]
 [import fuml::generator::environment::generateEnvironmentClassFile /]
+[import fuml::generator::executionmode::executionmode /]
 [import fuml::generator::git::generateGitignore /]
 [import fuml::generator::mainsource::generateMainSourceFile /]
 [import fuml::generator::model::generateModelClassFile /]
 [import fuml::generator::naming::naming /]
 [import fuml::generator::opaquebehaviorexecutions::generateOpaqueBehaviorExecutionClassFile /]
+[import fuml::generator::visualstudio::generateCSProjFile /]
+[import fuml::generator::visualstudio::generateSolutionFile /]
 
 [template public generateModel(aPackage : Package)]
 [comment @main/]
@@ -24,17 +25,35 @@
 [/comment]
 [comment] [setUseExtendedNamingConvention(true)/] [/comment]
 
+[comment]
+ * Uncomment the following line to generate the model as none-executable (i.e. generates InMemoryModel only)
+[/comment]
+[comment] [setIsNoneExecutable()/] [/comment]
+[comment]
+ * Uncomment the following line to generate the model as fUML-executable (i.e. generates bypasses PSCS execution environment)
+[/comment]
+[comment] [setIsFUMLExecutable()/] [/comment]
+[comment]
+ * Uncomment the following line to generate the model as fUML-executable (i.e. generates bypasses PSCS execution environment)
+[/comment]
+[setIsPSCSExecutable()/]
+
+
 [comment Ensure that this is only done for the root package /]
 [if (aPackage.nestingPackage = null)]
-	[aPackage.generateEnvironmentClassFile()/]
 
+	[if (isExecutable())]
+		[aPackage.generateEnvironmentClassFile()/]
+		
+		[for (anOpaqueBehavior : OpaqueBehavior | aPackage.allOwnedElements()->filter(OpaqueBehavior))]
+			[anOpaqueBehavior.generateOpaqueBehaviorExecutionClassFile()/]
+		[/for]
+
+		[aPackage.generateMainSourceFile()/]
+	[/if]
+
+	
 	[aPackage.generateModelClassFile()/]
-
-	[for (anOpaqueBehavior : OpaqueBehavior | aPackage.allOwnedElements()->filter(OpaqueBehavior))]
-		[anOpaqueBehavior.generateOpaqueBehaviorExecutionClassFile()/]
-	[/for]
-
-	[aPackage.generateMainSourceFile()/]
 	[aPackage.generateCSProjFile()/]
 	[generateGitignore()/]
 	[aPackage.generateSolutionFile()/]
