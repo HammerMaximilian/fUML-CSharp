@@ -45,8 +45,12 @@ namespace uml.structuredclassifiers
                 throw new ArgumentNullException(nameof(ownedAttribute));
             }
 
-            AddAttribute(ownedAttribute);
-            AddOwnedMember(ownedAttribute);
+            encapsulatedClassifier.AddOwnedAttribute(ownedAttribute); // PSCS-specific : Class::ownedAttribute redefines StructuredClassifier::ownedAttribute
+
+            if(ownedAttribute is Port port)
+            {
+                encapsulatedClassifier.AddOnwedPort(port);
+            }
 
             this.ownedAttribute.Add(ownedAttribute);
             ownedAttribute._setClass(this);
