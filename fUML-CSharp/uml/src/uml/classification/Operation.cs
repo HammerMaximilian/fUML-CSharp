@@ -75,11 +75,13 @@ namespace uml.classification
         public void _setClass(Class_ class_)
         {
             this.class_ = class_ ?? throw new ArgumentNullException(nameof(class_));
+            _setNamespace(class_);
         } // _setClass
 
         public void _setInterface(Interface interface_) // PSCS-specific
         {
             this.interface_ = interface_ ?? throw new ArgumentNullException(nameof(interface_));
+            _setNamespace(interface_);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace uml.structuredclassifiers
         public bool isService = false;
         public List<Interface> required = new();
         public List<Interface> provided = new();
+        public List<Port> redefinedPort = new();
 
         public void AddRequired(Interface required)
         {
@@ -29,6 +30,17 @@ namespace uml.structuredclassifiers
             }
 
             this.provided.Add(provided);
+        }
+
+        public void AddRedefinedPort(Port redefinedPort)
+        {
+            if (redefinedPort is null)
+            {
+                throw new ArgumentNullException(nameof(redefinedPort));
+            }
+
+            AddRedefinedElement(redefinedPort);
+            this.redefinedPort.Add(redefinedPort);
         }
     } // Port
 }

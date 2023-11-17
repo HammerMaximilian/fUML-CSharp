@@ -55,8 +55,13 @@ namespace uml.simpleclassifiers
         public void AddOwnedReception(
         Reception ownedReception)
         {
-            AddOwnedMember(ownedReception);
+            if (ownedReception is null)
+            {
+                throw new ArgumentNullException(nameof(ownedReception));
+            }
+
             AddFeature(ownedReception);
+            AddOwnedMember(ownedReception);
 
             this.ownedReception.Add(ownedReception);
         } // addOwnedReception
@@ -68,7 +73,6 @@ namespace uml.simpleclassifiers
             {
                 throw new ArgumentNullException(nameof(redefinedInterface));
             }
-
             this.redefinedInterface.Add(redefinedInterface);
         } // addNestedClassifier
     } // Interface
