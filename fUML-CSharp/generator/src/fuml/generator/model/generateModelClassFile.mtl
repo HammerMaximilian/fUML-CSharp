@@ -19,9 +19,9 @@
 ->including('using uml.commonbehavior;\r\n')
 ->including('using uml.packages;\r\n')
 ->including('using uml.simpleclassifiers;\r\n')
+->including('using uml.environment;\r\n')
 ->including('using fuml.primitivetypes;\r\n')
 ->including('using fuml.library;\r\n')
-->including('using fuml.environment;\r\n')
 ->asOrderedSet()/]
 
 /* [protected (': User-defined includes and forward declarations')]

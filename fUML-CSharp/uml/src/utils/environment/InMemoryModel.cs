@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace fuml.environment
+namespace uml.environment
 {
     public abstract class InMemoryModel
     {

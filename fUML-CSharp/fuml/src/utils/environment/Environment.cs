@@ -9,6 +9,7 @@ using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
 using fuml.semantics.structuredclassifiers;
 using uml.commonbehavior;
+using uml.environment;
 using uml.simpleclassifiers;
 using uml.structuredclassifiers;
 

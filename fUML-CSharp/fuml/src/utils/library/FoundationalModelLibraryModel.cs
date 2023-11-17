@@ -1,9 +1,9 @@
-﻿using fuml.environment;
-using fuml.primitivetypes;
+﻿using fuml.primitivetypes;
 using uml.actions;
 using uml.activities;
 using uml.classification;
 using uml.commonbehavior;
+using uml.environment;
 using uml.simpleclassifiers;
 using uml.structuredclassifiers;
 

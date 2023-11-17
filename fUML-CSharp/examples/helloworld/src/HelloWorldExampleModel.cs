@@ -6,7 +6,7 @@ using uml.values;
 
 namespace examples.HelloWorldExample
 {
-    public class HelloWorldExampleModel : fuml.environment.InMemoryModel
+    public class HelloWorldExampleModel : uml.environment.InMemoryModel
     {
         private static HelloWorldExampleModel? instance;
 

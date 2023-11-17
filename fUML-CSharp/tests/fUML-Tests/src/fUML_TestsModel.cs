@@ -15,7 +15,7 @@ using uml.simpleclassifiers;
 using uml.commonstructure;
 using uml.values;
 using uml.activities;
-using fuml.environment;
+using uml.environment;
 
 
 /* Start of user code : User-defined includes and forward declarations
