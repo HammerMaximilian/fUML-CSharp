@@ -4,6 +4,8 @@ namespace uml.classification
 {
     public abstract class Classifier : commonstructure.Type
     {
+        private bool allMembersConstructed = false;
+
         public bool isAbstract = false;
         public List<Generalization> generalization = new();
         public List<Feature> feature = new();
@@ -49,14 +51,17 @@ namespace uml.classification
             generalization._setSpecific(this);
             general.Add(generalization.general!);
 
-            List<NamedElement> inheritedMembers = Inherit(generalization!.general!
+            // In this implementation, members of base classes are not inherited
+            // Instead, if all members, owned members as well as members of direct or indirect base classes should be accessed
+            // use method AllMembers()
+            /*List<NamedElement> inheritedMembers = Inherit(generalization!.general!
                     .InheritableMembers(this));
 
             foreach (NamedElement inheritedMember in inheritedMembers)
             {
                 AddMember(inheritedMember);
                 this.inheritedMember.Add(inheritedMember);
-            }
+            }*/
         } // addGeneralization
 
         public void SetIsAbstract(bool isAbstract)
@@ -111,5 +116,24 @@ namespace uml.classification
         {
             this.isFinalSpecialization = isFinalSpecialization;
         } // setIsFinalSpecialization
+
+        public List<NamedElement> AllMembers()
+        {
+            if (!allMembersConstructed)
+            {
+                foreach (Classifier c in general)
+                {
+                    List<NamedElement> inheritedMembers = Inherit(c.InheritableMembers(this));
+
+                    foreach (NamedElement inheritedMember in inheritedMembers)
+                    {
+                        AddMember(inheritedMember);
+                        this.inheritedMember.Add(inheritedMember);
+                    }
+                }
+            }
+
+            return member;
+        } // AllMembers
     } // Classifier
 }
