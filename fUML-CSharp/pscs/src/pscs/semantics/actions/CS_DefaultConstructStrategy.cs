@@ -89,7 +89,7 @@ namespace pscs.semantics.actions
                 i++;
             }
             // Instantiate connectors
-            List<NamedElement> allMembers = type.member;
+            List<NamedElement> allMembers = type.AllMembers();
             i = 1;
             while (i <= allMembers.Count)
             {

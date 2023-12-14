@@ -614,9 +614,9 @@ namespace pscs.semantics.structuredclassifiers
                         Interface interface_ = providedInterfaces.ElementAt(interfaceIndex - 1);
                         // Iterates on members of the current Interface
                         int memberIndex = 1;
-                        while (memberIndex <= interface_.member.Count && !isProvided)
+                        while (memberIndex <= interface_.AllMembers().Count && !isProvided)
                         {
-                            NamedElement cddOperation = interface_.member.ElementAt(memberIndex - 1);
+                            NamedElement cddOperation = interface_.AllMembers().ElementAt(memberIndex - 1);
                             if (cddOperation is Operation)
                             {
                                 isProvided = operation == cddOperation;
@@ -638,7 +638,7 @@ namespace pscs.semantics.structuredclassifiers
                     if (types.ElementAt(typeIndex - 1) is Class_ class_)
                     {
                         int memberIndex = 1;
-                        List<NamedElement> members = class_.member;
+                        List<NamedElement> members = class_.AllMembers();
                         while (memberIndex <= members.Count && !isProvided)
                         {
                             NamedElement member = members.ElementAt(memberIndex - 1);
@@ -674,9 +674,9 @@ namespace pscs.semantics.structuredclassifiers
                     Interface interface_ = requiredInterfaces.ElementAt(interfaceIndex - 1);
                     // Iterates on members of the current Interface
                     int memberIndex = 1;
-                    while (memberIndex <= interface_.member.Count && !matches)
+                    while (memberIndex <= interface_.AllMembers().Count && !matches)
                     {
-                        NamedElement cddOperation = interface_.member.ElementAt(memberIndex - 1);
+                        NamedElement cddOperation = interface_.AllMembers().ElementAt(memberIndex - 1);
                         if (cddOperation is Operation)
                         {
                             matches = operation == cddOperation;
