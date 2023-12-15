@@ -154,9 +154,9 @@ namespace pscs.semantics.actions
                     Interface interface_ = providedInterfaces.ElementAt(interfaceIndex - 1);
                     // Iterates on members of the current Interface
                     int memberIndex = 1;
-                    while (memberIndex <= interface_.AllMembers().Count && !isProvided)
+                    while (memberIndex <= interface_.Member().Count && !isProvided)
                     {
-                        NamedElement cddOperation = interface_.AllMembers().ElementAt(memberIndex - 1);
+                        NamedElement cddOperation = interface_.Member().ElementAt(memberIndex - 1);
                         if (cddOperation is Operation)
                         {
                             isProvided = operation == cddOperation;
@@ -180,9 +180,9 @@ namespace pscs.semantics.actions
                 Interface interface_ = requiredInterfaces.ElementAt(interfaceIndex - 1);
                 // Iterates on members of the current Interface
                 int memberIndex = 1;
-                while (memberIndex <= interface_.AllMembers().Count && !isRequired)
+                while (memberIndex <= interface_.Member().Count && !isRequired)
                 {
-                    NamedElement cddOperation = interface_.AllMembers().ElementAt(memberIndex - 1);
+                    NamedElement cddOperation = interface_.Member().ElementAt(memberIndex - 1);
                     if (cddOperation is Operation)
                     {
                         isRequired = operation == cddOperation;

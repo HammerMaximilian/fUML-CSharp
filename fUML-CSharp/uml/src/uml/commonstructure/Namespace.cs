@@ -2,7 +2,10 @@
 {
     public class Namespace : PackageableElement
     {
-        public List<NamedElement> member = new();
+        // Property "member" is encapsulated here an can be accessed via method "Member()"
+        // See Classifier.cs for further information
+        protected List<NamedElement> member = new();
+
         public List<NamedElement> ownedMember = new();
         public List<ElementImport> elementImport = new();
         public List<PackageImport> packageImport = new();
@@ -84,5 +87,10 @@
             AddMember(importedMember);
             this.importedMember.Add(importedMember);
         } // addImportedMember
+
+        virtual public List<NamedElement> Member()
+        {
+            return member;
+        }
     }
 } // Namespace

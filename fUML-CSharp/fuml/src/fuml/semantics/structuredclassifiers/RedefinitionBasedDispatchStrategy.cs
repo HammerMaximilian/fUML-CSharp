@@ -24,7 +24,7 @@ namespace fuml.semantics.structuredclassifiers
 			while (method == null & i <= object_.types.Count)
 			{
 				Class_ type = object_.types.ElementAt(i - 1);
-				List<NamedElement> members = type.AllMembers();
+				List<NamedElement> members = type.Member();
 				int j = 1;
 				while (method == null & j <= members.Count)
 				{

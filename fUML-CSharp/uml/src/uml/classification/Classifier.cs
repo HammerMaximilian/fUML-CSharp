@@ -4,7 +4,7 @@ namespace uml.classification
 {
     public abstract class Classifier : commonstructure.Type
     {
-        private bool allMembersConstructed = false;
+        private bool memberConstructed = false;
 
         public bool isAbstract = false;
         public List<Generalization> generalization = new();
@@ -51,9 +51,8 @@ namespace uml.classification
             generalization._setSpecific(this);
             general.Add(generalization.general!);
 
-            // In this implementation, members of base classes are not inherited
-            // Instead, if all members, owned members as well as members of direct or indirect base classes should be accessed
-            // use method AllMembers()
+            // In this implementation, members of base classifiers are not inherited here
+            // See method "Classifier.Member()" below for further explanation
             /*List<NamedElement> inheritedMembers = Inherit(generalization!.general!
                     .InheritableMembers(this));
 
@@ -117,12 +116,22 @@ namespace uml.classification
             this.isFinalSpecialization = isFinalSpecialization;
         } // setIsFinalSpecialization
 
-        public List<NamedElement> AllMembers()
+
+        // When using the generator to create an executable model within this implementation
+        // the order in which classifiers are initialized and base classifiers are added (and thus, base members are inherited)
+        // is arbitrary.
+        // This can lead to base classifier members not being inherited as they are not yet created
+        // Because of that, in this implementation, base members are not inherited when a generalization is added (i.e. in method "AddGeneralization").
+        // Instead, property "Namespace.member" is encapsulated and can be accessed by method "Namespace.Member()".
+        // This method is overridden here to inherit all base members recursively when "Classifier.Member()" is first invoked.
+        // This first invocation happens during model execution, i.e. after all model classifiers have been completely created.
+        override public List<NamedElement> Member()
         {
-            if (!allMembersConstructed)
+            if (!memberConstructed)
             {
                 foreach (Classifier c in general)
                 {
+                    List<NamedElement> allMembersOfBase = c.Member(); // This is only done to recursively construct member
                     List<NamedElement> inheritedMembers = Inherit(c.InheritableMembers(this));
 
                     foreach (NamedElement inheritedMember in inheritedMembers)
@@ -131,6 +140,8 @@ namespace uml.classification
                         this.inheritedMember.Add(inheritedMember);
                     }
                 }
+
+                memberConstructed = true;
             }
 
             return member;

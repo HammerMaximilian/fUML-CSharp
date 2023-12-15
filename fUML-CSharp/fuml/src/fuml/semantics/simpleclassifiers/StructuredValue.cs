@@ -58,7 +58,7 @@ namespace fuml.semantics.simpleclassifiers
 
             if (type is not null)
             {
-                List<NamedElement> members = type.AllMembers();
+                List<NamedElement> members = type.Member();
                 foreach (StructuralFeature feature in features)
                 {
                     bool isMember = false;
