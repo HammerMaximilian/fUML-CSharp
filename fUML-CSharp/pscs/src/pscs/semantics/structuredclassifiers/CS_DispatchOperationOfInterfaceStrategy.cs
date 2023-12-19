@@ -23,7 +23,7 @@ namespace pscs.semantics.structuredclassifiers
                 {
                     Parameter ownedParameter = ownedOperationParameters.ElementAt(i);
                     Parameter baseParameter = baseOperationParameters.ElementAt(i);
-                    matches = ownedParameter.GetType() == baseParameter.GetType();
+                    matches = ownedParameter.type == baseParameter.type;
                     matches = matches && (ownedParameter.multiplicityElement.lower == baseParameter.multiplicityElement.lower);
                     matches = matches && (ownedParameter.multiplicityElement.upper == baseParameter.multiplicityElement.upper);
                     matches = matches && (ownedParameter.direction == baseParameter.direction);
