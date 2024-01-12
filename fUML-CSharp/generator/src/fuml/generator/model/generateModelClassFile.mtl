@@ -1095,7 +1095,7 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [aClassifier.getFullNameSanitized()/].SetIsFinalSpecialization(true);
 	[/if]
 [comment Property 'Classifier::generalization' /]
-[for (aGeneralization : Generalization | aClassifier.generalization)]
+[for (aGeneralization : Generalization | aClassifier.generalization->sortedBy(general.name))]
 	[aGeneralization.generateElementInitialization()/]
 [aClassifier.getFullNameSanitized()/].AddGeneralization([aGeneralization.getFullNameSanitized()/]);
 [/for]
