@@ -204,6 +204,11 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 	[anInputPin.generatePinInitialization()/]
 [aCallOperationAction.getFullNameSanitized()/].AddArgument([anInputPin.getFullNameSanitized()/]);
 [/for]
+[comment Apply stereotype <<ExplicitBaseClassCall>> (from profile ExtensionsProfile) /]
+[comment hard coded by now; TODO: implement sophisticated stereotype application mechanism /]
+[if (not aCallOperationAction.getAppliedStereotype('ExtensionsProfile::ExplicitBaseClassCall').oclIsUndefined())]
+[aCallOperationAction.getFullNameSanitized()/].ApplyStereotype(uml.extensionsprofile.ExtensionsProfileModel.Instance().Stereotype_ExplicitBaseClassCall);
+[/if]
 [/let]
 [/template]
 
