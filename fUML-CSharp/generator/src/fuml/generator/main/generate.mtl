@@ -34,7 +34,7 @@
 [/comment]
 [comment] [setIsFUMLExecutable()/] [/comment]
 [comment]
- * Uncomment the following line to generate the model as fUML-executable (i.e. generates bypasses PSCS execution environment)
+ * Uncomment the following line to generate the model as PSCS-executable
 [/comment]
 [setIsPSCSExecutable()/]
 
