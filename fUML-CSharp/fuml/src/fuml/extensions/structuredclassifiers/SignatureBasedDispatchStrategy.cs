@@ -9,7 +9,8 @@ namespace fuml.extensions.structuredclassifiers
     {
         public override Behavior GetMethod(
         Object_ object_,
-        Operation operation)
+        Operation operation,
+        bool isExplicitBaseClassCall = false)
         {
             // Find the member operation of a type of the given object_ that
             // is the same as or overrides the given operation. Then
@@ -20,11 +21,30 @@ namespace fuml.extensions.structuredclassifiers
             // the first one is arbitrarily chosen.]
 
             Behavior? method = null;
+            Class_? operationClass = operation.class_;
+
             int i = 1;
             while (method == null & i <= object_.types.Count)
             {
                 Class_ type = object_.types.ElementAt(i - 1);
-                method = GetMethod(type, operation);
+
+                if(isExplicitBaseClassCall)
+                {
+                    // The operation call shall explicitely invoke a base class operation.
+                    // even if the operation is overriden by type (or a direct or indirect base class of type).
+                    // This behaves as if object_'s actual type was the type that owns operation,
+                    // if operationClass is a direct or indirect base class of type.
+
+                    if(operationClass is not null && IsSpecializationOf(type, operationClass))
+                    {
+                        method = GetMethod(operationClass, operation);
+                    }
+                }
+                else
+                {
+                    method = GetMethod(type, operation);
+                }
+                
                 i++;
             }
 
@@ -42,7 +62,7 @@ namespace fuml.extensions.structuredclassifiers
             {
                 Operation ownedOperation = ownedOperations.ElementAt(i - 1);
 
-                if(OperationsMatch(ownedOperation, operation))
+                if (OperationsMatch(ownedOperation, operation))
                 {
                     if (ownedOperation.method.Count == 0)
                     {
@@ -57,14 +77,14 @@ namespace fuml.extensions.structuredclassifiers
 
             // If type does not own or override the given operation directly,
             // check all of it's base classes.
-            if(method is null)
+            if (method is null)
             {
                 List<Classifier> general = type.general;
 
                 i = 1;
-                while(method is null & i <= general.Count)
+                while (method is null & i <= general.Count)
                 {
-                    if(general.ElementAt(i-1) is Class_ baseClass)
+                    if (general.ElementAt(i - 1) is Class_ baseClass)
                     {
                         method = GetMethod(baseClass, operation);
                     }
@@ -98,15 +118,15 @@ namespace fuml.extensions.structuredclassifiers
                     Parameter ownedParameter = ownedOperationParameters.ElementAt(i);
                     Parameter baseParameter = baseOperationParameters.ElementAt(i);
 
-                    if(ownedParameter.direction == ParameterDirectionKind.return_)
+                    if (ownedParameter.direction == ParameterDirectionKind.return_)
                     {
                         // NOTE: In this implementation, return types may be covariant classifiers.
                         if (ownedParameter.type != baseParameter.type)
                         {
 
-                            matches = ownedParameter.type is Classifier ownedOperationReturnType && 
+                            matches = ownedParameter.type is Classifier ownedOperationReturnType &&
                                     baseParameter.type is Classifier baseOperationReturnType &&
-                                    IsCovariant(ownedOperationReturnType, baseOperationReturnType);
+                                    IsSpecializationOf(ownedOperationReturnType, baseOperationReturnType);
                         }
                         else
                         {
@@ -126,25 +146,25 @@ namespace fuml.extensions.structuredclassifiers
             return matches;
         } // operationsMatch
 
-        public bool IsCovariant(Classifier ownedOperationReturnType, Classifier baseOperationReturnType)
+        public bool IsSpecializationOf(Classifier specializedType, Classifier generalType)
         {
-            bool isCovariant = false;
+            bool isSpecialized = false;
 
             int i = 1;
-            while (isCovariant == false && i <= ownedOperationReturnType.general.Count)
+            while (isSpecialized == false && i <= specializedType.general.Count)
             {
-                Classifier baseType = ownedOperationReturnType.general.ElementAt(i - 1);
-                isCovariant = baseOperationReturnType == baseType;
+                Classifier directBase = specializedType.general.ElementAt(i - 1);
+                isSpecialized = generalType == directBase;
 
-                if(!isCovariant)
+                if (!isSpecialized)
                 {
-                    isCovariant = IsCovariant(baseType, baseOperationReturnType);
+                    isSpecialized = IsSpecializationOf(directBase, generalType);
                 }
 
                 i++;
             }
 
-            return isCovariant;
-        } // IsCovariant
+            return isSpecialized;
+        } // IsSpecializationOf
     } // SignatureBasedDispatchStrategy
 }

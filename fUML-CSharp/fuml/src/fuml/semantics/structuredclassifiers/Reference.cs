@@ -3,11 +3,10 @@ using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
 using uml.classification;
 using uml.structuredclassifiers;
-using System;
 
 namespace fuml.semantics.structuredclassifiers
 {
-    public class Reference : StructuredValue
+    public partial class Reference : StructuredValue
     {
         public Object_? referent = null;
 

@@ -6,7 +6,7 @@ using uml.classification;
 
 namespace fuml.semantics.actions
 {
-    public class CallOperationActionActivation : CallActionActivation
+    public partial class CallOperationActionActivation : CallActionActivation
     {
         public override bool IsReady()
         {
@@ -29,12 +29,20 @@ namespace fuml.semantics.actions
             // operation to it and return the resulting execution object.
 
             CallOperationAction action = (node as CallOperationAction)!;
+            bool isExplicitBaseClassCall = IsExplicitBaseClassCall(action);
             Value target = TakeTokens(action?.target!).ElementAt(0);
 
             Execution? execution;
             if (target is Reference reference)
             {
-                execution = reference.Dispatch(action?.operation!);
+                if(!isExplicitBaseClassCall)
+                {
+                    execution = reference.Dispatch(action?.operation!);
+                }
+                else
+                {
+                    execution = reference.Dispatch(action?.operation!, isExplicitBaseClassCall);
+                }
             }
             else
             {
