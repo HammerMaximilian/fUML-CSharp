@@ -1,11 +1,11 @@
 ﻿using fuml.semantics.simpleclassifiers;
 using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.simpleclassifiers;
-using fuml.syntax.structuredclassifiers;
-using fuml.syntax.values;
+using uml.classification;
+using uml.commonbehavior;
+using uml.simpleclassifiers;
+using uml.structuredclassifiers;
+using uml.values;
 
 namespace fuml.semantics.classification
 {

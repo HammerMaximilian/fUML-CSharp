@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.loci;
 using fuml.semantics.structuredclassifiers;
-using fuml.syntax.actions;
-using fuml.syntax.classification;
+using uml.actions;
+using uml.classification;
 
 namespace fuml.semantics.actions
 {

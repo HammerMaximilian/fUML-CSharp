@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.commonstructure;
-using fuml.syntax.values;
+using uml.classification;
+using uml.commonstructure;
+using uml.values;
 
 namespace fuml.semantics.simpleclassifiers
 {
@@ -58,7 +58,7 @@ namespace fuml.semantics.simpleclassifiers
 
             if (type is not null)
             {
-                List<NamedElement> members = type.member;
+                List<NamedElement> members = type.Member();
                 foreach (StructuralFeature feature in features)
                 {
                     bool isMember = false;

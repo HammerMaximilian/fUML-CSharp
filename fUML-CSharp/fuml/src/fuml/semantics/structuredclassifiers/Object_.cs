@@ -1,12 +1,11 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.structuredclassifiers;
-using System;
+using uml.classification;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.structuredclassifiers
 {
-    public class Object_ : ExtensionalValue
+    public partial class Object_ : ExtensionalValue
     {
         public List<Class_> types = new();
         public ObjectActivation? objectActivation = null;
@@ -19,9 +18,9 @@ namespace fuml.semantics.structuredclassifiers
             // exist) and start its behavior(s).
 
             objectActivation ??= new()
-                {
-                    object_ = this
-                };
+            {
+                object_ = this
+            };
 
             objectActivation.StartBehavior(classifier, inputs);
         } // startBehavior

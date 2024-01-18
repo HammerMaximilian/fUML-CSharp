@@ -1,6 +1,6 @@
 ﻿namespace fuml.semantics.activities
 {
-    public class Offer : FumlObject
+    public class Offer
     {
 		public List<Token> offeredTokens = new();
 

@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.activities;
 using fuml.semantics.loci;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
+using uml.actions;
+using uml.activities;
 
 namespace fuml.semantics.actions
 {

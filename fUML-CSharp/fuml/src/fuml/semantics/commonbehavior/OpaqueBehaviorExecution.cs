@@ -1,6 +1,6 @@
 ﻿
 
-using fuml.syntax.classification;
+using uml.classification;
 
 namespace fuml.semantics.commonbehavior
 {

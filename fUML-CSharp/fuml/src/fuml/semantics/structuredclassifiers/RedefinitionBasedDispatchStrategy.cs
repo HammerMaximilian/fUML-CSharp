@@ -1,7 +1,7 @@
-﻿using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.commonstructure;
-using fuml.syntax.structuredclassifiers;
+﻿using uml.classification;
+using uml.commonbehavior;
+using uml.commonstructure;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.structuredclassifiers
 {
@@ -24,7 +24,7 @@ namespace fuml.semantics.structuredclassifiers
 			while (method == null & i <= object_.types.Count)
 			{
 				Class_ type = object_.types.ElementAt(i - 1);
-				List<NamedElement> members = type.member;
+				List<NamedElement> members = type.Member();
 				int j = 1;
 				while (method == null & j <= members.Count)
 				{
@@ -51,9 +51,9 @@ namespace fuml.semantics.structuredclassifiers
 			return method!;
 		} // getMethod
 
-		public bool OperationsMatch(
-				fuml.syntax.classification.Operation ownedOperation,
-				fuml.syntax.classification.Operation baseOperation)
+		public virtual bool OperationsMatch(
+                Operation ownedOperation,
+                Operation baseOperation)
 		{
 			// Check if the owned operation is equal to or a redefinition (directly
 			// or indirectly) of the base operation.

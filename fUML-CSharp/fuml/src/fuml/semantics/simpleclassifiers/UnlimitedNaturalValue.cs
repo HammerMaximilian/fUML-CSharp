@@ -1,5 +1,5 @@
 ﻿using fuml.semantics.values;
-using fuml.syntax.values;
+using uml.values;
 using UMLPrimitiveTypes;
 
 namespace fuml.semantics.simpleclassifiers
@@ -13,10 +13,11 @@ namespace fuml.semantics.simpleclassifiers
             // Return a literal unlimited natural with the value of this unlimited
             // natural value.
 
-            LiteralUnlimitedNatural literal = new();
-
-            literal.type = type;
-            literal.value = value;
+            LiteralUnlimitedNatural literal = new()
+            {
+                type = type,
+                value = value
+            };
 
             return literal;
         } // specify
@@ -59,8 +60,10 @@ namespace fuml.semantics.simpleclassifiers
 
             if (value.naturalValue >= 0)
             {
-                IntegerValue integerValue = new();
-                integerValue.value = value.naturalValue;
+                IntegerValue integerValue = new()
+                {
+                    value = value.naturalValue
+                };
                 stringValue = integerValue.ToString();
             }
 

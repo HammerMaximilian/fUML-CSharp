@@ -1,11 +1,12 @@
 ﻿using fuml.semantics.loci;
-using fuml.syntax.classification;
+using uml.classification;
+using uml.values;
 
 namespace fuml.semantics.values
 {
     public abstract class Value : SemanticVisitor
     {
-        public abstract syntax.values.ValueSpecification Specify();
+        public abstract ValueSpecification Specify();
 
         public virtual bool Equals(Value otherValue)
         {
@@ -95,7 +96,7 @@ namespace fuml.semantics.values
             return isInstance;
         }
 
-        public bool CheckAllParents(Classifier type,
+        public virtual bool CheckAllParents(Classifier type,
                 Classifier classifier)
         {
             // Check if the given classifier matches any of the direct or indirect

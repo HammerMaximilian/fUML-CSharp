@@ -2,11 +2,11 @@
 using fuml.semantics.simpleclassifiers;
 using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
-using fuml.syntax.classification;
-using fuml.syntax.structuredclassifiers;
-using fuml.syntax.values;
+using uml.actions;
+using uml.activities;
+using uml.classification;
+using uml.structuredclassifiers;
+using uml.values;
 
 namespace fuml.semantics.actions
 {
@@ -46,7 +46,7 @@ namespace fuml.semantics.actions
 
             // Note: This is included here to happen in the same isolation scope as
             // the isReady test.
-            firing = !((syntax.actions.Action)node!).isLocallyReentrant;
+            firing = !((uml.actions.Action)node!).isLocallyReentrant;
 
             List<Token> offeredTokens = new();
 
@@ -61,7 +61,7 @@ namespace fuml.semantics.actions
                 }
             }
 
-            syntax.actions.Action action = (syntax.actions.Action)node;
+            uml.actions.Action action = (uml.actions.Action)node;
 
             // *** Fire all input pins concurrently. ***
             List<InputPin> inputPins = action.input;
@@ -145,7 +145,7 @@ namespace fuml.semantics.actions
 
             bool ready = IsControlReady();
 
-            List<InputPin> inputPins = ((syntax.actions.Action)node!).input;
+            List<InputPin> inputPins = ((uml.actions.Action)node!).input;
             int j = 1;
             while (ready & j <= inputPins.Count)
             {
@@ -165,7 +165,7 @@ namespace fuml.semantics.actions
             // action are control flows.)
 
             bool ready = base.IsReady()
-                    & (((syntax.actions.Action)node!).isLocallyReentrant | !IsFiring());
+                    & (((uml.actions.Action)node!).isLocallyReentrant | !IsFiring());
 
             int i = 1;
             while (ready & i <= incomingEdges.Count)
@@ -200,8 +200,10 @@ namespace fuml.semantics.actions
             // Send offers on all outgoing control flows.
             if (outgoingEdges.Count > 0)
             {
-                List<Token> tokens = new();
-                tokens.Add(new ControlToken());
+                List<Token> tokens = new()
+                {
+                    new ControlToken()
+                };
                 AddTokens(tokens);
                 outgoingEdges.ElementAt(0).SendOffer(tokens);
             }
@@ -214,7 +216,7 @@ namespace fuml.semantics.actions
             // (This is normally all the output pins of the action, but it can be
             // overridden in subclasses to only return a subset of the output pins.)
 
-            return ((syntax.actions.Action)node!).output;
+            return ((uml.actions.Action)node!).output;
         }
 
         public override void CreateNodeActivations()
@@ -224,7 +226,7 @@ namespace fuml.semantics.actions
             // [Note: Pins are owned by their actions, not by the enclosing activity
             // (or group), so they must be activated through the action activation.]
 
-            syntax.actions.Action action = (syntax.actions.Action)node!;
+            uml.actions.Action action = (uml.actions.Action)node!;
 
             List<ActivityNode> inputPinNodes = new();
             List<InputPin> inputPins = action.input;
@@ -325,8 +327,10 @@ namespace fuml.semantics.actions
 
             Debug.Println("[putToken] node = " + node?.name);
 
-            ObjectToken token = new();
-            token.value = value;
+            ObjectToken token = new()
+            {
+                value = value
+            };
 
             PinActivation pinActivation = GetPinActivation(pin);
             pinActivation.AddToken(token);
@@ -563,8 +567,10 @@ namespace fuml.semantics.actions
             // [This ensures that bool values created internally are the same as
             // the default used for evaluating bool literals.]
 
-            LiteralBoolean booleanLiteral = new();
-            booleanLiteral.value = value;
+            LiteralBoolean booleanLiteral = new()
+            {
+                value = value
+            };
             return (BooleanValue)GetExecutionLocus()?.executor?.Evaluate(booleanLiteral)!;
         } // makeboolValue
 
@@ -575,10 +581,10 @@ namespace fuml.semantics.actions
             // to the output pins of this action activation.
 
             base.Handle(exception, handler);
-            TransferOutputs((syntax.actions.Action)handler?.handlerBody!);
+            TransferOutputs((uml.actions.Action)handler?.handlerBody!);
         }
 
-        public void TransferOutputs(syntax.actions.Action handlerBody)
+        public void TransferOutputs(uml.actions.Action handlerBody)
         {
             // Transfer the output values from activation of the given exception
             // handler body to the output pins of this action activation.
@@ -586,7 +592,7 @@ namespace fuml.semantics.actions
             ActionActivation handlerBodyActivation =
                     (ActionActivation)group?.GetNodeActivation(handlerBody)!;
             List<OutputPin> sourceOutputs = handlerBody.output;
-            List<OutputPin> targetOutputs = ((syntax.actions.Action)node!)?.output!;
+            List<OutputPin> targetOutputs = ((uml.actions.Action)node!)?.output!;
 
             for (int i = 0; i < sourceOutputs.Count; i++)
             {

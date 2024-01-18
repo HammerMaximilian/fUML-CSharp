@@ -1,10 +1,10 @@
 ﻿using fuml.semantics.actions;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
+using uml.actions;
+using uml.activities;
 
 namespace fuml.semantics.activities
 {
-    public class ActivityNodeActivationGroup : FumlObject
+    public class ActivityNodeActivationGroup
     {
         public List<ActivityEdgeInstance> edgeInstances = new();
         public List<ActivityNodeActivation> nodeActivations = new();
@@ -43,7 +43,7 @@ namespace fuml.semantics.activities
                     // input pins
                     if (isEnabled & activation is ActionActivation)
                     {
-                        List<InputPin> inputPins = ((syntax.actions.Action)activation?.node!).input;
+                        List<InputPin> inputPins = ((uml.actions.Action)activation?.node!).input;
                         int j = 1;
                         while (j <= inputPins.Count & isEnabled)
                         {
@@ -238,9 +238,11 @@ namespace fuml.semantics.activities
                 Debug.Println("[createEdgeInstances] Creating an edge instance from "
                         + edge?.source?.name + " to " + edge?.target?.name + ".");
 
-                ActivityEdgeInstance edgeInstance = new();
-                edgeInstance.edge = edge;
-                edgeInstance.group = this;
+                ActivityEdgeInstance edgeInstance = new()
+                {
+                    edge = edge,
+                    group = this
+                };
 
                 edgeInstances.Add(edgeInstance);
                 GetNodeActivation(edge?.source!).AddOutgoingEdge(edgeInstance);
@@ -260,10 +262,7 @@ namespace fuml.semantics.activities
             // or indirectly.
 
             ActivityExecution activityExecution = this.activityExecution!;
-            if (activityExecution is null)
-            {
-                activityExecution = containingNodeActivation?.group?.GetActivityExecution()!;
-            }
+            activityExecution ??= containingNodeActivation?.group?.GetActivityExecution()!;
 
             return activityExecution;
         } // getActivityExecution
@@ -326,10 +325,7 @@ namespace fuml.semantics.activities
         if (!IsSuspended())
         {
             StructuredActivityNodeActivation? containingNodeActivation = this.containingNodeActivation;
-            if (containingNodeActivation is not null)
-            {
-                containingNodeActivation.Suspend();
-            }
+            containingNodeActivation?.Suspend();
         }
         suspendedActivations.Add(activation);
     } // suspend
@@ -359,10 +355,7 @@ namespace fuml.semantics.activities
         if (!IsSuspended())
         {
             StructuredActivityNodeActivation? containingNodeActivation = this.containingNodeActivation;
-            if (containingNodeActivation is not null)
-            {
-                containingNodeActivation.Resume();
-            }
+            containingNodeActivation?.Resume();
         }
     } // resume
 } // ActivityNodeActivationGroup

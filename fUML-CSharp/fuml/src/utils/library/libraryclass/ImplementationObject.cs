@@ -1,6 +1,6 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.structuredclassifiers;
-using fuml.syntax.classification;
+using uml.classification;
 
 namespace fuml.library.libraryclass
 {

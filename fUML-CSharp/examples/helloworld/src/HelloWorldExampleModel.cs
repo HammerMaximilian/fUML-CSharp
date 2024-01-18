@@ -1,12 +1,12 @@
 ﻿using fuml.library;
 using fuml.primitivetypes;
-using fuml.syntax.actions;
-using fuml.syntax.activities;
-using fuml.syntax.values;
+using uml.actions;
+using uml.activities;
+using uml.values;
 
 namespace examples.HelloWorldExample
 {
-    public class HelloWorldExampleModel : fuml.environment.InMemoryModel
+    public class HelloWorldExampleModel : uml.environment.InMemoryModel
     {
         private static HelloWorldExampleModel? instance;
 

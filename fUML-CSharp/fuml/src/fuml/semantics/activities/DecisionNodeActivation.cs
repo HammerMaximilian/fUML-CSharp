@@ -1,9 +1,9 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.values;
-using fuml.syntax.activities;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.values;
+using uml.activities;
+using uml.classification;
+using uml.commonbehavior;
+using uml.values;
 
 namespace fuml.semantics.activities
 {

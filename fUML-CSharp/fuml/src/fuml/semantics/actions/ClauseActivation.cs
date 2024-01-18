@@ -1,10 +1,10 @@
 ﻿using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.actions;
+using uml.actions;
 
 namespace fuml.semantics.actions
 {
-    public class ClauseActivation : FumlObject
+    public class ClauseActivation
     {
         public ConditionalNodeActivation? conditionalNodeActivation = null;
         public Clause? clause = null;

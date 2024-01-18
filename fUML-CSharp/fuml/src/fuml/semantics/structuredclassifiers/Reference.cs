@@ -1,17 +1,16 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.simpleclassifiers;
 using fuml.semantics.values;
-using fuml.syntax.classification;
-using fuml.syntax.structuredclassifiers;
-using System;
+using uml.classification;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.structuredclassifiers
 {
-    public class Reference : StructuredValue
+    public partial class Reference : StructuredValue
     {
         public Object_? referent = null;
 
-        public void StartBehavior(
+        public virtual void StartBehavior(
                 Class_ classifier,
                 List<ParameterValue> inputs)
         {
@@ -21,7 +20,7 @@ namespace fuml.semantics.structuredclassifiers
             referent?.StartBehavior(classifier, inputs);
         } // startBehavior
 
-        public Execution Dispatch(
+        public virtual Execution Dispatch(
                 Operation operation)
         {
             // Dispatch the given operation to the referent object.
@@ -29,7 +28,7 @@ namespace fuml.semantics.structuredclassifiers
             return (referent is not null) ? referent.Dispatch(operation) : null!;
         } // dispatch
 
-        public void Send(
+        public virtual void Send(
                 EventOccurrence eventOccurrence)
         {
             // Send the given event occurrence to the referent object.

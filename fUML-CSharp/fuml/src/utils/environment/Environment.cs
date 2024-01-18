@@ -8,15 +8,16 @@ using fuml.library.unlimitednaturalfunctions;
 using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
 using fuml.semantics.structuredclassifiers;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.simpleclassifiers;
-using fuml.syntax.structuredclassifiers;
+using uml.commonbehavior;
+using uml.environment;
+using uml.simpleclassifiers;
+using uml.structuredclassifiers;
 
 namespace fuml.environment
 {
     public abstract class Environment
     {
-        protected Locus locus;
+        protected Locus? locus;
         protected Object_? context = null;
         protected List<ParameterValue> inputs = new();
         protected List<ParameterValue> outputs = new();
@@ -24,7 +25,7 @@ namespace fuml.environment
 
         public virtual void Execute(string behaviorName)
         {
-            FumlObject? object_ = (inMemoryModel?.FindElementByName(behaviorName)) ?? throw new ArgumentNullException("[ERROR] Element with specified name does not exist: " + behaviorName);
+            object? object_ = (inMemoryModel?.FindElementByName(behaviorName)) ?? throw new ArgumentNullException("[ERROR] Element with specified name does not exist: " + behaviorName);
             Behavior behavior = (object_ as Behavior)! ?? throw new ArgumentNullException("[ERROR] Specified behavior name does not name a behavior: " + behaviorName);
             Class_ contextType = (behavior.context as Class_)!;
             if(contextType is not null)
@@ -37,23 +38,7 @@ namespace fuml.environment
 
         protected Environment()
         {
-            locus = new();
-            locus.SetExecutor(new());
-            locus.SetFactory(new());
-
-            locus.factory?.SetStrategy(new FirstChoiceStrategy());
-            locus.factory?.SetStrategy(new RedefinitionBasedDispatchStrategy());
-            locus.factory?.SetStrategy(new FIFOGetNextEventStrategy());
-
-            AddBooleanFunctionsPrototypes();
-            AddIntegerFunctionsPrototypes();
-            AddListFunctionsPrototypes();
-            AddRealFunctionsPrototypes();
-            AddStringFunctionsPrototypes();
-            AddUnlimitedNaturalFunctionsPrototypes();
-
-            Add(new StandardInputChannelObject());
-            Add(new StandardOutputChannelObject());
+            InitializeEnvironment();
         }
 
         protected void Add(ExtensionalValue extensionalValue)
@@ -76,6 +61,36 @@ namespace fuml.environment
         protected void AddPrimitiveBehaviorPrototype(OpaqueBehaviorExecution prototype)
         {
             locus?.factory?.AddPrimitiveBehaviorPrototype(prototype);
+        }
+
+        protected virtual void InitializeLoci()
+        {
+            locus = new();
+            locus.SetExecutor(new());
+            locus.SetFactory(new());
+        }
+
+        protected virtual void InitializeLociContents()
+        {
+            if(locus is null)
+            {
+                Debug.Println("[error] Locus is not set for execution environment");
+                throw new NullReferenceException();
+            }
+
+            locus.factory?.SetStrategy(new FirstChoiceStrategy());
+            locus.factory?.SetStrategy(new RedefinitionBasedDispatchStrategy());
+            locus.factory?.SetStrategy(new FIFOGetNextEventStrategy());
+
+            AddBooleanFunctionsPrototypes();
+            AddIntegerFunctionsPrototypes();
+            AddListFunctionsPrototypes();
+            AddRealFunctionsPrototypes();
+            AddStringFunctionsPrototypes();
+            AddUnlimitedNaturalFunctionsPrototypes();
+
+            Add(new StandardInputChannelObject());
+            Add(new StandardOutputChannelObject());
         }
 
         private void AddBooleanFunctionsPrototypes()
@@ -157,6 +172,12 @@ namespace fuml.environment
             AddPrimitiveBehaviorPrototype(new UnlimitedNaturalToIntegerFunctionBehaviorExecution());
             AddPrimitiveBehaviorPrototype(new UnlimitedNaturalToStringFunctionBehaviorExecution());
             AddPrimitiveBehaviorPrototype(new UnlimitedNaturalToUnlimitedNaturalFunctionBehaviorExecution());
+        }
+
+        private void InitializeEnvironment()
+        {
+            InitializeLoci();
+            InitializeLociContents();
         }
     } // Environment
 }

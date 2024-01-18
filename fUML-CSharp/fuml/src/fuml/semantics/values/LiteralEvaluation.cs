@@ -1,4 +1,4 @@
-﻿using fuml.syntax.simpleclassifiers;
+﻿using uml.simpleclassifiers;
 
 namespace fuml.semantics.values
 {

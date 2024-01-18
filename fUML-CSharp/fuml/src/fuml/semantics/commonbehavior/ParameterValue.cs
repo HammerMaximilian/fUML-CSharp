@@ -1,23 +1,24 @@
 ﻿using fuml.semantics.values;
-using fuml.syntax.classification;
+using uml.classification;
 
 namespace fuml.semantics.commonbehavior
 {
-    public class ParameterValue : FumlObject
+    public class ParameterValue
     {
 		public Parameter? parameter = null;
 		public List<Value> values = new();
 
 		public ParameterValue Copy()
 		{
-			// Create a new parameter value for the same parameter as this parameter
-			// value, but with copies of the values of this parameter value.
+            // Create a new parameter value for the same parameter as this parameter
+            // value, but with copies of the values of this parameter value.
 
-			ParameterValue newValue = new();
+            ParameterValue newValue = new()
+            {
+                parameter = parameter
+            };
 
-			newValue.parameter = parameter;
-
-			List<Value> values = this.values;
+            List<Value> values = this.values;
 			foreach (Value value in values)
 			{
 				newValue.values.Add(value.Copy());

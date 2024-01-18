@@ -1,11 +1,11 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
+using uml.classification;
+using uml.commonbehavior;
 
 namespace fuml.semantics.structuredclassifiers
 {
-    public abstract class DispatchStrategy : SemanticStrategy
+    public abstract partial class DispatchStrategy : SemanticStrategy
     {
 		public override string GetName()
 		{
@@ -22,7 +22,7 @@ namespace fuml.semantics.structuredclassifiers
 			// of the given object_, compile the behavior at the locus of the object_,
 			// and return the resulting execution object_.
 
-			return object_?.locus?.factory?.CreateExecution(GetMethod(object_, operation), object_)!;
+			return object_?.locus?.factory?.CreateExecution(GetMethod(object_, operation, false), object_)!;
 		} // dispatch
 
 		public virtual Behavior GetMethod(

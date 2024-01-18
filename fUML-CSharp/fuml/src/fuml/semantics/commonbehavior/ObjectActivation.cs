@@ -1,11 +1,11 @@
 ﻿using fuml.semantics.loci;
 using fuml.semantics.structuredclassifiers;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.structuredclassifiers;
+using uml.commonbehavior;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.commonbehavior
 {
-    public class ObjectActivation : FumlObject
+    public class ObjectActivation
     {
         public List<ClassifierBehaviorInvocationEventAccepter> classifierBehaviorInvocations = new();
         public List<EventAccepter> waitingEventAccepters = new();
@@ -170,12 +170,16 @@ namespace fuml.semantics.commonbehavior
 
                 if (notYetStarted)
                 {
-                    ClassifierBehaviorInvocationEventAccepter newInvocation = new();
-                    newInvocation.objectActivation = this;
+                    ClassifierBehaviorInvocationEventAccepter newInvocation = new()
+                    {
+                        objectActivation = this
+                    };
                     classifierBehaviorInvocations.Add(newInvocation);
                     newInvocation.InvokeBehavior(classifier!, inputs);
-                    InvocationEventOccurrence eventOccurrence = new();
-                    eventOccurrence.execution = newInvocation.execution;
+                    InvocationEventOccurrence eventOccurrence = new()
+                    {
+                        execution = newInvocation.execution
+                    };
                     eventPool.Add(eventOccurrence);
                     _send(new ArrivalSignal());
                 }

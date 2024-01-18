@@ -1,11 +1,11 @@
 ﻿using fuml.semantics.structuredclassifiers;
-using fuml.syntax.classification;
-using fuml.syntax.commonbehavior;
-using fuml.syntax.structuredclassifiers;
+using uml.classification;
+using uml.commonbehavior;
+using uml.structuredclassifiers;
 
 namespace fuml.semantics.loci
 {
-    public class Locus : FumlObject
+    public class Locus
     {
         public string identifier;
         public Executor? executor = null;
@@ -104,7 +104,7 @@ namespace fuml.semantics.loci
             }
         } // remove
 
-        public Object_ Instantiate(
+        public virtual Object_ Instantiate(
                 Class_ type)
         {
             // Instantiate the given class at this locus.

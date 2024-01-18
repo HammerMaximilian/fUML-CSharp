@@ -2,7 +2,7 @@
 
 namespace fuml.semantics.activities
 {
-    public abstract class Token : FumlObject
+    public abstract class Token
     {
         public ActivityNodeActivation? holder = null;
 

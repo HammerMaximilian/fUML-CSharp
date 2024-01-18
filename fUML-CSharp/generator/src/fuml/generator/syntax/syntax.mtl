@@ -4,7 +4,7 @@
 [template public generateMetaclassUsingDirective(anElement : Element)]
 [let metaclassName : String = anElement.eClass().name]
 [if (supportedUMLMetaclasses()->includes(metaclassName))]
-using fuml.syntax.[if(supportedActionsMetaclasses()->includes(metaclassName))]actions[elseif(supportedActivitiesMetaclasses()->includes(metaclassName))]activities[elseif(supportedClassificationMetaclasses()->includes(metaclassName))]classification[elseif(supportedCommonBehaviorMetaclasses()->includes(metaclassName))]commonbehavior[elseif(supportedCommonStructureMetaclasses()->includes(metaclassName))]commonstructure[elseif(supportedPackagesMetaclasses()->includes(metaclassName))]packages[elseif(supportedSimpleClassifiersMetaclasses()->includes(metaclassName))]simpleclassifiers[elseif(supportedStructuredClassifiersMetaclasses()->includes(metaclassName))]structuredclassifiers[elseif(supportedValuesMetaclasses()->includes(metaclassName))]values[/if];
+using uml.[if(supportedActionsMetaclasses()->includes(metaclassName))]actions[elseif(supportedActivitiesMetaclasses()->includes(metaclassName))]activities[elseif(supportedClassificationMetaclasses()->includes(metaclassName))]classification[elseif(supportedCommonBehaviorMetaclasses()->includes(metaclassName))]commonbehavior[elseif(supportedCommonStructureMetaclasses()->includes(metaclassName))]commonstructure[elseif(supportedPackagesMetaclasses()->includes(metaclassName))]packages[elseif(supportedSimpleClassifiersMetaclasses()->includes(metaclassName))]simpleclassifiers[elseif(supportedStructuredClassifiersMetaclasses()->includes(metaclassName))]structuredclassifiers[elseif(supportedValuesMetaclasses()->includes(metaclassName))]values[/if];
 [else]
 //Cannot add using directive for unsupported metaclass [metaclassName/]
 [/if]
@@ -116,7 +116,8 @@ using fuml.syntax.[if(supportedActionsMetaclasses()->includes(metaclassName))]ac
 	{
 		'Comment',
 		'ElementImport',
-		'PackageImport'
+		'PackageImport',
+		'Usage'
 	}
  /]
 
@@ -131,6 +132,8 @@ using fuml.syntax.[if(supportedActionsMetaclasses()->includes(metaclassName))]ac
 		'DataType',
 		'Enumeration',
 		'EnumerationLiteral',
+		'Interface',
+		'InterfaceRealization',
 		'PrimitiveType',
 		'Reception',
 		'Signal'
@@ -140,7 +143,10 @@ using fuml.syntax.[if(supportedActionsMetaclasses()->includes(metaclassName))]ac
 [query private supportedStructuredClassifiersMetaclasses(Any : OclAny) : Set(String) = Set(String)
 	{
 		'Association',
-		'Class'
+		'Class',
+		'Connector',
+		'ConnectorEnd',
+		'Port'
 	}
  /]
 
@@ -153,6 +159,7 @@ using fuml.syntax.[if(supportedActionsMetaclasses()->includes(metaclassName))]ac
 		'LiteralSpecification',
 		'LiteralString',
 		'LiteralUnlimitedNatural',
+		'OpaqueExpression',
 		'ValueSpecification'
 	}
  /]

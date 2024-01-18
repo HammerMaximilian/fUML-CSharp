@@ -1,5 +1,5 @@
 ﻿using fuml.semantics.values;
-using fuml.syntax.values;
+using uml.values;
 using System;
 
 namespace fuml.semantics.simpleclassifiers
