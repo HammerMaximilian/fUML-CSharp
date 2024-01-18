@@ -9,8 +9,16 @@ The fUML implementation of this software is based on the Java fUML reference imp
 ## Licensing
 For licensing information, please see the [LICENSE.md](https://github.com/HammerMaximilian/fUML-CSharp/blob/master/LICENSE) file.
 
+## Prerequisites
+### 1. Required Software
+### 2. Recommended but optional Software
+
+## Setup
+### 1. Setting up Eclipse
+### 2. Environment Variables
+
 ## Building
-TBD
 
 ## Usage
-TBD
+### 1. Creating executable models using source code
+### 2. Generating executable models from *.uml* models (*Acceleo* plugin for Eclipse has to be installed)
