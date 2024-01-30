@@ -527,7 +527,7 @@ namespace pscs.semantics.structuredclassifiers
                     Value value = values.ElementAt(j);
                     if (value is CS_Object cS_Object_)
                     {
-                        objectIsContained = cS_Object_.Contains(cS_Object_);
+                        objectIsContained = cS_Object_.Contains(object_);
                     }
                     else if (value is CS_Reference reference)
                     {
