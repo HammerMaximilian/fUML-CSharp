@@ -10,7 +10,7 @@ The fUML implementation of this software is based on the Java fUML reference imp
 For licensing information, please see the [LICENSE.md](https://github.com/HammerMaximilian/fUML-CSharp/blob/master/LICENSE) file.
 
 ## Prerequisites
-For detailed information, please see the [User Guide](fUML-C#_User_Guide.pdf) section *1. Prerequisites*.
+For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf) section *1. Prerequisites*.
 ### 1. Required Software
 * *.NET Framework* (at least version 6.0)
 * *Microsoft Visual Studio*[^1]
@@ -22,17 +22,17 @@ For detailed information, please see the [User Guide](fUML-C#_User_Guide.pdf) se
 * *Acceleo* to be able to use the code generator for executable models
 
 ## Setup
-For detailed information, please see the [User Guide](fUML-C#_User_Guide.pdf) section *2. Setup*.
+For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf) section *2. Setup*.
 ### 1. Setting up Visual Studio
 * Import fUML-C# root solution *fUML-CSharp.sln* in Visual Studio
 
 ## Building
-For detailed information, please see the [User Guide](fUML-C#_User_Guide.pdf) section *3. Build*.
+For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf) section *3. Build*.
 * Build dynamic libraries for *uml*, *fuml* *pscs* (**in that order**) Visual Studio or simply build the whole solution
 * Depending on your preferences and needs, build debug, release or both
 
 ## Usage
-For detailed information, please see the [User Guide](fUML-C#_User_Guide.pdf) section *4. Usage*.
+For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf) section *4. Usage*.
 ### 1. Creating executable models using source code
 * Create new C# project (see `"<fUML-C#-rootdir>\fUML-CSharp\examples\helloworld"` as a reference project)
   * NOTE: it is suggested to store user-defined source code projects in common directory `"<fUML-C#-rootdir>\fUML-CSharp\usersrc"`
