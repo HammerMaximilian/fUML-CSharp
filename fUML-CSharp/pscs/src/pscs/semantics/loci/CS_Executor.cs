@@ -25,7 +25,7 @@ namespace pscs.semantics.loci
             Reference reference;
             if (object_ is CS_Object cS_Object)
             {
-                reference = new();
+                reference = new CS_Reference();
                 ((CS_Reference)reference).compositeReferent = cS_Object;
             }
             else
