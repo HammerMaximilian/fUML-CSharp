@@ -1076,7 +1076,7 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [/template]
 
 [template private generateCallActionInitialization(aCallAction : CallAction) post(trim())]
-[aCallAction.generateInvocationActionActivation()/]
+[aCallAction.generateInvocationActionInitialization()/]
 [comment Property 'CallAction::isSynchronous' /]
 [if (not (aCallAction.isSynchronous))]
 [aCallAction.getFullNameSanitized()/].isSynchronous = false;
@@ -1198,7 +1198,7 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 	[/if]
 [/template]
 
-[template private generateInvocationActionActivation(anInvocationAction : InvocationAction)]
+[template private generateInvocationActionInitialization(anInvocationAction : InvocationAction)]
 [anInvocationAction.generateActionInitialization()/]
 [comment Property 'anInvocationAction::onPort'/]
 [if (not anInvocationAction.onPort.oclIsUndefined())]
