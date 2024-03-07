@@ -49,9 +49,9 @@ namespace fuml.extensions.structuredclassifiers
                 Parameter redefiningParameter = ownedOperationParameters.ElementAt(i);
                 Parameter redefinedParameter = baseOperationParameters.ElementAt(i);
 
-                isConsistentWith = isConsistentWith && (redefinedParameter.multiplicityElement.isUnique == redefiningParameter.multiplicityElement.isUnique);
-                isConsistentWith = isConsistentWith && (redefinedParameter.multiplicityElement.isOrdered == redefiningParameter.multiplicityElement.isOrdered);
-                isConsistentWith = isConsistentWith && (redefinedParameter.direction == redefiningParameter.direction);
+                isConsistentWith = isConsistentWith && (redefiningParameter.multiplicityElement.isUnique == redefinedParameter.multiplicityElement.isUnique);
+                isConsistentWith = isConsistentWith && (redefiningParameter.multiplicityElement.isOrdered == redefinedParameter.multiplicityElement.isOrdered);
+                isConsistentWith = isConsistentWith && (redefiningParameter.direction == redefinedParameter.direction);
 
                 Classifier redefiningParameterType = (Classifier)redefiningParameter.type!;
                 Classifier redefinedParameterType = (Classifier)redefinedParameter.type!;
@@ -67,11 +67,11 @@ namespace fuml.extensions.structuredclassifiers
                 }
                 else if (redefinedParameter.direction == ParameterDirectionKind.in_)
                 {
-                    isConsistentWith = isConsistentWith && CompatibleWith(redefiningParameter.multiplicityElement, redefinedParameter.multiplicityElement);
+                    isConsistentWith = isConsistentWith && CompatibleWith(redefinedParameter.multiplicityElement, redefiningParameter.multiplicityElement);
                 }
                 else // i.e. if((redefinedParameter.direction == ParameterDirectionKind.out_) || (redefinedParameter.direction == ParameterDirectionKind.return_))
                 {
-                    isConsistentWith = isConsistentWith && CompatibleWith(redefinedParameter.multiplicityElement, redefiningParameter.multiplicityElement);
+                    isConsistentWith = isConsistentWith && CompatibleWith(redefiningParameter.multiplicityElement, redefinedParameter.multiplicityElement);
                 }
             }
 
