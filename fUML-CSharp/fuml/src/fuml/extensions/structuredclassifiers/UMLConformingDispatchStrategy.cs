@@ -1,9 +1,10 @@
-﻿using uml.classification;
+﻿using fuml.semantics.structuredclassifiers;
+using uml.classification;
 using uml.commonstructure;
 
 namespace fuml.extensions.structuredclassifiers
 {
-    public class UMLConformingDispatchStrategy : SignatureBasedDispatchStrategy
+    public class UMLConformingDispatchStrategy : RedefinitionBasedDispatchStrategy
     {
         public override bool OperationsMatch(
         Operation ownedOperation,
@@ -11,17 +12,15 @@ namespace fuml.extensions.structuredclassifiers
         {
             // Check if the owned operation is equal to or overrides the base operation.
             // In this context, an owned operation overrides a base operation if:
+            //  - base operation is directly or indirectly redefined by owned operation
+            //  - the class that owns base operation is equal to or a base class of the class that owns owned operation
             //  - they have the same number of owned parameters and for each parameter the following holds:
             //      - direction, ordering and uniqueness are the same
             //      - the corresponding types are covariant, contravariant or invariant
             //      - the multiplicities are compatible depending on the parameter direction
 
-            bool matches;
-            if (ownedOperation == baseOperation)
-            {
-                matches = true;
-            }
-            else
+            bool matches = base.OperationsMatch(ownedOperation, baseOperation);
+            if (matches)
             {
                 matches = IsConsistentWith(ownedOperation, baseOperation);
             }
@@ -35,14 +34,12 @@ namespace fuml.extensions.structuredclassifiers
         {
             bool isConsistentWith;
 
-            // NOTE: UML specification implies first checking if the context of baseOperation is valid
-            // (i.e. is a direct or indirect base class of the owner of ownedOperation).
-            // Here this is already implicitely done by only traversing base classes of ownedOperation's owner
+            isConsistentWith = ConformsTo(ownedOperation.class_!, baseOperation.class_!);
 
             List<Parameter> ownedOperationParameters = ownedOperation.ownedParameter;
             List<Parameter> baseOperationParameters = baseOperation.ownedParameter;
 
-            isConsistentWith = baseOperationParameters.Count == ownedOperationParameters.Count;
+            isConsistentWith = isConsistentWith && (baseOperationParameters.Count == ownedOperationParameters.Count);
 
             for (int i = 0; isConsistentWith == true && i < ownedOperationParameters.Count; i++)
             {
@@ -57,9 +54,9 @@ namespace fuml.extensions.structuredclassifiers
                 Classifier redefinedParameterType = (Classifier)redefinedParameter.type!;
                 isConsistentWith = isConsistentWith && (ConformsTo(redefiningParameterType, redefinedParameterType) || ConformsTo(redefinedParameterType, redefiningParameterType));
 
-                if(redefinedParameter.direction == ParameterDirectionKind.inout)
+                if (redefinedParameter.direction == ParameterDirectionKind.inout)
                 {
-                    isConsistentWith = isConsistentWith && 
+                    isConsistentWith = isConsistentWith &&
                                         (
                                             CompatibleWith(redefiningParameter.multiplicityElement, redefinedParameter.multiplicityElement) &&
                                             CompatibleWith(redefinedParameter.multiplicityElement, redefiningParameter.multiplicityElement)
@@ -80,15 +77,20 @@ namespace fuml.extensions.structuredclassifiers
 
         public bool ConformsTo(Classifier type, Classifier otherType)
         {
-            bool conformsTo;
+            bool conformsTo = false;
 
-            if(type == otherType)
+            if (type == otherType)
             {
                 conformsTo = true;
             }
             else
             {
-                conformsTo = IsSpecializationOf(type, otherType);
+                int i = 1;
+                while (conformsTo is false && i <= type.general.Count)
+                {
+                    Classifier general = type.general.ElementAt(i);
+                    conformsTo = ConformsTo(general, otherType);
+                }
             }
 
             return conformsTo;
