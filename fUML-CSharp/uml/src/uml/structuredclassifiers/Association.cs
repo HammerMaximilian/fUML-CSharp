@@ -25,7 +25,7 @@ namespace uml.structuredclassifiers
             this.ownedEnd.Add(ownedEnd);
             ownedEnd._setOwningAssociation(this);
 
-            _addMemberEnd(ownedEnd);
+            AddMemberEnd(ownedEnd);
         } // addOwnedEnd
 
         public void AddNavigableOwnedEnd(
