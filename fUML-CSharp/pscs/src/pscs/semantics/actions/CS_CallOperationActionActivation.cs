@@ -13,7 +13,7 @@ using uml.structuredclassifiers;
 
 namespace pscs.semantics.actions
 {
-    public class CS_CallOperationActionActivation : CallOperationActionActivation
+    public partial class CS_CallOperationActionActivation : CallOperationActionActivation
     {
         public override void DoAction()
         {
