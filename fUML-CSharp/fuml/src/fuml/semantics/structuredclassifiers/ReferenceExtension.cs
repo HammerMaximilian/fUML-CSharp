@@ -11,9 +11,18 @@ namespace fuml.semantics.structuredclassifiers
                 bool isExplicitBaseClassCall = false)
         {
             // Extends Reference.Dispatch(Operation) by flag "isExplicitBaseClassCall"
-            // Propagate "isExplicitBaseClassCall" to Object_.GetMethod
+            // If "isExplicitBaseClassCall" is true, delegate to Object_.Dispatch(Operation, bool).
+            // Else, call standard method Dispatch(Operation) to maintain possible method overriding.
 
-            return (referent is not null) ? referent.Dispatch(operation, isExplicitBaseClassCall) : null!;
+            if(isExplicitBaseClassCall)
+            {
+                return (referent is not null) ? referent.Dispatch(operation, isExplicitBaseClassCall) : null!;
+            }
+            else
+            {
+                return Dispatch(operation);
+            }
+            
         } // Dispatch
     } // Reference
 }
