@@ -14,8 +14,8 @@
 
 [for (usingStatement : String | 
 	anOpaqueBehavior.getOpaqueBehaviorExecutionUsingsFromModel()
+	->including('using fuml;')
 	->including('using fuml.semantics.commonbehavior;')
-	->including('using fuml.semantics.loci;')
 	->including('using fuml.semantics.values;')
 	->asOrderedSet())]
 [usingStatement/]
@@ -55,9 +55,9 @@ namespace [anOpaqueBehavior.getRootPackage().getNameSanitized()/]
 			[/if]
 		}
 
-		public override Value New_()
+		protected override Value New_()
 		{
-			return new [anOpaqueBehavior.getNameSanitized() + 'Execution'/]()
+			return new [anOpaqueBehavior.getNameSanitized() + 'Execution'/]();
 		}	
 
 		/* [protected (': User-defined members')]
