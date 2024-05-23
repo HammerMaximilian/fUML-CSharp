@@ -147,7 +147,7 @@ namespace fuml.semantics.actions
 
             List<InputPin> inputPins = ((uml.actions.Action)node!).input;
             int j = 1;
-            while (ready & j <= inputPins.Count)
+            while (ready && j <= inputPins.Count)
             {
                 ready = GetPinActivation(inputPins.ElementAt(j - 1)).IsReady();
                 j++;
