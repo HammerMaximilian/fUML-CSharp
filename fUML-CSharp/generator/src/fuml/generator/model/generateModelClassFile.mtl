@@ -461,6 +461,11 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 	[aSendSignalAction.target.generatePinInitialization()/]
 [aSendSignalAction.getFullNameSanitized()/].SetTarget([aSendSignalAction.target.getFullNameSanitized()/]);
 	[/if]
+[comment Property 'InvocationAction::argument' handled here /]
+[for (anInputPin : InputPin | aSendSignalAction.argument)]
+	[anInputPin.generatePinInitialization()/]
+[aSendSignalAction.getFullNameSanitized()/].AddArgument([anInputPin.getFullNameSanitized()/]);
+[/for]
 [/let]
 [/template]
 
