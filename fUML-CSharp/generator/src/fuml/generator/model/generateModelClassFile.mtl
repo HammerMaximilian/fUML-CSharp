@@ -276,6 +276,33 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [/let]
 [/template]
 
+[template private generateElementInitialization(anElement : Element) ?(anElement.oclIsKindOf(ExpansionNode)) post(trim())]
+[let anExpansionNode : ExpansionNode = anElement.oclAsType(ExpansionNode)]
+// [anExpansionNode.eClass().name + ' ' + anExpansionNode.getName()/]
+[anExpansionNode.generateActivityNodeInitialization()/]
+[anExpansionNode.generateTypedElementInitialization()/]
+[/let]
+[/template]
+
+[template private generateElementInitialization(anElement : Element) ? (anElement.oclIsKindOf(ExpansionRegion)) post(trim())]
+[let anExpansionRegion : ExpansionRegion = anElement.oclAsType(ExpansionRegion)]
+// [anExpansionRegion.eClass().name + ' ' + anExpansionRegion.getName()/]
+[anExpansionRegion.generateStructuredActivityNodeInitialization()/]
+[comment Property 'ExpansionRegion::mode' /]
+	[if (anExpansionRegion.mode <> ExpansionKind::iterative)]
+[anExpansionRegion.getFullNameSanitized()/].SetMode(ExpansionKind.[anExpansionRegion.mode/]);
+	[/if]
+[comment Property 'ExpansionRegion::inputElement' /]
+[for (anExpansionNode : ExpansionNode | anExpansionRegion.inputElement)]
+[anExpansionRegion.getFullNameSanitized()/].AddInputElement([anExpansionNode.getFullNameSanitized()/]);
+[/for]
+[comment Property 'ExpansionRegion::outputElement' /]
+[for (anExpansionNode : ExpansionNode | anExpansionRegion.outputElement)]
+[anExpansionRegion.getFullNameSanitized()/].AddOutputElement([anExpansionNode.getFullNameSanitized()/]);
+[/for]
+[/let]
+[/template]
+
 [template private generateElementInitialization(anElement : Element) ? (anElement.oclIsKindOf(RaiseExceptionAction)) post(trim())]
 [let aRaiseExceptionAction : RaiseExceptionAction = anElement.oclAsType(RaiseExceptionAction)]
 // [aRaiseExceptionAction.eClass().name + ' ' + aRaiseExceptionAction.getName()/]
@@ -572,8 +599,8 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [if (anActivity.isReadOnly)]
 [anActivity.getFullNameSanitized()/].SetIsReadOnly(true);
 [/if]
-[comment Property 'Activity::node' /]
-[for (anActivityNode : ActivityNode | anActivity.node)]
+[comment Property 'Activity::node' NOTE: 'Activity::structuredNode' is handled seperately (see below) /]
+[for (anActivityNode : ActivityNode | anActivity.node->removeAll(anActivity.structuredNode))]
 	[anActivityNode.generateElementInitialization()/]
 [anActivity.getFullNameSanitized()/].AddNode([anActivityNode.getFullNameSanitized()/]);
 [/for]
@@ -586,11 +613,12 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [for (aStructuredActivityNode : StructuredActivityNode | anActivity.structuredNode)]
 	[aStructuredActivityNode.generateElementInitialization()/]
 [anActivity.getFullNameSanitized()/].AddStructuredNode([aStructuredActivityNode.getFullNameSanitized()/]);
+[anActivity.getFullNameSanitized()/].AddGroup([aStructuredActivityNode.getFullNameSanitized()/]);
 [/for]
-[comment Property 'Activity::group' /]
-[for (anActivityGroup : ActivityGroup | anActivity.group)]
+[comment Property 'Activity::group' NOTE: excludes 'Activity::structuredNode' to avoid duplicates /]
+[for (anActivityGroup : ActivityGroup | anActivity.group->removeAll(anActivity.structuredNode))]
 	[anActivityGroup.generateElementInitialization()/]
-[anActivity.getFullNameSanitized()/].AddStructuredNode([anActivityGroup.getFullNameSanitized()/]);
+[anActivity.getFullNameSanitized()/].AddGroup([anActivityGroup.getFullNameSanitized()/]);
 [/for]
 [/let]
 [/template]
@@ -651,14 +679,6 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [/let]
 [/template]
 
-[template private generateElementInitialization(anElement : Element) ? (anElement.oclIsKindOf(ExpansionNode)) post(trim())]
-[let anExpansionNode : ExpansionNode = anElement.oclAsType(ExpansionNode)]
-// [anExpansionNode.eClass().name + ' ' + anExpansionNode.getName()/]
-[anExpansionNode.generateActivityNodeInitialization()/]
-[anExpansionNode.generateTypedElementInitialization()/]
-[/let]
-[/template]
-
 [template private generateElementInitialization(anElement : Element) ? (anElement.oclIsKindOf(FinalNode)) post(trim())]
 [let aFinalNode : FinalNode = anElement.oclAsType(FinalNode)]
 // [aFinalNode.eClass().name + ' ' + aFinalNode.getName()/]
@@ -691,6 +711,13 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [let aMergeNode : MergeNode = anElement.oclAsType(MergeNode)]
 // [aMergeNode.eClass().name + ' ' + aMergeNode.getName()/]
 [aMergeNode.generateActivityNodeInitialization()/]
+[/let]
+[/template]
+
+[template private generateElementInitialization(anElement : Element) ? (anElement.oclIsKindOf(StructuredActivityNode)) post(trim())]
+[let aStructuredActivityNode : StructuredActivityNode = anElement.oclAsType(StructuredActivityNode)]
+// [aStructuredActivityNode.eClass().name + ' ' + aStructuredActivityNode.getName()/]
+[aStructuredActivityNode.generateStructuredActivityNodeInitialization()/]
 [/let]
 [/template]
 
@@ -1363,6 +1390,30 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [aStructuralFeature.generateFeatureInitialization()/]
 [aStructuralFeature.generateMultiplicityElementInitialization()/]
 [aStructuralFeature.generateTypedElementInitialization()/]
+[/template]
+
+[template private generateStructuredActivityNodeInitialization(aStructuredActivityNode : StructuredActivityNode) post(trim())]
+[aStructuredActivityNode.generateActionInitialization()/]
+[comment Property 'StructuredActivityNode::node' /]
+[for (anActivityNode : ActivityNode | aStructuredActivityNode.node)]
+	[anActivityNode.generateElementInitialization()/]
+[aStructuredActivityNode.getFullNameSanitized()/].AddNode([anActivityNode.getFullNameSanitized()/]);
+[/for]
+[comment Property 'StructuredActivityNode::edge' /]
+[for (anActivityEdge : ActivityEdge | aStructuredActivityNode.edge)]
+	[anActivityEdge.generateElementInitialization()/]
+[aStructuredActivityNode.getFullNameSanitized()/].AddEdge([anActivityEdge.getFullNameSanitized()/]);
+[/for]
+[comment Property 'StructuredActivityNode::structuredNodeInput' /]
+[for (anInputPin : InputPin | aStructuredActivityNode.structuredNodeInput)]
+	[anInputPin.generatePinInitialization()/]
+[aStructuredActivityNode.getFullNameSanitized()/].AddStructuredNodeInput([anInputPin.getFullNameSanitized()/]);
+[/for]
+[comment Property 'StructuredActivityNode::structuredNodeOutput' /]
+[for (anOutputPin : OutputPin | aStructuredActivityNode.structuredNodeOutput)]
+	[anOutputPin.generatePinInitialization()/]
+[aStructuredActivityNode.getFullNameSanitized()/].AddStructuredNodeInput([anOutputPin.getFullNameSanitized()/]);
+[/for]
 [/template]
 
 [template private generateStructuredClassifierInitialization(aStructuredClassifier : StructuredClassifier) post(trim())]
