@@ -10,7 +10,6 @@ namespace uml.simpleclassifiers
         public void _setEnumeration(
                 Enumeration enumeration)
         {
-            AddClassifier(enumeration);
             classifier = enumeration;
             this.enumeration = enumeration;
         } // _setEnumeration
