@@ -493,6 +493,10 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 	[anInputPin.generatePinInitialization()/]
 [aSendSignalAction.getFullNameSanitized()/].AddArgument([anInputPin.getFullNameSanitized()/]);
 [/for]
+[comment Property 'InvocationAction::onPort' handled here /]
+	[if (not (aSendSignalAction.onPort.oclIsUndefined()))]
+[aSendSignalAction.getFullNameSanitized()/].SetOnPort([generateElementReference(aSendSignalAction.onPort, aSendSignalAction)/]);
+	[/if]
 [/let]
 [/template]
 
