@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyConnectors_PWP_PWP", "AssemblyConnectors_PWP_PWP.csproj", "{541153BA-8C09-4CDA-BC78-AC255568276F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{541153BA-8C09-4CDA-BC78-AC255568276F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{541153BA-8C09-4CDA-BC78-AC255568276F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{541153BA-8C09-4CDA-BC78-AC255568276F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{541153BA-8C09-4CDA-BC78-AC255568276F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {195EB9CA-8655-4684-880F-E080742462E4}
+	EndGlobalSection
+EndGlobal

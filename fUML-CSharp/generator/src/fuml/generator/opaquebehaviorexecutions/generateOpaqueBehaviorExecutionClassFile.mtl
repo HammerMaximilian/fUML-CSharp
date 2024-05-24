@@ -12,9 +12,14 @@
  * Auto-generated file
  */
 
-using fuml.semantics.commonbehavior;
-using fuml.semantics.loci;
-using fuml.semantics.values;
+[for (usingStatement : String | 
+	anOpaqueBehavior.getOpaqueBehaviorExecutionUsingsFromModel()
+	->including('using fuml;')
+	->including('using fuml.semantics.commonbehavior;')
+	->including('using fuml.semantics.values;')
+	->asOrderedSet())]
+[usingStatement/]
+[/for]
 
 /* [protected (': User-defined includes and forward declarations')]
  * This section may be used for includes and forward declarations.
@@ -50,9 +55,9 @@ namespace [anOpaqueBehavior.getRootPackage().getNameSanitized()/]
 			[/if]
 		}
 
-		public override Value New_()
+		protected override Value New_()
 		{
-			return new [anOpaqueBehavior.getNameSanitized() + 'Execution'/]()
+			return new [anOpaqueBehavior.getNameSanitized() + 'Execution'/]();
 		}	
 
 		/* [protected (': User-defined members')]
@@ -74,3 +79,10 @@ namespace [anOpaqueBehavior.getRootPackage().getNameSanitized()/]
 	else anElement.getNearestPackage().getRootPackage()
 	endif /]
 [query private isRootPackage(aPackage : Package) : Boolean = aPackage.nestingPackage = null /]
+
+[query private getOpaqueBehaviorExecutionUsingsFromModel(anOpaqueBehavior : OpaqueBehavior) : Set(String) =
+	if(anOpaqueBehavior.language->includes('Using') and anOpaqueBehavior._body->size() >= anOpaqueBehavior.language->size())
+	then anOpaqueBehavior._body->at(anOpaqueBehavior.language->indexOf('Using')).tokenize('\n').tokenize('\r\n')->asSet()
+	else Set(String){}
+	endif
+/]

@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultipleDelegation_MultipleConnector_P_PWP_Operation", "MultipleDelegation_MultipleConnector_P_PWP_Operation.csproj", "{CDC4FA71-9A55-4971-811F-9E2E7E6BC462}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDC4FA71-9A55-4971-811F-9E2E7E6BC462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDC4FA71-9A55-4971-811F-9E2E7E6BC462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDC4FA71-9A55-4971-811F-9E2E7E6BC462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDC4FA71-9A55-4971-811F-9E2E7E6BC462}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E63BCA04-AFD8-43F1-AF8A-85C8626F01BE}
+	EndGlobalSection
+EndGlobal

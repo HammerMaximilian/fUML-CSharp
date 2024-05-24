@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BehaviorPort_Signal": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}

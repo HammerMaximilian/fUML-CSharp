@@ -41,7 +41,7 @@ namespace fuml.semantics.actions
                 {
                     List<ExtensionalValue> extensionalValues =
                             GetExecutionLocus().extensionalValues;
-                    foreach (ExtensionalValue extensionalValue in extensionalValues)
+                    foreach (ExtensionalValue extensionalValue in extensionalValues.ToList())
                     {
                         if (extensionalValue is Link link)
                         {

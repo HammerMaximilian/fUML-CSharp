@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AssemblyConnectors_PWP_P": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}

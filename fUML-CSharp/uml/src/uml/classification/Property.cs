@@ -51,6 +51,11 @@ namespace uml.classification
             _setNamespace(datatype);
         } // _setDataType
 
+        public void SetDefaultValue(ValueSpecification defaultValue)
+        {
+            this.defaultValue = defaultValue ?? throw new ArgumentNullException(nameof(defaultValue));
+        } // SetDefaultValue
+
         public void SetIsID(bool isID)
         {
             this.isID = isID;

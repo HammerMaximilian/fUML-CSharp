@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RemovingInstanceFromPart": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}

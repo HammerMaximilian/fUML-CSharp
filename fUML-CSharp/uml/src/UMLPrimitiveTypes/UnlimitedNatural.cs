@@ -1,4 +1,6 @@
-﻿namespace UMLPrimitiveTypes
+﻿using System.Numerics;
+
+namespace UMLPrimitiveTypes
 {
     public class UnlimitedNatural
     {
@@ -21,5 +23,30 @@
             naturalValue = 0;
         } // UnlimitedNatural
 
+        public static bool operator==(UnlimitedNatural uN_1, UnlimitedNatural uN_2)
+        {
+            return uN_1.naturalValue == uN_2.naturalValue;
+        }
+
+        public static bool operator !=(UnlimitedNatural uN_1, UnlimitedNatural uN_2)
+        {
+            return uN_1.naturalValue != uN_2.naturalValue;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            if (naturalValue >= 0) return naturalValue.ToString();
+            else return "*";
+        }
     } // UnlimitedNatural
 }
