@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DefaultValue_BasicTypes": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}

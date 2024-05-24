@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RecursiveDestruction": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}

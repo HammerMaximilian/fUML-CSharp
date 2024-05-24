@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SingleDelegation_P_P_Operation": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}

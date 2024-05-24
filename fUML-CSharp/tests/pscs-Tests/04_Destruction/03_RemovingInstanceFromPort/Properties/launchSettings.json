@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RemovingInstanceFromPort": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}

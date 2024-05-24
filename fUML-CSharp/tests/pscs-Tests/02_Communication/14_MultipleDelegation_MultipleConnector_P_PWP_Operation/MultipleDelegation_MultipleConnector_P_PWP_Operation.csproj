@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <AssemblyName>MultipleDelegation_MultipleConnector_P_PWP_Operation.Debug</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AssemblyName>MultipleDelegation_MultipleConnector_P_PWP_Operation.Release</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Reference Include="uml">
+      <HintPath>..\..\..\..\uml\bin\Debug\net6.0\uml.Debug.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Reference Include="uml">
+      <HintPath>..\..\..\..\uml\bin\Release\net6.0\uml.Release.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Reference Include="fuml">
+      <HintPath>..\..\..\..\fuml\bin\Debug\net6.0\fuml.Debug.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Reference Include="fuml">
+      <HintPath>..\..\..\..\fuml\bin\Release\net6.0\fuml.Release.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Reference Include="pscs">
+      <HintPath>..\..\..\..\pscs\bin\Debug\net6.0\pscs.Debug.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Reference Include="pscs">
+      <HintPath>..\..\..\..\pscs\bin\Release\net6.0\pscs.Release.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
