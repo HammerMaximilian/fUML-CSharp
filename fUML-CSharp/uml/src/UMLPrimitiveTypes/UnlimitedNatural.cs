@@ -1,4 +1,6 @@
-﻿namespace UMLPrimitiveTypes
+﻿using System.Numerics;
+
+namespace UMLPrimitiveTypes
 {
     public class UnlimitedNatural
     {
@@ -39,6 +41,12 @@
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            if (naturalValue >= 0) return naturalValue.ToString();
+            else return "*";
         }
     } // UnlimitedNatural
 }
