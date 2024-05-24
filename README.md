@@ -38,7 +38,7 @@ For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf
   * NOTE: it is suggested to store user-defined source code projects in common directory `"<fUML-C#-rootdir>\fUML-CSharp\usersrc"`
   * The *usersrc* directory may contain arbitrary nested subdirectories
 * Add required assemblies for uml, fuml and pscs to your project's references
-* Create a `<model-name>Environment` class by deriving from class `fuml.environment.Environment`
+* Create a `<model-name>Environment` class by deriving from class `fuml.environment.Environment` (or `pscs.environment.Environment` for PSCS-compatibility)
 * Create a `<model-name>Model` class by deriving from class `uml.environment.InMemoryModel` (this class will contain all of your model elements)
 * Create a class containing a main method and call `<model-name>Environment.Instance().Execute("<behavior-name>");` for each behavior you want to execute in subsequent order
 * Build project and run executable 
@@ -55,4 +55,5 @@ For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf
   *  Choose your model file
   *  Choose a target directory for the generated source code (`"<fUML-C#-rootdir>\fUML-CSharp\usersrc\<model-name>"` is suggested)
 * Open newly generated C# project in Visual Studio and build executable(s)
+* **NOTE**: Depending on the target directory path it might be necessary to adapt the project's dependencies to the *uml*, *fuml* and *pscs* assemblies since they are referenced by relative paths. This only applies if you choose a target directory structure that differes from the one suggested above.
 * Run executable from command line using `<executable-name> <behavior-name> [<behavior-name> <behavior-name> <behavior-name> <...>]`
