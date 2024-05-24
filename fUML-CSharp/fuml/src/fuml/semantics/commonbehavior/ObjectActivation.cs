@@ -141,7 +141,7 @@ namespace fuml.semantics.commonbehavior
             // Start EventDispatchLoop
             _startObjectBehavior();
 
-            if (classifier is not null)
+            if (classifier is null)
             {
                 Debug.Println("[startBehavior] Starting behavior for all classifiers...");
                 // *** Start all classifier behaviors concurrently. ***
