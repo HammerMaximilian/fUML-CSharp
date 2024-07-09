@@ -88,8 +88,9 @@ namespace fuml.extensions.structuredclassifiers
                 int i = 1;
                 while (conformsTo is false && i <= type.general.Count)
                 {
-                    Classifier general = type.general.ElementAt(i);
+                    Classifier general = type.general.ElementAt(i - 1);
                     conformsTo = ConformsTo(general, otherType);
+                    i++;
                 }
             }
 

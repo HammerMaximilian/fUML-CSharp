@@ -73,6 +73,7 @@ namespace fuml.extensions.structuredclassifiers
                         method = ownedOperation.method.ElementAt(0);
                     }
                 }
+                i++;
             }
 
             // If type does not own or override the given operation directly,
@@ -88,6 +89,7 @@ namespace fuml.extensions.structuredclassifiers
                     {
                         method = GetMethod(baseClass, operation);
                     }
+                    i++;
                 }
             }
 
@@ -109,7 +111,8 @@ namespace fuml.extensions.structuredclassifiers
             }
             else
             {
-                matches = baseOperation.name.Equals(ownedOperation.name);
+                matches = IsSpecializationOf(ownedOperation.class_!, baseOperation.class_!);
+                matches = matches && baseOperation.name.Equals(ownedOperation.name);
                 matches = matches && (baseOperation.ownedParameter.Count == ownedOperation.ownedParameter.Count);
                 List<Parameter> ownedOperationParameters = ownedOperation.ownedParameter;
                 List<Parameter> baseOperationParameters = baseOperation.ownedParameter;
