@@ -28,7 +28,7 @@ For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf
 
 ## Building
 For detailed information, please see the [User Guide](fUML-CSharp_User_Guide.pdf) section *3. Build*.
-* Build dynamic libraries for *uml*, *fuml* *pscs* (**in that order**) Visual Studio or simply build the whole solution
+* Build dynamic libraries for *uml*, *fuml* and *pscs* (for PSCS-compatibility) **in that order** using Visual Studio or simply build the whole solution
 * Depending on your preferences and needs, build debug, release or both
 
 ## Usage

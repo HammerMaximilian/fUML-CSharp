@@ -32,16 +32,23 @@ namespace fuml.semantics.actions
             bool isExplicitBaseClassCall = IsExplicitBaseClassCall(action);
             Value target = TakeTokens(action?.target!).ElementAt(0);
 
-            Execution? execution;
+            Execution? execution = null;
             if (target is Reference reference)
             {
-                if(!isExplicitBaseClassCall)
+                try
                 {
-                    execution = reference.Dispatch(action?.operation!);
+                    if (!isExplicitBaseClassCall)
+                    {
+                        execution = reference.Dispatch(action?.operation!);
+                    }
+                    else
+                    {
+                        execution = reference.Dispatch(action?.operation!, isExplicitBaseClassCall);
+                    }
                 }
-                else
+                catch(ArgumentNullException e)
                 {
-                    execution = reference.Dispatch(action?.operation!, isExplicitBaseClassCall);
+                    Debug.Println(e.ToString());
                 }
             }
             else

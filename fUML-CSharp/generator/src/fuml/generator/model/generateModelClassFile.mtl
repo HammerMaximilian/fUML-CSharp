@@ -1349,7 +1349,7 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 
 [template private generateNamedElementInitialization(aNamedElement : NamedElement) post(trim())]
 [comment Property 'NamedElement::name' /]
-[aNamedElement.getFullNameSanitized()/].SetName("[aNamedElement.getName()/]");
+[aNamedElement.getFullNameSanitized()/].SetName("[if(aNamedElement.oclIsKindOf(Operation))][aNamedElement.getRealName()/][else][aNamedElement.getName()/][/if]");
 [aNamedElement.getFullNameSanitized()/].SetVisibility(VisibilityKind.[aNamedElement.visibility/]_);
 [/template]
 
