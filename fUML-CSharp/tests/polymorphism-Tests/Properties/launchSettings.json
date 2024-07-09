@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PolymorphismTest": {
+      "commandName": "Project",
+      "commandLineArgs": "main"
+    }
+  }
+}
