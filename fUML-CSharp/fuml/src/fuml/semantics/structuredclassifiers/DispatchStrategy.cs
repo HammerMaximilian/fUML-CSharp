@@ -1,5 +1,6 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
+using System.Reflection;
 using uml.classification;
 using uml.commonbehavior;
 
@@ -18,11 +19,20 @@ namespace fuml.semantics.structuredclassifiers
 				Object_ object_,
 				Operation operation)
 		{
-			// Get the behavior for the given operation as determined by the type(s)
-			// of the given object_, compile the behavior at the locus of the object_,
-			// and return the resulting execution object_.
+            // Get the behavior for the given operation as determined by the type(s)
+            // of the given object_, compile the behavior at the locus of the object_,
+            // and return the resulting execution object_.
 
-			return object_?.locus?.factory?.CreateExecution(GetMethod(object_, operation, false), object_)!;
+            Behavior method = GetMethod(object_, operation, false);
+
+            if (method is null)
+            {
+                string message = "[error] Local variable 'method' was null in " + MethodBase.GetCurrentMethod()!.ToString();
+                Console.WriteLine(message);
+                throw new ArgumentNullException(message);
+            }
+
+            return object_?.locus?.factory?.CreateExecution(method, object_)!;
 		} // dispatch
 
 		public virtual Behavior GetMethod(
