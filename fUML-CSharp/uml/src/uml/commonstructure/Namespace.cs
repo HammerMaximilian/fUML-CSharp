@@ -10,6 +10,7 @@
         public List<ElementImport> elementImport = new();
         public List<PackageImport> packageImport = new();
         public List<PackageableElement> importedMember = new();
+        public List<Constraint> ownedRule = new();
 
         protected void AddOwnedMember(
                 NamedElement ownedMember)

@@ -9,6 +9,7 @@ namespace uml.commonstructure
         public Element? owner;
         public List<Comment> ownedComment = new();
         public List<Stereotype> appliedStereotype = new(); // PSCS-specific, Stereotypes are required in PSCS
+        public List<Constraint> constraint = new();
 
         protected void AddOwnedElement(
         Element ownedElement)
