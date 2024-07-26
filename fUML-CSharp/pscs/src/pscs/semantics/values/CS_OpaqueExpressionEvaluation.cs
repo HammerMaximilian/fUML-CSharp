@@ -3,7 +3,7 @@ using fuml.semantics.values;
 using uml.commonbehavior;
 using uml.values;
 
-namespace pscs.src.pscs.semantics.values
+namespace pscs.semantics.values
 {
     public class CS_OpaqueExpressionEvaluation : Evaluation
     {

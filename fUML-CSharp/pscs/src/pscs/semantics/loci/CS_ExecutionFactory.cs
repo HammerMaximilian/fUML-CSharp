@@ -3,7 +3,7 @@ using fuml.semantics.loci;
 using pscs.semantics.actions;
 using pscs.semantics.classification;
 using pscs.semantics.commonbehavior;
-using pscs.src.pscs.semantics.values;
+using pscs.semantics.values;
 using uml.actions;
 using uml.classification;
 using uml.commonstructure;

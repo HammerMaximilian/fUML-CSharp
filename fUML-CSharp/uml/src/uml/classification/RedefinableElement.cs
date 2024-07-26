@@ -2,7 +2,7 @@
 
 namespace uml.classification
 {
-    public abstract class RedefinableElement : NamedElement
+    public class RedefinableElement : NamedElement
     {
         public bool isLeaf = false;
         public List<RedefinableElement> redefinedElement = new();

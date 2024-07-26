@@ -46,10 +46,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="src\semantics\commonbehavior\" />
-    <Folder Include="src\semantics\actions\" />
-    <Folder Include="src\semantics\statemachines\" />
-    <Folder Include="src\semantics\structuredclassifiers\" />
-    <Folder Include="src\semantics\values\" />
+    <Compile Remove="src\semantics\**" />
+    <EmbeddedResource Remove="src\semantics\**" />
+    <None Remove="src\semantics\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\pssm\semantics\commonbehavior\" />
   </ItemGroup>
 </Project>
