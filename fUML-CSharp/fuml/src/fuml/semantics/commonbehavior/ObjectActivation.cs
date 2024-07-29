@@ -64,7 +64,7 @@ namespace fuml.semantics.commonbehavior
 
         } // unregister
 
-        public void DispatchNextEvent()
+        public virtual void DispatchNextEvent()
         {
             // Get the next event occurrence out of the event pool.
             // If there are one or more waiting event accepters with triggers that
@@ -102,7 +102,7 @@ namespace fuml.semantics.commonbehavior
             }
         } // dispatchNextEvent
 
-        public EventOccurrence GetNextEvent()
+        public virtual EventOccurrence GetNextEvent()
         {
             // Get the next event from the event pool, using a get next event
             // strategy.
@@ -122,7 +122,7 @@ namespace fuml.semantics.commonbehavior
             _send(new ArrivalSignal());
         } // send
 
-        public void StartBehavior(
+        public virtual void StartBehavior(
                 Class_ classifier,
                 List<ParameterValue> inputs)
         {

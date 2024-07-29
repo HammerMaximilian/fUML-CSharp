@@ -22,7 +22,7 @@ namespace pscs.semantics.values
                 return null!;
             }
         }
-        public List<Value> ExecuteExpressionBehavior()
+        public virtual List<Value> ExecuteExpressionBehavior()
         {
             // If a behavior is associated with the context OpaqueExpression,
             // then execute this behavior, and return computed values.

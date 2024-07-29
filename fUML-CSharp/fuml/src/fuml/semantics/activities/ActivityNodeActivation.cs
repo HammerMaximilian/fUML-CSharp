@@ -181,7 +181,7 @@ namespace fuml.semantics.activities
 			return group?.GetActivityExecution()!;
 		} // getActivityExecution
 
-		public Object_ GetExecutionContext()
+		public virtual Object_ GetExecutionContext()
 		{
 			// Get the context object for the containing activity execution.
 

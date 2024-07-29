@@ -50,7 +50,4 @@
     <EmbeddedResource Remove="src\semantics\**" />
     <None Remove="src\semantics\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\pssm\semantics\commonbehavior\" />
-  </ItemGroup>
 </Project>

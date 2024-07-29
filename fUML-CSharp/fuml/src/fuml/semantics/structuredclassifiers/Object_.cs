@@ -10,7 +10,7 @@ namespace fuml.semantics.structuredclassifiers
         public List<Class_> types = new();
         public ObjectActivation? objectActivation = null;
 
-        public void StartBehavior(
+        public virtual void StartBehavior(
                 Class_ classifier,
                 List<ParameterValue> inputs)
         {
@@ -36,7 +36,7 @@ namespace fuml.semantics.structuredclassifiers
             return (dispatchStrategy is not null) ? dispatchStrategy.Dispatch(this, operation) : throw new NullReferenceException();
         } // dispatch
 
-        public void Send(
+        public virtual void Send(
                 EventOccurrence eventOccurrence)
         {
             // If the object is active, add the given event occurrence to the event
@@ -64,7 +64,7 @@ namespace fuml.semantics.structuredclassifiers
             base.Destroy();
         } // destroy
 
-        public void Register(
+        public virtual void Register(
                 EventAccepter accepter)
         {
             // Register the given accept event accepter to wait for a dispatched

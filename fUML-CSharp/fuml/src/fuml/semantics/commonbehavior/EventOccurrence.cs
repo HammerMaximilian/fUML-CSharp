@@ -12,7 +12,7 @@ namespace fuml.semantics.commonbehavior
 			behavior = new EventOccurrence_SendingBehaviorExecution(this);
 		}
 
-		public void SendTo(Reference target)
+		public virtual void SendTo(Reference target)
 		{
 			// Set the target reference and start the SendingBehavior, which
 			// will send this event occurrence to the target.
@@ -30,7 +30,7 @@ namespace fuml.semantics.commonbehavior
 
 		public abstract bool Match(Trigger trigger);
 
-		public bool MatchAny(List<Trigger> triggers)
+		public virtual bool MatchAny(List<Trigger> triggers)
 		{
 			// Check that at least one of the given triggers is matched by this 
 			// event occurrence.

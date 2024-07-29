@@ -3,7 +3,7 @@ using fuml.semantics.simpleclassifiers;
 using fuml.semantics.structuredclassifiers;
 using fuml.semantics.values;
 using pscs.semantics.structuredclassifiers;
-using pscs.src.pscs.semantics.values;
+using pscs.semantics.values;
 using uml.classification;
 using uml.commonstructure;
 using uml.simpleclassifiers;
