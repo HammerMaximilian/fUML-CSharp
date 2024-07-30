@@ -31,7 +31,7 @@ namespace pssm.semantics.statemachines
             throw new NotImplementedException();
         }
 
-        public void Activate()
+        public override void Activate()
         {
         }
 

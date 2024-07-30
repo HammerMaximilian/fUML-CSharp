@@ -9,7 +9,7 @@ namespace pssm.semantics.statemachines
         // evaluated.
         protected List<TransitionActivation> fireableTransitions = new();
 
-        public void EvaluateAllGuards(EventOccurrence eventOccurrence)
+        public virtual void EvaluateAllGuards(EventOccurrence eventOccurrence)
         {
         }
 

@@ -53,7 +53,7 @@ namespace pssm.semantics.statemachines
         protected List<TransitionActivation> Select(EventOccurrence eventOccurrence)
         {
             // Find for the given configuration the set of transition that can fire.
-            return _Select(eventOccurrence, registrationContext!.configuration.rootConfiguration);
+            return _Select(eventOccurrence, registrationContext?.configuration?.rootConfiguration!);
         }
 
         protected List<TransitionActivation> _Select(EventOccurrence eventOccurrence, StateConfiguration stateConfiguration)

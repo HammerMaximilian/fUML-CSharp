@@ -102,7 +102,7 @@ namespace pssm.semantics.statemachines
             throw new NotImplementedException();
         }
 
-        public void Enter(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
+        public override void Enter(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
         }
 
@@ -112,7 +112,7 @@ namespace pssm.semantics.statemachines
             throw new NotImplementedException();
         }
 
-        public void Exit(TransitionActivation exitingTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
+        public override void Exit(TransitionActivation exitingTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
         }
 
@@ -134,7 +134,7 @@ namespace pssm.semantics.statemachines
         {
         }
 
-        public void Terminate()
+        public override void Terminate()
         {
         }
 

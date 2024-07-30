@@ -79,7 +79,7 @@ namespace pssm.semantics.statemachines
             throw new NotImplementedException();
         }
 
-        public void Terminate()
+        public virtual void Terminate()
         {
             throw new NotImplementedException();
         }
