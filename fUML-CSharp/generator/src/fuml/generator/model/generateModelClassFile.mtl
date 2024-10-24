@@ -1,6 +1,7 @@
 [comment encoding = UTF-8 /]
 [module generateModelClassFile('http://www.eclipse.org/uml2/5.0.0/UML')]
 
+[import fuml::generator::metaelementid::generateMetaElementID /]
 [import fuml::generator::globalconstants::globalconstants /]
 [import fuml::generator::naming::naming /]
 [import fuml::generator::syntax::syntax /]
@@ -38,6 +39,8 @@ namespace [aPackage.getNameSanitized()/]
 	public class [aPackage.getNameSanitized() + 'Model'/] : InMemoryModel
 	{
 		private static [aPackage.getNameSanitized() + 'Model'/]? instance;
+
+		[aPackage.generateStaticMetaElementIDs()/]
 
 		[aPackage.generatePublicMemberDeclarations()/]
 
@@ -85,6 +88,21 @@ namespace [aPackage.getNameSanitized()/]
 	} // [aPackage.getNameSanitized() + 'Model'/]
 }
 [/file]
+[/template]
+
+[template private generateStaticMetaElementIDs(aPackage : Package)]
+// Classifier IDs
+[for (aClassifier : Classifier | aPackage.allOwnedElements()->filter(Classifier))]
+public const long [aClassifier.getFullNameSanitized().toUpperCase()/] = [generateMetaElementID(aClassifier.getFullNameSanitized())/];
+[/for]
+// StructuralFeature IDs
+[for (aStructuralFeature : StructuralFeature | aPackage.allOwnedElements()->filter(StructuralFeature))]
+public const long [aStructuralFeature.getFullNameSanitized().toUpperCase()/] = [generateMetaElementID(aStructuralFeature.getFullNameSanitized())/];
+[/for]
+// StructuralFeature IDs
+[for (aBehavioralFeature : BehavioralFeature | aPackage.allOwnedElements()->filter(BehavioralFeature))]
+public const long [aBehavioralFeature.getFullNameSanitized().toUpperCase()/] = [generateMetaElementID(aBehavioralFeature.getFullNameSanitized())/];
+[/for]
 [/template]
 
 [template private generatePublicMemberDeclarations(aPackage : Package) post(trim())]
@@ -1099,6 +1117,8 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 
 [template private generateBehavioralFeatureInitialization(aBehavioralFeature : BehavioralFeature) post(trim())]
 [aBehavioralFeature.generateFeatureInitialization()/]
+[comment Meta-Property 'UMLObject::MetaElementID' /]
+[aBehavioralFeature.getFullNameSanitized()/].MetaElementID = [aBehavioralFeature.getFullNameSanitized().toUpperCase()/];
 [comment Property 'BehavioralFeature::isAbstract' /]
 	[if (aBehavioralFeature.isAbstract)]
 [aBehavioralFeature.getFullNameSanitized()/].SetIsAbstract(true);
@@ -1151,6 +1171,8 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [template private generateClassifierInitialization(aClassifier : Classifier) post(trim())]
 [aClassifier.generateNamedElementInitialization()/]
 [aClassifier.generateRedefinableElementInitialization()/]
+[comment Meta-Property 'UMLObject::MetaElementID' /]
+[aClassifier.getFullNameSanitized()/].MetaElementID = [aClassifier.getFullNameSanitized().toUpperCase()/];
 [comment Property 'Classifier::isAbstract' /]
 	[if (aClassifier.isAbstract)]
 [aClassifier.getFullNameSanitized()/].SetIsAbstract(true);
@@ -1394,6 +1416,8 @@ AddToElementRepository("[anElement.getName()/]", [anElement.getFullNameSanitized
 [aStructuralFeature.generateFeatureInitialization()/]
 [aStructuralFeature.generateMultiplicityElementInitialization()/]
 [aStructuralFeature.generateTypedElementInitialization()/]
+[comment Meta-Property 'UMLObject::MetaElementID' /]
+[aStructuralFeature.getFullNameSanitized()/].MetaElementID = [aStructuralFeature.getFullNameSanitized().toUpperCase()/];
 [/template]
 
 [template private generateStructuredActivityNodeInitialization(aStructuredActivityNode : StructuredActivityNode) post(trim())]
