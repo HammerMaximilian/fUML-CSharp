@@ -165,8 +165,8 @@ namespace pssm.semantics.commonbehavior
         public override Value Copy()
         {
             EventTriggeredExecution copy = (EventTriggeredExecution)base.Copy();
-            copy.triggeringEventOccurrence = (triggeringEventOccurrence);
-            copy.wrappedExecution = ((Execution)wrappedExecution?.Copy()!);
+            copy.triggeringEventOccurrence = triggeringEventOccurrence;
+            copy.wrappedExecution = (Execution)wrappedExecution?.Copy()!;
             return copy;
         }
     } // EventTriggeredExecution
