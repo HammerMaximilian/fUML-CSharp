@@ -3,7 +3,7 @@ using uml.packages;
 
 namespace uml.commonstructure
 {
-    public abstract class Element
+    public abstract class Element : UMLObject
     {
         public List<Element> ownedElement = new();
         public Element? owner;
