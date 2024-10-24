@@ -1,5 +1,4 @@
 ﻿using fuml.semantics.commonbehavior;
-using System;
 
 namespace pssm.semantics.statemachines
 {
@@ -41,7 +40,7 @@ namespace pssm.semantics.statemachines
             }
             return propagate;
         }
-        
+
         public override bool CanPropagateExecution(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
             // Static analysis is propagated through the parent. If the propagation is accepted by the parent, then it is evaluated

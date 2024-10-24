@@ -23,17 +23,19 @@ namespace pssm.semantics.statemachines
         {
             // The parent state of a vertex is either a StateMachineExecution or a
             // StateActivation
-            IRegionActivation regionActivation = (IRegionActivation)this.getParent();
+            RegionActivation regionActivation = (RegionActivation)parent!;
             if (regionActivation != null)
             {
-                if (regionActivation.getParent() instanceof StateMachineExecution) {
-                    return null;
-                } else
+                if (regionActivation.parent is StateMachineExecution)
                 {
-                    return (VertexActivation)regionActivation.getParent();
+                    return null!;
+                }
+                else
+                {
+                    return (VertexActivation)regionActivation.parent!;
                 }
             }
-            return null;
+            return null!;
         }
 
         public virtual RegionActivation GetOwningRegionActivation()
@@ -42,7 +44,7 @@ namespace pssm.semantics.statemachines
             // is its direct parent. Not that is not true for the exit point
             // activation as well as the entry point activation. This operation
             // is therefore overridden in these two context
-            return (RegionActivation)this.parent;
+            return (RegionActivation)parent!;
         }
 
         public virtual VertexActivation GetVertexActivation(Vertex vertex)
@@ -55,15 +57,15 @@ namespace pssm.semantics.statemachines
         {
             // Assign the given status (runtime or analysis) to all outgoing transitions of
             // this vertex
-            for (ITransitionActivation transitionActivation : this.outgoingTransitionActivations)
+            foreach (TransitionActivation transitionActivation in outgoingTransitionActivations)
             {
                 if (staticCheck)
                 {
-                    transitionActivation.setAnalyticalStatus(status);
+                    transitionActivation.analyticalStatus = status;
                 }
                 else
                 {
-                    transitionActivation.setStatus(status);
+                    transitionActivation.status = status;
                 }
             }
         }
@@ -72,15 +74,15 @@ namespace pssm.semantics.statemachines
         {
             // Assign the given status (runtime or analysis) to all incoming transitions of
             // this vertex
-            for (ITransitionActivation transitionActivation : this.incomingTransitionActivations)
+            foreach (TransitionActivation transitionActivation in incomingTransitionActivations)
             {
                 if (staticCheck)
                 {
-                    transitionActivation.setAnalyticalStatus(status);
+                    transitionActivation.analyticalStatus = status;
                 }
                 else
                 {
-                    transitionActivation.setStatus(status);
+                    transitionActivation.status = status;
                 }
             }
         }
@@ -90,16 +92,16 @@ namespace pssm.semantics.statemachines
             // Provides the hierarchy of state activations starting from the current
             // element. This list is ordered from the innermost element to the outermost
             // element
-            List<IVertexActivation> hierarchy = new ArrayList<IVertexActivation>();
-            List<ISemanticVisitor> contextChain = this.getContextChain();
-            for (ISemanticVisitor element : contextChain)
+            List<VertexActivation> hierarchy = new();
+            List<SemanticVisitor> contextChain = GetContextChain();
+            foreach (SemanticVisitor element in contextChain)
             {
-                if (element is StateActivation) 
+                if (element is StateActivation stateActivation)
                 {
-                    hierarchy.add((StateActivation)element);
+                    hierarchy.Add(stateActivation);
                 }
             }
-		    return hierarchy;
+            return hierarchy;
         }
 
         public virtual void Enter(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
@@ -111,19 +113,16 @@ namespace pssm.semantics.statemachines
             // vertex activation. What is important here is that entry rule is applied
             // recursively
             // until the least common ancestor is reached.
-            IRegionActivation owningRegionActivation = this.getOwningRegionActivation();
+            RegionActivation owningRegionActivation = GetOwningRegionActivation();
             if (leastCommonAncestor != null && owningRegionActivation != null
                     && leastCommonAncestor != owningRegionActivation)
             {
-                IVertexActivation vertexActivation = (IVertexActivation)owningRegionActivation.getParent();
-                if (vertexActivation != null)
-                {
-                    vertexActivation.enter(enteringTransition, eventOccurrence, leastCommonAncestor);
-                }
+                VertexActivation vertexActivation = (VertexActivation)owningRegionActivation.parent!;
+                vertexActivation?.Enter(enteringTransition, eventOccurrence, leastCommonAncestor);
             }
 
-            this.setStatus(StateMetadata.ACTIVE);
-            this.tagOutgoingTransitions(TransitionMetadata.REACHED, false);
+            status = StateMetadata.ACTIVE;
+            TagOutgoingTransitions(TransitionMetadata.REACHED, false);
         }
 
         public virtual void Exit(TransitionActivation exitingTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
@@ -136,18 +135,15 @@ namespace pssm.semantics.statemachines
             // from the current
             // vertex and until the least common ancestor is reached all states are exited
             // recursively.
-            this.tagIncomingTransitions(TransitionMetadata.NONE, false);
-            this.setStatus(StateMetadata.IDLE);
+            TagIncomingTransitions(TransitionMetadata.NONE, false);
+            status = StateMetadata.IDLE;
 
-            IRegionActivation owningRegionActivation = this.getOwningRegionActivation();
+            RegionActivation owningRegionActivation = GetOwningRegionActivation();
             if (leastCommonAncestor != null && owningRegionActivation != null
                     && leastCommonAncestor != owningRegionActivation)
             {
-                IVertexActivation vertexActivation = (VertexActivation)owningRegionActivation.getParent();
-                if (vertexActivation != null)
-                {
-                    vertexActivation.exit(exitingTransition, eventOccurrence, leastCommonAncestor);
-                }
+                VertexActivation vertexActivation = (VertexActivation)owningRegionActivation.parent!;
+                vertexActivation?.Exit(exitingTransition, eventOccurrence, leastCommonAncestor);
             }
         }
         public bool IsActive()
@@ -156,7 +152,7 @@ namespace pssm.semantics.statemachines
             // if its status is ACTIVE. Note this operation is overriden in the context
             // of state activations which require a presence within the state-machine
             // configuration.
-            return this.status.equals(StateMetadata.ACTIVE);
+            return status == StateMetadata.ACTIVE;
         }
 
         public RegionActivation GetLeastCommonAncestor(VertexActivation targetVertexActivation, TransitionKind transitionKind)
@@ -166,28 +162,26 @@ namespace pssm.semantics.statemachines
             // a parameter). The analysis is based on a comparative analysis vertices
             // (source and
             // target) hierarchies.
-            IRegionActivation leastCommonAncestor = null;
-            ISemanticVisitor sourceHierachyNode = null;
-            ISemanticVisitor targetHierarchyNode = null;
-            List<ISemanticVisitor> sourceHierarchy = this.getContextChain();
-            List<ISemanticVisitor> targetHierarchy = targetVertexActivation.getContextChain();
-            int sourceHierarchyIndex = sourceHierarchy.size();
-            int targetHierarchyIndex = targetHierarchy.size();
+            RegionActivation? leastCommonAncestor = null;
+            List<SemanticVisitor> sourceHierarchy = GetContextChain();
+            List<SemanticVisitor> targetHierarchy = targetVertexActivation.GetContextChain();
+            int sourceHierarchyIndex = sourceHierarchy.Count;
+            int targetHierarchyIndex = targetHierarchy.Count;
             // Check if a difference can be found in between the two subsets
             // delimited by the common index. Iterate until the least common
             // ancestor is found or the two subsets have been reviewed
             while (leastCommonAncestor == null && sourceHierarchyIndex > 0 && targetHierarchyIndex > 0)
             {
-                sourceHierachyNode = sourceHierarchy.get(sourceHierarchyIndex - 1);
-                targetHierarchyNode = targetHierarchy.get(targetHierarchyIndex - 1);
+                SemanticVisitor? sourceHierachyNode = sourceHierarchy.ElementAt(sourceHierarchyIndex - 1);
+                SemanticVisitor? targetHierarchyNode = targetHierarchy.ElementAt(targetHierarchyIndex - 1);
                 if (sourceHierachyNode != targetHierarchyNode)
                 {
-                    leastCommonAncestor = this.getRegionActivation(sourceHierachyNode);
+                    leastCommonAncestor = GetRegionActivation(sourceHierachyNode);
                 }
                 else
                 {
-                    sourceHierarchyIndex = sourceHierarchyIndex - 1;
-                    targetHierarchyIndex = targetHierarchyIndex - 1;
+                    sourceHierarchyIndex--;
+                    targetHierarchyIndex--;
                 }
             }
             // It may happen than no difference could found in the hierarchy subsets
@@ -199,42 +193,45 @@ namespace pssm.semantics.statemachines
             {
                 if (sourceHierarchyIndex == 0 && targetHierarchyIndex == 0)
                 {
-                    leastCommonAncestor = this.getRegionActivation(sourceHierarchy.get(sourceHierarchyIndex + 1));
+                    leastCommonAncestor = GetRegionActivation(sourceHierarchy.ElementAt(sourceHierarchyIndex + 1));
                 }
                 else
                 {
-                    if (this.getVertexActivation((Vertex)targetVertexActivation.getNode()) != null)
+                    if (GetVertexActivation((Vertex)targetVertexActivation.node!) != null)
                     {
-                        if (transitionKind == TransitionKind.EXTERNAL_LITERAL)
+                        if (transitionKind == TransitionKind.external)
                         {
-                            leastCommonAncestor = this.getRegionActivation(sourceHierarchy.get(sourceHierarchyIndex));
+                            leastCommonAncestor = GetRegionActivation(sourceHierarchy.ElementAt(sourceHierarchyIndex));
                         }
                         else
                         {
-                            leastCommonAncestor = this.getRegionActivation(targetHierarchy.get(targetHierarchyIndex - 1));
+                            leastCommonAncestor = GetRegionActivation(targetHierarchy.ElementAt(targetHierarchyIndex - 1));
                         }
                     }
                     else
                     {
-                        leastCommonAncestor = this.getRegionActivation(sourceHierarchy.get(sourceHierarchyIndex - 1));
+                        leastCommonAncestor = GetRegionActivation(sourceHierarchy.ElementAt(sourceHierarchyIndex - 1));
                     }
                 }
             }
             return leastCommonAncestor;
         }
 
-	    private RegionActivation GetRegionActivation(SemanticVisitor semanticVisitor)
+        private RegionActivation GetRegionActivation(SemanticVisitor semanticVisitor)
         {
             // If the given semantic visitor is a region activation then this activation
             // is returned. Otherwise if the visitor is a vertex activation then its
             // parent region activation is returned.
-            IRegionActivation regionActivation = null;
-            if (semanticVisitor instanceof IRegionActivation) {
-                regionActivation = (IRegionActivation)semanticVisitor;
-            } else if (semanticVisitor instanceof VertexActivation) {
-                regionActivation = (IRegionActivation)((IVertexActivation)semanticVisitor).getParent();
+            RegionActivation? regionActivation = null;
+            if (semanticVisitor is RegionActivation _regionActivation)
+            {
+                regionActivation = _regionActivation;
             }
-            return regionActivation;
+            else if (semanticVisitor is VertexActivation vertexActivation)
+            {
+                regionActivation = (RegionActivation)vertexActivation.parent!;
+            }
+            return regionActivation!;
         }
         public virtual bool IsEnterable(TransitionActivation enteringTransition, bool staticCheck)
         {
@@ -270,16 +267,16 @@ namespace pssm.semantics.statemachines
             // if a the target is a vertex that is nested within a hierarchy then the
             // analysis
             // must be recursively propagated to the parent vertices.
-            boolean propagate = true;
+            bool propagate = true;
             if (leastCommonAncestor != null)
             {
-                IRegionActivation parentRegionActivation = this.getOwningRegionActivation();
+                RegionActivation parentRegionActivation = GetOwningRegionActivation();
                 if (leastCommonAncestor != parentRegionActivation)
                 {
-                    IVertexActivation vertexActivation = (IVertexActivation)parentRegionActivation.getParent();
+                    VertexActivation vertexActivation = (VertexActivation)parentRegionActivation.parent!;
                     if (vertexActivation != null)
                     {
-                        propagate = vertexActivation.canPropagateExecution(enteringTransition, eventOccurrence,
+                        propagate = vertexActivation.CanPropagateExecution(enteringTransition, eventOccurrence,
                                 leastCommonAncestor);
                     }
                 }

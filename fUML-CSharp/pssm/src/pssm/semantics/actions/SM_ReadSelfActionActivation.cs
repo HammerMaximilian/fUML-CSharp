@@ -15,7 +15,8 @@ namespace pssm.semantics.actions
             // by the doActivity. To enable this, in this situation the ReadSelfAction must resolve
             // to the context of the DoActivityContextObject.
             Object_ context = base.GetExecutionContext();
-            if (context is DoActivityContextObject doActivityContextObject){
+            if (context is DoActivityContextObject doActivityContextObject)
+            {
                 context = doActivityContextObject.context!;
             }
             return context;

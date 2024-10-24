@@ -74,11 +74,8 @@ namespace pssm.semantics.statemachines
                 // When the exit point is entered that does not imply recursive entry of its parent
                 base.Enter(enteringTransition, eventOccurrence, null!);
                 VertexActivation vertexActivation = GetParentVertexActivation();
-                if (vertexActivation != null)
-                {
-                    // Only the state that owns the exit point is exited.
-                    vertexActivation.Exit(enteringTransition, eventOccurrence, null!);
-                }
+                // Only the state that owns the exit point is exited.
+                vertexActivation?.Exit(enteringTransition, eventOccurrence, null!);
                 selectedTransitionActivation.Fire(eventOccurrence);
             }
         }

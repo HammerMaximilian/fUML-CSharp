@@ -1,6 +1,5 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
-using System;
 using uml.commonstructure;
 using uml.statemachines;
 
@@ -53,19 +52,21 @@ namespace pssm.semantics.statemachines
             // Ensure that the given vertex is not already redefined by
             // a vertex already present in the list.
             bool isRedefined = false;
-            if (vertex is State){
+            if (vertex is State)
+            {
                 // Required check since UML does not allow Vertex to be RedefinableElement
                 // FIXME: possible to fix after revision of UML 2.5
                 int i = 0;
                 while (!isRedefined && i < vertices.Count)
                 {
                     Vertex currentVertex = vertices.ElementAt(i);
-                    if (currentVertex is State){
-                        State state = ((State)currentVertex).redefinedState!;
-                        while (!isRedefined && state != null)
+                    if (currentVertex is State state)
+                    {
+                        State redefinedState = state.redefinedState!;
+                        while (!isRedefined && redefinedState != null)
                         {
-                            isRedefined = state == vertex;
-                            state = state.redefinedState!;
+                            isRedefined = redefinedState == vertex;
+                            redefinedState = redefinedState.redefinedState!;
                         }
                     }
                     i++;
@@ -83,7 +84,6 @@ namespace pssm.semantics.statemachines
             // redefined by another vertex.
             Locus locus = GetExecutionLocus();
             Region region = (Region)node!;
-            VertexActivation? activation = null;
             List<Vertex> regionVertices = new(region.subvertices);
             if (region.extendedRegion != null)
             {
@@ -101,7 +101,7 @@ namespace pssm.semantics.statemachines
             }
             foreach (Vertex vertex in regionVertices)
             {
-                activation = (VertexActivation)locus.factory!.InstantiateVisitor(vertex);
+                VertexActivation? activation = (VertexActivation)locus.factory!.InstantiateVisitor(vertex);
                 activation.parent = this;
                 activation.node = vertex;
                 activation.Activate();
@@ -128,15 +128,12 @@ namespace pssm.semantics.statemachines
             return isRedefined;
         }
 
-        public void activateTransitions()
+        public override void ActivateTransitions()
         {
             // Create all semantic visitors for transitions. The source and target
             // vertex activations of each transition activation is then assigned.
             // Only visitors for none redefined transitions are instantiated.
             Region region = (Region)node!;
-            VertexActivation? sourceActivation = null;
-            VertexActivation? targetActivation = null;
-            TransitionActivation? transitionActivation = null;
             StateMachineExecution context = (StateMachineExecution)GetStateMachineExecution();
             List<Transition> transitions = new(region.transition);
             if (region.extendedRegion is not null)
@@ -155,9 +152,9 @@ namespace pssm.semantics.statemachines
             }
             foreach (Transition transition in transitions)
             {
-                sourceActivation = context.GetVertexActivation(transition.source!);
-                targetActivation = context.GetVertexActivation(transition.target!);
-                transitionActivation = (TransitionActivation)context.locus!.factory!.InstantiateVisitor(transition);
+                VertexActivation? sourceActivation = context.GetVertexActivation(transition.source!);
+                VertexActivation? targetActivation = context.GetVertexActivation(transition.target!);
+                TransitionActivation? transitionActivation = (TransitionActivation)context.locus!.factory!.InstantiateVisitor(transition);
                 transitionActivation.node = (transition);
                 transitionActivation.parent = (this);
                 transitionActivation.vertexSourceActivation = (sourceActivation);
@@ -224,7 +221,7 @@ namespace pssm.semantics.statemachines
                 PseudostateActivation initialNodeActivation = GetOrigin();
                 if (initialNodeActivation != null)
                 {
-                    propagate = initialNodeActivation.CanPropagateExecution(enteringTransition, eventOccurrence, null);
+                    propagate = initialNodeActivation.CanPropagateExecution(enteringTransition, eventOccurrence, null!);
                 }
             }
             return propagate;
@@ -238,9 +235,11 @@ namespace pssm.semantics.statemachines
             PseudostateActivation? initialNodeActivation = null;
             while (initialNodeActivation == null && i < vertexActivations.Count)
             {
-                if (vertexActivations.ElementAt(i) is InitialPseudostateActivation){
+                if (vertexActivations.ElementAt(i) is InitialPseudostateActivation)
+                {
                     initialNodeActivation = (PseudostateActivation)vertexActivations.ElementAt(i);
-                }else
+                }
+                else
                 {
                     i++;
                 }
@@ -258,12 +257,13 @@ namespace pssm.semantics.statemachines
             PseudostateActivation initialNodeActivation = GetOrigin();
             if (initialNodeActivation != null)
             {
-                initialNodeActivation.Enter(enteringTransition, eventOccurrence, null);
+                initialNodeActivation.Enter(enteringTransition, eventOccurrence, null!);
             }
             else
             {
                 SemanticVisitor parent = this.parent!;
-                if (parent != null && parent is StateActivation parentState){
+                if (parent != null && parent is StateActivation parentState)
+                {
                     parentState.regionActivation.Remove(this);
                     if (parentState.HasCompleted())
                     {

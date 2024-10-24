@@ -24,20 +24,20 @@ namespace pssm.semantics.loci
             }
             else if (element is Pseudostate pseudostate)
             {
-                switch (pseudostate.kind)
+                visitor = pseudostate.kind switch
                 {
-                    case PseudoStateKind.initial: visitor = new InitialPseudostateActivation(); break;
-                    case PseudoStateKind.entryPoint: visitor = new EntryPointPseudostateActivation(); break;
-                    case PseudoStateKind.exitPoint: visitor = new ExitPointPseudostateActivation(); break;
-                    case PseudoStateKind.choice: visitor = new ChoicePseudostateActivation(); break;
-                    case PseudoStateKind.fork: visitor = new ForkPseudostateActivation(); break;
-                    case PseudoStateKind.join: visitor = new JoinPseudostateActivation(); break;
-                    case PseudoStateKind.terminate: visitor = new TerminatePseudostateActivation(); break;
-                    case PseudoStateKind.deepHistory: visitor = new DeepHistoryPseudostateActivation(); break;
-                    case PseudoStateKind.shallowHistory: visitor = new ShallowHistoryPseudostateActivation(); break;
-                    case PseudoStateKind.junction: visitor = new JunctionPseudostateActivation(); break;
-                    default: visitor = null!; break;
-                }
+                    PseudoStateKind.initial => new InitialPseudostateActivation(),
+                    PseudoStateKind.entryPoint => new EntryPointPseudostateActivation(),
+                    PseudoStateKind.exitPoint => new ExitPointPseudostateActivation(),
+                    PseudoStateKind.choice => new ChoicePseudostateActivation(),
+                    PseudoStateKind.fork => new ForkPseudostateActivation(),
+                    PseudoStateKind.join => new JoinPseudostateActivation(),
+                    PseudoStateKind.terminate => new TerminatePseudostateActivation(),
+                    PseudoStateKind.deepHistory => new DeepHistoryPseudostateActivation(),
+                    PseudoStateKind.shallowHistory => new ShallowHistoryPseudostateActivation(),
+                    PseudoStateKind.junction => new JunctionPseudostateActivation(),
+                    _ => null!,
+                };
             }
             else if (element is State)
             {
@@ -52,13 +52,13 @@ namespace pssm.semantics.loci
             }
             else if (element is Transition transition)
             {
-                switch (transition.kind)
+                visitor = transition.kind switch
                 {
-                    case TransitionKind.external: visitor = new ExternalTransitionActivation(); break;
-                    case TransitionKind.internal_: visitor = new InternalTransitionActivation(); break;
-                    case TransitionKind.local: visitor = new LocalTransitionActivation(); break;
-                    default: visitor = null!; break;
-                }
+                    TransitionKind.external => new ExternalTransitionActivation(),
+                    TransitionKind.internal_ => new InternalTransitionActivation(),
+                    TransitionKind.local => new LocalTransitionActivation(),
+                    _ => null!,
+                };
             }
             else if (element is Region)
             {

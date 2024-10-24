@@ -30,21 +30,21 @@ namespace pssm.semantics.statemachines
             configuration = new StateMachineConfiguration(this);
         }
 
-        protected void initRegions()
+        protected void InitRegions()
         {
-            StateMachine machine = null;
-            if (!this.getTypes().isEmpty())
+            StateMachine? machine = null;
+            if (GetTypes().Any())
             {
-                machine = (StateMachine)this.getTypes().get(0);
+                machine = (StateMachine)GetTypes().ElementAt(0);
             }
             if (machine != null)
             {
-                for (Region region: machine.getRegions())
+                foreach (Region region in machine.region)
                 {
-                    RegionActivation activation = (RegionActivation)this.locus.getFactory().instantiateVisitor(region);
-                    activation.setParent(this);
-                    activation.setNode(region);
-                    this.regionActivation.add(activation);
+                    RegionActivation activation = (RegionActivation)locus!.factory!.InstantiateVisitor(region);
+                    activation.parent = this;
+                    activation.node = region;
+                    regionActivation.Add(activation);
                 }
             }
         }
@@ -58,13 +58,13 @@ namespace pssm.semantics.statemachines
         public VertexActivation GetVertexActivation(Vertex vertex)
         {
             int i = 0;
-            IVertexActivation vertexActivation = null;
-            while (vertexActivation == null && i < this.regionActivation.size())
+            VertexActivation? vertexActivation = null;
+            while (vertexActivation == null && i < regionActivation.Count)
             {
-                vertexActivation = this.regionActivation.get(i).getVertexActivation(vertex);
+                vertexActivation = regionActivation.ElementAt(i).GetVertexActivation(vertex);
                 i++;
             }
-            return vertexActivation;
+            return vertexActivation!;
         }
 
         public override void Execute()
@@ -75,30 +75,30 @@ namespace pssm.semantics.statemachines
             // 3 - All top level regions (i.e. those directly owned by the executed state-machine) are entered
             //     concurrently. Since they are top regions then there is no transition used to enter them
             // Note: a state-machine always has at runtime a single event accepter
-            if (this.context != null && this.context.getObjectActivation() != null)
+            if (context != null && context.objectActivation != null)
             {
-                this.context.register(new StateMachineEventAccepter(this));
+                context.Register(new StateMachineEventAccepter(this));
             }
-            this.initRegions();
-            for (IRegionActivation activation: this.regionActivation)
+            InitRegions();
+            foreach (RegionActivation activation in regionActivation)
             {
-                activation.activate();
+                activation.Activate();
             }
-            for (IRegionActivation activation: this.regionActivation)
+            foreach (RegionActivation activation in regionActivation)
             {
-                activation.activateTransitions();
+                activation.ActivateTransitions();
             }
-            for (IRegionActivation regionActivation: this.regionActivation)
+            foreach (RegionActivation regionActivation in regionActivation)
             {
-                regionActivation.enter(null, null);
+                regionActivation.Enter(null!, null!);
             }
         }
 
         protected override Value New_()
         {
-            if (this.context != null)
+            if (context != null)
             {
-                return new StateMachineExecution(this.context);
+                return new StateMachineExecution(context);
             }
             return new StateMachineExecution();
         }
@@ -108,12 +108,11 @@ namespace pssm.semantics.statemachines
             // The behavior captured here is almost identical to the one provide by Object_.
             // Instead of using a simple ObjectActivation we use a StateMachineObjectActivation.
             // This specialized kind of ObjectActivation allows the registering of completion events.
-            if (this.objectActivation == null)
+            objectActivation ??= new SM_ObjectActivation
             {
-                this.objectActivation = new SM_ObjectActivation();
-                this.objectActivation.setObject(this);
-            }
-            this.objectActivation.startBehavior(classifier, inputs);
+                object_ = this
+            };
+            objectActivation.StartBehavior(classifier, inputs);
         }
 
         public override void Terminate()
@@ -122,11 +121,11 @@ namespace pssm.semantics.statemachines
             // started by states owned by this state-machine. States that are currently active (i.e., registered
             // in the state-machine configuration) are not exited (i.e., if they have have exit behaviors then
             // these behaviors are not executed.
-            for (int i = 0; i < this.regionActivation.size(); i++)
+            foreach (RegionActivation activation in regionActivation)
             {
-                this.regionActivation.get(i).terminate();
+                activation.Terminate();
             }
-            this.regionActivation.clear();
+            regionActivation.Clear();
         }
     } // StateMachineExecution
 }

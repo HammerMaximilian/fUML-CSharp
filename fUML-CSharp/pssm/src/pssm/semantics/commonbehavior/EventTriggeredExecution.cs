@@ -1,5 +1,4 @@
-﻿using fuml.semantics.actions;
-using fuml.semantics.commonbehavior;
+﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.values;
 using pscs.semantics.commonbehavior;
 using uml.classification;
@@ -36,10 +35,12 @@ namespace pssm.semantics.commonbehavior
             {
                 Behavior behavior = wrappedExecution.GetBehavior();
                 EventOccurrence currentEventOccurrence = triggeringEventOccurrence!;
-                if (triggeringEventOccurrence is CS_EventOccurrence cS_EventOccurrence) {
+                if (triggeringEventOccurrence is CS_EventOccurrence cS_EventOccurrence)
+                {
                     currentEventOccurrence = cS_EventOccurrence.wrappedEventOccurrence!;
                 }
-                if (currentEventOccurrence is SignalEventOccurrence signalEventOccurrence) {
+                if (currentEventOccurrence is SignalEventOccurrence signalEventOccurrence)
+                {
                     List<Parameter> inputParameters = behavior.ownedParameter.Where(
                         parameter =>
                             parameter.direction == ParameterDirectionKind.in_ ||
@@ -58,7 +59,9 @@ namespace pssm.semantics.commonbehavior
                         parameterValue.values = values;
                         wrappedExecution.SetParameterValue(parameterValue);
                     }
-                } else if (currentEventOccurrence is CallEventOccurrence callEventOccurrence) {
+                }
+                else if (currentEventOccurrence is CallEventOccurrence callEventOccurrence)
+                {
                     List<Parameter> behaviorInputParameters = behavior.ownedParameter.Where(
                         parameter =>
                             parameter.direction == ParameterDirectionKind.in_ ||
@@ -121,14 +124,16 @@ namespace pssm.semantics.commonbehavior
             // output values and is the last to complete in any execution trace for the RTC
             // step consistent with the specified StateMachine semantics.
             EventOccurrence currentEventOccurrence = triggeringEventOccurrence!;
-            if (triggeringEventOccurrence is CS_EventOccurrence cS_EventOccurrence) {
+            if (triggeringEventOccurrence is CS_EventOccurrence cS_EventOccurrence)
+            {
                 currentEventOccurrence = cS_EventOccurrence.wrappedEventOccurrence!;
             }
-            if (currentEventOccurrence is CallEventOccurrence callEventOccurrence) {
+            if (currentEventOccurrence is CallEventOccurrence callEventOccurrence)
+            {
                 Behavior behavior = wrappedExecution?.GetBehavior()!;
                 List<ParameterValue> outputParameterValues = wrappedExecution?.GetOutputParameterValues()!;
                 List<Parameter> outputParameters = behavior.ownedParameter.Where(
-                    parameter => 
+                    parameter =>
                         parameter.direction == ParameterDirectionKind.out_ ||
                         parameter.direction == ParameterDirectionKind.inout ||
                         parameter.direction == ParameterDirectionKind.return_).ToList();

@@ -6,13 +6,13 @@ namespace pssm.semantics.statemachines
     {
         // The activation (i.e. the semantic visitor) for which the StateConfiguration
         // represents an element of the state-machine configuration.
-        protected VertexActivation? vertexActivation = null;
+        public VertexActivation? vertexActivation = null;
 
         // The parent state configuration of this node
-        protected StateConfiguration? parent = null;
+        public StateConfiguration? parent = null;
 
         // The children state configuration of this state-machine configuration
-        protected List<StateConfiguration> children = new();
+        public List<StateConfiguration> children = new();
 
         // The level at which the the state configuration is located in the hierarchy.
         private int level = 0;
@@ -46,7 +46,7 @@ namespace pssm.semantics.statemachines
         {
             // Check if the given vertex activation belongs to the 
             // state machine configuration.
-            return this.isConfigurationFor(activation, this.getContext(activation));
+            return IsConfigurationFor(activation, GetContext(activation));
         }
 
         public bool IsConfigurationFor(VertexActivation activation, List<VertexActivation> context)
@@ -57,31 +57,31 @@ namespace pssm.semantics.statemachines
             // state configuration referencing the activation, a directed search is performed  in the
             // state configuration tree. This directed search relies on the path (ascending hierarchy
             // of vertex activation) provided by the context.
-            boolean isConfiguration = false;
-            if (!context.isEmpty())
+            bool isConfiguration = false;
+            if (context.Any())
             {
                 int i = 0;
-                IStateConfiguration selectedStateConfiguration = null;
-                IVertexActivation current = context.get(context.size() - 1);
-                while (selectedStateConfiguration == null && i < this.children.size())
+                StateConfiguration? selectedStateConfiguration = null;
+                VertexActivation? current = context.ElementAt(context.Count - 1);
+                while (selectedStateConfiguration == null && i < children.Count)
                 {
-                    if (this.children.get(i).getVertexActivation() == current)
+                    if (children.ElementAt(i).vertexActivation == current)
                     {
-                        selectedStateConfiguration = this.children.get(i);
+                        selectedStateConfiguration = children.ElementAt(i);
                     }
                     i++;
                 }
                 if (selectedStateConfiguration != null)
                 {
-                    isConfiguration = selectedStateConfiguration.isConfigurationFor(activation, context.subList(0, context.size() - 1));
+                    isConfiguration = selectedStateConfiguration.IsConfigurationFor(activation, context.GetRange(0, (context.Count - 1) - 1));
                 }
             }
             else
             {
                 int i = 0;
-                while (!isConfiguration && i < this.children.size())
+                while (!isConfiguration && i < children.Count)
                 {
-                    if (this.children.get(i).getVertexActivation() == activation)
+                    if (children.ElementAt(i).vertexActivation == activation)
                     {
                         isConfiguration = true;
                     }
@@ -97,21 +97,21 @@ namespace pssm.semantics.statemachines
             // The path is presented as an ascending hierarchy (nested -> top) of vertex activations.
             // This path is used to perform a directed search through the representation of 
             // state configuration tree.
-            List<IVertexActivation> context = new ArrayList<IVertexActivation>();
-            List<IVertexActivation> hierarchy = activation.getAscendingHierarchy();
-            int i = hierarchy.size();
+            List<VertexActivation> context = new();
+            List<VertexActivation> hierarchy = activation.GetAscendingHierarchy();
+            int i = hierarchy.Count;
             int j = 0;
-            boolean found = false;
+            bool found = false;
             while (!found && i >= 1)
             {
-                while (!found && j < this.children.size())
+                while (!found && j < children.Count)
                 {
-                    if (this.children.get(j).getVertexActivation() == hierarchy.get(i - 1))
+                    if (children.ElementAt(j).vertexActivation == hierarchy.ElementAt(i - 1))
                     {
                         found = true;
                         // The most nested element in the hierarchy is always discarded.
                         // This nested element is the activation
-                        context = hierarchy.subList(1, i);
+                        context = hierarchy.GetRange(1, i - 1);
                     }
                     j++;
                 }
@@ -127,33 +127,33 @@ namespace pssm.semantics.statemachines
             // until the state configuration being the parent of the one referencing the activation
             // is found. When found, the chil state configuration referencing the activation gets
             // removed from the state configuration tree.
-            boolean removed = false;
-            if (!context.isEmpty())
+            bool removed = false;
+            if (context.Any())
             {
-                IVertexActivation current = context.get(context.size() - 1);
-                IStateConfiguration selectedStateConfiguration = null;
+                VertexActivation current = context.ElementAt(context.Count - 1);
+                StateConfiguration? selectedStateConfiguration = null;
                 int i = 0;
-                while (i < this.children.size() && selectedStateConfiguration == null)
+                while (i < children.Count && selectedStateConfiguration == null)
                 {
-                    if (this.children.get(i).getVertexActivation() == current)
+                    if (children.ElementAt(i).vertexActivation == current)
                     {
-                        selectedStateConfiguration = this.children.get(i);
+                        selectedStateConfiguration = children.ElementAt(i);
                     }
                     i++;
                 }
                 if (selectedStateConfiguration != null)
                 {
-                    removed = selectedStateConfiguration.remove(activation, context.subList(0, context.size() - 1));
+                    removed = selectedStateConfiguration.Remove(activation, context.GetRange(0, (context.Count - 1) - 1));
                 }
             }
             else
             {
                 int i = 0;
-                while (i < this.children.size() && !removed)
+                while (i < children.Count && !removed)
                 {
-                    if (this.children.get(i).getVertexActivation() == activation)
+                    if (children.ElementAt(i).vertexActivation == activation)
                     {
-                        this.children.remove(i);
+                        children.RemoveAt(i);
                         removed = true;
                     }
                     i++;
@@ -168,32 +168,32 @@ namespace pssm.semantics.statemachines
             // until the state configuration referencing the parent vertex activation of the activation
             // is found. When found, a new state configuration is added as a children of the current
             // state configuration. This new state configuration references the activation.
-            boolean added = false;
-            if (!context.isEmpty())
+            bool added = false;
+            if (context.Any())
             {
-                IVertexActivation current = context.get(context.size() - 1);
-                IStateConfiguration selectedStateConfiguration = null;
+                VertexActivation current = context.ElementAt(context.Count - 1);
+                StateConfiguration? selectedStateConfiguration = null;
                 int i = 0;
-                while (i < this.children.size() && selectedStateConfiguration == null)
+                while (i < children.Count && selectedStateConfiguration == null)
                 {
-                    if (this.children.get(i).getVertexActivation() == current)
+                    if (children.ElementAt(i).vertexActivation == current)
                     {
-                        selectedStateConfiguration = this.children.get(i);
+                        selectedStateConfiguration = children.ElementAt(i);
                     }
                     i++;
                 }
                 if (selectedStateConfiguration != null)
                 {
-                    added = selectedStateConfiguration.add(activation, context.subList(0, context.size() - 1));
+                    added = selectedStateConfiguration.Add(activation, context.GetRange(0, (context.Count - 1) - 1));
                 }
             }
             else
             {
                 int i = 0;
-                boolean alreadyAdded = false;
-                while (i < this.children.size() && !alreadyAdded)
+                bool alreadyAdded = false;
+                while (i < children.Count && !alreadyAdded)
                 {
-                    if (this.children.get(i).getVertexActivation() == activation)
+                    if (children.ElementAt(i).vertexActivation == activation)
                     {
                         alreadyAdded = true;
                     }
@@ -201,10 +201,13 @@ namespace pssm.semantics.statemachines
                 }
                 if (!alreadyAdded)
                 {
-                    StateConfiguration newConfiguration = new StateConfiguration(activation);
-                    newConfiguration.level = this.level + 1;
-                    newConfiguration.completeConfiguration = this.completeConfiguration;
-                    added = this.children.add(newConfiguration);
+                    StateConfiguration newConfiguration = new(activation)
+                    {
+                        level = level + 1,
+                        completeConfiguration = completeConfiguration
+                    };
+                    children.Add(newConfiguration);
+                    added = true;
                 }
             }
             return added;
@@ -212,20 +215,19 @@ namespace pssm.semantics.statemachines
 
         public override string ToString()
         {
+            int i = 0;
             // Return a string representing configuration taking this node as a the root.
             // The string that is obtained is possibly a partial representation of the
             // state-machine configuration.
-            String result = "";
-            int i = 0;
-            result = this.vertexActivation == null ? "ROOT" : this.vertexActivation.getNode().getName();
-            result += "(L" + this.level + ")";
-            if (!this.children.isEmpty())
+            string result = vertexActivation == null ? "ROOT" : vertexActivation.node!.name;
+            result += "(L" + level + ")";
+            if (children.Any())
             {
                 result += "[";
-                while (i < this.children.size())
+                while (i < children.Count)
                 {
-                    result += this.children.get(i).toString();
-                    if (i < this.children.size() - 1)
+                    result += children.ElementAt(i).ToString();
+                    if (i < children.Count - 1)
                     {
                         result += ", ";
                     }

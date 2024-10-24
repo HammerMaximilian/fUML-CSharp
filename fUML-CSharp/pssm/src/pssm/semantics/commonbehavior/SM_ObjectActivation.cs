@@ -1,6 +1,5 @@
 ﻿using fuml.semantics.commonbehavior;
 using pssm.semantics.statemachines;
-using System;
 
 namespace pssm.semantics.commonbehavior
 {

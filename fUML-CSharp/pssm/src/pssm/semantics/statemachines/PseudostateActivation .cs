@@ -57,5 +57,5 @@ namespace pssm.semantics.statemachines
             }
             return propagate;
         }
-} // PseudostateActivation
+    } // PseudostateActivation
 }

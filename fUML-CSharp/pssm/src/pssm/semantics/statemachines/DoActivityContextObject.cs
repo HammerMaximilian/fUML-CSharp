@@ -33,11 +33,10 @@ namespace pssm.semantics.statemachines
             // Starts the behavior of a DoActivityContextObject. It behaves the
             // same than in fUML except that for object is associated to a specific
             // type of object activation: DoActivityContextObjectActivation
-            if (objectActivation == null)
+            objectActivation ??= new DoActivityContextObjectActivation
             {
-                objectActivation = new DoActivityContextObjectActivation();
-                objectActivation.object_ = this;
-            }
+                object_ = this
+            };
             objectActivation.StartBehavior(classifier, inputs);
         }
 
@@ -67,9 +66,11 @@ namespace pssm.semantics.statemachines
             }
             if (matchedDeferredEvent == null)
             {
-                DoActivityExecutionEventAccepter encapsulatingAccepter = new DoActivityExecutionEventAccepter();
-                encapsulatingAccepter.encapsulatedAccepter = accepter;
-                encapsulatingAccepter.context = this;
+                DoActivityExecutionEventAccepter encapsulatingAccepter = new()
+                {
+                    encapsulatedAccepter = accepter,
+                    context = this
+                };
                 context!.Register(encapsulatingAccepter);
             }
             else
@@ -94,10 +95,7 @@ namespace pssm.semantics.statemachines
         public override void SetFeatureValue(StructuralFeature feature, List<Value> values, int position)
         {
             // Delegate write of particular feature to the state-machine context
-            if (context != null)
-            {
-                context.SetFeatureValue(feature, values, position);
-            }
+            context?.SetFeatureValue(feature, values, position);
         }
 
         public override Execution Dispatch(Operation operation)
@@ -114,10 +112,7 @@ namespace pssm.semantics.statemachines
         public override void Send(EventOccurrence eventOccurrence)
         {
             // Delegate the reception of a signal to the state-machine context
-            if (context != null)
-            {
-                context.Send(eventOccurrence);
-            }
+            context?.Send(eventOccurrence);
         }
 
         public override void Destroy()

@@ -1,7 +1,7 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
+using fuml.semantics.structuredclassifiers;
 using pscs.semantics.commonbehavior;
-using System;
 
 namespace pssm.semantics.statemachines
 {
@@ -35,50 +35,50 @@ namespace pssm.semantics.statemachines
             // Note that there always is a single event accepter for a state-machine. This differs from
             // fUML. Indeed, in the state machine context, the overall state machine configuration gets
             // analyzed.
-            if (this.isDeferred(eventOccurrence))
+            if (IsDeferred(eventOccurrence))
             {
-                this.defer(eventOccurrence);
+                Defer(eventOccurrence);
             }
             else
             {
-                List<ITransitionActivation> fireableTransitionActivations = this.select(eventOccurrence);
-                if (!fireableTransitionActivations.isEmpty())
+                List<TransitionActivation> fireableTransitionActivations = Select(eventOccurrence);
+                if (fireableTransitionActivations.Any())
                 {
-                    for (Iterator<ITransitionActivation> fireableTransitionsIterator = fireableTransitionActivations
-                            .iterator(); fireableTransitionsIterator.hasNext();)
+                    foreach (TransitionActivation fireableTransition in fireableTransitionActivations)
                     {
-                        fireableTransitionsIterator.next().fire(eventOccurrence);
+                        fireableTransition.Fire(eventOccurrence);
                     }
-                    ICallEventOccurrence callEventOccurrence = null;
-                    if (eventOccurrence instanceof ICS_EventOccurrence){
-                        IEventOccurrence wrappedEventOccurrence = ((ICS_EventOccurrence)eventOccurrence).getWrappedEventOccurrence();
-                        if (wrappedEventOccurrence instanceof ICallEventOccurrence){
-                            callEventOccurrence = (ICallEventOccurrence)wrappedEventOccurrence;
+                    CallEventOccurrence? callEventOccurrence = null;
+                    if (eventOccurrence is CS_EventOccurrence cS_EventOccurrence)
+                    {
+                        EventOccurrence wrappedEventOccurrence = cS_EventOccurrence.wrappedEventOccurrence!;
+                        if (wrappedEventOccurrence is CallEventOccurrence _callEventOccurrence)
+                        {
+                            callEventOccurrence = _callEventOccurrence;
                         }
-                    }else if (eventOccurrence instanceof ICallEventOccurrence){
-                        callEventOccurrence = (ICallEventOccurrence)eventOccurrence;
                     }
-                    if (callEventOccurrence != null)
+                    else if (eventOccurrence is CallEventOccurrence _callEventOccurrence)
                     {
-                        callEventOccurrence.returnFromCall();
+                        callEventOccurrence = _callEventOccurrence;
                     }
+                    callEventOccurrence?.ReturnFromCall();
                 }
             }
-            IObject_ context = this.registrationContext.context;
-            if (context != null && context.getObjectActivation() != null)
+            Object_ context = registrationContext!.context!;
+            if (context != null && context.objectActivation != null)
             {
-                context.register(new StateMachineEventAccepter(this.registrationContext));
+                context.Register(new StateMachineEventAccepter(registrationContext));
             }
         }
 
-        
+
         public override bool Match(EventOccurrence eventOccurrence)
         {
             // There are two cases in which the state machine event accepter can match
             // 1 - In the current state machine configuration the event can be deferred
             // 2 - In the current state machine configuration the current event can trigger
             // one or more transitions
-            return this.isDeferred(eventOccurrence) | this.isTriggering(eventOccurrence);
+            return IsDeferred(eventOccurrence) | IsTriggering(eventOccurrence);
         }
 
         public bool IsDeferred(EventOccurrence eventOccurrence)
@@ -95,25 +95,25 @@ namespace pssm.semantics.statemachines
             // accepter
             // for the given event occurrence
             // Note: a completion event cannot be deferred.
-            boolean deferred = false;
-            if (!(eventOccurrence instanceof CompletionEventOccurrence)){
-                deferred = this._isDeferred(eventOccurrence, this.registrationContext.getConfiguration().getRoot());
+            bool deferred = false;
+            if (eventOccurrence is not CompletionEventOccurrence)
+            {
+                deferred = _IsDeferred(eventOccurrence, registrationContext!.configuration!.rootConfiguration!);
             }
             if (deferred)
             {
-                IObject_ context = this.registrationContext.context;
-                if (context != null && context.getObjectActivation() != null)
+                Object_ context = registrationContext!.context!;
+                if (context != null && context.objectActivation != null)
                 {
                     int i = 1;
-                    while (deferred && i <= context.getObjectActivation().getWaitingEventAccepters().size())
+                    while (deferred && i <= context.objectActivation.waitingEventAccepters.Count)
                     {
-                        IEventAccepter currentEventAccepter = context.getObjectActivation().getWaitingEventAccepters()
-                                .get(i - 1);
-                        if (currentEventAccepter != this && currentEventAccepter instanceof DoActivityExecutionEventAccepter
-
-                            && currentEventAccepter.match(eventOccurrence)) {
+                        EventAccepter currentEventAccepter = context.objectActivation.waitingEventAccepters
+                                .ElementAt(i - 1);
+                        if (currentEventAccepter != this && currentEventAccepter is DoActivityExecutionEventAccepter
+                            && currentEventAccepter.Match(eventOccurrence))
+                        {
                             deferred = false;
-                            ;
                         }
                         i++;
                     }
@@ -127,16 +127,16 @@ namespace pssm.semantics.statemachines
             // Determine if the given state configuration is capable of deferring the given
             // event occurrence.
             int i = 0;
-            boolean deferred = false;
-            while (!deferred && i < stateConfiguration.getChildren().size())
+            bool deferred = false;
+            while (!deferred && i < stateConfiguration.children.Count)
             {
-                deferred = this._isDeferred(eventOccurrence, stateConfiguration.getChildren().get(i));
+                deferred = _IsDeferred(eventOccurrence, stateConfiguration.children.ElementAt(i));
                 i++;
             }
-            if (!deferred && stateConfiguration.getVertexActivation() != null
-                    && ((StateActivation)stateConfiguration.getVertexActivation()).canDefer(eventOccurrence))
+            if (!deferred && stateConfiguration.vertexActivation != null
+                    && ((StateActivation)stateConfiguration.vertexActivation).CanDefer(eventOccurrence))
             {
-                if (this._select(eventOccurrence, stateConfiguration).isEmpty())
+                if (!_Select(eventOccurrence, stateConfiguration).Any())
                 {
                     deferred = true;
                 }
@@ -151,7 +151,7 @@ namespace pssm.semantics.statemachines
             // the deferred event pool. This latter refers to the deferred event as well as
             // to the
             // the deferring state.
-            this._defer(eventOccurrence, this.registrationContext.getConfiguration().getRoot());
+            _Defer(eventOccurrence, registrationContext!.configuration!.rootConfiguration!);
         }
 
         protected bool _Defer(EventOccurrence eventOccurrence, StateConfiguration stateConfiguration)
@@ -159,16 +159,16 @@ namespace pssm.semantics.statemachines
             // Defers the given event occurrence in the context of the given state
             // configuration.
             int i = 0;
-            boolean deferred = false;
-            while (!deferred && i < stateConfiguration.getChildren().size())
+            bool deferred = false;
+            while (!deferred && i < stateConfiguration.children.Count)
             {
-                deferred = this._defer(eventOccurrence, stateConfiguration.getChildren().get(i));
+                deferred = _Defer(eventOccurrence, stateConfiguration.children.ElementAt(i));
                 i++;
             }
-            if (!deferred && stateConfiguration.getVertexActivation() != null
-                    && ((StateActivation)stateConfiguration.getVertexActivation()).canDefer(eventOccurrence))
+            if (!deferred && stateConfiguration.vertexActivation != null
+                    && ((StateActivation)stateConfiguration.vertexActivation).CanDefer(eventOccurrence))
             {
-                ((StateActivation)stateConfiguration.getVertexActivation()).defer(eventOccurrence);
+                ((StateActivation)stateConfiguration.vertexActivation).Defer(eventOccurrence);
                 deferred = true;
             }
             return deferred;
@@ -194,30 +194,30 @@ namespace pssm.semantics.statemachines
             // The set of transition only contains transitions with the highest priority. In
             // addition
             // no conflicting transitions are added to that set.
-            List<ITransitionActivation> selectedTransitions = new ArrayList<ITransitionActivation>();
-            for (int i = 0; i < stateConfiguration.getChildren().size(); i++)
+            List<TransitionActivation> selectedTransitions = new();
+            for (int i = 0; i < stateConfiguration.children.Count; i++)
             {
-                selectedTransitions.addAll(this._select(eventOccurrence, stateConfiguration.getChildren().get(i)));
+                selectedTransitions.AddRange(_Select(eventOccurrence, stateConfiguration.children.ElementAt(i)));
             }
-            if (selectedTransitions.isEmpty() && stateConfiguration.getVertexActivation() != null)
+            if (!selectedTransitions.Any() && stateConfiguration.vertexActivation != null)
             {
-                for (int i = 0; i < stateConfiguration.getVertexActivation().getOutgoingTransitions().size(); i++)
+                for (int i = 0; i < stateConfiguration.vertexActivation.outgoingTransitionActivations.Count; i++)
                 {
-                    ITransitionActivation transitionActivation = stateConfiguration.getVertexActivation()
-                            .getOutgoingTransitions().get(i);
-                    if (transitionActivation.canFireOn(eventOccurrence))
+                    TransitionActivation transitionActivation = stateConfiguration.vertexActivation
+                            .outgoingTransitionActivations.ElementAt(i);
+                    if (transitionActivation.CanFireOn(eventOccurrence))
                     {
-                        selectedTransitions.add(transitionActivation);
+                        selectedTransitions.Add(transitionActivation);
                     }
                 }
-                if (selectedTransitions.size() > 1)
+                if (selectedTransitions.Count > 1)
                 {
-                    ChoiceStrategy choiceStrategy = (ChoiceStrategy)this.registrationContext.locus.getFactory()
-                            .getStrategy("choice");
-                    ITransitionActivation electedTransition = selectedTransitions
-                            .get(choiceStrategy.choose(selectedTransitions.size()) - 1);
-                    selectedTransitions.clear();
-                    selectedTransitions.add(electedTransition);
+                    ChoiceStrategy choiceStrategy = (ChoiceStrategy)registrationContext!.locus!.factory!
+                            .GetStrategy("choice");
+                    TransitionActivation electedTransition = selectedTransitions
+                            .ElementAt(choiceStrategy.Choose(selectedTransitions.Count) - 1);
+                    selectedTransitions.Clear();
+                    selectedTransitions.Add(electedTransition);
                 }
             }
             return selectedTransitions;

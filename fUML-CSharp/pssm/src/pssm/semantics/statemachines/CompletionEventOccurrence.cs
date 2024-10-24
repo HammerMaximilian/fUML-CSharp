@@ -1,7 +1,6 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.structuredclassifiers;
 using pssm.semantics.commonbehavior;
-using System;
 using uml.commonbehavior;
 
 namespace pssm.semantics.statemachines

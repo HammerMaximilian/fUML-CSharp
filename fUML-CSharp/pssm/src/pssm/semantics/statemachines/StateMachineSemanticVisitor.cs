@@ -22,14 +22,17 @@ namespace pssm.semantics.statemachines
             // the visitor that called context chain. The caller is part of the returned
             // context chain.
             List<SemanticVisitor> contextChain = new();
-            if (!(this is ExitPointPseudostateActivation) && !(this is EntryPointPseudostateActivation)) {
+            if (this is not ExitPointPseudostateActivation && this is not EntryPointPseudostateActivation)
+            {
                 contextChain.Add(this);
             }
             if (parent is not null)
             {
-                if (parent is StateMachineExecution) {
+                if (parent is StateMachineExecution)
+                {
                     contextChain.Add(parent);
-                } else
+                }
+                else
                 {
                     contextChain.AddRange(((StateMachineSemanticVisitor)parent).GetContextChain());
                 }
@@ -41,9 +44,11 @@ namespace pssm.semantics.statemachines
         {
             // Return the state-machine execution from which the caller of this operation
             // belongs
-            if (parent is not null && parent is StateMachineExecution) {
+            if (parent is not null && parent is StateMachineExecution)
+            {
                 return (Execution)parent;
-            } else
+            }
+            else
             {
                 return ((StateMachineSemanticVisitor)parent!).GetStateMachineExecution();
             }
@@ -104,10 +109,12 @@ namespace pssm.semantics.statemachines
                 Execution originalExecution = GetExecutionLocus().factory!.CreateExecution(behavior, GetExecutionContext());
                 if (eventOccurrence != null)
                 {
-                    EventTriggeredExecution containerExecution = new();
-                    containerExecution.triggeringEventOccurrence = eventOccurrence;
-                    containerExecution.wrappedExecution = originalExecution;
-                    containerExecution.context = originalExecution.context;
+                    EventTriggeredExecution containerExecution = new()
+                    {
+                        triggeringEventOccurrence = eventOccurrence,
+                        wrappedExecution = originalExecution,
+                        context = originalExecution.context
+                    };
                     execution = containerExecution;
                 }
                 else

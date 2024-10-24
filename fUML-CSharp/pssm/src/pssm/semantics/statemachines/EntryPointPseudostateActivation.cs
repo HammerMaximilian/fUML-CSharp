@@ -29,7 +29,7 @@ namespace pssm.semantics.statemachines
             }
             return isExitable;
         }
-        
+
         public override bool CanPropagateExecution(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
             // Static analysis is propagated to the parents. If the propagation is accepted, then all outgoing transitions
@@ -86,10 +86,7 @@ namespace pssm.semantics.statemachines
             // already active then it is entered.
             base.Enter(enteringTransition, eventOccurrence, null!);
             VertexActivation vertexActivation = GetParentVertexActivation();
-            if (vertexActivation != null)
-            {
-                vertexActivation.Enter(enteringTransition, eventOccurrence, leastCommonAncestor);
-            }
+            vertexActivation?.Enter(enteringTransition, eventOccurrence, leastCommonAncestor);
         }
 
         public override void Enter(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
@@ -131,7 +128,7 @@ namespace pssm.semantics.statemachines
                 }
             }
         }
-        
+
         public override void Exit(TransitionActivation exitingTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
             // When the entry point is exited it does not imply exiting parent state.

@@ -1,4 +1,5 @@
 ﻿using fuml.semantics.commonbehavior;
+using fuml.semantics.structuredclassifiers;
 using pssm.semantics.commonbehavior;
 using System;
 using System.Linq;
@@ -37,12 +38,12 @@ namespace pssm.semantics.statemachines
             //     all the region of the state must have completed by reaching their final states
             // When the operation returns true then the generation of a completion event is allowed
             // for that particular state
-            boolean stateCompleted = this.isEntryCompleted & this.isDoActivityCompleted;
+            bool stateCompleted = isEntryCompleted & isDoActivityCompleted;
             int i = 0;
-            while (stateCompleted && i < this.regionActivation.size())
+            while (stateCompleted && i < regionActivation.Count)
             {
-                stateCompleted = stateCompleted && this.regionActivation.get(i).isCompleted();
-                i = i + 1;
+                stateCompleted = stateCompleted && regionActivation.ElementAt(i).isCompleted;
+                i++;
             }
             return stateCompleted;
         }
@@ -52,24 +53,24 @@ namespace pssm.semantics.statemachines
             // StateActivation completion consists in sending in the execution
             // context of the state-machine a completion event occurrence. This event is
             // placed in the pool before any other event
-            ICompletionEventOccurrence completionEventOccurrence = new CompletionEventOccurrence();
-            completionEventOccurrence.register(this);
+            CompletionEventOccurrence completionEventOccurrence = new();
+            completionEventOccurrence.Register(this);
         }
 
         public PseudostateActivation GetConnectionPointActivation(Vertex vertex)
         {
             // Return the activation for the exit point or the entry point.
-            IPseudostateActivation activation = null;
+            PseudostateActivation? activation = null;
             int i = 0;
-            while (i < this.connectionPointActivation.size() && activation == null)
+            while (i < connectionPointActivation.Count && activation == null)
             {
-                if (this.connectionPointActivation.get(i).getNode() == vertex)
+                if (connectionPointActivation.ElementAt(i).node == vertex)
                 {
-                    activation = this.connectionPointActivation.get(i);
+                    activation = connectionPointActivation.ElementAt(i);
                 }
                 i++;
             }
-            return activation;
+            return activation!;
         }
 
         public override bool IsVisitorFor(NamedElement node)
@@ -80,10 +81,10 @@ namespace pssm.semantics.statemachines
             // 
             // Note: as soon as vertex will be redefineable elements, this constraints will be
             // moved to the vertex activation class.
-            boolean isVisitor = super.isVisitorFor(node);
+            bool isVisitor = base.IsVisitorFor(node);
             if (!isVisitor)
             {
-                State state = ((State)this.node).getRedefinedState();
+                State state = ((State)this.node!).redefinedState!;
                 while (!isVisitor && state != null)
                 {
                     if (state == node)
@@ -92,7 +93,7 @@ namespace pssm.semantics.statemachines
                     }
                     else
                     {
-                        state = state.getRedefinedState();
+                        state = state.redefinedState!;
                     }
                 }
             }
@@ -106,45 +107,45 @@ namespace pssm.semantics.statemachines
             // is propagated through the owned region activation of the
             // state activation if this latter is composite. If no activation
             // is found null is returned.
-            IVertexActivation vertexActivation = null;
-            State state = (State)this.getNode();
-            if (state.isComposite())
+            VertexActivation? vertexActivation = null;
+            State state = (State)node!;
+            if (state.IsComposite())
             {
-                vertexActivation = this.getConnectionPointActivation(vertex);
+                vertexActivation = GetConnectionPointActivation(vertex);
                 if (vertexActivation == null)
                 {
                     int i = 0;
-                    while (i < this.regionActivation.size() && vertexActivation == null)
+                    while (i < regionActivation.Count && vertexActivation == null)
                     {
-                        vertexActivation = this.regionActivation.get(i).getVertexActivation(vertex);
+                        vertexActivation = regionActivation.ElementAt(i).GetVertexActivation(vertex);
                         i++;
                     }
                 }
             }
-            return vertexActivation;
+            return vertexActivation!;
         }
 
         public override void Activate()
         {
             // Instantiate visitors for all vertices owned by this region 
-            State state = (State)this.getNode();
-            if (state.isComposite())
+            State state = (State)node!;
+            if (state.IsComposite())
             {
-                IObject_ context = this.getExecutionContext();
-                for (Pseudostate connectionPoint : state.getConnectionPoints())
+                Object_ context = GetExecutionContext();
+                foreach (Pseudostate connectionPoint in state.connectionPoint)
                 {
-                    IPseudostateActivation activation = (IPseudostateActivation)context.getLocus().getFactory().instantiateVisitor(connectionPoint);
-                    activation.setParent(this);
-                    activation.setNode(connectionPoint);
-                    this.connectionPointActivation.add(activation);
+                    PseudostateActivation activation = (PseudostateActivation)context.locus!.factory!.InstantiateVisitor(connectionPoint);
+                    activation.parent = this;
+                    activation.node = connectionPoint;
+                    connectionPointActivation.Add(activation);
                 }
-                for (Region region: state.getRegions())
+                foreach (Region region in state.region)
                 {
-                    RegionActivation activation = (RegionActivation)context.getLocus().getFactory().instantiateVisitor(region);
-                    activation.setParent(this);
-                    activation.setNode(region);
-                    activation.activate();
-                    this.regionActivation.add(activation);
+                    RegionActivation activation = (RegionActivation)context.locus!.factory!.InstantiateVisitor(region);
+                    activation.parent = this;
+                    activation.node = region;
+                    activation.Activate();
+                    regionActivation.Add(activation);
                 }
             }
         }
@@ -152,12 +153,12 @@ namespace pssm.semantics.statemachines
         public override void ActivateTransitions()
         {
             // Instantiate visitor for transitions owned by this region
-            State state = (State)this.getNode();
-            if (state.isComposite())
+            State state = (State)node!;
+            if (state.IsComposite())
             {
-                for (IRegionActivation activation : this.regionActivation)
+                foreach (RegionActivation activation in regionActivation)
                 {
-                    activation.activateTransitions();
+                    activation.ActivateTransitions();
                 }
             }
         }
@@ -167,14 +168,14 @@ namespace pssm.semantics.statemachines
             // Return the entry behavior of the state or one inherited
             // from a redefined state. If no entry can be found null is
             // returned.
-            State state = (State)this.getNode();
-            Behavior entry = state.getEntry();
-            while (entry == null && state.getRedefinedState() != null)
+            State state = (State)node!;
+            Behavior entry = state.entry!;
+            while (entry == null && state.redefinedState != null)
             {
-                state = state.getRedefinedState();
-                entry = state.getEntry();
+                state = state.redefinedState;
+                entry = state.entry!;
             }
-            return entry;
+            return entry!;
         }
 
         public Behavior GetExit()
@@ -182,14 +183,14 @@ namespace pssm.semantics.statemachines
             // Return the exit behavior of the state or one inherited
             // from a redefined state. If no exit can be found null is
             // returned.
-            State state = (State)this.getNode();
-            Behavior exit = state.getExit();
-            while (exit == null && state.getRedefinedState() != null)
+            State state = (State)node!;
+            Behavior exit = state.exit!;
+            while (exit == null && state.redefinedState != null)
             {
-                state = state.getRedefinedState();
-                exit = state.getExit();
+                state = state.redefinedState;
+                exit = state.exit!;
             }
-            return exit;
+            return exit!;
         }
 
         public Behavior GetDoActivity()
@@ -197,14 +198,14 @@ namespace pssm.semantics.statemachines
             // Return the doActivity behavior of the state or one inherited
             // from a redefined state. If no doActivity can be found null is
             // returned.
-            State state = (State)this.getNode();
-            Behavior doActivity = state.getDoActivity();
-            while (doActivity == null && state.getRedefinedState() != null)
+            State state = (State)node!;
+            Behavior doActivity = state.doActivity!;
+            while (doActivity == null && state.redefinedState != null)
             {
-                state = state.getRedefinedState();
-                doActivity = state.getDoActivity();
+                state = state.redefinedState;
+                doActivity = state.doActivity!;
             }
-            return doActivity;
+            return doActivity!;
         }
 
         public void TryExecuteEntry(EventOccurrence eventOccurrence)
@@ -213,21 +214,21 @@ namespace pssm.semantics.statemachines
             // If no entry behavior is specified but the state redefines another state
             // and this latter provides an entry behavior then this behavior is executed
             // instead. The rule applies recursively.
-            if (!this.isEntryCompleted)
+            if (!isEntryCompleted)
             {
-                Behavior entry = this.getEntry();
+                Behavior entry = GetEntry();
                 if (entry != null)
                 {
-                    IExecution execution = this.getExecutionFor(entry, eventOccurrence);
+                    Execution execution = GetExecutionFor(entry, eventOccurrence);
                     if (execution != null)
                     {
-                        execution.execute();
-                        this.isEntryCompleted = true;
+                        execution.Execute();
+                        isEntryCompleted = true;
                     }
                     // If state has completed then generate a completion event
-                    if (this.hasCompleted())
+                    if (HasCompleted())
                     {
-                        this.complete();
+                        Complete();
                     }
                 }
             }
@@ -239,27 +240,28 @@ namespace pssm.semantics.statemachines
             // If no doActivity is specified but the state redefines another state which
             // provides a doActivity then this latter is executed instead. The rule applies
             // recursively.
-            if (!this.isDoActivityCompleted)
+            if (!isDoActivityCompleted)
             {
-                Behavior doActivity = this.getDoActivity();
+                Behavior doActivity = GetDoActivity();
                 if (doActivity != null)
                 {
                     // Create, initialize and register to the locus the doActivityContextObject. 
-                    this.doActivityContextObject = new DoActivityContextObject();
-                    this.getExecutionLocus().add(this.doActivityContextObject);
-                    this.doActivityContextObject.initialize(this.getExecutionContext());
-                    this.doActivityContextObject.owner = this;
+                    doActivityContextObject = new DoActivityContextObject();
+                    GetExecutionLocus().Add(doActivityContextObject);
+                    doActivityContextObject.Initialize(GetExecutionContext());
+                    doActivityContextObject.owner = this;
                     // Extract data from triggering event occurrence if possible. Reuse event occurrence
                     // embedded data extraction logic provided by EventTriggeredExecution.
-                    List<IParameterValue> inputs = null;
-                    IExecution doActivityExecution = this.getExecutionFor(doActivity, eventOccurrence);
-                    if (doActivityExecution instanceof EventTriggeredExecution){
-                        ((EventTriggeredExecution)doActivityExecution).initialize();
-                        inputs = new ArrayList<IParameterValue>(((EventTriggeredExecution)doActivityExecution).wrappedExecution.getParameterValues());
+                    List<ParameterValue> inputs = null!;
+                    Execution doActivityExecution = GetExecutionFor(doActivity, eventOccurrence);
+                    if (doActivityExecution is EventTriggeredExecution eventTriggeredExecution)
+                    {
+                        eventTriggeredExecution.Initialize();
+                        inputs = new List<ParameterValue>(eventTriggeredExecution.wrappedExecution!.parameterValues);
                     }
                     // Start doActivity execution on its own thread of execution (i.e., this
                     // a different thread of execution than the one used for the state machine).
-                    this.doActivityContextObject.startBehavior(doActivity, inputs);
+                    doActivityContextObject.StartBehavior(doActivity, inputs);
                 }
             }
         }
@@ -270,16 +272,13 @@ namespace pssm.semantics.statemachines
             // specified but the state redefines another state which provides an
             // exit behavior then this latter is executed instead. The rule applies
             // recursively.
-            Behavior exit = this.getExit();
+            Behavior exit = GetExit();
             if (exit != null)
             {
-                IExecution execution = this.getExecutionFor(exit, eventOccurrence);
-                if (execution != null)
-                {
-                    execution.execute();
-                }
+                Execution execution = GetExecutionFor(exit, eventOccurrence);
+                execution?.Execute();
             }
-            super.exit(null, eventOccurrence, null);
+            base.Exit(null!, eventOccurrence, null!);
         }
 
         public void EnterRegions(TransitionActivation enteringTransition, EventOccurrence eventOccurrence)
@@ -290,71 +289,76 @@ namespace pssm.semantics.statemachines
             // A region is typically entered explicitly when one of its contained
             // state is targeted by a transition coming from the outside.
             // *** Regions are entered concurrently ***
-            List<Vertex> targetedVertices = new ArrayList<Vertex>();
-            IVertexActivation sourceActivation = enteringTransition.getSourceActivation();
-            if (sourceActivation instanceof ForkPseudostateActivation){
-                Pseudostate fork = (Pseudostate)sourceActivation.getNode();
-                for (int i = 0; i < fork.getOutgoings().size(); i++)
-                {
-                    targetedVertices.add(fork.getOutgoings().get(i).getTarget());
-                }
-            }else
+            List<Vertex> targetedVertices = new();
+            VertexActivation sourceActivation = enteringTransition.vertexSourceActivation!;
+            if (sourceActivation is ForkPseudostateActivation)
             {
-                IVertexActivation targetActivation = enteringTransition.getTargetActivation();
-                if (targetActivation instanceof EntryPointPseudostateActivation){
-                    Pseudostate entryPoint = (Pseudostate)targetActivation.getNode();
-                    for (int i = 0; i < entryPoint.getOutgoings().size(); i++)
-                    {
-                        targetedVertices.add(entryPoint.getOutgoings().get(i).getTarget());
-                    }
-                }else
+                Pseudostate fork = (Pseudostate)sourceActivation.node!;
+                for (int i = 0; i < fork.outgoing.Count; i++)
                 {
-                    if (!(targetActivation instanceof IHistoryPseudostateActivation)){
-                        targetedVertices.add((Vertex)targetActivation.getNode());
+                    targetedVertices.Add(fork.outgoing.ElementAt(i).target!);
+                }
+            }
+            else
+            {
+                VertexActivation targetActivation = enteringTransition.vertexTargetActivation!;
+                if (targetActivation is EntryPointPseudostateActivation)
+                {
+                    Pseudostate entryPoint = (Pseudostate)targetActivation.node!;
+                    for (int i = 0; i < entryPoint.outgoing.Count; i++)
+                    {
+                        targetedVertices.Add(entryPoint.outgoing.ElementAt(i).target!);
+                    }
+                }
+                else
+                {
+                    if (targetActivation is not HistoryPseudostateActivation)
+                    {
+                        targetedVertices.Add((Vertex)targetActivation.node!);
                     }
                 }
             }
-            for (int i = 0; i < this.regionActivation.size(); i++)
+            for (int i = 0; i < regionActivation.Count; i++)
             {
-                IRegionActivation regionActivation = this.regionActivation.get(i);
+                RegionActivation regionActivation = this.regionActivation.ElementAt(i);
                 int j = 0;
-                boolean found = false;
-                while (j < targetedVertices.size() && !found)
+                bool found = false;
+                while (j < targetedVertices.Count && !found)
                 {
-                    found = regionActivation.getVertexActivation(targetedVertices.get(j)) != null;
+                    found = regionActivation.GetVertexActivation(targetedVertices.ElementAt(j)) != null;
                     j++;
                 }
                 if (!found)
                 {
-                    regionActivation.enter(enteringTransition, eventOccurrence);
+                    regionActivation.Enter(enteringTransition, eventOccurrence);
                 }
             }
         }
 
-        
+
         public override bool IsEnterable(TransitionActivation enteringTransition, bool staticCheck)
         {
             // A state can only be entered if it is not part of the state-machine configuration
             // (i.e., the state is not currently active)
-            return !((StateMachineExecution)this.getStateMachineExecution()).getConfiguration().isActive(this);
+            return !((StateMachineExecution)GetStateMachineExecution()).configuration!.IsActive(this);
         }
-        
+
         public override bool CanPropagateExecution(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
             // When a simple state is encountered then the propagation analysis is terminated. If
             // the visited state is composite then the analysis  is propagated to the region(s). All
             // regions for which the possibility to propagate the execution is asserted must return true.
-            boolean propagate = true;
-            if (!this.regionActivation.contains(leastCommonAncestor))
+            bool propagate = true;
+            if (!regionActivation.Contains(leastCommonAncestor))
             {
-                propagate = super.canPropagateExecution(enteringTransition, eventOccurrence, leastCommonAncestor);
+                propagate = base.CanPropagateExecution(enteringTransition, eventOccurrence, leastCommonAncestor);
             }
-            if (propagate && this.regionActivation.size() > 0)
+            if (propagate && regionActivation.Count > 0)
             {
                 int i = 0;
-                while (propagate && i < this.regionActivation.size())
+                while (propagate && i < regionActivation.Count)
                 {
-                    propagate = this.regionActivation.get(i).canPropagateExecution(eventOccurrence, enteringTransition);
+                    propagate = regionActivation.ElementAt(i).CanPropagateExecution(eventOccurrence, enteringTransition);
                     i++;
                 }
             }
@@ -363,93 +367,92 @@ namespace pssm.semantics.statemachines
 
         public override void Enter(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
-            if (this.status.equals(StateMetadata.IDLE))
+            if (status == StateMetadata.IDLE)
             {
                 // The state is entered via an explicit transition
                 // The impact on the execution is that the parent state
                 // of the current state is not active then it must be entered
                 // the rule applies recursively
-                super.enter(enteringTransition, eventOccurrence, leastCommonAncestor);
+                base.Enter(enteringTransition, eventOccurrence, leastCommonAncestor);
                 // Initialization
-                this.isEntryCompleted = this.getEntry() == null;
-                this.isDoActivityCompleted = this.getDoActivity() == null;
-                this.isExitCompleted = this.getExit() == null;
+                isEntryCompleted = GetEntry() == null;
+                isDoActivityCompleted = GetDoActivity() == null;
+                isExitCompleted = GetExit() == null;
                 // When the state is entered it is registered in the current
                 // state-machine configuration
-                StateMachineExecution smExecution = (StateMachineExecution)this.getStateMachineExecution();
-                smExecution.getConfiguration().register(this);
+                StateMachineExecution smExecution = (StateMachineExecution)GetStateMachineExecution();
+                smExecution.configuration!.Register(this);
                 // If state has completed then generate a completion event*/
-                if (this.hasCompleted())
+                if (HasCompleted())
                 {
-                    this.complete();
+                    Complete();
                 }
                 else
                 {
                     // Execute the entry behavior if any
-                    this.tryExecuteEntry(eventOccurrence);
+                    TryExecuteEntry(eventOccurrence);
                     // Invoke the doActivity if any
-                    this.tryInvokeDoActivity(eventOccurrence);
+                    TryInvokeDoActivity(eventOccurrence);
                     // If the state is not completed, then try to start its owned regions.
                     // A region is entered implicitly since the is not the 
-                    this.enterRegions(enteringTransition, eventOccurrence);
+                    EnterRegions(enteringTransition, eventOccurrence);
                 }
             }
         }
 
-        
+
         public override bool IsExitable(TransitionActivation exitingTransition, bool staticCheck)
         {
             // A state can only be be exited if it is part of the state-machine configuration
             // (i.e., the state is currently active)
-            return !this.isEnterable(exitingTransition, staticCheck);
+            return !IsEnterable(exitingTransition, staticCheck);
         }
 
         public override void Exit(TransitionActivation exitingTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
             // If we exit a composite state, this provokes the termination of all of its regions 
-            if (!this.regionActivation.isEmpty())
+            if (regionActivation.Any())
             {
-                for (IRegionActivation regionActivation : this.regionActivation)
+                foreach (RegionActivation regionActivation in regionActivation)
                 {
-                    regionActivation.exit(exitingTransition, eventOccurrence);
+                    regionActivation.Exit(exitingTransition, eventOccurrence);
                 }
             }
             // If there is a doActivity currently executing then it is aborted
-            if (!this.isDoActivityCompleted)
+            if (!isDoActivityCompleted)
             {
-                this.doActivityContextObject.destroy();
-                this.doActivityContextObject = null;
+                doActivityContextObject!.Destroy();
+                doActivityContextObject = null;
             }
             // If there is an exit behavior specified for the state it is executed
-            if (!this.isExitCompleted)
+            if (!isExitCompleted)
             {
-                this.tryExecuteExit(eventOccurrence);
+                TryExecuteExit(eventOccurrence);
             }
-            // Re-initialize the boolean flags
-            this.isEntryCompleted = false;
-            this.isDoActivityCompleted = false;
-            this.isExitCompleted = false;
+            // Re-initialize the bool flags
+            isEntryCompleted = false;
+            isDoActivityCompleted = false;
+            isExitCompleted = false;
             // Change containing region history
-            IRegionActivation containgRegionActivation = this.getOwningRegionActivation();
-            containgRegionActivation.setHistory(this);
+            RegionActivation containgRegionActivation = GetOwningRegionActivation();
+            containgRegionActivation.history = this;
             // When the state is exited then it is removed from the state-machine configuration
-            StateMachineExecution smExecution = (StateMachineExecution)this.getStateMachineExecution();
-            smExecution.getConfiguration().unregister(this);
+            StateMachineExecution smExecution = (StateMachineExecution)GetStateMachineExecution();
+            smExecution.configuration!.Unregister(this);
             // The state is exited by a transition that targets a state which is located within 
             // another region. This means parent state must also be exited.  
-            super.exit(exitingTransition, eventOccurrence, leastCommonAncestor);
+            base.Exit(exitingTransition, eventOccurrence, leastCommonAncestor);
         }
 
         public List<TransitionActivation> GetFireableTransitions(EventOccurrence eventOccurrence)
         {
             // Return the set of transitions that can fire using the the given event occurrence
-            List<ITransitionActivation> fireableTransitions = new ArrayList<ITransitionActivation>();
-            for (int i = 0; i < this.outgoingTransitionActivations.size(); i++)
+            List<TransitionActivation> fireableTransitions = new();
+            foreach (TransitionActivation outgoingTransitionActivation in outgoingTransitionActivations)
             {
-                ITransitionActivation outgoingTransitionActivation = this.outgoingTransitionActivations.get(i);
-                if (outgoingTransitionActivation.canFireOn(eventOccurrence))
+                if (outgoingTransitionActivation.CanFireOn(eventOccurrence))
                 {
-                    fireableTransitions.add(outgoingTransitionActivation);
+                    fireableTransitions.Add(outgoingTransitionActivation);
                 }
             }
             return fireableTransitions;
@@ -464,21 +467,21 @@ namespace pssm.semantics.statemachines
             // Note: for the moment the evaluation is done with the assumption that the
             // received event occurrence is a signal event occurrence. This will change
             // as soon as other kind of event (e.g. call event) will be supported in fUML.
-            State state = (State)this.node;
-            boolean deferred = eventOccurrence.matchAny(state.getDeferrableTriggers());
-            while (!deferred && state.getRedefinedState() != null)
+            State state = (State)node!;
+            bool deferred = eventOccurrence.MatchAny(state.deferrableTrigger);
+            while (!deferred && state.redefinedState != null)
             {
-                state = state.getRedefinedState();
-                deferred = eventOccurrence.matchAny(state.getDeferrableTriggers());
+                state = state.redefinedState;
+                deferred = eventOccurrence.MatchAny(state.deferrableTrigger);
             }
             if (deferred)
             {
                 int i = 0;
-                ITransitionActivation overridingTransitionActivation = null;
-                while (overridingTransitionActivation == null && i < this.outgoingTransitionActivations.size())
+                TransitionActivation? overridingTransitionActivation = null;
+                while (overridingTransitionActivation == null && i < outgoingTransitionActivations.Count)
                 {
-                    ITransitionActivation currentTransitionActivation = this.outgoingTransitionActivations.get(i);
-                    if (currentTransitionActivation.canFireOn(eventOccurrence))
+                    TransitionActivation currentTransitionActivation = outgoingTransitionActivations.ElementAt(i);
+                    if (currentTransitionActivation.CanFireOn(eventOccurrence))
                     {
                         overridingTransitionActivation = currentTransitionActivation;
                     }
@@ -494,19 +497,21 @@ namespace pssm.semantics.statemachines
             // Postpone the time at which this event occurrence will be available at the event pool.
             // The given event occurrence is placed in the deferred event pool and will be released
             // only when the current state activation will leave the state-machine configuration.
-            IDeferredEventOccurrence deferringEventOccurrence = new DeferredEventOccurrence();
-            deferringEventOccurrence.setDeferredEventOccurrence(eventOccurrence);
-            deferringEventOccurrence.register(this);
+            DeferredEventOccurrence deferringEventOccurrence = new()
+            {
+                deferredEventOccurrence = eventOccurrence
+            };
+            deferringEventOccurrence.Register(this);
         }
 
         public void ReleaseDeferredEvents()
         {
             // If events have been deferred by that state then these latter return to the
             // regular event pool.
-            IObject_ context = this.getExecutionContext();
-            if (context.getObjectActivation() != null)
+            Object_ context = GetExecutionContext();
+            if (context.objectActivation is SM_ObjectActivation sM_ObjectActivation)
             {
-                ((ISM_ObjectActivation)context.getObjectActivation()).releaseDeferredEvents(this);
+                sM_ObjectActivation.ReleaseDeferredEvents(this);
             }
         }
 
@@ -515,21 +520,21 @@ namespace pssm.semantics.statemachines
             // A state gets terminated when the state-machine that contains it gets itself terminated.
             // If the state has an ongoing doActivity behavior then this latter is aborted. In addition,
             // the state is active then it is removed from the active state configuration.
-            if (this.isActive())
+            if (IsActive())
             {
-                if (!this.regionActivation.isEmpty())
+                if (regionActivation.Any())
                 {
-                    for (int i = 0; i < this.regionActivation.size(); i++)
+                    for (int i = 0; i < regionActivation.Count; i++)
                     {
-                        this.regionActivation.get(i).terminate();
+                        regionActivation.ElementAt(i).Terminate();
                     }
-                    this.regionActivation.clear();
+                    regionActivation.Clear();
                 }
-                if (!this.isDoActivityCompleted)
+                if (!isDoActivityCompleted)
                 {
-                    this.doActivityContextObject.destroy();
+                    doActivityContextObject!.Destroy();
                 }
-                this.connectionPointActivation.clear();
+                connectionPointActivation.Clear();
             }
         }
 

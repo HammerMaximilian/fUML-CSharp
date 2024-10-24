@@ -12,13 +12,10 @@ namespace pssm.semantics.structuredclassifiers
             // The behavior captured here is almost identical to the one provide by Object_.
             // Instead of using a simple ObjectActivation we use a StateMachineObjectActivation.
             // This specialized kind of ObjectActivation allows the registering of completion events.
-            if (objectActivation is null)
+            objectActivation ??= new SM_ObjectActivation
             {
-                objectActivation = new SM_ObjectActivation
-                {
-                    object_ = this
-                };
-            }
+                object_ = this
+            };
             objectActivation.StartBehavior(classifier, inputs);
         }
         public override void Destroy()

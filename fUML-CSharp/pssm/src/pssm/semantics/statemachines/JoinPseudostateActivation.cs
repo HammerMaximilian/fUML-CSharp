@@ -1,6 +1,5 @@
 ﻿using fuml.semantics.commonbehavior;
 using fuml.semantics.loci;
-using System;
 
 namespace pssm.semantics.statemachines
 {
@@ -42,7 +41,7 @@ namespace pssm.semantics.statemachines
             }
             return propagate;
         }
-        
+
         public override bool CanPropagateExecution(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
             // If the join pseudo-state cannot be entered the propagation stops and returns true. Otherwise
@@ -70,7 +69,7 @@ namespace pssm.semantics.statemachines
             }
             return propagate;
         }
-        
+
         public override void Enter(TransitionActivation enteringTransition, EventOccurrence eventOccurrence, RegionActivation leastCommonAncestor)
         {
             // A join pseudo-state is only allowed to bentered  if all is incoming transitions (except the one
