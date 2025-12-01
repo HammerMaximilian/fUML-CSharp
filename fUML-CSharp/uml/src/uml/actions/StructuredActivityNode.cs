@@ -11,6 +11,7 @@ namespace uml.actions
         public List<ActivityEdge> edge = new();
         public List<OutputPin> structuredNodeOutput = new();
         public List<InputPin> structuredNodeInput = new();
+        public List<Variable> variable = new();
 
         public void SetMustIsolate(bool mustIsolate)
         {
@@ -54,6 +55,11 @@ namespace uml.actions
             AddInput(structuredNodeInput);
             this.structuredNodeInput.Add(structuredNodeInput);
         } // addStructuredNodeInput
+
+        public void AddVariable(Variable variable)
+        {
+            this.variable.Add(variable);
+        } // AddVariable
 
         public override void _setContext(Classifier context)
         {

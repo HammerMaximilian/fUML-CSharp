@@ -5,7 +5,7 @@ using uml.activities;
 
 namespace fuml.semantics.actions
 {
-    public class ConditionalNodeActivation : StructuredActivityNodeActivation
+    public class ConditionalNodeActivation : extensions.actions.StructuredActivityNodeActivation //StructuredActivityNodeActivation
     {
         public List<ClauseActivation> clauseActivations = new();
         public List<Clause> selectedClauses = new();

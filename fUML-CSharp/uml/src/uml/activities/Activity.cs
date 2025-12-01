@@ -12,6 +12,7 @@ namespace uml.activities
         public bool isReadOnly = false;
         public List<ActivityEdge> edge = new();
         public List<ActivityGroup> group = new();
+        public List<Variable> variable = new();
 
         public void SetIsReadOnly(bool isReadOnly)
         {
@@ -69,6 +70,11 @@ namespace uml.activities
             this.edge.Add(edge);
             edge._setActivity(this);
         } // addEdge
+
+        public void AddVariable(Variable variable)
+        {
+            this.variable.Add(variable);
+        } // AddVariable
 
         public override void _setContext(
                 BehavioredClassifier context)

@@ -6,7 +6,7 @@ using uml.activities;
 
 namespace fuml.semantics.actions
 {
-    public class LoopNodeActivation : StructuredActivityNodeActivation
+    public class LoopNodeActivation : extensions.actions.StructuredActivityNodeActivation//StructuredActivityNodeActivation
     {
         public List<Values> bodyOutputLists = new();
         public bool isTerminateAll = false;
